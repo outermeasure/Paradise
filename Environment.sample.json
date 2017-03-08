@@ -1,3 +1,6 @@
 {
-  "Port": 8081
+  "Port": 8081,
+  "Assets": "assets.json",
+  "Public": "public/",
+  "Templates": "templates/"
 }
