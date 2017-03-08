@@ -1,4 +1,3 @@
-require('./styles/styles.scss');
 const webfont = require('webfontloader');
 
 webfont.load({
@@ -10,6 +9,5 @@ webfont.load({
 			'icomoon': '\ueb08',
 		},
 	},
-	classes: true,
 	timeout: 5000,
 });

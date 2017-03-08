@@ -2,7 +2,9 @@ const path = require('path');
 const AssetsPlugin = require('assets-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const WebpackMd5Hash = require('webpack-md5-hash');
-const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BabiliPlugin = require('babili-webpack-plugin');
+
 
 const assetsPluginInstance = new AssetsPlugin({
 	filename: 'assets.json',
@@ -19,7 +21,8 @@ const extractStyles = new ExtractTextPlugin({
 module.exports = {
 	devtool: 'source-map',
 	entry: {
-		main: './Main.jsx',
+		async_js: './async_js.jsx',
+		inline_sync_js_top: './inline_sync_js_top.js',
 	},
 	output: {
 		path: path.join(__dirname, '../public/'),
@@ -29,6 +32,18 @@ module.exports = {
 		new WebpackMd5Hash(),
 		assetsPluginInstance,
 		extractStyles,
+		new CleanWebpackPlugin(
+			[
+				'./public/',
+			],
+			{
+				root: path.join(__dirname, '../'),
+				verbose: true,
+				dry: false,
+				exclude: [],
+			}
+		),
+		new BabiliPlugin(),
 	],
 	module: {
 		loaders: [

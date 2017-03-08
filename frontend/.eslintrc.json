@@ -59,7 +59,6 @@
 		"guard-for-in": "error",
 		"arrow-parens": "error",
 		"arrow-spacing": "error",
-		"camelcase": "error",
 		"curly": [
 			"error",
 			"all"

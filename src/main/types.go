@@ -1,5 +1,10 @@
 package main
 
+import "html/template"
+
+type UnsafeTemplateData map[string]string
+type SafeTemplateJs map[string]template.JS
+
 type Configuration struct {
 	Port      int32 `json:"Port"`
 	Assets    string `json:"Assets"`
@@ -13,7 +18,8 @@ type VersionedScript struct {
 }
 
 type Page struct {
-	Resources *map[string][]string
+	SafeTemplateJs SafeTemplateJs
+	UnsafeTemplateData UnsafeTemplateData
 	Platform  Platform
 }
 
