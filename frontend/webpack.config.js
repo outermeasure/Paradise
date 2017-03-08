@@ -29,7 +29,6 @@ module.exports = {
 		new WebpackMd5Hash(),
 		assetsPluginInstance,
 		extractStyles,
-		new WebpackCleanupPlugin(),
 	],
 	module: {
 		loaders: [
@@ -80,10 +79,19 @@ module.exports = {
 					],
 				},
 			},
+			{
+				loader: "file-loader?name=[name].[hash].[ext]",
+				test: /\.(jpe?g|gif|png|svg|woff|eot|woff2|ttf|wav|mp3)$/,
+			},
 		],
 	},
 	resolve: {
 		extensions: [
+			'.eot',
+			'.svg',
+			'.ttf',
+			'.woff',
+			'.woff2',
 			'.css',
 			'.scss',
 			'.js',
