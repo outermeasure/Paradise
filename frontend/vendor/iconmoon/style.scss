@@ -24,6 +24,14 @@ i {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  display: none;
+}
+
+.wf-active {
+  i {
+    display: inline-block;
+  }
 }
 
 .icon-accessibility2 {

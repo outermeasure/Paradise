@@ -10,4 +10,5 @@ webfont.load({
 			'icomoon': '\ueb08',
 		},
 	},
+	classes: true,
 });
