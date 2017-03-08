@@ -11,4 +11,5 @@ webfont.load({
 		},
 	},
 	classes: true,
+	timeout: 5000,
 });
