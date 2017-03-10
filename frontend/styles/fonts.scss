@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'San Francisco';
+  font-weight: 300;
+  src: local('-apple-system');
+}
+
+@font-face {
+  font-family: 'San Francisco';
+  font-weight: 400;
+  src: local('.SFNSText-Regular');
+}
+
+@font-face {
+  font-family: 'San Francisco';
+  font-weight: 500;
+  src: local('-apple-system');
+}
+
+@font-face {
+  font-family: 'San Francisco';
+  font-weight: 600;
+  src: local('-apple-system');
+}
+
+@font-face {
+  font-family: 'San Francisco';
+  font-weight: 700;
+  src: local('.SFNSText-Semibold');
+}
+
+@font-face {
+  font-family: 'San Francisco';
+  font-weight: 800;
+  src: local('-apple-system');
+}
+
+@font-face {
+  font-family: 'Segoe UI Historic';
+  src: local('Arial');
+  unicode-range: U+530-5F4, U+10A0-10FF;
+}
+
+@font-face {
+  font-family: 'Segoe UI Historic';
+  font-weight: 700;
+  src: local('Arial Bold'), local('Arial');
+  unicode-range: U+530-5F4, U+10A0-10FF;
+}
+
+#paradise {
+  font-family: Helvetica, Arial, sans-serif;
+
+  &.default {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  &.mac {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  }
+
+  &.sf {
+    font-family: San Francisco, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', sans-serif;
+  }
+
+  &.win {
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+  }
+
+  &.android {
+    font-family: Roboto, 'Droid Sans', Helvetica, Arial, sans-serif;
+  }
+
+  &.wp {
+    font-family: 'Segoe WP', Arial, sans-serif;
+  }
+
+  &.bb10 {
+    font-family: 'Slate Pro', Arial, sans-serif;
+  }
+
+  &.sf.ios {
+    font-family: -apple-system, sans-serif;
+  }
+
+  code,
+  pre {
+    font-family: Menlo, Consolas, Monaco, monospace;
+    letter-spacing: normal;
+  }
+}

@@ -1,0 +1,38 @@
+<head>
+	<title>{{.Title}}</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="msapplication-tap-highlight" content="no"/>
+	{{if ne "" (index .UnsafeTemplateData "sync_css_top")}}
+	<link href="{{index .UnsafeTemplateData "sync_css_top"}}" rel="stylesheet" type="text/css"/>
+	{{end}}
+	<script>
+		(function () {
+			function asyncLoadScript(scriptName) {
+				var s = document.createElement('script')
+				s.type = 'text/javascript'
+				s.async = true
+				s.src = scriptName
+				var x = document.getElementsByTagName('script')[0]
+				x.parentNode.insertBefore(s, x)
+			}
+
+			function load() {
+				{{if ne (index .UnsafeTemplateData "async_js") ""}}
+				asyncLoadScript({{index .UnsafeTemplateData "async_js"}})
+				{{end}}
+			}
+
+			if (window.attachEvent) {
+				window.attachEvent('onload', load)
+			}
+			else {
+				window.addEventListener('load', load, false)
+			}
+		})();
+	</script>
+
+	{{if ne (index .SafeTemplateJs "inline_sync_js_top") ""}}
+	<script type="text/javascript">{{index .SafeTemplateJs "inline_sync_js_top"}}</script>
+	{{end}}
+</head>
