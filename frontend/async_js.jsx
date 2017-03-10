@@ -6,6 +6,7 @@ import Nav from './jsx/Nav';
 
 require('./styles/styles.scss');
 
+document.addEventListener("touchstart", () => {}, true);
 render(
 	<Nav/>,
 	document.getElementById("Header")
