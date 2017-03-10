@@ -3,111 +3,42 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"html/template"
-	"io/ioutil"
-	"net/http"
 	"os"
-	"time"
+	"github.com/ua-parser/uap-go/uaparser"
 )
 
 const ENVIRONMENT = "Environment.json"
 
-var templates *template.Template
-var modificationTime time.Time
-var page Page
-var configuration Configuration
-var files = map[string]string{}
-
-func loadConfig() {
+func loadConfig(applicationState *ApplicationState) {
+	configuration := Configuration{}
 	f, err := os.Open(ENVIRONMENT)
 	runtimeAssert(err)
 	defer f.Close()
 	d := json.NewDecoder(f)
 	d.Decode(&configuration)
+	applicationState.Configuration = &configuration
 }
 
-type Strings []string
-
-func (a Strings) Len() int {
-	return len(a)
-}
-func (a Strings) Swap(i, j int) {
-	a[i], a[j] = a[j], a[i]
-}
-func (a Strings) Less(i, j int) bool {
-	return a[i] < a[j]
-}
-
-func readFileMemoized(file string) string {
-	if (files[file] == "") {
-		content, err := ioutil.ReadFile(file)
-		runtimeAssert(err)
-		files[file] = string(content)
+func loadApplication(applicationState *ApplicationState) {
+	UaparserMust := func(t *uaparser.Parser, err error) *uaparser.Parser {
+		if err != nil {
+			panic(err)
+		}
+		return t
 	}
-	return files[file]
-}
+	applicationState.Parser =
+		UaparserMust(uaparser.New("regexes.yaml"))
+	applicationState.Files = map[string]string{}
 
-func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs) {
-
-	assets, err := ioutil.ReadFile(filename)
-	runtimeAssert(err)
-	m := make(map[string]VersionedScript)
-	n := make(UnsafeTemplateData)
-	o := make(SafeTemplateJs)
-	err = json.Unmarshal(assets, &m)
-	runtimeAssert(err)
-
-	if (m["inline_sync_js_top"].Js != "") {
-		o["inline_sync_js_top"] =
-			template.JS(readFileMemoized("public/" + m["inline_sync_js_top"].Js))
-	}
-
-	if (m["async_js"].Js != "") {
-		n["async_js"] = "/public/" + m["async_js"].Js
-	}
-
-	if (m["async_js"].Css != "") {
-		n["sync_css_top"] = "/public/" + m["async_js"].Css
-	}
-
-	return n, o
-}
-
-func renderTemplate(w http.ResponseWriter, html string) {
-	err := templates.ExecuteTemplate(w, html, page)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	stat, _ := os.Stat(configuration.Assets)
-	if stat.ModTime().After(modificationTime) {
-		page.UnsafeTemplateData,
-			page.SafeTemplateJs = loadResources(configuration.Assets)
-	}
-
-	page.Platform = getPlatform(r.Header["User-Agent"][0])
-	renderTemplate(w, "index.gohtml")
-}
-
-func loadApplication() {
-	templates =
-		template.Must(template.ParseFiles(configuration.Templates + "index.gohtml"))
+	applicationState.Page.Title = "Paradise"
 }
 
 func main() {
+	applicationState := ApplicationState{}
 	fmt.Fprintln(os.Stdout, "Loading...")
-	loadConfig()
-	loadApplication()
-	http.Handle(
-		"/public/",
-		http.StripPrefix(
-			"/public/",
-			http.FileServer(http.Dir(configuration.Public)),
-		),
-	)
-	http.HandleFunc("/", indexHandler)
-	fmt.Fprintf(os.Stdout, "Running on port %d...\n", configuration.Port)
-	http.ListenAndServe(fmt.Sprintf(":%d", configuration.Port), nil)
+	loadConfig(&applicationState)
+	loadApplication(&applicationState)
+	fmt.Fprintf(os.Stdout, "Running in %s mode\n", applicationState.Configuration.Mode)
+	fmt.Fprintf(os.Stdout, "Listening on %s...\n", applicationState.Configuration.Address)
+	runApplication(&applicationState)
 }

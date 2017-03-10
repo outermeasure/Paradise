@@ -1,6 +1,6 @@
 @import "~normalizecss/normalize.css";
 @import "../vendor/skeleton/css/skeleton.css";
-@import "../vendor/iconmoon/style";
+@import "../vendor/icomoon/style";
 @import "fonts";
 @import "colors";
 @import "globals";
@@ -71,7 +71,7 @@ nav {
     opacity: 0.85;
     white-space: nowrap;
     position: relative;
-    width: 102px;
+    width: 60px;
 
     i {
       position: absolute;

@@ -1,15 +1,29 @@
 package main
 
-import "html/template"
+import (
+	"html/template"
+	"time"
+	"github.com/ua-parser/uap-go/uaparser"
+)
 
 type UnsafeTemplateData map[string]string
 type SafeTemplateJs map[string]template.JS
 
 type Configuration struct {
-	Port      int32 `json:"Port"`
+	Address      string `json:"Address"`
 	Assets    string `json:"Assets"`
 	Public    string `json:"Public"`
 	Templates string `json:"Templates"`
+	Mode string `json:"Mode"`
+}
+
+type ApplicationState struct {
+	Configuration *Configuration
+	Templates *template.Template
+	AssetModificationTime time.Time
+	Page Page
+	Files map[string]string
+	Parser *uaparser.Parser
 }
 
 type VersionedScript struct {
@@ -21,6 +35,7 @@ type Page struct {
 	SafeTemplateJs SafeTemplateJs
 	UnsafeTemplateData UnsafeTemplateData
 	Platform  Platform
+	Title string
 }
 
 type Engine struct {

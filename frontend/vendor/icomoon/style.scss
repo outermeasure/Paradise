@@ -4,7 +4,7 @@
   font-family: 'icomoon';
   src:  url('#{$icomoon-font-path}/icomoon.eot');
   src:  url('#{$icomoon-font-path}/icomoon.eot#iefix') format('embedded-opentype'),
-  url('#{$icomoon-font-path}/icomoon.woff2') format('woff2'),
+    url('#{$icomoon-font-path}/icomoon.woff2') format('woff2'),
     url('#{$icomoon-font-path}/icomoon.ttf') format('truetype'),
     url('#{$icomoon-font-path}/icomoon.woff') format('woff'),
     url('#{$icomoon-font-path}/icomoon.svg#icomoon') format('svg');
@@ -27,6 +27,11 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ac_unit {
+  &:before {
+    content: $icon-ac_unit;
+  }
+}
 .icon-accessibility2 {
   &:before {
     content: $icon-accessibility2;
@@ -62,6 +67,11 @@ i {
     content: $icon-add_location;
   }
 }
+.icon-adjust2 {
+  &:before {
+    content: $icon-adjust2;
+  }
+}
 .icon-airline_seat_flat {
   &:before {
     content: $icon-airline_seat_flat;
@@ -85,6 +95,41 @@ i {
 .icon-airport_shuttle {
   &:before {
     content: $icon-airport_shuttle;
+  }
+}
+.icon-arrow_back {
+  &:before {
+    content: $icon-arrow_back;
+  }
+}
+.icon-arrow_downward {
+  &:before {
+    content: $icon-arrow_downward;
+  }
+}
+.icon-arrow_drop_down {
+  &:before {
+    content: $icon-arrow_drop_down;
+  }
+}
+.icon-arrow_drop_up {
+  &:before {
+    content: $icon-arrow_drop_up;
+  }
+}
+.icon-arrow_forward {
+  &:before {
+    content: $icon-arrow_forward;
+  }
+}
+.icon-arrow_upward {
+  &:before {
+    content: $icon-arrow_upward;
+  }
+}
+.icon-art_track {
+  &:before {
+    content: $icon-art_track;
   }
 }
 .icon-autorenew {
@@ -112,6 +157,26 @@ i {
     content: $icon-brightness_3;
   }
 }
+.icon-brightness_high {
+  &:before {
+    content: $icon-brightness_high;
+  }
+}
+.icon-brightness_auto {
+  &:before {
+    content: $icon-brightness_auto;
+  }
+}
+.icon-bubble_chart {
+  &:before {
+    content: $icon-bubble_chart;
+  }
+}
+.icon-build {
+  &:before {
+    content: $icon-build;
+  }
+}
 .icon-business_center {
   &:before {
     content: $icon-business_center;
@@ -132,9 +197,24 @@ i {
     content: $icon-cancel;
   }
 }
+.icon-card_travel {
+  &:before {
+    content: $icon-card_travel;
+  }
+}
+.icon-casino {
+  &:before {
+    content: $icon-casino;
+  }
+}
 .icon-change_history {
   &:before {
     content: $icon-change_history;
+  }
+}
+.icon-check2 {
+  &:before {
+    content: $icon-check2;
   }
 }
 .icon-check_box_outline_blank {
@@ -145,6 +225,11 @@ i {
 .icon-close2 {
   &:before {
     content: $icon-close2;
+  }
+}
+.icon-clear_all {
+  &:before {
+    content: $icon-clear_all;
   }
 }
 .icon-cloud_queue {
@@ -165,6 +250,16 @@ i {
 .icon-payment {
   &:before {
     content: $icon-payment;
+  }
+}
+.icon-crop_original {
+  &:before {
+    content: $icon-crop_original;
+  }
+}
+.icon-data_usage {
+  &:before {
+    content: $icon-data_usage;
   }
 }
 .icon-delete {
@@ -252,9 +347,24 @@ i {
     content: $icon-event_seat;
   }
 }
+.icon-favorite {
+  &:before {
+    content: $icon-favorite;
+  }
+}
+.icon-favorite_border {
+  &:before {
+    content: $icon-favorite_border;
+  }
+}
 .icon-filter_vintage {
   &:before {
     content: $icon-filter_vintage;
+  }
+}
+.icon-fingerprint {
+  &:before {
+    content: $icon-fingerprint;
   }
 }
 .icon-goat {
@@ -265,6 +375,11 @@ i {
 .icon-star2 {
   &:before {
     content: $icon-star2;
+  }
+}
+.icon-grain {
+  &:before {
+    content: $icon-grain;
   }
 }
 .icon-people {
@@ -295,6 +410,11 @@ i {
 .icon-local_hotel {
   &:before {
     content: $icon-local_hotel;
+  }
+}
+.icon-photo2 {
+  &:before {
+    content: $icon-photo2;
   }
 }
 .icon-info_outline {
@@ -382,6 +502,11 @@ i {
     content: $icon-room;
   }
 }
+.icon-sync {
+  &:before {
+    content: $icon-sync;
+  }
+}
 .icon-mood_bad {
   &:before {
     content: $icon-mood_bad;
@@ -422,6 +547,11 @@ i {
     content: $icon-pets;
   }
 }
+.icon-phone_iphone {
+  &:before {
+    content: $icon-phone_iphone;
+  }
+}
 .icon-pin_drop {
   &:before {
     content: $icon-pin_drop;
@@ -432,9 +562,29 @@ i {
     content: $icon-pool;
   }
 }
+.icon-public {
+  &:before {
+    content: $icon-public;
+  }
+}
 .icon-radio_button_checked {
   &:before {
     content: $icon-radio_button_checked;
+  }
+}
+.icon-remove2 {
+  &:before {
+    content: $icon-remove2;
+  }
+}
+.icon-report {
+  &:before {
+    content: $icon-report;
+  }
+}
+.icon-warning3 {
+  &:before {
+    content: $icon-warning3;
   }
 }
 .icon-restaurant {
@@ -445,6 +595,16 @@ i {
 .icon-rowing {
   &:before {
     content: $icon-rowing;
+  }
+}
+.icon-rss_feed {
+  &:before {
+    content: $icon-rss_feed;
+  }
+}
+.icon-search3 {
+  &:before {
+    content: $icon-search3;
   }
 }
 .icon-sentiment_dissatisfied {
@@ -472,6 +632,21 @@ i {
     content: $icon-sentiment_very_satisfied;
   }
 }
+.icon-settings_bluetooth {
+  &:before {
+    content: $icon-settings_bluetooth;
+  }
+}
+.icon-smoke_free {
+  &:before {
+    content: $icon-smoke_free;
+  }
+}
+.icon-smoking_rooms {
+  &:before {
+    content: $icon-smoking_rooms;
+  }
+}
 .icon-star_border {
   &:before {
     content: $icon-star_border;
@@ -487,9 +662,19 @@ i {
     content: $icon-stars;
   }
 }
+.icon-subway2 {
+  &:before {
+    content: $icon-subway2;
+  }
+}
 .icon-supervisor_account {
   &:before {
     content: $icon-supervisor_account;
+  }
+}
+.icon-thumb_up {
+  &:before {
+    content: $icon-thumb_up;
   }
 }
 .icon-timelapse {
@@ -500,6 +685,21 @@ i {
 .icon-toys {
   &:before {
     content: $icon-toys;
+  }
+}
+.icon-train2 {
+  &:before {
+    content: $icon-train2;
+  }
+}
+.icon-tram {
+  &:before {
+    content: $icon-tram;
+  }
+}
+.icon-view_headline {
+  &:before {
+    content: $icon-view_headline;
   }
 }
 .icon-visibility_off {
@@ -522,6 +722,11 @@ i {
     content: $icon-wc;
   }
 }
+.icon-weekend {
+  &:before {
+    content: $icon-weekend;
+  }
+}
 .icon-wifi2 {
   &:before {
     content: $icon-wifi2;
@@ -535,6 +740,16 @@ i {
 .icon-wifi_tethering {
   &:before {
     content: $icon-wifi_tethering;
+  }
+}
+.icon-work {
+  &:before {
+    content: $icon-work;
+  }
+}
+.icon-zoom_out_map {
+  &:before {
+    content: $icon-zoom_out_map;
   }
 }
 .icon-asterisk {
@@ -577,6 +792,11 @@ i {
     content: $icon-star;
   }
 }
+.icon-star-o {
+  &:before {
+    content: $icon-star-o;
+  }
+}
 .icon-check {
   &:before {
     content: $icon-check;
@@ -605,6 +825,21 @@ i {
 .icon-trash-o {
   &:before {
     content: $icon-trash-o;
+  }
+}
+.icon-repeat {
+  &:before {
+    content: $icon-repeat;
+  }
+}
+.icon-rotate-right {
+  &:before {
+    content: $icon-rotate-right;
+  }
+}
+.icon-refresh {
+  &:before {
+    content: $icon-refresh;
   }
 }
 .icon-flag2 {
@@ -762,9 +997,29 @@ i {
     content: $icon-certificate;
   }
 }
+.icon-globe {
+  &:before {
+    content: $icon-globe;
+  }
+}
 .icon-briefcase2 {
   &:before {
     content: $icon-briefcase2;
+  }
+}
+.icon-bars {
+  &:before {
+    content: $icon-bars;
+  }
+}
+.icon-navicon {
+  &:before {
+    content: $icon-navicon;
+  }
+}
+.icon-reorder {
+  &:before {
+    content: $icon-reorder;
   }
 }
 .icon-umbrella {
@@ -907,6 +1162,11 @@ i {
     content: $icon-chevron-circle-down;
   }
 }
+.icon-anchor {
+  &:before {
+    content: $icon-anchor;
+  }
+}
 .icon-compass3 {
   &:before {
     content: $icon-compass3;
@@ -957,6 +1217,11 @@ i {
     content: $icon-dot-circle-o;
   }
 }
+.icon-sliders {
+  &:before {
+    content: $icon-sliders;
+  }
+}
 .icon-cc-visa {
   &:before {
     content: $icon-cc-visa;
@@ -965,26 +1230,6 @@ i {
 .icon-cc-mastercard {
   &:before {
     content: $icon-cc-mastercard;
-  }
-}
-.icon-cc-discover {
-  &:before {
-    content: $icon-cc-discover;
-  }
-}
-.icon-cc-amex {
-  &:before {
-    content: $icon-cc-amex;
-  }
-}
-.icon-cc-paypal {
-  &:before {
-    content: $icon-cc-paypal;
-  }
-}
-.icon-cc-stripe {
-  &:before {
-    content: $icon-cc-stripe;
   }
 }
 .icon-bell-slash {
@@ -1055,6 +1300,11 @@ i {
 .icon-tripadvisor {
   &:before {
     content: $icon-tripadvisor;
+  }
+}
+.icon-map-signs {
+  &:before {
+    content: $icon-map-signs;
   }
 }
 .icon-usb {
@@ -1147,6 +1397,21 @@ i {
     content: $icon-pelican;
   }
 }
+.icon-home {
+  &:before {
+    content: $icon-home;
+  }
+}
+.icon-home2 {
+  &:before {
+    content: $icon-home2;
+  }
+}
+.icon-home3 {
+  &:before {
+    content: $icon-home3;
+  }
+}
 .icon-droplet {
   &:before {
     content: $icon-droplet;
@@ -1212,6 +1477,16 @@ i {
     content: $icon-spinner11;
   }
 }
+.icon-equalizer {
+  &:before {
+    content: $icon-equalizer;
+  }
+}
+.icon-equalizer2 {
+  &:before {
+    content: $icon-equalizer2;
+  }
+}
 .icon-glass {
   &:before {
     content: $icon-glass;
@@ -1245,6 +1520,11 @@ i {
 .icon-power {
   &:before {
     content: $icon-power;
+  }
+}
+.icon-menu {
+  &:before {
+    content: $icon-menu;
   }
 }
 .icon-sun {

@@ -107,10 +107,10 @@ module.exports = {
 			'.ttf',
 			'.woff',
 			'.woff2',
-			'.css',
 			'.scss',
-			'.js',
+			'.css',
 			'.jsx',
+			'.js',
 		],
 	},
 };

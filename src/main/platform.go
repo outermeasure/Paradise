@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/ua-parser/uap-go/uaparser"
 	"regexp"
 	"fmt"
 	"os"
@@ -13,7 +12,6 @@ var macRegex = regexp.MustCompile("Mac")
 var iosRegex = regexp.MustCompile("iOS")
 var androidRegex = regexp.MustCompile("Android")
 var blackberryRegex = regexp.MustCompile("BlackBerry")
-var gParser *uaparser.Parser
 
 func runtimeAssert(err error) {
 	if err != nil {
@@ -24,13 +22,7 @@ func runtimeAssert(err error) {
 }
 
 func getPlatform(ua string) Platform {
-
-	if (gParser == nil) {
-		parser, err := uaparser.New("regexes.yaml")
-		runtimeAssert(err)
-		gParser = parser
-	}
-	uas := gParser.Parse(ua)
+	uas := gApplicationState.Parser.Parse(ua)
 	short := "default"
 	if (windowsRegex.MatchString(uas.Os.Family)) {
 		short = "win"
