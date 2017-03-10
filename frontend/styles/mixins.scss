@@ -1,0 +1,42 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($params) {
+  -webkit-box-shadow: $params;
+  -moz-box-shadow: $params;
+  -ms-box-shadow: $params;
+  box-shadow: $params;
+}
+
+@mixin text-shadow($params) {
+  -moz-text-shadow: $params;
+  -ms-text-shadow: $params;
+  text-shadow: $params;
+}
+
+@mixin text-overflow($params) {
+  -moz-text-overflow: $params;
+  -ms-text-overflow: $params;
+  text-overflow: $params;
+}
+
+@mixin no-select() {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome and Opera */
+}
+
+@mixin transform($params) {
+  -moz-transform: $params;
+  -ms-transform: $params;
+  -webkit-transform: $params;
+  transform: $params;
+}

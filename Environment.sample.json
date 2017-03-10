@@ -1,0 +1,7 @@
+{
+  "Address": "192.168.0.168:8081",
+  "Assets": "assets.json",
+  "Public": "public/",
+  "Templates": "templates/",
+  "Mode": "develop"
+}
