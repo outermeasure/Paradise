@@ -3,8 +3,6 @@ const AssetsPlugin = require('assets-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const WebpackMd5Hash = require('webpack-md5-hash');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const BabiliPlugin = require('babili-webpack-plugin');
-
 
 const assetsPluginInstance = new AssetsPlugin({
 	filename: 'assets.json',
@@ -43,12 +41,11 @@ module.exports = {
 				exclude: [],
 			}
 		),
-		new BabiliPlugin(),
 	],
 	module: {
 		loaders: [
 			{
-				test: /(\.scss)|(\.css)$/,
+				test: /\.s?css$/,
 				include: [
 					path.resolve(__dirname, 'styles'),
 				],
@@ -66,32 +63,27 @@ module.exports = {
 				),
 			},
 			{
+				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				include: [
-					path.resolve(__dirname, 'jsx'),
+					path.resolve(__dirname, './'),
 				],
-				test: /\.jsx$/,
 				query: {
 					plugins: [
-						'transform-runtime',
 						'transform-object-rest-spread',
+						'transform-object-assign',
 					],
 					presets: [
 						'es2015',
 						'react',
 					],
-				},
-			},
-			{
-				loader: 'babel-loader',
-				include: [
-					path.resolve(__dirname, 'js'),
-				],
-				test: /\.js$/,
-				query: {
-					presets: [
-						'es2015',
-					],
+					env: {
+						production: {
+							presets: [
+								"babili",
+							],
+						},
+					},
 				},
 			},
 			{
