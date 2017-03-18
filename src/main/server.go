@@ -92,6 +92,12 @@ func getExperience(context *air.Context) error {
 	return context.Render("experience.gohtml", "layouts/default.gohtml")
 }
 
+func getGallery(context *air.Context) error {
+	buildBaseContext(context)
+	context.Data["NavbarSelected"] = 5
+	return context.Render("gallery.gohtml", "layouts/default.gohtml")
+}
+
 func post(context *air.Context) error {
 	return context.String("post")
 }
@@ -126,6 +132,7 @@ func runApplication(applicationState *ApplicationState) {
 	airServer.GET("/offers", getOffers)
 	airServer.GET("/restaurant", getRestaurant)
 	airServer.GET("/experience", getExperience)
+	airServer.GET("/gallery", getGallery)
 
 
 	airServer.POST("/", post)

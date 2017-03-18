@@ -48,6 +48,12 @@ const Nav = ({selected}) => {
 					className={selected === 4 ? "selected" : ""}
 					href="/experience">Experience</NavPaperRipple>
 			</li>
+			<li>
+				<NavPaperRipple
+					tag="a"
+					className={selected === 5 ? "selected" : ""}
+					href="/gallery">Gallery</NavPaperRipple>
+			</li>
 		</ul>
 		<div className="sandwich">
 			<i className="icon-navicon"/>

@@ -7,8 +7,8 @@
 @import "mixins";
 
 $navColor: darken($primary, 20%);
-$navHFColor: darken($primary, 15%);
-$navSelectedColor: darken($primary, 17.5%);
+$navHFColor: darken($primary, 12%);
+$navSelectedColor: darken($primary, 16%);
 
 .accent {
   color: $accent;
@@ -26,7 +26,7 @@ $navSelectedColor: darken($primary, 17.5%);
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   vertical-align: baseline;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body,
@@ -42,7 +42,7 @@ body {
   overflow-x: hidden;
 
   padding-top: $navHeightWide;
-  @media (max-width: 549px) {
+  @media (max-width: 750px) {
     padding-top: $navHeightNarrow;
   }
 }
@@ -57,13 +57,13 @@ nav {
   right: 0;
   height: $navHeightWide;
   line-height: $navHeightWide;
-  @media (max-width: 549px) {
+  @media (max-width: 750px) {
     height: $navHeightNarrow;
     line-height: $navHeightNarrow;
   }
   display: block;
   margin: 0;
-  @include box-shadow(0 2px 5px rgba(0,0,0,0.26));
+  @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
   overflow: hidden;
 
   .sandwich,
@@ -82,7 +82,7 @@ nav {
 
     cursor: pointer;
     height: $navHeightWide;
-    @media (max-width: 549px) {
+    @media (max-width: 750px) {
       height: $navHeightNarrow;
     }
     display: inline-block;
@@ -134,7 +134,7 @@ nav {
     float: right;
     list-style: none;
     margin: 0;
-    @media (max-width: 549px) {
+    @media (max-width: 750px) {
       display: none;
     }
 
@@ -151,6 +151,7 @@ nav {
         padding-right: 16px;
         color: $light;
         display: block;
+        font-size: 20px;
         height: 100%;
         text-decoration: none;
         @include transition(0.2s);
@@ -169,7 +170,7 @@ nav {
   }
 
   .sandwich {
-    @media (min-width: 550px) {
+    @media (min-width: 750px) {
       display: none;
     }
     position: relative;
@@ -199,11 +200,9 @@ nav {
 }
 
 h1 {
-  &.top {
-    margin-top: 16px;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
+  margin-top: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 main {
