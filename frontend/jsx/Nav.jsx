@@ -8,7 +8,7 @@ const NavPaperRipple = (props) => <PaperRipple
 	{...props}
 	color={PAPER_RIPPLE_COLOR}
 	rmConfig={{
-		stiffness: 70,
+		stiffness: 80,
 		damping: 10,
 	}}
 />;
