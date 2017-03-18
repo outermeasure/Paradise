@@ -158,7 +158,7 @@ func httpErrorHandler(err error, c *air.Context) {
 	} else {
 		he.Message = err.Error()
 	}
-	if !c.Response.Written() {
+	if !c.Response.Written {
 		c.Response.WriteHeader(he.Code)
 		c.Data["SelectedNavIndex"] = -1
 		c.Data["PageTitle"] = he.Code
