@@ -8,6 +8,7 @@ import (
 
 type UnsafeTemplateData map[string]string
 type SafeTemplateJs map[string]template.JS
+type SafeTemplateCss map[string]template.CSS
 
 type Configuration struct {
 	Address      string `json:"Address"`
@@ -34,8 +35,10 @@ type VersionedScript struct {
 type Page struct {
 	SafeTemplateJs SafeTemplateJs
 	UnsafeTemplateData UnsafeTemplateData
+	SafeTemplateCss SafeTemplateCss
 	Platform  Platform
 	Title string
+	NavbarSelected string
 }
 
 type Engine struct {

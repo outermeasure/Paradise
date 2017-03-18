@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?xqhuno');
-  src:  url('fonts/icomoon.eot?xqhuno#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?xqhuno') format('truetype'),
-    url('fonts/icomoon.woff?xqhuno') format('woff'),
-    url('fonts/icomoon.svg?xqhuno#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?z2khij');
+  src:  url('fonts/icomoon.eot?z2khij#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?z2khij') format('truetype'),
+    url('fonts/icomoon.woff?z2khij') format('woff'),
+    url('fonts/icomoon.svg?z2khij#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -842,6 +842,9 @@ i {
 }
 .icon-snowflake-o:before {
   content: "\f2dc";
+}
+.icon-pelican2:before {
+  content: "\e901";
 }
 .icon-pelican:before {
   content: "\e907";

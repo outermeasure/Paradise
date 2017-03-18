@@ -19,8 +19,8 @@ const extractStyles = new ExtractTextPlugin({
 module.exports = {
 	devtool: 'source-map',
 	entry: {
-		async_js: './async_js.jsx',
-		inline_sync_js_top: './inline_sync_js_top.js',
+		async: './async.jsx',
+		inline_sync_top: './inline_sync_top.js',
 	},
 	output: {
 		path: path.join(__dirname, '../public/'),
@@ -87,8 +87,10 @@ module.exports = {
 				},
 			},
 			{
-				loader: "file-loader?name=[name].[hash].[ext]",
-				test: /\.(jpe?g|gif|png|svg|woff|eot|woff2|ttf|wav|mp3)$/,
+				loader:
+					"file-loader?name=[name].[hash].[ext]&publicPath=/public/",
+				test:
+					/\.(jpe?g|gif|png|svg|woff|eot|woff2|ttf|wav|mp3)$/,
 			},
 		],
 	},

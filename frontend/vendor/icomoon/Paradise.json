@@ -2429,7 +2429,7 @@
           "tempChar": ""
         },
         {
-          "order": 2362,
+          "order": 2396,
           "ligatures": "favorite",
           "id": 269,
           "prevSize": 24,
@@ -2438,7 +2438,7 @@
           "tempChar": ""
         },
         {
-          "order": 2363,
+          "order": 2398,
           "ligatures": "favorite_border",
           "id": 270,
           "prevSize": 24,
@@ -35115,26 +35115,50 @@
     {
       "selection": [
         {
+          "order": 2400,
+          "id": 1,
+          "name": "pelican2",
+          "prevSize": 32,
+          "code": 59649,
+          "tempChar": ""
+        },
+        {
           "order": 2,
           "id": 0,
           "name": "pelican",
           "prevSize": 32,
           "code": 59655,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 1,
       "metadata": {
         "name": "Paradise Set",
         "importSize": {
-          "width": 233,
-          "height": 234
+          "width": 98,
+          "height": 132
         },
         "designer": "Adrian"
       },
       "height": 1024,
       "prevSize": 32,
       "icons": [
+        {
+          "id": 1,
+          "paths": [
+            "M272.687 1022.687c0-2.132 6.645-8.734 14.766-14.673 13.189-9.644 13.051-15.972-1.288-59.232-8.83-26.639-19.060-51.802-22.734-55.918-8.206-9.193-118.028 13.504-167.718 34.662-21.581 9.189-40.211 25.493-45.735 40.024-6.222 16.365-14.261 22.623-24.173 18.82-8.168-3.134-14.851-9.852-14.851-14.928s-4.19-6.639-9.311-3.474c-5.121 3.165 2.149-19.278 16.156-49.874 29.403-64.224 32.182-101.277 9.311-124.148-19.493-19.493-19.4-14.335-1.054-58.243 27.315-65.374 163.764-186.66 289.185-257.049 47.469-26.64 60.172-30.12 75.351-20.641 13.027 8.135 23.683 8.498 37.199 1.264 50.846-27.212 51.956-102.881 3.309-225.59-19.836-50.034-37.389-113.349-39.83-143.666-4.010-49.805-2.246-55.873 21.721-74.726 45.15-35.515 127.347-5.488 142.648 52.108 4.143 15.595 25.969 52.347 48.503 81.671 62.928 81.89 153.238 215.706 153.238 227.060 0 5.588-55.619-44.811-123.597-111.999s-131.396-124.85-140.928-128.14c-26.48-9.139-30.062 16.153-8.323 58.767 36.603 71.748 51.919 156.015 53.362 293.598 1.247 118.888-0.686 135.048-21.122 176.54-22.722 46.132-75.521 104.779-161.211 179.066-42.864 37.159-46.247 43.222-40.411 72.401 8.591 42.957 17.377 49.56 49.628 37.299 18.915-7.192 30.503-7.303 37.446-0.361 5.53 5.53 21.079 10.054 34.553 10.054h24.499l-26.571 26.571c-22.449 22.449-37.075 27.351-94.295 31.603-37.248 2.767-67.724 3.288-67.724 1.156z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "width": 757,
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "grid": 0,
+          "tags": [
+            "pelican2"
+          ]
+        },
         {
           "id": 0,
           "paths": [
@@ -35164,7 +35188,7 @@
           "order": 2390,
           "prevSize": 32,
           "code": 59664,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "home2, house2",
@@ -35173,7 +35197,7 @@
           "order": 2391,
           "prevSize": 32,
           "code": 59692,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "home3, house3",
@@ -35182,7 +35206,7 @@
           "order": 2392,
           "prevSize": 32,
           "code": 59693,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "office, buildings",
@@ -35263,7 +35287,7 @@
           "order": 2303,
           "prevSize": 32,
           "code": 59702,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "paint-format, format",
@@ -35272,7 +35296,7 @@
           "order": 2302,
           "prevSize": 32,
           "code": 59703,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "image, picture",
@@ -35299,7 +35323,7 @@
           "order": 2301,
           "prevSize": 32,
           "code": 59706,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "headphones, headset",
@@ -35407,7 +35431,7 @@
           "order": 2304,
           "prevSize": 32,
           "code": 59718,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "podcast, broadcast",
@@ -36181,7 +36205,7 @@
           "order": 2305,
           "prevSize": 32,
           "code": 59804,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "users, group",
@@ -36226,7 +36250,7 @@
           "order": 2306,
           "prevSize": 32,
           "code": 59809,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "quotes-left, ldquo",
@@ -36298,7 +36322,7 @@
           "order": 2313,
           "prevSize": 32,
           "code": 59817,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spinner6, loading7",
@@ -36307,7 +36331,7 @@
           "order": 2312,
           "prevSize": 32,
           "code": 59818,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spinner7, loading8",
@@ -36316,7 +36340,7 @@
           "order": 2311,
           "prevSize": 32,
           "code": 59819,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spinner8, loading9",
@@ -36325,7 +36349,7 @@
           "order": 2310,
           "prevSize": 32,
           "code": 59820,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spinner9, loading10",
@@ -36334,7 +36358,7 @@
           "order": 2307,
           "prevSize": 32,
           "code": 59821,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spinner10, loading11",
@@ -36343,7 +36367,7 @@
           "order": 2309,
           "prevSize": 32,
           "code": 59822,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spinner11, loading12",
@@ -36352,7 +36376,7 @@
           "order": 2308,
           "prevSize": 32,
           "code": 59823,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "binoculars, lookup",
@@ -36478,7 +36502,7 @@
           "order": 2394,
           "prevSize": 32,
           "code": 59837,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "equalizer2, sliders2",
@@ -36487,7 +36511,7 @@
           "order": 2393,
           "prevSize": 32,
           "code": 59838,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "cog, gear",
@@ -36604,7 +36628,7 @@
           "order": 2317,
           "prevSize": 32,
           "code": 59851,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "glass2, drink2",
@@ -36613,7 +36637,7 @@
           "order": 2316,
           "prevSize": 32,
           "code": 59852,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "mug, drink3",
@@ -36622,7 +36646,7 @@
           "order": 2315,
           "prevSize": 32,
           "code": 59853,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "spoon-knife, food",
@@ -36631,7 +36655,7 @@
           "order": 2314,
           "prevSize": 32,
           "code": 59854,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "leaf, nature",
@@ -36739,7 +36763,7 @@
           "order": 2318,
           "prevSize": 32,
           "code": 59866,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "truck, transit",
@@ -36775,7 +36799,7 @@
           "order": 2319,
           "prevSize": 32,
           "code": 59870,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "shield, security",
@@ -36793,7 +36817,7 @@
           "order": 2320,
           "prevSize": 32,
           "code": 59872,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "switch",
@@ -36865,7 +36889,7 @@
           "order": 2395,
           "prevSize": 32,
           "code": 59880,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "menu2, options2",
@@ -37072,7 +37096,7 @@
           "order": 2321,
           "prevSize": 32,
           "code": 59903,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "contrast",
@@ -37090,7 +37114,7 @@
           "order": 2322,
           "prevSize": 32,
           "code": 59905,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "star-empty, rate",
@@ -37099,7 +37123,7 @@
           "order": 2323,
           "prevSize": 32,
           "code": 59906,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "star-half, rate2",
@@ -37108,7 +37132,7 @@
           "order": 2324,
           "prevSize": 32,
           "code": 59907,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "star-full, rate3",
@@ -37117,7 +37141,7 @@
           "order": 2325,
           "prevSize": 32,
           "code": 59908,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "heart, like",
@@ -37882,7 +37906,7 @@
           "order": 2326,
           "prevSize": 32,
           "code": 59993,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "infinite",
@@ -38206,7 +38230,7 @@
           "order": 2329,
           "prevSize": 32,
           "code": 60029,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "checkbox-unchecked, checkbox2",
@@ -38215,7 +38239,7 @@
           "order": 2330,
           "prevSize": 32,
           "code": 60030,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "radio-checked, radio-button",
@@ -38224,7 +38248,7 @@
           "order": 2327,
           "prevSize": 32,
           "code": 60031,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "radio-checked2, radio-button2",
@@ -38242,7 +38266,7 @@
           "order": 2328,
           "prevSize": 32,
           "code": 60033,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "crop, resize",
@@ -38764,7 +38788,7 @@
           "order": 2334,
           "prevSize": 32,
           "code": 60091,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "facebook2, brand11",
@@ -38773,7 +38797,7 @@
           "order": 2333,
           "prevSize": 32,
           "code": 60092,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "instagram, brand12",
@@ -39463,7 +39487,7 @@
           "order": 2332,
           "prevSize": 32,
           "code": 60168,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "ligatures": "opera, browser6",

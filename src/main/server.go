@@ -20,35 +20,41 @@ func readFileMemoized(file string) string {
 	return gApplicationState.Files[file]
 }
 
-func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs) {
+func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTemplateCss) {
 	assets, err := ioutil.ReadFile(filename)
 	runtimeAssert(err)
 	m := make(map[string]VersionedScript)
 	n := make(UnsafeTemplateData)
 	o := make(SafeTemplateJs)
+	p := make(SafeTemplateCss)
 	err = json.Unmarshal(assets, &m)
 	runtimeAssert(err)
 
-	if (m["inline_sync_js_top"].Js != "") {
+	if (m["inline_sync_top"].Js != "") {
 		o["inline_sync_js_top"] =
-			template.JS(readFileMemoized("public/" + m["inline_sync_js_top"].Js))
+			template.JS(readFileMemoized("public/" + m["inline_sync_top"].Js))
+	}
+	if (m["inline_sync_top"].Css != "") {
+		p["inline_sync_css_top"] =
+			template.CSS(readFileMemoized("public/" + m["inline_sync_top"].Css))
 	}
 
-	if (m["async_js"].Js != "") {
-		n["async_js"] = "/public/" + m["async_js"].Js
+	if (m["async"].Js != "") {
+		n["async_js"] = "/public/" + m["async"].Js
 	}
 
-	if (m["async_js"].Css != "") {
-		n["sync_css_top"] = "/public/" + m["async_js"].Css
+	if (m["async"].Css != "") {
+		n["async_css"] = "/public/" + m["async"].Css
 	}
-	return n, o
+	return n, o, p
 }
 
-func get(context *air.Context) error {
+func buildBaseContext(context * air.Context) {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
 		gApplicationState.Page.UnsafeTemplateData,
-			gApplicationState.Page.SafeTemplateJs =
+			gApplicationState.Page.SafeTemplateJs,
+			gApplicationState.Page.SafeTemplateCss =
 			loadResources(gApplicationState.Configuration.Assets)
 	}
 	gApplicationState.Page.Platform = getPlatform(context.Request.UserAgent())
@@ -57,8 +63,33 @@ func get(context *air.Context) error {
 	context.Data["Title"] = gApplicationState.Page.Title
 	context.Data["UnsafeTemplateData"] = gApplicationState.Page.UnsafeTemplateData
 	context.Data["SafeTemplateJs"] = gApplicationState.Page.SafeTemplateJs
+	context.Data["SafeTemplateCss"] = gApplicationState.Page.SafeTemplateCss
+}
 
+func get(context *air.Context) error {
+	buildBaseContext(context)
+	context.Data["NavbarSelected"] = 0
 	return context.Render("index.gohtml", "layouts/default.gohtml")
+}
+func getPrices(context *air.Context) error {
+	buildBaseContext(context)
+	context.Data["NavbarSelected"] = 1
+	return context.Render("prices.gohtml", "layouts/default.gohtml")
+}
+func getOffers(context *air.Context) error {
+	buildBaseContext(context)
+	context.Data["NavbarSelected"] = 2
+	return context.Render("offers.gohtml", "layouts/default.gohtml")
+}
+func getRestaurant(context *air.Context) error {
+	buildBaseContext(context)
+	context.Data["NavbarSelected"] = 3
+	return context.Render("restaurant.gohtml", "layouts/default.gohtml")
+}
+func getExperience(context *air.Context) error {
+	buildBaseContext(context)
+	context.Data["NavbarSelected"] = 4
+	return context.Render("experience.gohtml", "layouts/default.gohtml")
 }
 
 func post(context *air.Context) error {
@@ -91,6 +122,12 @@ func runApplication(applicationState *ApplicationState) {
 	airServer.Static("/" + applicationState.Configuration.Public,
 		applicationState.Configuration.Public)
 	airServer.GET("/", get)
+	airServer.GET("/prices", getPrices)
+	airServer.GET("/offers", getOffers)
+	airServer.GET("/restaurant", getRestaurant)
+	airServer.GET("/experience", getExperience)
+
+
 	airServer.POST("/", post)
 	airServer.DELETE("/", del)
 	airServer.PUT("/", put)

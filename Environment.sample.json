@@ -1,5 +1,5 @@
 {
-  "Address": "192.168.0.168:8081",
+  "Address": ":2333",
   "Assets": "assets.json",
   "Public": "public/",
   "Templates": "templates/",

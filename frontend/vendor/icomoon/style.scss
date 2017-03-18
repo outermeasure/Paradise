@@ -1392,6 +1392,11 @@ i {
     content: $icon-snowflake-o;
   }
 }
+.icon-pelican2 {
+  &:before {
+    content: $icon-pelican2;
+  }
+}
 .icon-pelican {
   &:before {
     content: $icon-pelican;
