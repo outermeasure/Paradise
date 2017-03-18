@@ -88,3 +88,12 @@
     letter-spacing: normal;
   }
 }
+
+.wf {
+  &-loading,
+  &-inactive {
+    i {
+      display: none;
+    }
+  }
+}
