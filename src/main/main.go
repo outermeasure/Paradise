@@ -30,6 +30,8 @@ func loadApplication(applicationState *ApplicationState) {
 		UaparserMust(uaparser.New("regexes.yaml"))
 	applicationState.Files = map[string]string{}
 
+	applicationState.Offers = getParadiseOffers()
+
 	applicationState.Page.Title = "Paradise"
 }
 

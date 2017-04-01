@@ -3,9 +3,15 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 	<meta name="msapplication-tap-highlight" content="no"/>
-	{{if ne "" (index .UnsafeTemplateData "sync_css_top")}}
-	<link href="{{index .UnsafeTemplateData "sync_css_top"}}" rel="stylesheet" type="text/css"/>
+
+	{{if ne (index .SafeTemplateCss "inline_sync_css_top") ""}}
+	<style rel="stylesheet" type="text/css">{{index .SafeTemplateCss "inline_sync_css_top"}}</style>
 	{{end}}
+
+	{{if ne (index .SafeTemplateJs "inline_sync_js_top") ""}}
+	<script type="text/javascript">{{index .SafeTemplateJs "inline_sync_js_top"}}</script>
+	{{end}}
+
 	<script>
 		(function () {
 			function asyncLoadScript(scriptName) {
@@ -17,9 +23,23 @@
 				x.parentNode.insertBefore(s, x)
 			}
 
+			function asyncLoadCss(cssName) {
+				var s = document.createElement('link')
+				s.rel = 'stylesheet'
+				s.type = 'text/css'
+				s.async = true
+				s.href = cssName
+				var x = document.getElementsByTagName('link')[0]
+				x.parentNode.insertBefore(s, x)
+			}
+
 			function load() {
 				{{if ne (index .UnsafeTemplateData "async_js") ""}}
 				asyncLoadScript({{index .UnsafeTemplateData "async_js"}})
+				{{end}}
+
+				{{if ne (index .UnsafeTemplateData "async_css") ""}}
+				asyncLoadCss({{index .UnsafeTemplateData "async_css"}})
 				{{end}}
 			}
 
@@ -29,10 +49,9 @@
 			else {
 				window.addEventListener('load', load, false)
 			}
+
+			window.NAVBAR_SELECTED = {{.NavbarSelected}}
+
 		})();
 	</script>
-
-	{{if ne (index .SafeTemplateJs "inline_sync_js_top") ""}}
-	<script type="text/javascript">{{index .SafeTemplateJs "inline_sync_js_top"}}</script>
-	{{end}}
 </head>

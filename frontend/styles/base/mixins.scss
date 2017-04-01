@@ -40,3 +40,18 @@
   -webkit-transform: $params;
   transform: $params;
 }
+
+@mixin transition($params) {
+  -o-transition: $params;
+  -ms-transition: $params;
+  -moz-transition: $params;
+  -webkit-transition: $params;
+  transition: $params;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}

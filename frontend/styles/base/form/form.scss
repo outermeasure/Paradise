@@ -1,0 +1,10 @@
+$placeholderColor: $lighterDark;
+
+form {
+  @include placeholder {
+    color: $placeholderColor;
+  }
+}
+
+@import "button";
+@import "input";

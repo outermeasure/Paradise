@@ -1,0 +1,102 @@
+$mediumPadding: 8px;
+$mediumFontSize: 16px;
+
+$bigPadding: 16px;
+$bigFontSize: 24px;
+
+$hugePadding: 16px;
+$hugeFontSize: 40px;
+
+button,
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  margin: 0;
+  box-sizing: border-box;
+
+  height: 2 * $mediumPadding + $mediumFontSize;
+  padding: $mediumPadding;
+  font-size: $mediumFontSize;
+  line-height: 1;
+
+  &.huge {
+    padding: $hugePadding;
+    font-size: $hugeFontSize;
+    height: 2 * $hugePadding + $hugeFontSize;
+    line-height: 1;
+  }
+
+  &.big {
+    padding: $bigPadding;
+    font-size: $bigFontSize;
+    height: 2 * $bigPadding + $bigFontSize;
+    line-height: 1;
+  }
+}
+
+.calendar {
+  position: relative;
+  display: inline-block;
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="text"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  textarea {
+    padding-right: 2 * $mediumPadding + $mediumFontSize;
+
+    &.huge {
+      padding-right: 2 * $hugePadding + $hugeFontSize;
+    }
+
+    &.big {
+      padding-right: 2 * $bigPadding + $bigFontSize;
+    }
+  }
+
+  i {
+    color: $placeholderColor;
+    font-size: $mediumFontSize;
+    top: $mediumPadding;
+    right: $mediumPadding;
+
+    position: absolute;
+    &.huge {
+      font-size: $hugeFontSize;
+      top: $hugePadding;
+      right: $hugePadding;
+    }
+    &.big {
+      font-size: $bigFontSize;
+      top: $bigPadding;
+      right: $bigPadding;
+    }
+  }
+}
+
+.input {
+  display: inline-block;
+  padding: 0;
+  line-height: 1;
+  margin: 0 8px 8px 0;
+}
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  border-radius: 2px;
+}

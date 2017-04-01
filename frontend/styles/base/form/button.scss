@@ -1,0 +1,21 @@
+button {
+  border: none;
+  border-radius: 2px;
+  margin: 0 8px 8px 0;
+
+  &.flat {
+
+  }
+
+  &.primary {
+    background-color: $primary;
+    color: $light;
+    @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
+  }
+
+  &.accent {
+    background-color: $accent;
+    color: $light;
+    @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
+  }
+}

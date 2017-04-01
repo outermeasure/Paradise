@@ -1,0 +1,25 @@
+.main,
+.footer {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+  @media (max-width: 750px) {
+    padding: 10px;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-bolder {
+  font-weight: bolder;
+}
+
+.text-bold {
+  font-weight: bold;
+}
