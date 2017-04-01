@@ -377,9 +377,19 @@ i {
     content: $icon-star2;
   }
 }
+.icon-gradient {
+  &:before {
+    content: $icon-gradient;
+  }
+}
 .icon-grain {
   &:before {
     content: $icon-grain;
+  }
+}
+.icon-grid_on {
+  &:before {
+    content: $icon-grid_on;
   }
 }
 .icon-people {
@@ -682,6 +692,11 @@ i {
     content: $icon-timelapse;
   }
 }
+.icon-today {
+  &:before {
+    content: $icon-today;
+  }
+}
 .icon-toys {
   &:before {
     content: $icon-toys;
@@ -937,6 +952,11 @@ i {
     content: $icon-warning2;
   }
 }
+.icon-calendar2 {
+  &:before {
+    content: $icon-calendar2;
+  }
+}
 .icon-comment {
   &:before {
     content: $icon-comment;
@@ -975,6 +995,11 @@ i {
 .icon-star-half2 {
   &:before {
     content: $icon-star-half2;
+  }
+}
+.icon-heart-o {
+  &:before {
+    content: $icon-heart-o;
   }
 }
 .icon-credit-card2 {
@@ -1140,6 +1165,11 @@ i {
 .icon-location-arrow {
   &:before {
     content: $icon-location-arrow;
+  }
+}
+.icon-calendar-o {
+  &:before {
+    content: $icon-calendar-o;
   }
 }
 .icon-chevron-circle-left {
@@ -1392,6 +1422,11 @@ i {
     content: $icon-snowflake-o;
   }
 }
+.icon-pelican2 {
+  &:before {
+    content: $icon-pelican2;
+  }
+}
 .icon-pelican {
   &:before {
     content: $icon-pelican;
@@ -1575,6 +1610,16 @@ i {
 .icon-radio-unchecked {
   &:before {
     content: $icon-radio-unchecked;
+  }
+}
+.icon-table {
+  &:before {
+    content: $icon-table;
+  }
+}
+.icon-table2 {
+  &:before {
+    content: $icon-table2;
   }
 }
 .icon-facebook {

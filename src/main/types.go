@@ -8,22 +8,25 @@ import (
 
 type UnsafeTemplateData map[string]string
 type SafeTemplateJs map[string]template.JS
+type SafeTemplateCss map[string]template.CSS
 
 type Configuration struct {
-	Address      string `json:"Address"`
+	Address   string `json:"Address"`
 	Assets    string `json:"Assets"`
 	Public    string `json:"Public"`
+	Data 			string `json:"Data"`
 	Templates string `json:"Templates"`
-	Mode string `json:"Mode"`
+	Mode      string `json:"Mode"`
 }
 
 type ApplicationState struct {
-	Configuration *Configuration
-	Templates *template.Template
+	Configuration         *Configuration
+	Templates             *template.Template
 	AssetModificationTime time.Time
-	Page Page
-	Files map[string]string
-	Parser *uaparser.Parser
+	Page                  Page
+	Files                 map[string]string
+	Parser                *uaparser.Parser
+	Offers								[]Offer
 }
 
 type VersionedScript struct {
@@ -32,10 +35,12 @@ type VersionedScript struct {
 }
 
 type Page struct {
-	SafeTemplateJs SafeTemplateJs
+	SafeTemplateJs     SafeTemplateJs
 	UnsafeTemplateData UnsafeTemplateData
-	Platform  Platform
-	Title string
+	SafeTemplateCss    SafeTemplateCss
+	Platform           Platform
+	Title              string
+	NavbarSelected     string
 }
 
 type Engine struct {
@@ -49,5 +54,12 @@ type Browser struct {
 }
 
 type Platform struct {
-	Short     string
+	Short string
+}
+
+type Offer struct {
+	Price       float64
+	Photo       string
+	Title       string
+	Description string
 }

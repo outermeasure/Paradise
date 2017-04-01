@@ -4,10 +4,8 @@ import {
 } from 'react-dom';
 import Nav from './jsx/Nav';
 
-require('./styles/styles.scss');
-
 document.addEventListener("touchstart", () => {}, true);
 render(
-	<Nav/>,
+	<Nav selected={window.NAVBAR_SELECTED}/>,
 	document.getElementById("Header")
 );
