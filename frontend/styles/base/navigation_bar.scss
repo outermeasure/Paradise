@@ -1,6 +1,13 @@
-$navColor: darken($primary, 20%);
-$navHFColor: darken($primary, 12%);
-$navSelectedColor: darken($primary, 16%);
+$navBackgroundColor: darken($primary, 20%);
+
+$navBackgroundHFColor: rgba(255, 255, 255, 0.07);
+$brandBackgroundHFColor: rgba(255, 255, 255, 0.07);
+$navBackgroundSelectedColor: rgba(255, 255, 255, 0.04);
+
+$navColor: $light;
+$navHFColor: $light;
+$brandHFColor: $light;
+$navSelectedColor: $light;
 
 body {
   padding-top: $navHeightWide;
@@ -11,7 +18,9 @@ body {
 
 nav {
   @include no-select;
-  background-color: $navColor;
+  background-color: $navBackgroundColor;
+  color: $navColor;
+
   z-index: 4;
   position: fixed;
   top: 0;
@@ -25,7 +34,7 @@ nav {
   }
   display: block;
   margin: 0;
-  @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.26));
+  @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
   overflow: hidden;
 
   .sandwich,
@@ -61,13 +70,14 @@ nav {
       @include text-shadow(1px 1px 2px rgba(0, 0, 0, 0.26));
     }
 
-    color: $light;
-    background-color: $navColor;
+    background-color: transparent;
+    color: $navColor;
     opacity: 0.9;
 
     &:hover,
     &:focus {
-      background-color: $navHFColor;
+      background-color: $brandBackgroundHFColor;
+      color: $brandHFColor;
       opacity: 1.0;
     }
   }
@@ -107,27 +117,28 @@ nav {
       position: relative;
 
       & > a {
+        background-color: transparent;
+        color: $navColor;
         outline: none;
         font-weight: normal;
         padding-left: 16px;
         padding-right: 16px;
-        color: $light;
         display: block;
         font-size: 20px;
         height: 100%;
         text-decoration: none;
         @include transition(0.2s);
-
         &.selected {
-          background-color: $navSelectedColor;
+          background-color: $navBackgroundSelectedColor;
+          color: $navSelectedColor;
         }
       }
 
       & > a:hover,
       & > a:focus {
-        background-color: $navHFColor;
+        background-color: $navBackgroundHFColor;
+        color: $navHFColor;
       }
-
     }
   }
 

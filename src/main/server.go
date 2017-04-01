@@ -69,6 +69,7 @@ func buildBaseContext(context * air.Context) {
 func get(context *air.Context) error {
 	buildBaseContext(context)
 	context.Data["NavbarSelected"] = 0
+	context.Data["Offers"] = gApplicationState.Offers
 	return context.Render("index.gohtml", "layouts/default.gohtml")
 }
 func getPrices(context *air.Context) error {
@@ -76,20 +77,21 @@ func getPrices(context *air.Context) error {
 	context.Data["NavbarSelected"] = 1
 	return context.Render("prices.gohtml", "layouts/default.gohtml")
 }
-func getOffers(context *air.Context) error {
+func getPackages(context *air.Context) error {
 	buildBaseContext(context)
 	context.Data["NavbarSelected"] = 2
-	return context.Render("offers.gohtml", "layouts/default.gohtml")
+	context.Data["Offers"] = gApplicationState.Offers
+	return context.Render("packages.gohtml", "layouts/default.gohtml")
 }
 func getRestaurant(context *air.Context) error {
 	buildBaseContext(context)
 	context.Data["NavbarSelected"] = 3
 	return context.Render("restaurant.gohtml", "layouts/default.gohtml")
 }
-func getExperience(context *air.Context) error {
+func getLocation(context *air.Context) error {
 	buildBaseContext(context)
 	context.Data["NavbarSelected"] = 4
-	return context.Render("experience.gohtml", "layouts/default.gohtml")
+	return context.Render("location.gohtml", "layouts/default.gohtml")
 }
 
 func getGallery(context *air.Context) error {
@@ -127,11 +129,15 @@ func runApplication(applicationState *ApplicationState) {
 
 	airServer.Static("/" + applicationState.Configuration.Public,
 		applicationState.Configuration.Public)
+
+	airServer.Static("/static",
+		applicationState.Configuration.Data)
+
 	airServer.GET("/", get)
 	airServer.GET("/prices", getPrices)
-	airServer.GET("/offers", getOffers)
+	airServer.GET("/packages", getPackages)
 	airServer.GET("/restaurant", getRestaurant)
-	airServer.GET("/experience", getExperience)
+	airServer.GET("/location", getLocation)
 	airServer.GET("/gallery", getGallery)
 
 
@@ -158,7 +164,7 @@ func httpErrorHandler(err error, c *air.Context) {
 	} else {
 		he.Message = err.Error()
 	}
-	if !c.Response.Written {
+	if !c.Response.Written() {
 		c.Response.WriteHeader(he.Code)
 		c.Data["SelectedNavIndex"] = -1
 		c.Data["PageTitle"] = he.Code

@@ -2,6 +2,7 @@
   "Address": ":2333",
   "Assets": "assets.json",
   "Public": "public/",
+  "Data": "data/",
   "Templates": "templates/",
   "Mode": "develop"
 }

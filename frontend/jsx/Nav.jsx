@@ -28,13 +28,13 @@ const Nav = ({selected}) => {
 				<NavPaperRipple
 					tag="a"
 					className={selected === 1 ? "selected" : ""}
-					href="/prices">Prices</NavPaperRipple>
+					href="/prices">Prețuri</NavPaperRipple>
 			</li>
 			<li>
 				<NavPaperRipple
 					tag="a"
 					className={selected === 2 ? "selected" : ""}
-					href="/offers">Offers</NavPaperRipple>
+					href="/packages">Pachete</NavPaperRipple>
 			</li>
 			<li>
 				<NavPaperRipple
@@ -45,14 +45,14 @@ const Nav = ({selected}) => {
 			<li>
 				<NavPaperRipple
 					tag="a"
-					className={selected === 4 ? "selected" : ""}
-					href="/experience">Experience</NavPaperRipple>
+					className={selected === 5 ? "selected" : ""}
+					href="/location">Locație</NavPaperRipple>
 			</li>
 			<li>
 				<NavPaperRipple
 					tag="a"
 					className={selected === 5 ? "selected" : ""}
-					href="/gallery">Gallery</NavPaperRipple>
+					href="/gallery">Galerie Foto</NavPaperRipple>
 			</li>
 		</ul>
 		<div className="sandwich">
