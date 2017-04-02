@@ -128,13 +128,15 @@ func readFileMemoized(file string) (string, bool) {
 	return gApplicationState.Files[file], loaded
 }
 
-func readFileBytesMemoized(file string) []byte {
+func readFileBytesMemoized(file string) ([]byte, bool) {
+	loaded := false
 	if gApplicationState.FilesBytes[file] == nil {
 		content, err := ioutil.ReadFile(file)
 		runtimeAssert(err)
+		loaded = true
 		gApplicationState.FilesBytes[file] = content
 	}
-	return gApplicationState.FilesBytes[file]
+	return gApplicationState.FilesBytes[file], loaded
 }
 
 func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTemplateCss) {

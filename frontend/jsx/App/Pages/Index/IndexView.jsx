@@ -7,18 +7,18 @@ const BookTopPaperRipple = (props) => <PaperRipple
 	color={Colors.colorLuminance(Colors.PRIMARY, 0.5)}
 	opacity={0.4}
 	rmConfig={{
-		stiffness: 90,
-		damping: 4,
+		stiffness: 50,
+		damping: 20,
 	}}
 />;
 
 const BookOfferPaperRipple = (props) => <PaperRipple
 	{...props}
 	color={Colors.colorLuminance(Colors.ACCENT, 0.9)}
-	opacity={0.4}
+	opacity={0.45}
 	rmConfig={{
-		stiffness: 95,
-		damping: 4,
+		stiffness: 50,
+		damping: 20,
 	}}
 />;
 
@@ -27,8 +27,8 @@ const DetailsPaperRipple = (props) => <PaperRipple
 	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
 	opacity={0.3}
 	rmConfig={{
-		stiffness: 95,
-		damping: 4,
+		stiffness: 50,
+		damping: 20,
 	}}
 />;
 

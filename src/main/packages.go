@@ -10,7 +10,7 @@ func getParadisePackages(dataFolder string) []Package {
 		Packages   []Package `json:"packages"`
 	}
 	packages := Packages{}
-	file := readFileBytesMemoized(dataFolder + "packages.json")
+	file, _ := readFileBytesMemoized(dataFolder + "packages.json")
 
 	if err := json.Unmarshal(file, &packages); err != nil {
 		fmt.Println(err)

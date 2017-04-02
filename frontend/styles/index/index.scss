@@ -13,9 +13,31 @@
 
   .calendar {
     margin-right: 16px;
+    margin-bottom: 16px;
   }
 
   button {
     position: relative;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 1000px) {
+    height: auto;
+    display: inline-block;
+
+    form.twelve.columns {
+      margin-bottom: 0;
+      .calendar,
+      button {
+        display: block;
+        width: 100%;
+      }
+
+      .calendar {
+        input {
+          width: 100%;
+        }
+      }
+    }
   }
 }
