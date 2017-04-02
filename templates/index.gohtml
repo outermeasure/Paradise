@@ -8,7 +8,7 @@
 					<input type="text" class="big" name="from" placeholder="Data inceput"/>
 					<i class="big icon-calendar2"></i>
 				</div><div class="calendar">
-					<input type="text" class="big" name="until" placeholder="Data sfarsit"/>
+					<input type="text" class="big" name="until" placeholder="Pana in"/>
 					<i class="big icon-calendar2"></i>
 				</div><button type="submit" class="primary big">Rezervare</button>
 			</form>
@@ -22,8 +22,7 @@
 					<p>{{$v.Description}}</p>
 					<div class="price">{{$v.Price}} lei / persoană</div>
 				</div><div class="actions">
-					<button>Detalii</button>
-					<button class="accent">Rezervă</button>
+					<button>Detalii</button><button class="accent">Rezervă</button>
 				</div>
 			</li>{{end}}
 		</ul>

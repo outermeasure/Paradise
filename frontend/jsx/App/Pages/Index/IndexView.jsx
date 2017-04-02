@@ -1,4 +1,36 @@
 import React from 'react';
+import PaperRipple from 'react-paper-ripple';
+import * as Colors from '../../../../js/colors';
+
+const BookTopPaperRipple = (props) => <PaperRipple
+	{...props}
+	color={Colors.colorLuminance(Colors.PRIMARY, 0.5)}
+	opacity={0.4}
+	rmConfig={{
+		stiffness: 90,
+		damping: 4,
+	}}
+/>;
+
+const BookOfferPaperRipple = (props) => <PaperRipple
+	{...props}
+	color={Colors.colorLuminance(Colors.ACCENT, 0.9)}
+	opacity={0.4}
+	rmConfig={{
+		stiffness: 95,
+		damping: 4,
+	}}
+/>;
+
+const DetailsPaperRipple = (props) => <PaperRipple
+	{...props}
+	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
+	opacity={0.3}
+	rmConfig={{
+		stiffness: 95,
+		damping: 4,
+	}}
+/>;
 
 const View = ({
 	packages,
@@ -26,13 +58,15 @@ const View = ({
 							type="text"
 							className="big"
 							name="until"
-							placeholder="Data sfarsit"/>
+							placeholder="Pana in"/>
 						<i className="big icon-calendar2"/>
 					</div>
-					<button
+					<BookTopPaperRipple
+						tag="button"
 						type="submit"
+						onClick={(e) => e.preventDefault()}
 						className="primary big">Rezervare
-					</button>
+					</BookTopPaperRipple>
 				</form>
 			</div>
 		</div>
@@ -50,8 +84,15 @@ const View = ({
 										{pack.Price} lei / persoană</div>
 								</div>
 								<div className="actions">
-									<button>Detalii</button>
-									<button className="accent">Rezervă</button>
+									<DetailsPaperRipple
+										tag="button">
+										Detalii
+									</DetailsPaperRipple>
+									<BookOfferPaperRipple
+										tag="button"
+										className="accent">
+										Rezervă
+									</BookOfferPaperRipple>
 								</div>
 							</li>;
 						}
