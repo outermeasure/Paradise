@@ -14,19 +14,19 @@ type Configuration struct {
 	Address   string `json:"Address"`
 	Assets    string `json:"Assets"`
 	Public    string `json:"Public"`
-	Data 			string `json:"Data"`
+	Data      string `json:"Data"`
 	Templates string `json:"Templates"`
 	Mode      string `json:"Mode"`
 }
 
 type ApplicationState struct {
 	Configuration         *Configuration
-	Templates             *template.Template
+	Templates             map[string]*template.Template
 	AssetModificationTime time.Time
 	Page                  Page
 	Files                 map[string]string
+	FilesBytes            map[string][]byte
 	Parser                *uaparser.Parser
-	Offers								[]Offer
 }
 
 type VersionedScript struct {
@@ -40,7 +40,10 @@ type Page struct {
 	SafeTemplateCss    SafeTemplateCss
 	Platform           Platform
 	Title              string
-	NavbarSelected     string
+	Route              string
+	NavbarSelected     int
+	Packages           []Package
+	InheritedHTML      template.HTML
 }
 
 type Engine struct {
@@ -57,9 +60,9 @@ type Platform struct {
 	Short string
 }
 
-type Offer struct {
-	Price       float64
-	Photo       string
-	Title       string
-	Description string
+type Package struct {
+	Price       float64 `json:"Price"`
+	Photo       string `json:"Photo"`
+	Title       string `json:"Title"`
+	Description string `json:"Description"`
 }

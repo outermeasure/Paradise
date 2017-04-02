@@ -6,13 +6,15 @@
 	"parserOptions": {
 		"ecmaVersion": 6,
 		"ecmaFeatures": {
-			"jsx": true
+			"jsx": true,
+			"experimentalObjectRestSpread": true
 		},
 		"sourceType": "module"
 	},
 	"plugins": [
 		"react",
-		"import"
+		"import",
+		"prefer-spread"
 	],
 	"env": {
 		"node": true,
@@ -67,6 +69,7 @@
 		"keyword-spacing": "error",
 		"import/newline-after-import": "error",
 		"import/imports-first": "error",
-		"no-console": 0
+		"no-console": 0,
+		"prefer-spread/prefer-object-spread": [2, "includeNearEquivalents"]
 	}
 }
