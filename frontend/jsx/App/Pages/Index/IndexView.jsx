@@ -32,6 +32,16 @@ const DetailsPaperRipple = (props) => <PaperRipple
 	}}
 />;
 
+const CardPaperRipple = (props) => <PaperRipple
+	{...props}
+	color={Colors.colorLuminance(Colors.LIGHT, -0.1)}
+	opacity={0.2}
+	rmConfig={{
+		stiffness: 50,
+		damping: 20,
+	}}
+/>;
+
 const View = ({
 	packages,
 }) => {
@@ -75,20 +85,32 @@ const View = ({
 				{
 					packages.items.map(
 						(pack, index) => {
-							return <li key={index} className="card">
-								<img src={pack.Photo}/>
-								<div className="info">
-									<h3>{pack.Title}</h3>
-									<p>{pack.Description}</p>
-									<div className="price">
-										{pack.Price} lei / persoană</div>
-								</div>
+							return <li
+								key={index}
+								className="card">
+
+								<CardPaperRipple
+									className="content"
+									tag="div">
+									<img
+										src={pack.Photo}/>
+
+									<div className="info">
+										<h3>{pack.Title}</h3>
+										<p>{pack.Description}</p>
+										<div className="price">
+											{pack.Price} lei / persoană
+										</div>
+									</div>
+								</CardPaperRipple>
 								<div className="actions">
 									<DetailsPaperRipple
+										onClick={(e) => e.preventDefault()}
 										tag="button">
 										Detalii
 									</DetailsPaperRipple>
 									<BookOfferPaperRipple
+										onClick={(e) => e.preventDefault()}
 										tag="button"
 										className="accent">
 										Rezervă

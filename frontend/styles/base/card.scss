@@ -1,6 +1,7 @@
 .card-collection {
   margin-right: -24px;
   text-align: center;
+  list-style: none;
 }
 
 .card {
@@ -18,8 +19,13 @@
   overflow: hidden;
   cursor: pointer;
 
+  .content {
+    position: relative;
+  }
+
   @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.26));
   img {
+    position: relative;
     max-width: 100%;
   }
   margin-right: 24px;
