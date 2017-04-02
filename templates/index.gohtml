@@ -1,35 +1,30 @@
-<div class="presentation">
-
-	<div class="main">
-		<h1 class="top light text-center text-bolder twelve columns">Pensiune de lux aflată în mijlocul Deltei Dunării</h1>
-		<form class="twelve columns text-center">
-			<div class="calendar">
-				<input type="text" class="big" name="from" placeholder="Data inceput"/>
-				<i class="big icon-calendar2"></i>
-			</div><div class="calendar">
-				<input type="text" class="big" name="until" placeholder="Data sfarsit"/>
-				<i class="big icon-calendar2"></i>
-			</div><button type="submit" class="primary big">Rezervare</button>
-		</form>
+<div>
+	<div class="presentation">
+		<div class="main">
+			<h1 class="top light text-center text-bolder twelve columns">Pensiune de lux aflată în mijlocul Deltei
+				Dunării</h1>
+			<form class="twelve columns text-center">
+				<div class="calendar">
+					<input type="text" class="big" name="from" placeholder="Data inceput"/>
+					<i class="big icon-calendar2"></i>
+				</div><div class="calendar">
+					<input type="text" class="big" name="until" placeholder="Pana in"/>
+					<i class="big icon-calendar2"></i>
+				</div><button type="submit" class="primary big">Rezervare</button>
+			</form>
+		</div>
 	</div>
-
-
-</div>
-<div class="main">
-	<ul class="card-collection">
-		{{range $i, $v := .Offers}}
-		<li class="card">
-			<img src="{{$v.Photo}}"/>
-			<div class="info">
-				<h3>{{$v.Title}}</h3>
-				<p>{{$v.Description}}</p>
-				<div class="price">{{$v.Price}} lei / persoană</div>
-			</div>
-			<div class="actions">
-				<button>Detalii</button>
-				<button class="accent">Rezervă</button>
-			</div>
-		</li>
-		{{end}}
-	</ul>
+	<div class="main">
+		<ul class="card-collection">
+			{{range $i, $v := .Packages}}<li class="card">
+				<img src="{{$v.Photo}}"/><div class="info">
+					<h3>{{$v.Title}}</h3>
+					<p>{{$v.Description}}</p>
+					<div class="price">{{$v.Price}} lei / persoană</div>
+				</div><div class="actions">
+					<button>Detalii</button><button class="accent">Rezervă</button>
+				</div>
+			</li>{{end}}
+		</ul>
+	</div>
 </div>
