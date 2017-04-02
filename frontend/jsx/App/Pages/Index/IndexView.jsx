@@ -1,5 +1,6 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
+import Modal from 'react-modal';
 import * as Colors from '../../../../js/colors';
 
 const BookTopPaperRipple = (props) => <PaperRipple
@@ -44,8 +45,18 @@ const CardPaperRipple = (props) => <PaperRipple
 
 const View = ({
 	packages,
+	modalOpen,
+	closeModal,
+	openModal,
 }) => {
 	return <div>
+		<Modal
+			contentLabel={"Rezervare"}
+			isOpen={modalOpen}
+			onRequestClose={closeModal}
+			shouldCloseOnOverlayClick={true}
+			parentSelector={() => document.body}
+		/>
 		<div className="presentation">
 			<div className="main">
 				<h1
@@ -74,7 +85,10 @@ const View = ({
 					<BookTopPaperRipple
 						tag="button"
 						type="submit"
-						onClick={(e) => e.preventDefault()}
+						onClick={(e) => {
+							e.preventDefault();
+							openModal();
+						}}
 						className="primary big">Rezervare
 					</BookTopPaperRipple>
 				</form>
@@ -138,6 +152,9 @@ View.propTypes = {
 		isFetching: React.PropTypes.bool,
 		receivedAt: React.PropTypes.number,
 	}),
+	modalOpen: React.PropTypes.bool,
+	openModal: React.PropTypes.function,
+	closeModal: React.PropTypes.function,
 };
 
 export default View;

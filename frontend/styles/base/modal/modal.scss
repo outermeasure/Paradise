@@ -1,0 +1,45 @@
+.ReactModal__Overlay {
+  opacity: 0;
+  z-index: 24;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.ReactModal__Content {
+  opacity: 0;
+  width: 640px;
+  min-height: 480px;
+  position: absolute;
+  background: $light;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 2px;
+  overflow: auto;
+  outline: none;
+
+  @include translate(-50%, -50%);
+
+  top: 50%;
+  left: 50%;
+}
+
+.ReactModal__Content--after-open,
+.ReactModal__Overlay--after-open {
+  @include transition(opacity 0.3s);
+  opacity: 1;
+}
+
+.ReactModal__Body--open {
+  overflow-y: scroll;
+  #paradise {
+    overflow: hidden;
+    @include calc(height, 100vh - #{$navHeightWide});
+    @media (max-width: 750px) {
+      @include calc(height, 100vh - #{$navHeightNarrow});
+    }
+  }
+}
+

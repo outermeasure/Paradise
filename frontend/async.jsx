@@ -4,8 +4,8 @@ import thunkMiddleware from 'redux-thunk';
 import AppReducer from './jsx/App/AppReducer';
 import App from './jsx/App/AppContainer';
 import * as AppActions from './jsx/App/AppActions';
-import * as IndexActions from './jsx/App/Pages/Index/IndexActions.jsx';
-
+import * as IndexActions from './jsx/App/Pages/Index/IndexActions';
+import ReactModal from 'react-modal';
 import {
 	Provider,
 } from 'react-redux';
@@ -15,6 +15,9 @@ import {
 import {
 	createLogger,
 } from 'redux-logger';
+
+ReactModal.defaultStyles.overlay = {};
+ReactModal.defaultStyles.content = {};
 
 const store = Redux.createStore(
 	AppReducer,
