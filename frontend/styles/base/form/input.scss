@@ -17,8 +17,11 @@ input[type="url"],
 input[type="password"],
 textarea,
 select {
+  vertical-align: top;
+  display: inline-block;
   margin: 0;
   box-sizing: border-box;
+  border-radius: 2px;
 
   height: 2 * $mediumPadding + $mediumFontSize;
   padding: $mediumPadding;
@@ -43,6 +46,8 @@ select {
 .calendar {
   position: relative;
   display: inline-block;
+  vertical-align: top;
+
   input[type="email"],
   input[type="number"],
   input[type="search"],
@@ -80,23 +85,4 @@ select {
       right: $bigPadding;
     }
   }
-}
-
-.input {
-  display: inline-block;
-  padding: 0;
-  line-height: 1;
-  margin: 0 8px 8px 0;
-}
-
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="text"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
-textarea,
-select {
-  border-radius: 2px;
 }

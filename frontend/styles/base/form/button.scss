@@ -11,11 +11,18 @@ button {
     background-color: $primary;
     color: $light;
     @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
+    &:active {
+      @include box-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+    }
   }
 
   &.accent {
     background-color: $accent;
     color: $light;
     @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
+    &:active {
+      @include box-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+    }
   }
+
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"github.com/ua-parser/uap-go/uaparser"
+	"html/template"
 )
 
 const ENVIRONMENT = "Environment.json"
@@ -20,6 +21,10 @@ func loadConfig(applicationState *ApplicationState) {
 }
 
 func loadApplication(applicationState *ApplicationState) {
+	applicationState.Files = map[string]string{}
+	applicationState.FilesBytes = map[string][]byte{}
+	applicationState.Templates = map[string]*template.Template{}
+
 	UaparserMust := func(t *uaparser.Parser, err error) *uaparser.Parser {
 		if err != nil {
 			panic(err)
@@ -28,9 +33,6 @@ func loadApplication(applicationState *ApplicationState) {
 	}
 	applicationState.Parser =
 		UaparserMust(uaparser.New("regexes.yaml"))
-	applicationState.Files = map[string]string{}
-
-	applicationState.Offers = getParadiseOffers()
 
 	applicationState.Page.Title = "Paradise"
 }
@@ -42,5 +44,5 @@ func main() {
 	loadApplication(&applicationState)
 	fmt.Fprintf(os.Stdout, "Running in %s mode\n", applicationState.Configuration.Mode)
 	fmt.Fprintf(os.Stdout, "Listening on %s...\n", applicationState.Configuration.Address)
-	runApplication(&applicationState)
+	runApplicationSimple(&applicationState)
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
-import * as Colors from '../js/colors';
+import * as Colors from '../../../../js/colors';
 
 const PAPER_RIPPLE_COLOR = Colors.colorLuminance(Colors.PRIMARY, 0.2);
 
@@ -13,7 +13,9 @@ const NavPaperRipple = (props) => <PaperRipple
 	}}
 />;
 
-const Nav = ({selected}) => {
+const NavigationBar = ({
+	selected,
+}) => {
 	return <nav
 		className="no-selection">
 		<NavPaperRipple
@@ -45,7 +47,7 @@ const Nav = ({selected}) => {
 			<li>
 				<NavPaperRipple
 					tag="a"
-					className={selected === 5 ? "selected" : ""}
+					className={selected === 4 ? "selected" : ""}
 					href="/location">Locație</NavPaperRipple>
 			</li>
 			<li>
@@ -64,4 +66,9 @@ const Nav = ({selected}) => {
 		</div>
 	</nav>;
 };
-export default Nav;
+
+NavigationBar.propTypes = {
+	selected: React.PropTypes.number.isRequired,
+};
+
+export default NavigationBar;
