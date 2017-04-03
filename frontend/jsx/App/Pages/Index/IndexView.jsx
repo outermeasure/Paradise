@@ -1,6 +1,7 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
+import Workflow from './Workflow/WorkflowContainer';
 
 const BookTopPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -44,8 +45,10 @@ const CardPaperRipple = (props) => <PaperRipple
 
 const View = ({
 	packages,
+	openModal,
 }) => {
 	return <div>
+		<Workflow/>
 		<div className="presentation">
 			<div className="main">
 				<h1
@@ -74,7 +77,10 @@ const View = ({
 					<BookTopPaperRipple
 						tag="button"
 						type="submit"
-						onClick={(e) => e.preventDefault()}
+						onClick={(e) => {
+							e.preventDefault();
+							openModal();
+						}}
 						className="primary big">Rezervare
 					</BookTopPaperRipple>
 				</form>
@@ -138,6 +144,7 @@ View.propTypes = {
 		isFetching: React.PropTypes.bool,
 		receivedAt: React.PropTypes.number,
 	}),
+	openModal: React.PropTypes.func,
 };
 
 export default View;

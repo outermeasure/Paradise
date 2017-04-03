@@ -4,7 +4,6 @@ import {
 	combineReducers,
 } from 'redux';
 
-
 const BASE_STATE = {
 	route: null,
 };

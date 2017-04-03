@@ -3,6 +3,15 @@ $placeholderColor: $lighterDark;
 form {
   @include placeholder {
     color: $placeholderColor;
+    font-weight: 100;
+  }
+
+  ul.vertical-layout {
+    list-style: none;
+    li {
+      margin-bottom: 24px;
+      width: 100%;
+    }
   }
 }
 

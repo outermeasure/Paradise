@@ -1,0 +1,87 @@
+.popup {
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 16px;
+  line-height: 1;
+
+  h3 {
+    color: rgba(darken($primary, 40%), 0.7);
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  form {
+    margin-bottom: 50px;
+  }
+
+  position: relative;
+  .actions {
+
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+
+    .right {
+      float: right;
+    }
+
+    .left {
+      float: left;
+    }
+
+    @media (max-width: 750px) {
+      width: auto;
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .step-progress-bar {
+    margin-top: -10px;
+  }
+
+  .min-height {
+    min-height: 380px;
+    display: inline-block;
+    width: 100%;
+    line-height: 1;
+  };
+
+  form {
+    max-width: 420px;
+    @media (max-width: 750px) {
+      max-width: unset;
+    }
+    margin: auto;
+
+    label {
+      width: 25%;
+      text-align: right;
+      @media (max-width: 750px) {
+        width: 100%;
+        text-align: left;
+      }
+      line-height: 2 * $mediumBigPadding + $mediumBigFontSize;
+      display: inline-block;
+      vertical-align: top;
+      padding-right: 16px;
+      margin: 0;
+      color: $mediumDark;
+    }
+
+    input {
+      width: 75%;
+      @media (max-width: 750px) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@import "PersonalInformation/PersonalInformation";

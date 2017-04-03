@@ -1,4 +1,5 @@
-import * as Actions from './IndexActions.jsx';
+import * as Actions from './IndexActions';
+import * as Steps from './Workflow/WorkflowSteps';
 
 const
 	BASE_PACKAGES = {
@@ -8,6 +9,15 @@ const
 	},
 	BASE_STATE = {
 		packages: BASE_PACKAGES,
+		startDate: "",
+		endDate: "",
+		modalOpen: false,
+		workflowStep: Steps.PERSONAL_INFORMATION,
+
+		firstName: "",
+		lastName: "",
+		phoneNumber: "",
+		email: "",
 	};
 
 const IndexReducer = (state = BASE_STATE, action) => {
@@ -19,6 +29,11 @@ const IndexReducer = (state = BASE_STATE, action) => {
 				...state.packages,
 				isFetching: true,
 			},
+		};
+	case Actions.SET_MODAL_OPEN:
+		return {
+			...state,
+			modalOpen: action.modalOpen,
 		};
 	case Actions.RECEIVE_PACKAGES:
 		return {
