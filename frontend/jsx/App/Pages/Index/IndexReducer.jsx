@@ -1,4 +1,5 @@
 import * as Actions from './IndexActions';
+import * as Steps from './Workflow/WorkflowSteps';
 
 const
 	BASE_PACKAGES = {
@@ -11,6 +12,7 @@ const
 		startDate: "",
 		endDate: "",
 		modalOpen: false,
+		workflowStep: Steps.PERSONAL_INFORMATION,
 
 		firstName: "",
 		lastName: "",

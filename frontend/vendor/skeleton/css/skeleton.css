@@ -318,7 +318,6 @@ input[type="button"] {
 	font-weight: 600;
 	line-height: 38px;
 	letter-spacing: .1rem;
-	text-transform: uppercase;
 	text-decoration: none;
 	white-space: nowrap;
 	background-color: transparent;
@@ -369,13 +368,7 @@ input[type="button"].button-primary:focus {
 }
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="text"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
+input,
 textarea,
 select {
 	border: 1px solid #D1D1D1;
@@ -384,13 +377,7 @@ select {
 
 
 /* Removes awkward default styles on some inputs for iOS */
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="text"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
+input,
 textarea {
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -403,13 +390,7 @@ textarea {
 	padding-bottom: 6px;
 }
 
-input[type="email"]:focus,
-input[type="number"]:focus,
-input[type="search"]:focus,
-input[type="text"]:focus,
-input[type="tel"]:focus,
-input[type="url"]:focus,
-input[type="password"]:focus,
+input:focus,
 textarea:focus,
 select:focus {
 	border: 1px solid #33C3F0;

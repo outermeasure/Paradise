@@ -1,7 +1,7 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
-import Modal from 'react-modal';
 import * as Colors from '../../../../js/colors';
+import Workflow from './Workflow/WorkflowContainer';
 
 const BookTopPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -45,18 +45,10 @@ const CardPaperRipple = (props) => <PaperRipple
 
 const View = ({
 	packages,
-	modalOpen,
-	closeModal,
 	openModal,
 }) => {
 	return <div>
-		<Modal
-			contentLabel={"Rezervare"}
-			isOpen={modalOpen}
-			onRequestClose={closeModal}
-			shouldCloseOnOverlayClick={true}
-			parentSelector={() => document.body}
-		/>
+		<Workflow/>
 		<div className="presentation">
 			<div className="main">
 				<h1
@@ -152,9 +144,7 @@ View.propTypes = {
 		isFetching: React.PropTypes.bool,
 		receivedAt: React.PropTypes.number,
 	}),
-	modalOpen: React.PropTypes.bool,
-	openModal: React.PropTypes.function,
-	closeModal: React.PropTypes.function,
+	openModal: React.PropTypes.func,
 };
 
 export default View;

@@ -1,0 +1,33 @@
+.step-progress-bar {
+  display: block;
+  width: auto;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 10px 0 15px 0;
+
+  .filled {
+    background-color: darken($primary, 40%);
+  }
+
+  .empty {
+    background-color: $primary;
+  }
+
+  li {
+    display: inline-block;
+    list-style: none;
+    border-radius: 50%;
+
+    .line {
+      position: absolute;
+      z-index: -2;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+}

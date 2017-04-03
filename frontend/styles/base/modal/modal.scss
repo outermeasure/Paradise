@@ -1,18 +1,15 @@
 .ReactModal__Overlay {
-  opacity: 0;
   z-index: 24;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .ReactModal__Content {
-  opacity: 0;
   width: 640px;
-  min-height: 480px;
   position: absolute;
   background: $light;
   -webkit-overflow-scrolling: touch;
@@ -20,25 +17,72 @@
   overflow: auto;
   outline: none;
 
-  @include translate(-50%, -50%);
+  @media (min-width: 750px) {
+    @include translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
 
-  top: 50%;
-  left: 50%;
+  .close {
+    display: block;
+    width: 100%;
+    text-align: right;
+    line-height: 1;
+    height: auto;
+
+    button {
+      border: 0;
+      margin: 0;
+      outline: 0;
+      height: auto;
+      padding: 8px;
+      @media (max-width: 750px) {
+        padding: 16px;
+      }
+      opacity: 0.8;
+      &:hover,
+      &:focus {
+        opacity: 1;
+      }
+    }
+
+    i {
+      vertical-align: top;
+      display: inline-block;
+      line-height: 24px;
+      height: 24px;
+      font-size: 24px;
+      @media (max-width: 750px) {
+        line-height: $navHeightNarrow - 2 * 16px;
+        height: $navHeightNarrow - 2 * 16px;;
+        font-size: $navHeightNarrow - 2 * 16px;;
+      }
+    }
+  }
+
+  button {
+    position: relative;
+  }
 }
 
 .ReactModal__Content--after-open,
 .ReactModal__Overlay--after-open {
-  @include transition(opacity 0.3s);
-  opacity: 1;
+  @media (max-width: 750px) {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
 }
 
 .ReactModal__Body--open {
   overflow-y: scroll;
+  @media (max-width: 750px) {
+    overflow-y: auto;
+  }
   #paradise {
     overflow: hidden;
-    @include calc(height, 100vh - #{$navHeightWide});
+    @include calc(height, "100vh - #{$navHeightWide}");
     @media (max-width: 750px) {
-      @include calc(height, 100vh - #{$navHeightNarrow});
+      @include calc(height, "100vh - #{$navHeightNarrow}");
     }
   }
 }
