@@ -33,9 +33,13 @@
     @media (max-width: 750px) {
       width: auto;
       position: fixed;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 16px 16px;
+
+      @include linear-gradient("to top", rgba($light, 1) 0%, rgba($light, 1) 80%, rgba($light, 0) 100%);
+
       button {
         width: 100%;
       }
