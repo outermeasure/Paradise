@@ -3,11 +3,15 @@ import Modal from 'react-modal';
 import * as Steps from './WorkflowSteps';
 import PersonalInformation from
 	'./PersonalInformation/PersonalInformationContainer';
+import ServicesHousing from
+	'./Booking/BookingContainer';
 
 const getComponentByStep = (step) => {
 	switch (step) {
 	case Steps.PERSONAL_INFORMATION:
 		return <PersonalInformation/>;
+	case Steps.SERVICES_HOUSING:
+		return <ServicesHousing/>;
 	default:
 		return null;
 	}

@@ -18,6 +18,14 @@ const mapDispatchToProps = (dispatch) => ({
 	closeModal() {
 		dispatch(Actions.setModalOpen(false));
 	},
+	onChange(fieldName, fieldValue, clientObject) {
+		dispatch(Actions.setClientObject(
+			{
+				...clientObject,
+				[fieldName]: fieldValue,
+			}
+		));
+	},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

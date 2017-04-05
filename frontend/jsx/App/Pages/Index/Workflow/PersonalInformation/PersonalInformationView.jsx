@@ -3,6 +3,7 @@ import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../../js/colors';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
+import TextField from 'material-ui/TextField'
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -14,46 +15,101 @@ const PaperRipple = (props) => <Ripple
 	}}
 />;
 
-const View = () => {
+const GrayPaperRipple = (props) => <Ripple
+	{...props}
+	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
+	opacity={0.3}
+	rmConfig={{
+		stiffness: 50,
+		damping: 20,
+	}}
+/>;
+
+const View = ({
+	onChange,
+	onNext,
+	onBack,
+	clientObject,
+}) => {
 	return <div className="popup" id="PersonalInformation">
-		<StepProgressBar steps={4} progress={0.0 / 3}/>
+		<StepProgressBar steps={4} progress={1.0 / 3}/>
 		<div className="min-height">
 			<h3>Informatii personale</h3>
 			<form>
 				<ul className="vertical-layout">
 					<li>
-						<label>Nume</label>
-						<input
+						<TextField
+							id="LastName"
+							value={clientObject.lastName}
+							fullWidth={true}
 							className="medium-big"
-							type="text" placeholder="Ex: Pop"/>
+							floatingLabelText={"Nume"}
+							onChange={(e) => {
+								e.preventDefault();
+								onChange("lastName", e.target.value, clientObject);
+							}}
+							type="text"
+							hintText="Ex: Pop"/>
 					</li>
 					<li>
-						<label>Prenume</label>
-						<input
+						<TextField
+							value={clientObject.firstName}
+							fullWidth={true}
 							className="medium-big"
-							type="text" placeholder="Ex: Ioan"/>
+							floatingLabelText={"Prenume"}
+							onChange={(e) => {
+								e.preventDefault();
+								onChange("firstName", e.target.value, clientObject);
+							}}
+							type="text"
+							hintText="Ex: Ioan"/>
 					</li>
 					<li>
-						<label>Telefon</label>
-						<input
+						<TextField
+							value={clientObject.phoneNumber}
+							fullWidth={true}
 							className="medium-big"
-							type="text" placeholder="XXXX-XXX-XXX"/>
+							floatingLabelText={"Telefon"}
+							onChange={(e) => {
+								e.preventDefault();
+								onChange("phoneNumber", e.target.value, clientObject);
+							}}
+							type="text"
+							hintText="XXXX-XXX-XXX"/>
 					</li>
 					<li>
-						<label>Email</label>
-						<input
+						<TextField
+							value={clientObject.email}
+							fullWidth={true}
 							className="medium-big"
-							type="text" placeholder="Ex: pop.ioan@gmail.com"/>
+							floatingLabelText={"Email"}
+							onChange={(e) => {
+								e.preventDefault();
+								onChange("email", e.target.value, clientObject);
+							}}
+							type="text"
+							hintText="Ex: pop.ioan@gmail.com"/>
 					</li>
 				</ul>
 			</form>
 		</div>
 		<div className="actions">
+			<GrayPaperRipple
+				tag="button"
+				type="submit"
+				onClick={(e) => {
+					e.preventDefault();
+					onBack();
+				}}
+				className="flat left">Inapoi
+			</GrayPaperRipple>
+
 			<PaperRipple
 				tag="button"
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
+					onNext();
 				}}
 				className="primary right">Pasul urmator
 			</PaperRipple>

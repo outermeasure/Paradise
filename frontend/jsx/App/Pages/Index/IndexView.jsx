@@ -2,6 +2,7 @@ import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
 import Workflow from './Workflow/WorkflowContainer';
+import DatePicker from '../../Components/DatePicker/DatePicker';
 
 const BookTopPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -46,6 +47,8 @@ const CardPaperRipple = (props) => <PaperRipple
 const View = ({
 	packages,
 	openModal,
+	onChange,
+	clientObject,
 }) => {
 	return <div>
 		<Workflow/>
@@ -58,22 +61,20 @@ const View = ({
 					}>
 					Pensiune de lux aflată în mijlocul Deltei Dunării</h1>
 				<form className="twelve columns text-center">
-					<div className="calendar">
-						<input
-							type="text"
-							className="big"
-							name="from"
-							placeholder="Data inceput"/>
-						<i className="big icon-calendar2"/>
-					</div>
-					<div className="calendar">
-						<input
-							type="text"
-							className="big"
-							name="until"
-							placeholder="Pana in"/>
-						<i className="big icon-calendar2"/>
-					</div>
+					<DatePicker
+						value={clientObject.startDate}
+						container="inline" mode="landscape"
+						onChange={(e, date) => {
+							onChange("startDate", date, clientObject);
+						}}
+						placeholder={"Data inceput"}/>
+					<DatePicker
+						value={clientObject.endDate}
+						container="inline" mode="landscape"
+						onChange={(e, date) => {
+							onChange("endDate", date, clientObject);
+						}}
+						placeholder={"Pana in"}/>
 					<BookTopPaperRipple
 						tag="button"
 						type="submit"
