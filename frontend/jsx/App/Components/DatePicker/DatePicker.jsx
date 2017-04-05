@@ -295,6 +295,7 @@ class DatePicker extends Component {
 				{...other}
 				onFocus={this.handleFocus}
 				onTouchTap={this.handleTouchTap}
+				disabled="disabled"
 				ref="input"
 				style={textFieldStyle}
 				value={this.state.date ? formatDate(this.state.date) : ''}

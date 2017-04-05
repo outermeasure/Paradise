@@ -48,6 +48,10 @@ select {
   }
 }
 
+input:disabled {
+  background: white;
+}
+
 .calendar {
   position: relative;
   display: inline-block;

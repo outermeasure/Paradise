@@ -63,14 +63,14 @@ const View = ({
 				<form className="twelve columns text-center">
 					<DatePicker
 						value={clientObject.startDate}
-						container="inline" mode="landscape"
+						container="inline" mode="portrait"
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
 						placeholder={"Data inceput"}/>
 					<DatePicker
 						value={clientObject.endDate}
-						container="inline" mode="landscape"
+						container="inline" mode="portrait"
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
 						}}
