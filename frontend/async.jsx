@@ -6,6 +6,11 @@ import App from './jsx/App/AppContainer';
 import * as AppActions from './jsx/App/AppActions';
 import * as IndexActions from './jsx/App/Pages/Index/IndexActions';
 import ReactModal from 'react-modal';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppTheme from './jsx/App/AppTheme';
+
 import {
 	Provider,
 } from 'react-redux';
@@ -27,7 +32,10 @@ const store = Redux.createStore(
 	)
 );
 
-document.addEventListener("touchstart", () => {}, true);
+document.addEventListener("touchstart", () => {
+}, true);
+injectTapEventPlugin();
+
 store.dispatch(AppActions.setRoute(window.ROUTE));
 
 if (window.ROUTE === '/') {
@@ -36,7 +44,9 @@ if (window.ROUTE === '/') {
 
 render(
 	<Provider store={store}>
-		<App />
+		<MuiThemeProvider muiTheme={getMuiTheme(AppTheme)}>
+			<App />
+		</MuiThemeProvider>
 	</Provider>,
 	document.getElementById('paradise')
 );

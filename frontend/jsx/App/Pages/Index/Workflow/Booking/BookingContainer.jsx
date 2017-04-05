@@ -1,6 +1,7 @@
-import View from './PersonalInformationView';
+import View from './BookingView';
 import * as Actions from '../../IndexActions';
 import * as Steps from '../WorkflowSteps';
+
 import {
 	connect,
 } from 'react-redux';
@@ -12,21 +13,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	onChange(fieldName, fieldValue, clientObject) {
-		dispatch(Actions.setClientObject(
-			{
-				...clientObject,
-				[fieldName]: fieldValue,
-			}
-		));
-	},
-
-	onBack() {
-		dispatch(Actions.setWorkflowStep(Steps.SERVICES_HOUSING));
-	},
-
 	onNext() {
-	}
+		dispatch(Actions.setWorkflowStep(Steps.PERSONAL_INFORMATION));
+	},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

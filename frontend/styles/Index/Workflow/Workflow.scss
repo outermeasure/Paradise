@@ -8,7 +8,7 @@
     color: rgba(darken($primary, 40%), 0.7);
     line-height: 1;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 
   form {
@@ -51,40 +51,18 @@
   }
 
   .min-height {
-    min-height: 380px;
+    min-height: 410px;
     display: inline-block;
     width: 100%;
     line-height: 1;
   };
 
   form {
-    max-width: 420px;
+    max-width: 320px;
     @media (max-width: 750px) {
       max-width: unset;
     }
     margin: auto;
-
-    label {
-      width: 25%;
-      text-align: right;
-      @media (max-width: 750px) {
-        width: 100%;
-        text-align: left;
-      }
-      line-height: 2 * $mediumBigPadding + $mediumBigFontSize;
-      display: inline-block;
-      vertical-align: top;
-      padding-right: 16px;
-      margin: 0;
-      color: $mediumDark;
-    }
-
-    input {
-      width: 75%;
-      @media (max-width: 750px) {
-        width: 100%;
-      }
-    }
   }
 }
 
