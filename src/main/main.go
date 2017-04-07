@@ -43,6 +43,5 @@ func main() {
 	loadConfig(&applicationState)
 	loadApplication(&applicationState)
 	fmt.Fprintf(os.Stdout, "Running in %s mode\n", applicationState.Configuration.Mode)
-	fmt.Fprintf(os.Stdout, "Listening on %s...\n", applicationState.Configuration.Address)
 	runApplicationSimple(&applicationState)
 }

@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"encoding/json"
 	"io/ioutil"
+	"net"
+	"strconv"
 )
 
 func Template(path string) string {
@@ -181,6 +183,16 @@ func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	w.Write(jData)
 }
 
+func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
+	ssl := gApplicationState.Configuration.SSL;
+	port := ssl.Port;
+	host := gApplicationState.Configuration.Host;
+	toURL := "https://" + net.JoinHostPort(host, strconv.Itoa(port));
+	toURL += r.URL.RequestURI()
+	w.Header().Set("Connection", "close")
+	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
+}
+
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 	router := httprouter.New();
@@ -198,5 +210,20 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.ServeFiles("/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	router.ServeFiles("/static/*filepath", http.Dir(applicationState.Configuration.Data))
 
-	http.ListenAndServe(applicationState.Configuration.Address, router)
+
+	configuration := applicationState.Configuration;
+	ssl := configuration.SSL;
+	httpAddress := net.JoinHostPort(configuration.Host, strconv.Itoa(configuration.Port))
+
+	if ssl != nil {
+		tlsAddress := net.JoinHostPort(configuration.Host, strconv.Itoa(ssl.Port))
+		fmt.Fprintf(os.Stdout, "Listening on %s...\n", tlsAddress)
+		go http.ListenAndServeTLS(tlsAddress, ssl.Cert, ssl.Key, router)
+
+		fmt.Fprintf(os.Stdout, "Listening on %s...\n", httpAddress)
+		http.ListenAndServe(httpAddress, http.HandlerFunc(redirectToHTTPS));
+	} else {
+		fmt.Fprintf(os.Stdout, "Listening on %s...\n", httpAddress)
+		http.ListenAndServe(httpAddress, router)
+	}
 }
