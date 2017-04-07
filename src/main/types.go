@@ -11,12 +11,14 @@ type SafeTemplateJs map[string]template.JS
 type SafeTemplateCss map[string]template.CSS
 
 type Configuration struct {
-	Address   string `json:"Address"`
+	Host      string `json:"Host"`
+	Port      int `json:"Port"`
 	Assets    string `json:"Assets"`
 	Public    string `json:"Public"`
 	Data      string `json:"Data"`
 	Templates string `json:"Templates"`
 	Mode      string `json:"Mode"`
+	SSL       *SSL `json:"SSL,omitempty"`
 }
 
 type ApplicationState struct {
@@ -65,4 +67,10 @@ type Package struct {
 	Photo       string `json:"Photo"`
 	Title       string `json:"Title"`
 	Description string `json:"Description"`
+}
+
+type SSL struct {
+	Port int `json:"Port"`
+	Key  string `json:"Key"`
+	Cert string `json:"Cert"`
 }
