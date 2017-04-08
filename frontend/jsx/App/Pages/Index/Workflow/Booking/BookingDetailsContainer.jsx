@@ -1,4 +1,4 @@
-import View from './BookingView';
+import View from './BookingDetailsView';
 import * as Actions from '../../IndexActions';
 import * as Steps from '../WorkflowSteps';
 

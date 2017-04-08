@@ -1,6 +1,12 @@
 $mediumPadding: 8px;
 $mediumFontSize: 16px;
 
+$workflowPadding: 11px;
+$workflowFontSize: 14px;
+
+$workflowMobilePadding: 16px;
+$workflowMobileFontSize: 14px;
+
 $mediumBigPadding: 8px;
 $mediumBigFontSize: 24px;
 
@@ -33,10 +39,32 @@ select {
     line-height: 1;
   }
 
+  &.workflow {
+    padding: $workflowPadding;
+    font-size: $workflowFontSize;
+    height: 2 * $workflowPadding + $workflowFontSize;
+    line-height: 1;
+
+    @media (max-width: 750px) {
+      padding: $workflowMobilePadding;
+      font-size: $workflowMobileFontSize;
+      height: 2 * $workflowMobilePadding + $workflowMobileFontSize;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+  }
+
   &.big {
     padding: $bigPadding;
     font-size: $bigFontSize;
     height: 2 * $bigPadding + $bigFontSize;
+    line-height: 1;
+  }
+
+  &.medium-big {
+    padding: $mediumBigPadding;
+    font-size: $mediumBigFontSize;
+    height: 2 * $mediumBigPadding + $mediumBigFontSize;
     line-height: 1;
   }
 

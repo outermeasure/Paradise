@@ -6,10 +6,16 @@ import {
 
 const BASE_STATE = {
 	route: null,
+	screenType: null,
 };
 
 const AppReducer = (state = BASE_STATE, action) => {
 	switch (action.type) {
+	case AppActions.SET_SCREEN_TYPE:
+		return {
+			...state,
+			screenType: action.screenType,
+		};
 	case AppActions.SET_ROUTE:
 		return {
 			...state,

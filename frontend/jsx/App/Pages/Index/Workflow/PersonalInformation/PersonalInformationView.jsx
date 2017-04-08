@@ -4,6 +4,7 @@ import * as Colors from '../../../../../../js/colors';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
 import TextField from 'material-ui/TextField'
+import * as Steps from '../WorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -30,9 +31,11 @@ const View = ({
 	onNext,
 	onBack,
 	clientObject,
+	workflowStep
 }) => {
 	return <div className="popup" id="PersonalInformation">
-		<StepProgressBar steps={4} progress={1.0 / 3}/>
+		<StepProgressBar steps={Steps.getNumberOfSteps()}
+		                 progress={Steps.getStepIndexByLabel(workflowStep) / (Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
 			<h3>Informatii personale</h3>
 			<form>
@@ -101,9 +104,8 @@ const View = ({
 					e.preventDefault();
 					onBack();
 				}}
-				className="flat left">Inapoi
+				className="flat workflow left">Inapoi
 			</GrayPaperRipple>
-
 			<PaperRipple
 				tag="button"
 				type="submit"
@@ -111,7 +113,7 @@ const View = ({
 					e.preventDefault();
 					onNext();
 				}}
-				className="primary right">Pasul urmator
+				className="primary workflow right">Pasul urmator
 			</PaperRipple>
 		</div>
 	</div>;

@@ -3,6 +3,7 @@ import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
 import Workflow from './Workflow/WorkflowContainer';
 import DatePicker from '../../Components/DatePicker/DatePicker';
+import * as Viewport from '../../../../js/viewport';
 
 const BookTopPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -48,6 +49,7 @@ const View = ({
 	packages,
 	openModal,
 	onChange,
+	screenType,
 	clientObject,
 }) => {
 	return <div>
@@ -63,14 +65,16 @@ const View = ({
 				<form className="twelve columns text-center">
 					<DatePicker
 						value={clientObject.startDate}
-						container="inline" mode="portrait"
+						container="inline"
+						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
 						placeholder={"Data inceput"}/>
 					<DatePicker
 						value={clientObject.endDate}
-						container="inline" mode="portrait"
+						container="inline"
+						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
 						}}
