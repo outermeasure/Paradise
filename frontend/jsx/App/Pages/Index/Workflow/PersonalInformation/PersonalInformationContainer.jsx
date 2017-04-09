@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 
 	onNext() {
+		dispatch(Actions.setModalOpen(-1));
 	}
 });
 

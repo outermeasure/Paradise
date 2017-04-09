@@ -9,7 +9,7 @@ const
 		phoneNumber: "",
 		email: "",
 
-		roomType: null,
+		roomType: 0,
 
 		lunch: false,
 		dinner: false,
@@ -31,7 +31,7 @@ const
 	},
 	BASE_STATE = {
 		packages: BASE_PACKAGES,
-		modalOpen: false,
+		modalOpen: -1,
 		workflowStep: Steps.BOOKING_DETAILS,
 		clientObject: BASE_BOOKING,
 	};

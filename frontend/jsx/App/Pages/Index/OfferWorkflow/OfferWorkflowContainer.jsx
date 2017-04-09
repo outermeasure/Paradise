@@ -1,7 +1,5 @@
-import View from './BookingDetailsView';
-import * as Actions from '../../IndexActions';
-import * as Steps from '../WorkflowSteps';
-
+import View from './OfferWorkflowView';
+import * as Actions from '../IndexActions';
 import {
 	connect,
 } from 'react-redux';
@@ -13,6 +11,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+	closeModal() {
+		dispatch(Actions.setModalOpen(-1));
+	},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

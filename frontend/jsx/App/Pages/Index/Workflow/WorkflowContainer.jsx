@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	closeModal() {
-		dispatch(Actions.setModalOpen(false));
+		dispatch(Actions.setModalOpen(-1));
 	},
 });
 
