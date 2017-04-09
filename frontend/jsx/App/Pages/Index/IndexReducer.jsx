@@ -1,5 +1,6 @@
 import * as Actions from './IndexActions';
 import * as Steps from './Workflow/WorkflowSteps';
+import * as RoomTypes from './Workflow/WorkflowRoomTypes';
 
 const
 	BASE_BOOKING = {
@@ -8,9 +9,7 @@ const
 		phoneNumber: "",
 		email: "",
 
-		doubleRoom: false,
-		singleRoom: false,
-		familyRoom: false,
+		roomType: 0,
 
 		lunch: false,
 		dinner: false,
@@ -32,8 +31,8 @@ const
 	},
 	BASE_STATE = {
 		packages: BASE_PACKAGES,
-		modalOpen: false,
-		workflowStep: Steps.SERVICES_HOUSING,
+		modalOpen: -1,
+		workflowStep: Steps.BOOKING_DETAILS,
 		clientObject: BASE_BOOKING,
 	};
 

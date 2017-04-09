@@ -2,7 +2,12 @@ import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
 import Workflow from './Workflow/WorkflowContainer';
+import OfferWorkflow from './OfferWorkflow/OfferWorkflowContainer';
+import Modal from 'react-modal';
 import DatePicker from '../../Components/DatePicker/DatePicker';
+import * as Viewport from '../../../../js/viewport';
+
+const DateTimeFormat = global.Intl.DateTimeFormat;
 
 const BookTopPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -47,11 +52,23 @@ const CardPaperRipple = (props) => <PaperRipple
 const View = ({
 	packages,
 	openModal,
+	closeModal,
 	onChange,
+	modalOpen,
+	screenType,
 	clientObject,
 }) => {
 	return <div>
-		<Workflow/>
+		<Modal
+			contentLabel={""}
+			isOpen={modalOpen !== -1}
+			onRequestClose={closeModal}
+			shouldCloseOnOverlayClick={true}
+			parentSelector={() => document.body}>
+			{
+				modalOpen === 0 ? <Workflow/> : (modalOpen === 1 ? <OfferWorkflow/> : null)
+			}
+		</Modal>
 		<div className="presentation">
 			<div className="main">
 				<h1
@@ -63,24 +80,32 @@ const View = ({
 				<form className="twelve columns text-center">
 					<DatePicker
 						value={clientObject.startDate}
-						container="inline" mode="portrait"
+						container="dialog"
+						screenType={screenType}
+						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
+						locale="ro"
+						DateTimeFormat={DateTimeFormat}
 						placeholder={"Data inceput"}/>
 					<DatePicker
 						value={clientObject.endDate}
-						container="inline" mode="portrait"
+						container="dialog"
+						screenType={screenType}
+						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
 						}}
+						DateTimeFormat={DateTimeFormat}
+						locale="ro"
 						placeholder={"Pana in"}/>
 					<BookTopPaperRipple
 						tag="button"
 						type="submit"
 						onClick={(e) => {
 							e.preventDefault();
-							openModal();
+							openModal(0);
 						}}
 						className="primary big">Rezervare
 					</BookTopPaperRipple>
@@ -117,7 +142,10 @@ const View = ({
 										Detalii
 									</DetailsPaperRipple>
 									<BookOfferPaperRipple
-										onClick={(e) => e.preventDefault()}
+										onClick={(e) => {
+											e.preventDefault();
+											openModal(1);
+										}}
 										tag="button"
 										className="accent">
 										Rezervă

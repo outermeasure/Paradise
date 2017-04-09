@@ -10,6 +10,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppTheme from './jsx/App/AppTheme';
+import {addOnScreenTypeChangedListener} from './js/viewport';
 
 import {
 	Provider,
@@ -32,15 +33,15 @@ const store = Redux.createStore(
 	)
 );
 
-document.addEventListener("touchstart", () => {
-}, true);
+document.addEventListener("touchstart", () => {}, true);
 injectTapEventPlugin();
 
+addOnScreenTypeChangedListener(
+	(screenType) => {
+		store.dispatch(AppActions.setScreenType(screenType));
+	}
+);
 store.dispatch(AppActions.setRoute(window.ROUTE));
-
-if (window.ROUTE === '/') {
-	store.dispatch(IndexActions.fetchPackages());
-}
 
 render(
 	<Provider store={store}>
@@ -50,3 +51,7 @@ render(
 	</Provider>,
 	document.getElementById('paradise')
 );
+
+if (window.ROUTE === '/') {
+	store.dispatch(IndexActions.fetchPackages());
+}

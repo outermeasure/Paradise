@@ -1,4 +1,4 @@
-import View from './WorkflowView';
+import View from './OfferWorkflowView';
 import * as Actions from '../IndexActions';
 import {
 	connect,

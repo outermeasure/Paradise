@@ -1,9 +1,7 @@
 #PersonalInformation {
-  .min-height {
-    padding-bottom: $navHeightWide;
-  }
-
-  .actions {
-
+  @media (max-width: 750px) {
+    .min-height {
+      padding-bottom: 120px;
+    }
   }
 }

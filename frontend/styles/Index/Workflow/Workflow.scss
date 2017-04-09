@@ -37,8 +37,9 @@
       left: 0;
       right: 0;
       padding: 24px 16px 16px;
+      z-index: 9;
 
-      @include linear-gradient("to top", rgba($light, 1) 0%, rgba($light, 1) 80%, rgba($light, 0) 100%);
+      @include linear-gradient("to top", rgba(white, 1) 0%, rgba(white, 1) 85%, rgba(white, 0) 100%);
 
       button {
         width: 100%;
@@ -67,3 +68,4 @@
 }
 
 @import "PersonalInformation/PersonalInformation";
+@import "BookingDetails/BookingDetails";

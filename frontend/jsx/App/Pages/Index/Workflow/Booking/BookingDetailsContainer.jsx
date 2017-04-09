@@ -1,4 +1,4 @@
-import View from './BookingView';
+import View from './BookingDetailsView';
 import * as Actions from '../../IndexActions';
 import * as Steps from '../WorkflowSteps';
 
@@ -13,6 +13,14 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+	onChange(fieldName, fieldValue, clientObject) {
+		dispatch(Actions.setClientObject(
+			{
+				...clientObject,
+				[fieldName]: fieldValue,
+			}
+		));
+	},
 	onNext() {
 		dispatch(Actions.setWorkflowStep(Steps.PERSONAL_INFORMATION));
 	},

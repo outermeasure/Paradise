@@ -1,16 +1,12 @@
 import React from 'react';
-import * as Steps from './WorkflowSteps';
+import * as Steps from './OfferWorkflowSteps';
 import PersonalInformation from
 	'./PersonalInformation/PersonalInformationContainer';
-import BookingDetails from
-	'./Booking/BookingDetailsContainer';
 
 const getComponentByStep = (step) => {
 	switch (step) {
 	case Steps.PERSONAL_INFORMATION:
 		return <PersonalInformation/>;
-	case Steps.BOOKING_DETAILS:
-		return <BookingDetails/>;
 	default:
 		return null;
 	}
@@ -18,7 +14,6 @@ const getComponentByStep = (step) => {
 
 const View = ({
 	closeModal,
-	workflowStep,
 }) => {
 	return <div>
 		<div className="close">
@@ -30,7 +25,7 @@ const View = ({
 			</button>
 		</div>
 		{
-			getComponentByStep(workflowStep)
+			getComponentByStep(Steps.PERSONAL_INFORMATION)
 		}
 	</div>;
 };

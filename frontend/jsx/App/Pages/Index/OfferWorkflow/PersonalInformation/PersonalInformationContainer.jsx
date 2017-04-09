@@ -1,6 +1,6 @@
-import View from './IndexView';
-import * as Actions from './IndexActions';
-
+import View from './PersonalInformationView';
+import * as Actions from '../../IndexActions';
+import * as Steps from '../OfferWorkflowSteps';
 import {
 	connect,
 } from 'react-redux';
@@ -8,17 +8,10 @@ import {
 const mapStateToProps = (state) => {
 	return {
 		...state.Index,
-		screenType: state.App.screenType,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	openModal(which) {
-		dispatch(Actions.setModalOpen(which));
-	},
-	closeModal() {
-		dispatch(Actions.setModalOpen(-1));
-	},
 	onChange(fieldName, fieldValue, clientObject) {
 		dispatch(Actions.setClientObject(
 			{
@@ -27,6 +20,10 @@ const mapDispatchToProps = (dispatch) => ({
 			}
 		));
 	},
+
+	onNext() {
+		dispatch(Actions.setModalOpen(-1));
+	}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

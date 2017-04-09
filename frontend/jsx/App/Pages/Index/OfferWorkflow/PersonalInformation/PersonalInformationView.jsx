@@ -4,7 +4,7 @@ import * as Colors from '../../../../../../js/colors';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
 import TextField from 'material-ui/TextField'
-import * as Steps from '../WorkflowSteps';
+import * as Steps from '../OfferWorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -16,20 +16,10 @@ const PaperRipple = (props) => <Ripple
 	}}
 />;
 
-const GrayPaperRipple = (props) => <Ripple
-	{...props}
-	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
-	opacity={0.3}
-	rmConfig={{
-		stiffness: 50,
-		damping: 20,
-	}}
-/>;
 
 const View = ({
 	onChange,
 	onNext,
-	onBack,
 	clientObject,
 	workflowStep
 }) => {
@@ -97,15 +87,6 @@ const View = ({
 			</form>
 		</div>
 		<div className="actions">
-			<GrayPaperRipple
-				tag="button"
-				type="submit"
-				onClick={(e) => {
-					e.preventDefault();
-					onBack();
-				}}
-				className="flat workflow left">Inapoi
-			</GrayPaperRipple>
 			<PaperRipple
 				tag="button"
 				type="submit"
@@ -113,7 +94,7 @@ const View = ({
 					e.preventDefault();
 					onNext();
 				}}
-				className="primary workflow right">Pasul urmator
+				className="primary workflow right">Rezervare
 			</PaperRipple>
 		</div>
 	</div>;

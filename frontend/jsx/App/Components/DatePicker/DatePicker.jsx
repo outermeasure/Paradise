@@ -1,6 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 import {dateTimeFormat, formatIso, isEqualDate} from 'material-ui/DatePicker/dateUtils';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
+import DatePickerDialog from './DatePickerDialog';
+import * as Colors from '../../../../js/colors';
+import PaperRipple from 'react-paper-ripple';
+
+const InputPaperRipple = (props) => <PaperRipple
+	{...props}
+	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
+	opacity={0.3}
+	rmConfig={{
+		stiffness: 50,
+		damping: 20,
+	}}
+/>;
 
 class DatePicker extends Component {
 	static propTypes = {
@@ -262,6 +274,7 @@ class DatePicker extends Component {
 			DateTimeFormat,
 			autoOk,
 			cancelLabel,
+			screenType,
 			className,
 			container,
 			defaultDate, // eslint-disable-line no-unused-vars
@@ -289,41 +302,44 @@ class DatePicker extends Component {
 		const formatDate = formatDateProp || this.formatDate;
 
 		return (
-		<div className="calendar"
-		     style={prepareStyles(Object.assign({}, style))}>
-			<input
-				{...other}
-				onFocus={this.handleFocus}
-				onTouchTap={this.handleTouchTap}
-				disabled="disabled"
-				ref="input"
-				style={textFieldStyle}
-				value={this.state.date ? formatDate(this.state.date) : ''}
-				className="big"
-				type="text"/>
-			<DatePickerDialog
-				DateTimeFormat={DateTimeFormat}
-				autoOk={autoOk}
-				cancelLabel={cancelLabel}
-				container={container}
-				containerStyle={dialogContainerStyle}
-				disableYearSelection={disableYearSelection}
-				firstDayOfWeek={firstDayOfWeek}
-				initialDate={this.state.dialogDate}
-				locale={locale}
-				maxDate={maxDate}
-				minDate={minDate}
-				mode={mode}
-				okLabel={okLabel}
-				onAccept={this.handleAccept}
-				onShow={onShow}
-				onDismiss={onDismiss}
-				ref="dialogWindow"
-				shouldDisableDate={shouldDisableDate}
-				hideCalendarDate={hideCalendarDate}
-			/>
-			<i className="big icon-calendar2"/>
-		</div>
+			<InputPaperRipple
+				className="calendar"
+				tag="div"
+				style={prepareStyles(Object.assign({}, style))}>
+				<input
+					{...other}
+					onFocus={this.handleFocus}
+					onTouchTap={this.handleTouchTap}
+					disabled="disabled"
+					ref="input"
+					style={textFieldStyle}
+					value={this.state.date ? formatDate(this.state.date) : ''}
+					className="big"
+					type="text"/>
+				<DatePickerDialog
+					DateTimeFormat={DateTimeFormat}
+					autoOk={autoOk}
+					cancelLabel={cancelLabel}
+					screenType={screenType}
+					container={container}
+					containerStyle={dialogContainerStyle}
+					disableYearSelection={disableYearSelection}
+					firstDayOfWeek={firstDayOfWeek}
+					initialDate={this.state.dialogDate}
+					locale={locale}
+					maxDate={maxDate}
+					minDate={minDate}
+					mode={mode}
+					okLabel={okLabel}
+					onAccept={this.handleAccept}
+					onShow={onShow}
+					onDismiss={onDismiss}
+					ref="dialogWindow"
+					shouldDisableDate={shouldDisableDate}
+					hideCalendarDate={hideCalendarDate}
+				/>
+				<i className="big icon-calendar2"/>
+			</InputPaperRipple>
 		);
 	}
 }

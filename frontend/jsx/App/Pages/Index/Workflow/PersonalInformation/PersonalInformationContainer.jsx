@@ -22,10 +22,11 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 
 	onBack() {
-		dispatch(Actions.setWorkflowStep(Steps.SERVICES_HOUSING));
+		dispatch(Actions.setWorkflowStep(Steps.BOOKING_DETAILS));
 	},
 
 	onNext() {
+		dispatch(Actions.setModalOpen(-1));
 	}
 });
 
