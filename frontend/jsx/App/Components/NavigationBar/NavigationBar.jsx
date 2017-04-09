@@ -58,7 +58,7 @@ const NavigationBar = ({
 			</li>
 		</ul>
 		<div className="sandwich">
-			<i className="icon-navicon"/>
+			<i className="icon-bars"/>
 			<NavPaperRipple
 				tag="a"
 				href="/"
