@@ -13,17 +13,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	onChange(fieldName, fieldValue, clientObject) {
-		dispatch(Actions.setClientObject(
-			{
-				...clientObject,
-				[fieldName]: fieldValue,
-			}
-		));
-	},
-	onNext() {
-		dispatch(Actions.setWorkflowStep(Steps.PERSONAL_INFORMATION));
-	},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

@@ -5,6 +5,8 @@ import Workflow from './Workflow/WorkflowContainer';
 import DatePicker from '../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../js/viewport';
 
+const DateTimeFormat = global.Intl.DateTimeFormat;
+
 const BookTopPaperRipple = (props) => <PaperRipple
 	{...props}
 	color={Colors.colorLuminance(Colors.PRIMARY, 0.5)}
@@ -71,6 +73,8 @@ const View = ({
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
+						locale="ro"
+						DateTimeFormat={DateTimeFormat}
 						placeholder={"Data inceput"}/>
 					<DatePicker
 						value={clientObject.endDate}
@@ -80,6 +84,8 @@ const View = ({
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
 						}}
+						DateTimeFormat={DateTimeFormat}
+						locale="ro"
 						placeholder={"Pana in"}/>
 					<BookTopPaperRipple
 						tag="button"

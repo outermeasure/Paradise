@@ -5,7 +5,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import * as Steps from '../WorkflowSteps';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
-import * as RoomTypes from '../WorkflowRoomTypes';
+import {RoomTypes, Data} from '../WorkflowRoomTypes';
 import _ from 'lodash';
 
 const PaperRipple = (props) => <Ripple
@@ -27,41 +27,48 @@ const styles = {
 	},
 };
 
+const makeRoomLabel = (roomType) => `Camera ${Data[roomType].labelRo} - ${Data[roomType].priceLei} lei / noapte`;
+
 const View = ({
 	onChange,
 	onNext,
-	onBack,
 	workflowStep,
 	clientObject,
 }) => {
 	const roomTypes = _.toPairs(RoomTypes);
 
 
-	return <div className="popup" id="BookingView">
+	return <div className="popup" id="BookingDetails">
 		<StepProgressBar steps={Steps.getNumberOfSteps()}
 		                 progress={Steps.getStepIndexByLabel(workflowStep) / (Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Detalii Rezervare</h3>
-				<form>
-					<ul className="vertical-layout">
-						<li>
-							<RadioButtonGroup name="roomType"
-							                  valueSelected={clientObject.roomType}
-							                  defaultSelected="not_light">
+			<h3>Detalii rezervare</h3>
+			<form>
+				<ul className="vertical-layout">
+					<li>
+						<RadioButtonGroup name="roomType"
+						                  onChange={
+							                  (e, v) => {
+								                  e.preventDefault();
+								                  onChange("roomType", v, clientObject);
+							                  }
+						                  }
+						                  valueSelected={clientObject.roomType}>
 								{
 									roomTypes.map(
 										rt => <RadioButton
-											key={rt[0]}
-											label={rt[0]}
-											value={rt[1]}
-											style={styles.radioButton}
-										/>
+												labelStyle={{color: "auto"}}
+												key={rt[0]}
+												label={makeRoomLabel(rt[1])}
+												value={rt[1]}
+												style={styles.radioButton}
+											/>
 									)
 								}
-							</RadioButtonGroup>
-						</li>
-					</ul>
-				</form>
+						</RadioButtonGroup>
+					</li>
+				</ul>
+			</form>
 		</div>
 		<div className="actions">
 			<PaperRipple

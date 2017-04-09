@@ -47,9 +47,9 @@ const View = ({
 							fullWidth={true}
 							className="medium-big"
 							floatingLabelText={"Nume"}
-							onChange={(e) => {
+							onChange={(e, v) => {
 								e.preventDefault();
-								onChange("lastName", e.target.value, clientObject);
+								onChange("lastName", v, clientObject);
 							}}
 							type="text"
 							hintText="Ex: Pop"/>
@@ -60,9 +60,9 @@ const View = ({
 							fullWidth={true}
 							className="medium-big"
 							floatingLabelText={"Prenume"}
-							onChange={(e) => {
+							onChange={(e, v) => {
 								e.preventDefault();
-								onChange("firstName", e.target.value, clientObject);
+								onChange("firstName", v, clientObject);
 							}}
 							type="text"
 							hintText="Ex: Ioan"/>
@@ -73,9 +73,9 @@ const View = ({
 							fullWidth={true}
 							className="medium-big"
 							floatingLabelText={"Telefon"}
-							onChange={(e) => {
+							onChange={(e, v) => {
 								e.preventDefault();
-								onChange("phoneNumber", e.target.value, clientObject);
+								onChange("phoneNumber", v, clientObject);
 							}}
 							type="text"
 							hintText="XXXX-XXX-XXX"/>
@@ -86,9 +86,9 @@ const View = ({
 							fullWidth={true}
 							className="medium-big"
 							floatingLabelText={"Email"}
-							onChange={(e) => {
+							onChange={(e, v) => {
 								e.preventDefault();
-								onChange("email", e.target.value, clientObject);
+								onChange("email", v, clientObject);
 							}}
 							type="text"
 							hintText="Ex: pop.ioan@gmail.com"/>
