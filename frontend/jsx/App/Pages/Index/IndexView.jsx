@@ -65,7 +65,8 @@ const View = ({
 				<form className="twelve columns text-center">
 					<DatePicker
 						value={clientObject.startDate}
-						container="inline"
+						container="dialog"
+						screenType={screenType}
 						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
@@ -73,7 +74,8 @@ const View = ({
 						placeholder={"Data inceput"}/>
 					<DatePicker
 						value={clientObject.endDate}
-						container="inline"
+						container="dialog"
+						screenType={screenType}
 						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
