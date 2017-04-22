@@ -1,7 +1,6 @@
 <div class="main">
 	<ul class="card-collection">
-		{{range $i, $v := .Packages}}
-		<li class="card">
+		{{range $i, $v := .Packages}}<li class="card">
 			<img src="{{$v.Photo}}"/>
 			<div class="info">
 				<h3>{{$v.Title}}</h3>
@@ -9,10 +8,8 @@
 				<div class="price">{{$v.Price}} lei / persoană</div>
 			</div>
 			<div class="actions">
-				<button>Detalii</button>
-				<button class="accent">Rezervă</button>
+				<button>Detalii</button><button class="accent">Rezervă</button>
 			</div>
-		</li>
-		{{end}}
+		</li>{{end}}
 	</ul>
 </div>

@@ -5,13 +5,15 @@ import AppReducer from './jsx/App/AppReducer';
 import App from './jsx/App/AppContainer';
 import * as AppActions from './jsx/App/AppActions';
 import * as IndexActions from './jsx/App/Pages/Index/IndexActions';
+import * as PackagesActions from './jsx/App/Pages/Packages/PackagesActions';
 import ReactModal from 'react-modal';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppTheme from './jsx/App/AppTheme';
-import {addOnScreenTypeChangedListener} from './js/viewport';
-
+import {
+	addOnScreenTypeChangedListener,
+} from './js/viewport';
 import {
 	Provider,
 } from 'react-redux';
@@ -54,15 +56,25 @@ addOnScreenTypeChangedListener(
 store.dispatch(AppActions.setRoute(window.ROUTE));
 store.dispatch(AppActions.setParameters(window.PARAMETERS));
 
-render(
-	<Provider store={store}>
-		<MuiThemeProvider muiTheme={getMuiTheme(AppTheme)}>
-			<App />
-		</MuiThemeProvider>
-	</Provider>,
-	document.getElementById('paradise')
-);
+const renderApplication = () => {
+	render(
+		<Provider store={store}>
+			<MuiThemeProvider muiTheme={getMuiTheme(AppTheme)}>
+				<App />
+			</MuiThemeProvider>
+		</Provider>,
+		document.getElementById('paradise')
+	);
+};
 
 if (window.ROUTE === '/') {
-	store.dispatch(IndexActions.fetchPackages());
+	store.dispatch(IndexActions.fetchPackages(
+		renderApplication
+	));
+} else if (window.ROUTE === '/packages') {
+	store.dispatch(PackagesActions.fetchPackages(
+		renderApplication
+	));
+} else {
+	renderApplication();
 }

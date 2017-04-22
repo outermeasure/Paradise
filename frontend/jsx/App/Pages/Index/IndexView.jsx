@@ -133,6 +133,10 @@ const View = ({
 
 								<CardPaperRipple
 									className="content"
+									onClick={(e) => {
+										e.preventDefault();
+										window.location = `package/${pack.Url}`;
+									}}
 									tag="div">
 									<img
 										src={pack.Photo}/>
@@ -149,7 +153,7 @@ const View = ({
 									<DetailsPaperRipple
 										onClick={(e) => {
 											e.preventDefault();
-											window.location = `package/${pack.Url}`
+											window.location = `package/${pack.Url}`;
 										}}
 										tag="button">
 										Detalii

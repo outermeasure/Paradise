@@ -37,7 +37,7 @@ Aventura este cuvantul cheie al acestei excursii. Inca din momentul in care para
 - ***Ziua 1*** Va asteptam la **Hotel Delta Tulcea** la o ora **16:00**. Masinile personale pot fi parcate in Tulcea. Ghidul va va indruma spre o parcare privata, pazita, cu un cost de **10 lei/zi/masina** (pretul parcarii NU este inclus in pretul sejurului). Va conducem la Mila 23. Vom merge pe unul dintre cele mai frumoase trasee din Delta Dunarii, traseul turistic (Canal 36, Garla Sireasa, Garla Sontea, Canalul Olguta, Dunarea Veche Sat Mila23 – Paradise 4 stele). Seara avem pregatita o cina pescareasca traditionala.
 - ***Ziua 2*** Dupa micul dejun de la ora 8:30 pornim in excursia pe lacuri la ora 10:00. Plecam din Mila 23 spre lacurile din jur in 2 iesiri de cca 3 ore, una de dimineata si una dupa masa de pranz. In functie de cotele apelor Dunarii precum si in functie de informatiile pe care le avem despre locurile pe care se hranesc grupuri mari de pasari vom alege traseul cel mai bun in fiecare zi. La ora 13:30 ne intoarcem la masa de pranz, mancam, ne relaxam putin, apoi cu 4 ore inainte de apus, iesim din nou pe apa, pe o alta ruta iar la intoarcere (dupa apus), ne asteapta o cina traditionala, bazata pe peste proaspat.
 - ***Ziua 3*** De dimineata, dupa mic dejun (ora 8:30), plecam in una din urmatoarele excursii (ora 10).
-	-  Padurea Letea si Satul Letea (se organizeaza in lunile aprilie, mai, septembrie, octombrie). Pana in Satul Letea mergem cu barca iar de acolo luam masina si mergem la Padurea Letea. Vedem punctele de larg interes, ne plimbam putin prin nisipul fin apoi ne intoarcem la barca si pornim inapoi spre pensiunea Paradise unde suntem asteptati cu masa de pranz.
+	- Padurea Letea si Satul Letea (se organizeaza in lunile aprilie, mai, septembrie, octombrie). Pana in Satul Letea mergem cu barca iar de acolo luam masina si mergem la Padurea Letea. Vedem punctele de larg interes, ne plimbam putin prin nisipul fin apoi ne intoarcem la barca si pornim inapoi spre pensiunea Paradise unde suntem asteptati cu masa de pranz.
 	- Sulina (se organizeaza in lunile iunie, iulie, august) - Delta Dunarii si Marea neagra. Vom pleca de la pensiune pe salba de lacuri Trei Iezere, Bogdaproste, Dunarea Veche, Sulina. Seara avem pregatita o cina traditionala pescareasca.
 - ***Ziua 4*** Mic dejun la ora 8:30 iar la 10 pornim spre Tulcea. In jur de ora 14:00 debarcam la Tulcea.
 
@@ -62,15 +62,13 @@ Aventura este cuvantul cheie al acestei excursii. Inca din momentul in care para
 
 
 #####Rezervari
-* Rezervarile se fac pe baza achitarii unui avans de 30% din pretul pachetului. Diferenta de pret va fi achitata la pensiune. Inainte de rezervare va rugam cititi cu atentie **termenii si conditiile**, cererea unei rezervari implica acceptarea termenilor si conditiilor.
-* Orice rezervare se face prin achitarea unui avans de 30% din costul pachetului ales. 
+Orice rezervare se face prin achitarea unui avans de 30% din costul pachetului ales. Avansul este nerambursabil. Pentru plata avansului va rugam sa ne trimiteti datele de facturare ale firmei sau persoana fizica (nume, adresa, CNP). 
 
-Plata se face in contul
+Plata se face in contul:
 
-	Titular: PFA Forgo Mihaela
-	IBAN: RO28BTRLRONCRT0217704401 – lei
-	BANCA TRANSILVANIA, sucursala Tulcea
-
+		Titular: SC Hotel Paradis SRL
+		IBAN(lei): RO18BTRLRONCRT0386965701
+		BANCA TRANSILVANIA, sucursala Tulcea
 ----------
 
 #####Contact

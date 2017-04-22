@@ -15,6 +15,7 @@ const getPage = (route, parameters) => {
 			return <Package
 				id={parameters["id"]}
 				markdownHTML={parameters["markdownHTML"]}
+				cover={parameters["cover"]}
 			/>;
 		default:
 			return <FourOhFour/>;

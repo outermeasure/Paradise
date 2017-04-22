@@ -2,12 +2,11 @@ import * as Utils from '../../../../js/utils';
 import _ from 'lodash';
 
 export const
-	REQUEST_PACKAGES = "INDEX.REQUEST_PACKAGES",
-	RECEIVE_PACKAGES = "INDEX.RECEIVE_PACKAGES",
-	SET_MODAL_OPEN = "INDEX.SET_MODAL_OPEN",
-	SET_WORKFLOW_STEP = "INDEX.SET_WORKFLOW_STEP",
-	SET_OFFER_WORKFLOW_STEP = "INDEX.SET_OFFER_WORKFLOW_STEP",
-	SET_CLIENT_OBJECT = "INDEX.SET_CLIENT_OBJECT";
+	REQUEST_PACKAGES = "PACKAGES.REQUEST_PACKAGES",
+	RECEIVE_PACKAGES = "PACKAGES.RECEIVE_PACKAGES",
+	SET_MODAL_OPEN = "PACKAGES.SET_MODAL_OPEN",
+	SET_OFFER_WORKFLOW_STEP = "PACKAGES.SET_OFFER_WORKFLOW_STEP",
+	SET_CLIENT_OBJECT = "PACKAGES.SET_CLIENT_OBJECT";
 
 export const
 	requestPackages = () => ({
@@ -21,10 +20,6 @@ export const
 	setModalOpen = (modalOpen) => ({
 		type: SET_MODAL_OPEN,
 		modalOpen,
-	}),
-	setWorkflowStep = (workflowStep) => ({
-		type: SET_WORKFLOW_STEP,
-		workflowStep,
 	}),
 	setOfferWorkflowStep = (offerWorkflowStep) => ({
 		type: SET_OFFER_WORKFLOW_STEP,
@@ -44,7 +39,7 @@ export const
 				} else {
 					dispatch(
 						receivePackages(
-							_.filter(response, (p) => p.ShowOnIndexPage)
+							_.filter(response, (p) => p.ShowOnPackagePage)
 						)
 					);
 					next();

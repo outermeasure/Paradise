@@ -80,9 +80,15 @@ func Render(w io.Writer, templateName string, page *Page) {
 func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 0
-	context.Packages = getParadisePackages(
+	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
+	context.Packages = []Package{}
+	for i := 0; i < len(all); i++ {
+		if(all[i].ShowOnIndexPage) {
+			context.Packages = append(context.Packages, all[i])
+		}
+	}
 	Render(w, "index.gohtml", context)
 }
 
@@ -94,9 +100,15 @@ func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 2
-	context.Packages = getParadisePackages(
+	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
+	context.Packages = []Package{}
+	for i := 0; i < len(all); i++ {
+		if(all[i].ShowOnPackagePage) {
+			context.Packages = append(context.Packages, all[i])
+		}
+	}
 	Render(w, "packages.gohtml", context)
 }
 
@@ -123,9 +135,14 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 				html,
 			)
 
+		context.RenderedPackageCover = template.HTMLAttr(
+			context.PackageDetails.PageDetailsCover,
+		)
+
 		context.Parameters["url"] = context.PackageDetails.Url;
 		context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
 		context.Parameters["markdownHTML"] = string(html)
+		context.Parameters["cover"] = context.PackageDetails.PageDetailsCover
 	}
 
 	Render(w, "package.gohtml", context)

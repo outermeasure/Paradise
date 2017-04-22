@@ -1,5 +1,6 @@
 import * as AppActions from './AppActions';
 import IndexReducer from './Pages/Index/IndexReducer';
+import PackagesReducer from './Pages/Packages/PackagesReducer';
 import {
 	combineReducers,
 } from 'redux';
@@ -35,4 +36,5 @@ const AppReducer = (state = BASE_STATE, action) => {
 export default combineReducers({
 	App: AppReducer,
 	Index: IndexReducer,
+	Packages: PackagesReducer,
 });

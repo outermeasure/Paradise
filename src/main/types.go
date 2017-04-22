@@ -53,6 +53,7 @@ type Page struct {
 	Packages                []Package
 	PackageDetails          *Package
 	RenderedPackageMarkdown template.HTML
+	RenderedPackageCover    template.HTMLAttr
 	InheritedHTML           template.HTML
 }
 
@@ -74,6 +75,7 @@ type Package struct {
 	Id                  int `json:"Id"`
 	ShowOnIndexPage     bool `json:"ShowOnIndexPage"`
 	ShowOnPackagePage   bool `json:"ShowOnPackagePage"`
+	PageDetailsCover    string `json:"PageDetailsCover"`
 	PageDetailsMarkdown string `json:"PageDetailsMarkdown"`
 	Url                 string `json:"Url"`
 	Price               float64 `json:"Price"`
