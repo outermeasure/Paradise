@@ -7,7 +7,6 @@ import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
 import {RoomTypes, Data} from '../WorkflowRoomTypes';
 import _ from 'lodash';
-import Service from '../ServiceWidget/ServiceContainer';
 
 const PaperRipple = (props) => <Ripple
 	{...props}

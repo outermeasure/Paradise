@@ -21,11 +21,11 @@ const View = ({
 	onChange,
 	onNext,
 	clientObject,
-	workflowStep
+	offerWorkflowStep
 }) => {
 	return <div className="popup" id="PersonalInformation">
 		<StepProgressBar steps={Steps.getNumberOfSteps()}
-		                 progress={Steps.getStepIndexByLabel(workflowStep) / (Steps.getNumberOfSteps() - 1)}/>
+		                 progress={Steps.getStepIndexByLabel(offerWorkflowStep) / (Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
 			<h3>Informatii personale</h3>
 			<form>

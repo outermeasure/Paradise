@@ -1,5 +1,6 @@
 import * as Actions from './IndexActions';
 import * as Steps from './Workflow/WorkflowSteps';
+import * as OfferSteps from './OfferWorkflow/OfferWorkflowSteps';
 import * as RoomTypes from './Workflow/WorkflowRoomTypes';
 
 const
@@ -33,46 +34,52 @@ const
 		packages: BASE_PACKAGES,
 		modalOpen: -1,
 		workflowStep: Steps.BOOKING_DETAILS,
+		offerWorkflowStep: OfferSteps.PERSONAL_INFORMATION,
 		clientObject: BASE_BOOKING,
 	};
 
 const IndexReducer = (state = BASE_STATE, action) => {
 	switch (action.type) {
-	case Actions.REQUEST_PACKAGES:
-		return {
-			...state,
-			packages: {
-				...state.packages,
-				isFetching: true,
-			},
-		};
-	case Actions.SET_MODAL_OPEN:
-		return {
-			...state,
-			modalOpen: action.modalOpen,
-		};
-	case Actions.SET_WORKFLOW_STEP:
-		return {
-			...state,
-			workflowStep: action.workflowStep,
-		};
-	case Actions.SET_CLIENT_OBJECT:
-		return {
-			...state,
-			clientObject: action.clientObject,
-		};
-	case Actions.RECEIVE_PACKAGES:
-		return {
-			...state,
-			packages: {
-				...state.packages,
-				isFetching: false,
-				items: action.items,
-				receivedAt: action.receivedAt,
-			},
-		};
-	default:
-		return state;
+		case Actions.REQUEST_PACKAGES:
+			return {
+				...state,
+				packages: {
+					...state.packages,
+					isFetching: true,
+				},
+			};
+		case Actions.SET_MODAL_OPEN:
+			return {
+				...state,
+				modalOpen: action.modalOpen,
+			};
+		case Actions.SET_WORKFLOW_STEP:
+			return {
+				...state,
+				workflowStep: action.workflowStep,
+			};
+		case Actions.SET_OFFER_WORKFLOW_STEP:
+			return {
+				...state,
+				offerWorkflowStep: action.offerWorkflowStep,
+			};
+		case Actions.SET_CLIENT_OBJECT:
+			return {
+				...state,
+				clientObject: action.clientObject,
+			};
+		case Actions.RECEIVE_PACKAGES:
+			return {
+				...state,
+				packages: {
+					...state.packages,
+					isFetching: false,
+					items: action.items,
+					receivedAt: action.receivedAt,
+				},
+			};
+		default:
+			return state;
 	}
 };
 

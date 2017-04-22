@@ -2,18 +2,23 @@ import React from 'react';
 import * as Steps from './OfferWorkflowSteps';
 import PersonalInformation from
 	'./PersonalInformation/PersonalInformationContainer';
+import CalendarOptions from
+	'./CalendarOptions/CalendarOptionsContainer';
 
 const getComponentByStep = (step) => {
 	switch (step) {
-	case Steps.PERSONAL_INFORMATION:
-		return <PersonalInformation/>;
-	default:
-		return null;
+		case Steps.PERSONAL_INFORMATION:
+			return <PersonalInformation/>;
+		case Steps.CALENDAR_OPTIONS:
+			return <CalendarOptions/>;
+		default:
+			return null;
 	}
 };
 
 const View = ({
 	closeModal,
+	offerWorkflowStep,
 }) => {
 	return <div>
 		<div className="close">
@@ -25,7 +30,7 @@ const View = ({
 			</button>
 		</div>
 		{
-			getComponentByStep(Steps.PERSONAL_INFORMATION)
+			getComponentByStep(offerWorkflowStep)
 		}
 	</div>;
 };

@@ -94,6 +94,22 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	)
 	Render(w, "packages.gohtml", context)
 }
+
+func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = 0
+	context.PackageDetails = getParadisePackageByUrl(
+		gApplicationState.Configuration.Data,
+		p.ByName("url"),
+	)
+	context.Route = "/package/:url"
+	context.Parameters = map[string]string{}
+	context.Parameters["url"] = context.PackageDetails.Url;
+	context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+
+	Render(w, "package.gohtml", context)
+}
+
 func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 3
@@ -112,7 +128,16 @@ func getGallery(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func getApiPackage(w http.ResponseWriter, _ *http.Request, p httprouter.Params) {
-	jData, _ := json.Marshal(p.ByName("id"))
+	id, err := strconv.Atoi(p.ByName("id"));
+	pack := (*Package)(nil)
+	if (err == nil) {
+		pack = getParadisePackage(
+			gApplicationState.Configuration.Data,
+			id,
+		)
+	}
+
+	jData, _ := json.Marshal(pack)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jData)
 }
@@ -172,7 +197,6 @@ func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTem
 	return n, o, p
 }
 
-
 func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	jData, _ := json.Marshal(
 		getParadisePackages(
@@ -200,6 +224,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/", getIndex)
 	router.GET("/prices", getPrices)
 	router.GET("/packages", getPackages)
+	router.GET("/package/:url", getPackage)
 	router.GET("/restaurant", getRestaurant)
 	router.GET("/location", getLocation)
 	router.GET("/gallery", getGallery)
@@ -209,7 +234,6 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.ServeFiles("/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	router.ServeFiles("/static/*filepath", http.Dir(applicationState.Configuration.Data))
-
 
 	configuration := applicationState.Configuration;
 	ssl := configuration.SSL;

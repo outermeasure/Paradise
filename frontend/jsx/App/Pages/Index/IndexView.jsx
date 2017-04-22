@@ -58,6 +58,14 @@ const View = ({
 	screenType,
 	clientObject,
 }) => {
+	const {
+		startDate,
+		endDate,
+	} = clientObject;
+
+	const disableStartDates = (date) => (endDate && endDate.getTime() <= date.getTime()) || Date.now() - 24 * 3600 * 1000 > date.getTime();
+	const disableEndDates = (date) => startDate && startDate.getTime() >= date.getTime() || Date.now() - 24 * 3600 * 1000 > date.getTime();
+
 	return <div>
 		<Modal
 			contentLabel={""}
@@ -79,20 +87,22 @@ const View = ({
 					Pensiune de lux aflată în mijlocul Deltei Dunării</h1>
 				<form className="twelve columns text-center">
 					<DatePicker
-						value={clientObject.startDate}
+						value={startDate}
 						container="dialog"
 						screenType={screenType}
+						shouldDisableDate={disableStartDates}
 						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
 						locale="ro"
 						DateTimeFormat={DateTimeFormat}
-						placeholder={"Data inceput"}/>
+						placeholder={"Din"}/>
 					<DatePicker
-						value={clientObject.endDate}
+						value={endDate}
 						container="dialog"
 						screenType={screenType}
+						shouldDisableDate={disableEndDates}
 						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
@@ -137,7 +147,10 @@ const View = ({
 								</CardPaperRipple>
 								<div className="actions">
 									<DetailsPaperRipple
-										onClick={(e) => e.preventDefault()}
+										onClick={(e) => {
+											e.preventDefault();
+											window.location = `package/${pack.Url}`
+										}}
 										tag="button">
 										Detalii
 									</DetailsPaperRipple>

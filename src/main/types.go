@@ -43,8 +43,10 @@ type Page struct {
 	Platform           Platform
 	Title              string
 	Route              string
+	Parameters	   map[string]string
 	NavbarSelected     int
 	Packages           []Package
+	PackageDetails     *Package
 	InheritedHTML      template.HTML
 }
 
@@ -63,10 +65,13 @@ type Platform struct {
 }
 
 type Package struct {
+	Id          int `json:"Id"`
+	Url         string `json:"Url"`
 	Price       float64 `json:"Price"`
 	Photo       string `json:"Photo"`
 	Title       string `json:"Title"`
 	Description string `json:"Description"`
+	Nights      int `json:"Nights"`
 }
 
 type SSL struct {

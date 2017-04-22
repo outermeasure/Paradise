@@ -5,6 +5,7 @@ export const
 	RECEIVE_PACKAGES = "INDEX.RECEIVE_PACKAGES",
 	SET_MODAL_OPEN = "INDEX.SET_MODAL_OPEN",
 	SET_WORKFLOW_STEP = "INDEX.SET_WORKFLOW_STEP",
+	SET_OFFER_WORKFLOW_STEP = "INDEX.SET_OFFER_WORKFLOW_STEP",
 	SET_CLIENT_OBJECT = "INDEX.SET_CLIENT_OBJECT";
 
 export const
@@ -23,6 +24,10 @@ export const
 	setWorkflowStep = (workflowStep) => ({
 		type: SET_WORKFLOW_STEP,
 		workflowStep,
+	}),
+	setOfferWorkflowStep = (offerWorkflowStep) => ({
+		type: SET_OFFER_WORKFLOW_STEP,
+		offerWorkflowStep,
 	}),
 	setClientObject = (clientObject) => ({
 		type: SET_CLIENT_OBJECT,
