@@ -1,5 +1,6 @@
-import View from './OfferAndDateSelectionView';
+import View from './ConfirmationView';
 import * as Actions from '../OfferWorkflowActions';
+import * as AppActions from '../../../AppActions';
 import * as Steps from '../OfferWorkflowSteps';
 import {
 	connect,
@@ -13,21 +14,18 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	onChangeStartDate(fieldValue, clientObject) {
-		const startDate = new Date(fieldValue.getTime());
-		const endDate = new Date(fieldValue.getTime()
-			+ clientObject.selectedOffer.Nights * 24 * 3600 * 1000);
+	onClose() {
+		dispatch(AppActions.setModalOpen(-1));
+	},
+	fromBeginning(clientObject) {
 		dispatch(Actions.setClientObject(
 			{
 				...clientObject,
-				startDate: startDate,
-				endDate: endDate,
+				startDate: null,
+				endDate: null,
 			}
 		));
-	},
-
-	onNext() {
-		dispatch(Actions.setStep(Steps.PERSONAL_INFORMATION));
+		dispatch(Actions.setStep(Steps.OFFER_AND_DATE_SELECTION));
 	},
 });
 

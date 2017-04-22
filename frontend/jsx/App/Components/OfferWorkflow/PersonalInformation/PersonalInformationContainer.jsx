@@ -1,22 +1,13 @@
 import View from './PersonalInformationView';
 import * as Actions from '../OfferWorkflowActions';
-import * as AppActions from '../../../AppActions';
 import * as Steps from '../OfferWorkflowSteps';
 import {
 	connect,
 } from 'react-redux';
 
 const mapStateToProps = (state) => {
-	const packages = {};
-	if (state.App.route === '/') {
-		packages.packages = state.Index.packages.items;
-	} else if (state.App.route === '/packages') {
-		packages.packages = state.Packages.packages.items;
-	}
-
 	return {
 		screenType: state.App.screenType,
-		...packages,
 		...state.OfferWorkflow,
 	};
 };
@@ -36,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 
 	onNext() {
-		dispatch(AppActions.setModalOpen(-1));
+		dispatch(Actions.setStep(Steps.CONFIRMATION));
 	},
 });
 

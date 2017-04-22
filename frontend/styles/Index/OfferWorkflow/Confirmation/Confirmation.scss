@@ -1,0 +1,40 @@
+#Confirmation {
+
+  .font-container {
+    display: inline-block;
+    line-height: 1;
+    height: 160px;
+    width: 100%;
+    text-align: center;
+    i {
+      font-size: 140px;
+      line-height: 1;
+      color: $primary;
+    }
+  }
+
+  p {
+    color: rgba(darken($primary, 30%), 0.8);
+    &.top {
+      margin-top: 0;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    &.payment {
+      font-size: 50px;
+      text-align: center;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    &.bottom {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    &.notification {
+      text-align: center;
+      font-style: italic;
+      font-size: 14px;
+    }
+  }
+}

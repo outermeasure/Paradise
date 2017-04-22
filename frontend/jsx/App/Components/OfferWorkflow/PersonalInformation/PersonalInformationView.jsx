@@ -111,6 +111,12 @@ const View = ({
 			<PaperRipple
 				tag="button"
 				type="submit"
+				disabled={
+					clientObject.email === "" ||
+					clientObject.phoneNumber === "" ||
+					clientObject.firstName === "" ||
+					clientObject.lastName === ""
+				}
 				onClick={(e) => {
 					e.preventDefault();
 					onNext();

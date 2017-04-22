@@ -6,7 +6,6 @@ import StepProgressBar from
 import * as Steps from '../OfferWorkflowSteps';
 import DatePicker from '../../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../../js/viewport';
-import * as Utils from '../../../../../js/utils';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -35,8 +34,9 @@ const View = ({
 	} = clientObject;
 
 	const disableStartDates = (date) =>
-		(endDate && endDate.getTime() <= date.getTime()) ||
 		Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+	const security = 30 * selectedOffer.Price / 100;
 
 	return <div
 		className="popup"
@@ -81,14 +81,16 @@ const View = ({
 				</ul>
 			</form>
 			<em>
-				Achitarea avansului de 30% nerambursabil
-				trebuie facuta la cel mult 24 de ore dupa
-				efectuarea rezervarii online pentru a confirma rezervarea
+				Plata avansului de {security} lei nerambursabil
+				trebuie efectuata in cel mult 24 de ore dupa
+				completarea rezervarii online pentru confirmarea
+				acesteia
 			</em>
 		</div>
 		<div className="actions">
 			<PaperRipple
 				tag="button"
+				disabled={startDate === null}
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
