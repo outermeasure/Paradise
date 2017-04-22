@@ -37,7 +37,7 @@ func loadApplication(applicationState *ApplicationState) {
 	applicationState.Parser =
 		UaparserMust(uaparser.New("regexes.yaml"))
 
-	applicationState.Page.Title = "Paradise"
+	applicationState.Page.Title = "Hotel Paradis"
 }
 
 func main() {

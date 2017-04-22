@@ -250,6 +250,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.ServeFiles("/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	router.ServeFiles("/static/*filepath", http.Dir(applicationState.Configuration.Data))
+	router.NotFound = http.FileServer(http.Dir(applicationState.Configuration.Data + "public/"))
 
 	configuration := applicationState.Configuration;
 	ssl := configuration.SSL;

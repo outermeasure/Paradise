@@ -61,7 +61,7 @@
   form {
     max-width: 320px;
     @media (max-width: 750px) {
-      max-width: unset;
+      max-width: inherit;
     }
     margin: auto;
   }
