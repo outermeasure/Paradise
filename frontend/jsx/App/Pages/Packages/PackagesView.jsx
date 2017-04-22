@@ -38,6 +38,7 @@ const CardPaperRipple = (props) => <PaperRipple
 const View = ({
 	packages,
 	openModal,
+	clientObject,
 	closeModal,
 	modalOpen,
 }) => {
@@ -90,7 +91,7 @@ const View = ({
 									<BookOfferPaperRipple
 										onClick={(e) => {
 											e.preventDefault();
-											openModal(1);
+											openModal(1, pack, clientObject);
 										}}
 										tag="button"
 										className="accent">

@@ -21,7 +21,7 @@ const PaperRipple = (props) => <Ripple
 const DateTimeFormat = global.Intl.DateTimeFormat;
 
 const View = ({
-	onChange,
+	onChangeStartDate,
 	onNext,
 	clientObject,
 	step,
@@ -31,13 +31,12 @@ const View = ({
 	const {
 		startDate,
 		endDate,
+		selectedOffer,
 	} = clientObject;
 
 	const disableStartDates = (date) =>
 		(endDate && endDate.getTime() <= date.getTime()) ||
 		Date.now() - 24 * 3600 * 1000 > date.getTime();
-
-	const hasBothDates = startDate && endDate;
 
 	return <div
 		className="popup"
@@ -47,7 +46,7 @@ const View = ({
 			progress={Steps.getStepIndexByLabel(step) /
 				(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Perioada rezervare</h3>
+			<h3>{selectedOffer.Title}</h3>
 			<form>
 				<ul className="vertical-layout">
 					<li>
@@ -59,7 +58,7 @@ const View = ({
 							mode={screenType === Viewport.SCREEN_DESKTOP ?
 								"landscape" : "portrait"}
 							onChange={(e, date) => {
-								onChange("startDate", date, clientObject);
+								onChangeStartDate(date, clientObject);
 							}}
 							locale="ro"
 							DateTimeFormat={DateTimeFormat}
@@ -81,10 +80,11 @@ const View = ({
 					</li>
 				</ul>
 			</form>
-			{
-				hasBothDates ? <div className="nights">
-					{Utils.getNights(startDate, endDate)}</div> : null
-			}
+			<em>
+				Achitarea avansului de 30% nerambursabil
+				trebuie facuta la cel mult 24 de ore dupa
+				efectuarea rezervarii online pentru a confirma rezervarea
+			</em>
 		</div>
 		<div className="actions">
 			<PaperRipple

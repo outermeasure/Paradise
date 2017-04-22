@@ -11,15 +11,24 @@ import {
 const mapStateToProps = (state) => {
 	return {
 		...state.Packages,
+		clientObject: state.OfferWorkflow.clientObject,
 		modalOpen: state.App.modalOpen,
 		screenType: state.App.screenType,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	openModal(which) {
+	openModal(which, pack, clientObject) {
 		switch (which) {
 			case 1:
+				dispatch(OfferWorkflowActions.setClientObject(
+					{
+						...clientObject,
+						startDate: null,
+						endDate: null,
+						selectedOffer: pack,
+					}
+				));
 				dispatch(OfferWorkflowActions.setStep(
 					OfferSteps.OFFER_AND_DATE_SELECTION));
 				break;

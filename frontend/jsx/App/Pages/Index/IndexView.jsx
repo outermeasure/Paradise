@@ -58,6 +58,7 @@ const View = ({
 	modalOpen,
 	screenType,
 	clientObject,
+	offerClientObject,
 }) => {
 	const {
 		startDate,
@@ -171,7 +172,8 @@ const View = ({
 									<BookOfferPaperRipple
 										onClick={(e) => {
 											e.preventDefault();
-											openModal(1);
+											openModal(1, pack,
+												offerClientObject);
 										}}
 										tag="button"
 										className="accent">

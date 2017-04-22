@@ -21,11 +21,15 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	onChange(fieldName, fieldValue, clientObject) {
+	onChangeStartDate(fieldValue, clientObject) {
+		const startDate = new Date(fieldValue.getTime());
+		const endDate = new Date(fieldValue.getTime()
+			+ clientObject.selectedOffer.Nights * 24 * 3600 * 1000);
 		dispatch(Actions.setClientObject(
 			{
 				...clientObject,
-				[fieldName]: fieldValue,
+				startDate: startDate,
+				endDate: endDate,
 			}
 		));
 	},
