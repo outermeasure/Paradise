@@ -1,5 +1,5 @@
 #Oferta de Vara in Paradis 2017
-###*Sejur de lux, 4 zile in Delta Dunarii la 1300 lei/pers.*  
+####Sejur de lux, 4 zile in Delta Dunarii la 1300 lei/pers.  
 ----------
 
 #####Pachetul include

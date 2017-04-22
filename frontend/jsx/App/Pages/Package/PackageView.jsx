@@ -3,7 +3,7 @@ import React from 'react';
 const View = ({
 	markdownHTML,
 }) => {
-	return <div className="main"
+	return <div className="main markdown-light"
 							dangerouslySetInnerHTML={{
 								__html: markdownHTML,
 							}}>

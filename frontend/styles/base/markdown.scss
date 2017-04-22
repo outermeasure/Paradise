@@ -1,0 +1,14 @@
+.markdown {
+  &-light {
+    h1 {
+      color: $navBackgroundColor;
+    }
+    h4 {
+      font-weight: 100;
+    }
+    h5 {
+      color: $accent;
+      font-weight: normal
+    }
+  }
+}
