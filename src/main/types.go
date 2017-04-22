@@ -22,13 +22,18 @@ type Configuration struct {
 }
 
 type ApplicationState struct {
-	Configuration         *Configuration
-	Templates             map[string]*template.Template
-	AssetModificationTime time.Time
-	Page                  Page
-	Files                 map[string]string
-	FilesBytes            map[string][]byte
-	Parser                *uaparser.Parser
+	Configuration              *Configuration
+	Templates                  map[string]*template.Template
+	AssetModificationTime      time.Time
+	Page                       Page
+
+	Files                      map[string]string
+	FilesModificationTime      map[string]time.Time
+
+	FilesBytes                 map[string][]byte
+	FilesBytesModificationTime map[string]time.Time
+
+	Parser                     *uaparser.Parser
 }
 
 type VersionedScript struct {
@@ -37,17 +42,18 @@ type VersionedScript struct {
 }
 
 type Page struct {
-	SafeTemplateJs     SafeTemplateJs
-	UnsafeTemplateData UnsafeTemplateData
-	SafeTemplateCss    SafeTemplateCss
-	Platform           Platform
-	Title              string
-	Route              string
-	Parameters	   map[string]string
-	NavbarSelected     int
-	Packages           []Package
-	PackageDetails     *Package
-	InheritedHTML      template.HTML
+	SafeTemplateJs          SafeTemplateJs
+	UnsafeTemplateData      UnsafeTemplateData
+	SafeTemplateCss         SafeTemplateCss
+	Platform                Platform
+	Title                   string
+	Route                   string
+	Parameters              map[string]string
+	NavbarSelected          int
+	Packages                []Package
+	PackageDetails          *Package
+	RenderedPackageMarkdown template.HTML
+	InheritedHTML           template.HTML
 }
 
 type Engine struct {
@@ -65,13 +71,16 @@ type Platform struct {
 }
 
 type Package struct {
-	Id          int `json:"Id"`
-	Url         string `json:"Url"`
-	Price       float64 `json:"Price"`
-	Photo       string `json:"Photo"`
-	Title       string `json:"Title"`
-	Description string `json:"Description"`
-	Nights      int `json:"Nights"`
+	Id                  int `json:"Id"`
+	ShowOnIndexPage     bool `json:"ShowOnIndexPage"`
+	ShowOnPackagePage   bool `json:"ShowOnPackagePage"`
+	PageDetailsMarkdown string `json:"PageDetailsMarkdown"`
+	Url                 string `json:"Url"`
+	Price               float64 `json:"Price"`
+	Photo               string `json:"Photo"`
+	Title               string `json:"Title"`
+	Description         string `json:"Description"`
+	Nights              int `json:"Nights"`
 }
 
 type SSL struct {

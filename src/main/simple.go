@@ -12,6 +12,7 @@ import (
 	"io/ioutil"
 	"net"
 	"strconv"
+	"github.com/russross/blackfriday"
 )
 
 func Template(path string) string {
@@ -21,6 +22,7 @@ func Template(path string) string {
 func BaseContext(r *http.Request) *Page {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
+		gApplicationState.AssetModificationTime = stat.ModTime()
 		gApplicationState.Page.UnsafeTemplateData,
 			gApplicationState.Page.SafeTemplateJs,
 			gApplicationState.Page.SafeTemplateCss =
@@ -108,8 +110,22 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Route = "/package/:url"
 
 	if (context.PackageDetails != nil) {
+		file, _ := readFileBytesMemoized(
+			gApplicationState.Configuration.Data + context.PackageDetails.PageDetailsMarkdown,
+		)
+
+		html := blackfriday.MarkdownBasic(
+			file,
+		);
+
+		context.RenderedPackageMarkdown =
+			template.HTML(
+				html,
+			)
+
 		context.Parameters["url"] = context.PackageDetails.Url;
 		context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+		context.Parameters["markdownHTML"] = string(html)
 	}
 
 	Render(w, "package.gohtml", context)
@@ -148,28 +164,6 @@ func getApiPackage(w http.ResponseWriter, _ *http.Request, p httprouter.Params) 
 }
 
 var gApplicationState *ApplicationState
-
-func readFileMemoized(file string) (string, bool) {
-	loaded := false
-	if (gApplicationState.Files[file] == "") {
-		content, err := ioutil.ReadFile(file)
-		runtimeAssert(err)
-		gApplicationState.Files[file] = string(content)
-		loaded = true
-	}
-	return gApplicationState.Files[file], loaded
-}
-
-func readFileBytesMemoized(file string) ([]byte, bool) {
-	loaded := false
-	if gApplicationState.FilesBytes[file] == nil {
-		content, err := ioutil.ReadFile(file)
-		runtimeAssert(err)
-		loaded = true
-		gApplicationState.FilesBytes[file] = content
-	}
-	return gApplicationState.FilesBytes[file], loaded
-}
 
 func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTemplateCss) {
 	assets, err := ioutil.ReadFile(filename)

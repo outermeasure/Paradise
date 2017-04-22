@@ -1,14 +1,17 @@
 import React from 'react';
 
 const View = ({
-	id,
-	url,
+	markdownHTML,
 }) => {
-	return <div>
-		{id} - {url}
+	return <div className="main"
+							dangerouslySetInnerHTML={{
+								__html: markdownHTML,
+							}}>
 	</div>;
 };
 
-View.propTypes = {};
+View.propTypes = {
+	markdownHTML: React.PropTypes.string,
+};
 
 export default View;
