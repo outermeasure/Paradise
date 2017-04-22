@@ -29,6 +29,9 @@ func BaseContext(r *http.Request) *Page {
 	page := gApplicationState.Page
 	page.Platform = getPlatform(r.UserAgent())
 	page.Route = r.URL.Path
+	page.Parameters = map[string]string{}
+	page.Parameters["ExplicitRuntimeMode"] =
+		gApplicationState.Configuration.Mode
 	return &page
 }
 
@@ -103,9 +106,11 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		p.ByName("url"),
 	)
 	context.Route = "/package/:url"
-	context.Parameters = map[string]string{}
-	context.Parameters["url"] = context.PackageDetails.Url;
-	context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+
+	if (context.PackageDetails != nil) {
+		context.Parameters["url"] = context.PackageDetails.Url;
+		context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+	}
 
 	Render(w, "package.gohtml", context)
 }

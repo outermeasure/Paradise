@@ -24,13 +24,22 @@ import {
 
 ReactModal.defaultStyles.overlay = {};
 ReactModal.defaultStyles.content = {};
+let middleware;
+
+if (window.PARAMETERS.ExplicitRuntimeMode === "develop") {
+	middleware = Redux.applyMiddleware(
+		thunkMiddleware, // lets us dispatch() functions
+		createLogger() // neat middleware that logs actions
+	);
+} else {
+	middleware = Redux.applyMiddleware(
+		thunkMiddleware // lets us dispatch() functions
+	);
+}
 
 const store = Redux.createStore(
 	AppReducer,
-	Redux.applyMiddleware(
-		thunkMiddleware, // lets us dispatch() functions
-		createLogger() // neat middleware that logs actions
-	)
+	middleware
 );
 
 document.addEventListener("touchstart", () => {}, true);
@@ -41,7 +50,9 @@ addOnScreenTypeChangedListener(
 		store.dispatch(AppActions.setScreenType(screenType));
 	}
 );
+
 store.dispatch(AppActions.setRoute(window.ROUTE));
+store.dispatch(AppActions.setParameters(window.PARAMETERS));
 
 render(
 	<Provider store={store}>
