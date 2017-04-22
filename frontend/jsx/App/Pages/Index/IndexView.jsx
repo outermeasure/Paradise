@@ -2,7 +2,8 @@ import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
 import Workflow from './Workflow/WorkflowContainer';
-import OfferWorkflow from './OfferWorkflow/OfferWorkflowContainer';
+import OfferWorkflow from
+	'../../Components/OfferWorkflow/OfferWorkflowContainer';
 import Modal from 'react-modal';
 import DatePicker from '../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../js/viewport';
@@ -63,8 +64,13 @@ const View = ({
 		endDate,
 	} = clientObject;
 
-	const disableStartDates = (date) => (endDate && endDate.getTime() <= date.getTime()) || Date.now() - 24 * 3600 * 1000 > date.getTime();
-	const disableEndDates = (date) => startDate && startDate.getTime() >= date.getTime() || Date.now() - 24 * 3600 * 1000 > date.getTime();
+	const disableStartDates = (date) =>
+		(endDate && endDate.getTime() <= date.getTime()) ||
+		Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+	const disableEndDates = (date) =>
+		startDate && startDate.getTime() >= date.getTime() ||
+		Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	return <div>
 		<Modal
@@ -74,7 +80,8 @@ const View = ({
 			shouldCloseOnOverlayClick={true}
 			parentSelector={() => document.body}>
 			{
-				modalOpen === 0 ? <Workflow/> : (modalOpen === 1 ? <OfferWorkflow/> : null)
+				modalOpen === 0 ?
+					<Workflow/> : (modalOpen === 1 ? <OfferWorkflow/> : null)
 			}
 		</Modal>
 		<div className="presentation">
@@ -91,7 +98,8 @@ const View = ({
 						container="dialog"
 						screenType={screenType}
 						shouldDisableDate={disableStartDates}
-						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
+						mode={screenType === Viewport.SCREEN_DESKTOP ?
+							"landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
@@ -103,7 +111,8 @@ const View = ({
 						container="dialog"
 						screenType={screenType}
 						shouldDisableDate={disableEndDates}
-						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
+						mode={screenType === Viewport.SCREEN_DESKTOP ?
+							"landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
 						}}
@@ -153,7 +162,8 @@ const View = ({
 									<DetailsPaperRipple
 										onClick={(e) => {
 											e.preventDefault();
-											window.location = `package/${pack.Url}`;
+											window.location =
+												`package/${pack.Url}`;
 										}}
 										tag="button">
 										Detalii

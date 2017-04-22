@@ -1,6 +1,8 @@
 import View from './PackagesView';
-import * as Actions from './PackagesActions';
-import * as OfferSteps from './OfferWorkflow/OfferWorkflowSteps';
+import * as OfferWorkflowActions from
+	'../../Components/OfferWorkflow/OfferWorkflowActions';
+import * as AppActions from '../../AppActions';
+import * as OfferSteps from '../../Components/OfferWorkflow/OfferWorkflowSteps';
 
 import {
 	connect,
@@ -9,6 +11,7 @@ import {
 const mapStateToProps = (state) => {
 	return {
 		...state.Packages,
+		modalOpen: state.App.modalOpen,
 		screenType: state.App.screenType,
 	};
 };
@@ -17,19 +20,19 @@ const mapDispatchToProps = (dispatch) => ({
 	openModal(which) {
 		switch (which) {
 			case 1:
-				dispatch(Actions.setOfferWorkflowStep(
-					OfferSteps.CALENDAR_OPTIONS));
+				dispatch(OfferWorkflowActions.setStep(
+					OfferSteps.OFFER_AND_DATE_SELECTION));
 				break;
 			default:
 				break;
 		}
-		dispatch(Actions.setModalOpen(which));
+		dispatch(AppActions.setModalOpen(which));
 	},
 	closeModal() {
-		dispatch(Actions.setModalOpen(-1));
+		dispatch(AppActions.setModalOpen(-1));
 	},
 	onChange(fieldName, fieldValue, clientObject) {
-		dispatch(Actions.setClientObject(
+		dispatch(OfferWorkflowActions.setClientObject(
 			{
 				...clientObject,
 				[fieldName]: fieldValue,

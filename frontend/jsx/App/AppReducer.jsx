@@ -1,6 +1,8 @@
 import * as AppActions from './AppActions';
 import IndexReducer from './Pages/Index/IndexReducer';
 import PackagesReducer from './Pages/Packages/PackagesReducer';
+import OfferWorkflowReducer from
+	'./Components/OfferWorkflow/OfferWorkflowReducer';
 import {
 	combineReducers,
 } from 'redux';
@@ -9,10 +11,16 @@ const BASE_STATE = {
 	route: null,
 	parameters: null,
 	screenType: null,
+	modalOpen: -1,
 };
 
 const AppReducer = (state = BASE_STATE, action) => {
 	switch (action.type) {
+		case AppActions.SET_MODAL_OPEN:
+			return {
+				...state,
+				modalOpen: action.modalOpen,
+			};
 		case AppActions.SET_PARAMETERS:
 			return {
 				...state,
@@ -37,4 +45,5 @@ export default combineReducers({
 	App: AppReducer,
 	Index: IndexReducer,
 	Packages: PackagesReducer,
+	OfferWorkflow: OfferWorkflowReducer,
 });

@@ -1,7 +1,8 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
-import OfferWorkflow from './OfferWorkflow/OfferWorkflowContainer';
+import OfferWorkflow from
+	'../../Components/OfferWorkflow/OfferWorkflowContainer';
 import Modal from 'react-modal';
 
 const BookOfferPaperRipple = (props) => <PaperRipple
@@ -38,19 +39,8 @@ const View = ({
 	packages,
 	openModal,
 	closeModal,
-	onChange,
 	modalOpen,
-	screenType,
-	clientObject,
 }) => {
-	const {
-		startDate,
-		endDate,
-	} = clientObject;
-
-	const disableStartDates = (date) => (endDate && endDate.getTime() <= date.getTime()) || Date.now() - 24 * 3600 * 1000 > date.getTime();
-	const disableEndDates = (date) => startDate && startDate.getTime() >= date.getTime() || Date.now() - 24 * 3600 * 1000 > date.getTime();
-
 	return <div>
 		<Modal
 			contentLabel={""}
@@ -91,7 +81,8 @@ const View = ({
 									<DetailsPaperRipple
 										onClick={(e) => {
 											e.preventDefault();
-											window.location = `package/${pack.Url}`;
+											window.location =
+												`package/${pack.Url}`;
 										}}
 										tag="button">
 										Detalii

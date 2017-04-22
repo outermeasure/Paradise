@@ -1,7 +1,10 @@
 import View from './IndexView';
 import * as Actions from './IndexActions';
 import * as Steps from './Workflow/WorkflowSteps';
-import * as OfferSteps from './OfferWorkflow/OfferWorkflowSteps';
+import * as OfferSteps from '../../Components/OfferWorkflow/OfferWorkflowSteps';
+import * as OfferActions from
+	'../../Components/OfferWorkflow/OfferWorkflowActions';
+import * as AppActions from '../../AppActions';
 
 import {
 	connect,
@@ -10,6 +13,7 @@ import {
 const mapStateToProps = (state) => {
 	return {
 		...state.Index,
+		modalOpen: state.App.modalOpen,
 		screenType: state.App.screenType,
 	};
 };
@@ -21,15 +25,16 @@ const mapDispatchToProps = (dispatch) => ({
 				dispatch(Actions.setWorkflowStep(Steps.BOOKING_DETAILS));
 				break;
 			case 1:
-				dispatch(Actions.setOfferWorkflowStep(OfferSteps.CALENDAR_OPTIONS));
+				dispatch(OfferActions.setStep(
+					OfferSteps.OFFER_AND_DATE_SELECTION));
 				break;
 			default:
 				break;
 		}
-		dispatch(Actions.setModalOpen(which));
+		dispatch(AppActions.setModalOpen(which));
 	},
 	closeModal() {
-		dispatch(Actions.setModalOpen(-1));
+		dispatch(AppActions.setModalOpen(-1));
 	},
 	onChange(fieldName, fieldValue, clientObject) {
 		dispatch(Actions.setClientObject(

@@ -1,7 +1,5 @@
 import * as Actions from './IndexActions';
 import * as Steps from './Workflow/WorkflowSteps';
-import * as OfferSteps from './OfferWorkflow/OfferWorkflowSteps';
-import * as RoomTypes from './Workflow/WorkflowRoomTypes';
 
 const
 	BASE_BOOKING = {
@@ -32,9 +30,7 @@ const
 	},
 	BASE_STATE = {
 		packages: BASE_PACKAGES,
-		modalOpen: -1,
 		workflowStep: Steps.BOOKING_DETAILS,
-		offerWorkflowStep: OfferSteps.PERSONAL_INFORMATION,
 		clientObject: BASE_BOOKING,
 	};
 
@@ -47,11 +43,6 @@ const IndexReducer = (state = BASE_STATE, action) => {
 					...state.packages,
 					isFetching: true,
 				},
-			};
-		case Actions.SET_MODAL_OPEN:
-			return {
-				...state,
-				modalOpen: action.modalOpen,
 			};
 		case Actions.SET_WORKFLOW_STEP:
 			return {

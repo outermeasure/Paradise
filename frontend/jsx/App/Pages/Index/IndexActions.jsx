@@ -4,7 +4,6 @@ import _ from 'lodash';
 export const
 	REQUEST_PACKAGES = "INDEX.REQUEST_PACKAGES",
 	RECEIVE_PACKAGES = "INDEX.RECEIVE_PACKAGES",
-	SET_MODAL_OPEN = "INDEX.SET_MODAL_OPEN",
 	SET_WORKFLOW_STEP = "INDEX.SET_WORKFLOW_STEP",
 	SET_OFFER_WORKFLOW_STEP = "INDEX.SET_OFFER_WORKFLOW_STEP",
 	SET_CLIENT_OBJECT = "INDEX.SET_CLIENT_OBJECT";
@@ -17,10 +16,6 @@ export const
 		type: RECEIVE_PACKAGES,
 		items: response,
 		receivedAt: Date.now(),
-	}),
-	setModalOpen = (modalOpen) => ({
-		type: SET_MODAL_OPEN,
-		modalOpen,
 	}),
 	setWorkflowStep = (workflowStep) => ({
 		type: SET_WORKFLOW_STEP,

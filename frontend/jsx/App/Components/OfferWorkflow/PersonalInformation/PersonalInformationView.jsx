@@ -1,9 +1,9 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
-import * as Colors from '../../../../../../js/colors';
+import * as Colors from '../../../../../js/colors';
 import StepProgressBar from
-	'../../../../Components/StepProgressBar/StepProgressBar';
-import TextField from 'material-ui/TextField'
+	'../../../Components/StepProgressBar/StepProgressBar';
+import TextField from 'material-ui/TextField';
 import * as Steps from '../OfferWorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
@@ -16,16 +16,28 @@ const PaperRipple = (props) => <Ripple
 	}}
 />;
 
+const GrayPaperRipple = (props) => <Ripple
+	{...props}
+	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
+	opacity={0.3}
+	rmConfig={{
+		stiffness: 50,
+		damping: 20,
+	}}
+/>;
 
 const View = ({
 	onChange,
 	onNext,
+	onPrevious,
 	clientObject,
 	offerWorkflowStep
 }) => {
 	return <div className="popup" id="PersonalInformation">
-		<StepProgressBar steps={Steps.getNumberOfSteps()}
-		                 progress={Steps.getStepIndexByLabel(offerWorkflowStep) / (Steps.getNumberOfSteps() - 1)}/>
+		<StepProgressBar
+			steps={Steps.getNumberOfSteps()}
+			progress={Steps.getStepIndexByLabel(offerWorkflowStep) /
+				(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
 			<h3>Informatii personale</h3>
 			<form>
@@ -87,6 +99,15 @@ const View = ({
 			</form>
 		</div>
 		<div className="actions">
+			<GrayPaperRipple
+				tag="button"
+				type="submit"
+				onClick={(e) => {
+					e.preventDefault();
+					onPrevious();
+				}}
+				className="flat workflow left">Inapoi
+			</GrayPaperRipple>
 			<PaperRipple
 				tag="button"
 				type="submit"

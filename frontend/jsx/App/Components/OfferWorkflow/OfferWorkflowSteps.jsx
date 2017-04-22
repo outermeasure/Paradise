@@ -1,12 +1,12 @@
 export const
 	PERSONAL_INFORMATION = "PERSONAL_INFORMATION",
-	CALENDAR_OPTIONS = "CALENDAR_OPTIONS",
+	OFFER_AND_DATE_SELECTION = "OFFER_AND_DATE_SELECTION",
 	CONFIRMATION = "CONFIRMATION";
 
 export const
 	getStepIndexByLabel = (label) => {
 
-		if (label === CALENDAR_OPTIONS) {
+		if (label === OFFER_AND_DATE_SELECTION) {
 			return 0;
 		}
 

@@ -1,5 +1,6 @@
 import View from './PersonalInformationView';
 import * as Actions from '../../IndexActions';
+import * as AppActions from '../../../../AppActions';
 import * as Steps from '../WorkflowSteps';
 import {
 	connect,
@@ -26,8 +27,8 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 
 	onNext() {
-		dispatch(Actions.setModalOpen(-1));
-	}
+		dispatch(AppActions.setModalOpen(-1));
+	},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);
