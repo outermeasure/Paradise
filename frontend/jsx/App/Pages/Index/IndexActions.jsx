@@ -21,10 +21,6 @@ export const
 		type: SET_WORKFLOW_STEP,
 		workflowStep,
 	}),
-	setOfferWorkflowStep = (offerWorkflowStep) => ({
-		type: SET_OFFER_WORKFLOW_STEP,
-		offerWorkflowStep,
-	}),
 	setClientObject = (clientObject) => ({
 		type: SET_CLIENT_OBJECT,
 		clientObject,

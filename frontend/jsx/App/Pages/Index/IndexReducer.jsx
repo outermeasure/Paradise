@@ -49,11 +49,6 @@ const IndexReducer = (state = BASE_STATE, action) => {
 				...state,
 				workflowStep: action.workflowStep,
 			};
-		case Actions.SET_OFFER_WORKFLOW_STEP:
-			return {
-				...state,
-				offerWorkflowStep: action.offerWorkflowStep,
-			};
 		case Actions.SET_CLIENT_OBJECT:
 			return {
 				...state,
