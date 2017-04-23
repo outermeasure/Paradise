@@ -11,14 +11,15 @@ type SafeTemplateJs map[string]template.JS
 type SafeTemplateCss map[string]template.CSS
 
 type Configuration struct {
-	Host      string `json:"Host"`
-	Port      int `json:"Port"`
-	Assets    string `json:"Assets"`
-	Public    string `json:"Public"`
-	Data      string `json:"Data"`
-	Templates string `json:"Templates"`
-	Mode      string `json:"Mode"`
-	SSL       *SSL `json:"SSL,omitempty"`
+	Host         string `json:"Host"`
+	Port         int `json:"Port"`
+	Assets       string `json:"Assets"`
+	Public       string `json:"Public"`
+	Data         string `json:"Data"`
+	Templates    string `json:"Templates"`
+	Mode         string `json:"Mode"`
+	SSL          *SSL `json:"SSL,omitempty"`
+	GoogleApiKey *string `json:"GoogleApiKey,omitempty"`
 }
 
 type ApplicationState struct {
@@ -42,20 +43,21 @@ type VersionedScript struct {
 }
 
 type Page struct {
-	SafeTemplateJs          SafeTemplateJs
-	UnsafeTemplateData      UnsafeTemplateData
-	SafeTemplateCss         SafeTemplateCss
-	Platform                Platform
-	Title                   string
-	Route                   string
-	Parameters              map[string]string
-	NavbarSelected          int
-	Packages                []Package
-	PackageDetails          *Package
-	RenderedPackageMarkdown template.HTML
-	RenderedPackageCover    template.HTMLAttr
-	RenderedPricesMarkdown  template.HTML
-	InheritedHTML           template.HTML
+	SafeTemplateJs           SafeTemplateJs
+	UnsafeTemplateData       UnsafeTemplateData
+	SafeTemplateCss          SafeTemplateCss
+	Platform                 Platform
+	Title                    string
+	Route                    string
+	Parameters               map[string]string
+	NavbarSelected           int
+	Packages                 []Package
+	PackageDetails           *Package
+	RenderedPackageMarkdown  template.HTML
+	RenderedPackageCover     template.HTMLAttr
+	RenderedPricesMarkdown   template.HTML
+	RenderedLocationMarkdown template.HTML
+	InheritedHTML            template.HTML
 }
 
 type Engine struct {

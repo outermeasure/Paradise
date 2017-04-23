@@ -4,6 +4,7 @@ import Index from './Pages/Index/IndexContainer';
 import Packages from './Pages/Packages/PackagesContainer';
 import Package from './Pages/Package/PackageContainer';
 import Prices from './Pages/Prices/PricesContainer';
+import Location from './Pages/Location/LocationContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
 
 const getPage = (route, parameters) => {
@@ -20,6 +21,10 @@ const getPage = (route, parameters) => {
 			/>;
 		case '/prices':
 			return <Prices
+				markdownHTML={parameters["markdownHTML"]}
+			/>;
+		case '/location':
+			return <Location
 				markdownHTML={parameters["markdownHTML"]}
 			/>;
 		default:

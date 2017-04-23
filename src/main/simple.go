@@ -168,6 +168,20 @@ func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 4
+	file, _ := readFileBytesMemoized(
+		gApplicationState.Configuration.Data + "location/location.md",
+	)
+	html := blackfriday.MarkdownBasic(
+		file,
+	)
+	context.RenderedLocationMarkdown =
+		template.HTML(
+			html,
+		)
+	context.Parameters["markdownHTML"] = string(html)
+	if (gApplicationState.Configuration.GoogleApiKey != nil) {
+		context.Parameters["GoogleApiKey"] = *gApplicationState.Configuration.GoogleApiKey
+	}
 	Render(w, "location.gohtml", context)
 }
 

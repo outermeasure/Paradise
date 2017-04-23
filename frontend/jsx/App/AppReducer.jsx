@@ -11,6 +11,7 @@ const BASE_STATE = {
 	route: null,
 	parameters: null,
 	screenType: null,
+	googleLibraries: null,
 	modalOpen: -1,
 };
 
@@ -30,6 +31,11 @@ const AppReducer = (state = BASE_STATE, action) => {
 			return {
 				...state,
 				screenType: action.screenType,
+			};
+		case AppActions.SET_GOOGLE_LIBRARIES:
+			return {
+				...state,
+				googleLibraries: action.googleLibraries,
 			};
 		case AppActions.SET_ROUTE:
 			return {
