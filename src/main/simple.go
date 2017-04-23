@@ -95,6 +95,18 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 1
+
+	file, _ := readFileBytesMemoized(
+		gApplicationState.Configuration.Data + "prices/prices.md",
+	)
+	html := blackfriday.MarkdownBasic(
+		file,
+	)
+	context.RenderedPricesMarkdown =
+		template.HTML(
+			html,
+		)
+	context.Parameters["markdownHTML"] = string(html)
 	Render(w, "prices.gohtml", context);
 }
 func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {

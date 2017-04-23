@@ -3,6 +3,7 @@ import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Index from './Pages/Index/IndexContainer';
 import Packages from './Pages/Packages/PackagesContainer';
 import Package from './Pages/Package/PackageContainer';
+import Prices from './Pages/Prices/PricesContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
 
 const getPage = (route, parameters) => {
@@ -16,6 +17,10 @@ const getPage = (route, parameters) => {
 				id={parameters["id"]}
 				markdownHTML={parameters["markdownHTML"]}
 				cover={parameters["cover"]}
+			/>;
+		case '/prices':
+			return <Prices
+				markdownHTML={parameters["markdownHTML"]}
 			/>;
 		default:
 			return <FourOhFour/>;

@@ -54,6 +54,7 @@ type Page struct {
 	PackageDetails          *Package
 	RenderedPackageMarkdown template.HTML
 	RenderedPackageCover    template.HTMLAttr
+	RenderedPricesMarkdown  template.HTML
 	InheritedHTML           template.HTML
 }
 
