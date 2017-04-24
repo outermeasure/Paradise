@@ -29,7 +29,6 @@ func getParadisePackage(dataFolder string, id int) *Package {
 	return nil
 }
 
-
 func getParadisePackageByUrl(dataFolder string, url string) *Package {
 	packages := getParadisePackages(dataFolder)
 	for i := 0; i < len(packages); i++ {
