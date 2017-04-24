@@ -6,7 +6,7 @@ import App from './jsx/App/AppContainer';
 import * as AppActions from './jsx/App/AppActions';
 import * as IndexActions from './jsx/App/Pages/Index/IndexActions';
 import * as PackagesActions from './jsx/App/Pages/Packages/PackagesActions';
-import ReactModal from 'react-modal';
+import * as GalleryActions from './jsx/App/Pages/Gallery/GalleryActions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,8 +24,6 @@ import {
 	createLogger,
 } from 'redux-logger';
 
-ReactModal.defaultStyles.overlay = {};
-ReactModal.defaultStyles.content = {};
 let middleware;
 
 if (window.PARAMETERS.ExplicitRuntimeMode === "develop") {
@@ -73,6 +71,11 @@ if (window.ROUTE === '/') {
 	));
 } else if (window.ROUTE === '/packages') {
 	store.dispatch(PackagesActions.fetchPackages(
+		renderApplication
+	));
+} else if (window.ROUTE === '/gallery') {
+	store.dispatch(GalleryActions.fetchPhotos(
+		0,
 		renderApplication
 	));
 } else {

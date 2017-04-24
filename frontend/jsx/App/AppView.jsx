@@ -5,6 +5,7 @@ import Packages from './Pages/Packages/PackagesContainer';
 import Package from './Pages/Package/PackageContainer';
 import Prices from './Pages/Prices/PricesContainer';
 import Location from './Pages/Location/LocationContainer';
+import Gallery from './Pages/Gallery/GalleryContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
 
 const getPage = (route, parameters) => {
@@ -27,6 +28,8 @@ const getPage = (route, parameters) => {
 			return <Location
 				markdownHTML={parameters["markdownHTML"]}
 			/>;
+		case '/gallery':
+			return <Gallery/>;
 		default:
 			return <FourOhFour/>;
 	}

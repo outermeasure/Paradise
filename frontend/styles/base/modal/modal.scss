@@ -79,16 +79,10 @@
 }
 
 .ReactModal__Body--open {
-  overflow-y: scroll;
-  @media (max-width: 750px) {
-    overflow-y: auto;
-  }
   #paradise {
-    overflow: hidden;
-    @include calc(height, "100vh - #{$navHeightWide}");
+    margin-top: #{$navHeightWide};
     @media (max-width: 750px) {
-      @include calc(height, "100vh - #{$navHeightNarrow}");
+      margin-top: #{$navHeightNarrow};
     }
   }
 }
-

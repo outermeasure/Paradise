@@ -93,3 +93,8 @@ type SSL struct {
 	Key  string `json:"Key"`
 	Cert string `json:"Cert"`
 }
+
+type Photo struct {
+	Thumbnail string `json:"thumbnail"`
+	FullPicture string `json:"fullPicture"`
+}

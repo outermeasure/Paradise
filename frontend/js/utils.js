@@ -1,9 +1,4 @@
 export const
-	getNights = (startDate, endDate) => {
-		startDate = new Date(startDate.getYear(), startDate.getMonth(), startDate.getDate());
-		endDate = new Date(endDate.getYear(), endDate.getMonth(), endDate.getDate());
-		return (endDate.getTime() - startDate.getTime()) / 24 / 3600 / 1000
-	},
 	getJSON = (url, next) => {
 		const request = new XMLHttpRequest();
 		request.open('GET', url, true);

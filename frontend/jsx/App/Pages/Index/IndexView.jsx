@@ -4,7 +4,7 @@ import * as Colors from '../../../../js/colors';
 import Workflow from './Workflow/WorkflowContainer';
 import OfferWorkflow from
 	'../../Components/OfferWorkflow/OfferWorkflowContainer';
-import Modal from 'react-modal';
+import Modal from '../../Components/Modal/Modal';
 import DatePicker from '../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../js/viewport';
 
@@ -98,6 +98,7 @@ const View = ({
 						value={startDate}
 						container="dialog"
 						screenType={screenType}
+						autoOk={true}
 						shouldDisableDate={disableStartDates}
 						mode={screenType === Viewport.SCREEN_DESKTOP ?
 							"landscape" : "portrait"}
@@ -111,6 +112,7 @@ const View = ({
 						value={endDate}
 						container="dialog"
 						screenType={screenType}
+						autoOk={true}
 						shouldDisableDate={disableEndDates}
 						mode={screenType === Viewport.SCREEN_DESKTOP ?
 							"landscape" : "portrait"}

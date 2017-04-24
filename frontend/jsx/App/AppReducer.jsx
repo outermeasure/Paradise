@@ -1,5 +1,6 @@
 import * as AppActions from './AppActions';
 import IndexReducer from './Pages/Index/IndexReducer';
+import GalleryReducer from './Pages/Gallery/GalleryReducer';
 import PackagesReducer from './Pages/Packages/PackagesReducer';
 import OfferWorkflowReducer from
 	'./Components/OfferWorkflow/OfferWorkflowReducer';
@@ -52,4 +53,5 @@ export default combineReducers({
 	Index: IndexReducer,
 	Packages: PackagesReducer,
 	OfferWorkflow: OfferWorkflowReducer,
+	Gallery: GalleryReducer,
 });

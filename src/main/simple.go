@@ -13,6 +13,11 @@ import (
 	"net"
 	"strconv"
 	"github.com/russross/blackfriday"
+	"path/filepath"
+	"github.com/nfnt/resize"
+	"path"
+	"image/jpeg"
+	"strings"
 )
 
 func Template(path string) string {
@@ -249,6 +254,65 @@ func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	w.Write(jData)
 }
 
+func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	photos := []Photo{}
+	filepath.Walk(
+		gApplicationState.Configuration.Data + "gallery/images/",
+		func(stringPath string, info os.FileInfo, err error) error {
+			stringPath = path.Clean(filepath.ToSlash(stringPath))
+
+			if (err != nil) {
+				return err
+			}
+
+			if (info.IsDir()) {
+				return nil
+			}
+			_, file := path.Split(stringPath)
+			ext := strings.ToLower(path.Ext(stringPath))
+
+			if (ext != ".jpg" && ext != ".jpeg") {
+				return nil
+			}
+
+			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/full/" + file); os.IsNotExist(err) {
+				photo, err := os.Open(stringPath)
+				runtimeAssert(err)
+				img, err := jpeg.Decode(photo)
+				photo.Close()
+				m := resize.Resize(1200, 0, img, resize.Lanczos3)
+				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/full/" + file)
+				runtimeAssert(err)
+				defer out.Close()
+				jpeg.Encode(out, m, nil)
+			}
+
+			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/thumbnails/" + file); os.IsNotExist(err) {
+				photo, err := os.Open(stringPath)
+				runtimeAssert(err)
+				img, err := jpeg.Decode(photo)
+				photo.Close()
+				m := resize.Resize(400, 0, img, resize.Lanczos3)
+				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/thumbnails/" + file)
+				runtimeAssert(err)
+				defer out.Close()
+				jpeg.Encode(out, m, nil)
+			}
+
+			photos = append(photos, Photo{
+				Thumbnail: "/static/gallery/thumbnails/" + file,
+				FullPicture: "/static/gallery/full/" + file,
+			})
+			return err
+		},
+	)
+	jData, _ := json.Marshal(
+		photos,
+	)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
 func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 	ssl := gApplicationState.Configuration.SSL;
 	port := ssl.Port;
@@ -273,6 +337,8 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.GET("/api/package", getApiPackages)
 	router.GET("/api/package/:id", getApiPackage)
+
+	router.GET("/api/photo", getApiPhotos)
 
 	router.ServeFiles("/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	router.ServeFiles("/static/*filepath", http.Dir(applicationState.Configuration.Data))

@@ -3,7 +3,7 @@ import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
 import OfferWorkflow from
 	'../../Components/OfferWorkflow/OfferWorkflowContainer';
-import Modal from 'react-modal';
+import Modal from '../../Components/Modal/Modal';
 
 const BookOfferPaperRipple = (props) => <PaperRipple
 	{...props}

@@ -53,6 +53,7 @@ const View = ({
 						<DatePicker
 							value={startDate}
 							container="dialog"
+							autoOk={true}
 							screenType={screenType}
 							shouldDisableDate={disableStartDates}
 							mode={screenType === Viewport.SCREEN_DESKTOP ?
@@ -70,6 +71,7 @@ const View = ({
 						<DatePicker
 							value={endDate}
 							disabled={true}
+							autoOk={true}
 							container="dialog"
 							screenType={screenType}
 							mode={screenType === Viewport.SCREEN_DESKTOP ?
