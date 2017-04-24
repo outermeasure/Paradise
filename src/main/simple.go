@@ -18,6 +18,7 @@ import (
 	"path"
 	"image/jpeg"
 	"strings"
+	"compress/gzip"
 )
 
 func Template(path string) string {
@@ -79,6 +80,33 @@ func Render(w io.Writer, templateName string, page *Page) {
 	err := gApplicationState.Templates["template"].ExecuteTemplate(w, "layout/layout.gohtml", page)
 	if err != nil {
 		fmt.Println(err)
+	}
+}
+
+type gzipResponseWriter struct {
+	io.Writer
+	http.ResponseWriter
+}
+
+func (w gzipResponseWriter) Write(b []byte) (int, error) {
+	if "" == w.Header().Get("Content-Type") {
+		// If no content type, apply sniffing algorithm to un-gzipped body.
+		w.Header().Set("Content-Type", http.DetectContentType(b))
+	}
+	return w.Writer.Write(b)
+}
+
+func makeGzipHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			fn(w, r, p)
+			return
+		}
+		w.Header().Set("Content-Encoding", "gzip")
+		gz := gzip.NewWriter(w)
+		defer gz.Close()
+		gzr := gzipResponseWriter{Writer: gz, ResponseWriter: w}
+		fn(gzr, r, p)
 	}
 }
 
@@ -323,25 +351,36 @@ func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
 }
 
+func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
+	if len(path) < 10 || path[len(path)-10:] != "/*filepath" {
+		panic("path must end with /*filepath in path '" + path + "'")
+	}
+	fileServer := http.FileServer(root)
+
+	r.GET(path, makeGzipHandler(func(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+		req.URL.Path = ps.ByName("filepath")
+		fileServer.ServeHTTP(w, req)
+	}))
+}
+
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 	router := httprouter.New();
 
-	router.GET("/", getIndex)
-	router.GET("/prices", getPrices)
-	router.GET("/packages", getPackages)
-	router.GET("/package/:url", getPackage)
-	router.GET("/restaurant", getRestaurant)
-	router.GET("/location", getLocation)
-	router.GET("/gallery", getGallery)
+	router.GET("/", makeGzipHandler(getIndex))
+	router.GET("/prices", makeGzipHandler(getPrices))
+	router.GET("/packages", makeGzipHandler(getPackages))
+	router.GET("/package/:url", makeGzipHandler(getPackage))
+	router.GET("/restaurant", makeGzipHandler(getRestaurant))
+	router.GET("/location", makeGzipHandler(getLocation))
+	router.GET("/gallery", makeGzipHandler(getGallery))
 
 	router.GET("/api/package", getApiPackages)
 	router.GET("/api/package/:id", getApiPackage)
-
 	router.GET("/api/photo", getApiPhotos)
 
-	router.ServeFiles("/public/*filepath", http.Dir(applicationState.Configuration.Public))
-	router.ServeFiles("/static/*filepath", http.Dir(applicationState.Configuration.Data))
+	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public));
+	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data));
 	router.NotFound = http.FileServer(http.Dir(applicationState.Configuration.Data + "public/"))
 
 	configuration := applicationState.Configuration;
