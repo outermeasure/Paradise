@@ -110,6 +110,20 @@ func makeGzipHandler(fn httprouter.Handle) httprouter.Handle {
 	}
 }
 
+func makeCachedHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		w.Header().Set("Cache-Control", "max-age=31536000")
+		fn(w, r, p)
+	}
+}
+
+func makeVaryAcceptEncoding(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		w.Header().Set("Vary", "Accept-Encoding")
+		fn(w, r, p)
+	}
+}
+
 func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 0
@@ -118,7 +132,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	)
 	context.Packages = []Package{}
 	for i := 0; i < len(all); i++ {
-		if(all[i].ShowOnIndexPage) {
+		if (all[i].ShowOnIndexPage) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
@@ -150,7 +164,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	)
 	context.Packages = []Package{}
 	for i := 0; i < len(all); i++ {
-		if(all[i].ShowOnPackagePage) {
+		if (all[i].ShowOnPackagePage) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
@@ -352,32 +366,39 @@ func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 }
 
 func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
-	if len(path) < 10 || path[len(path)-10:] != "/*filepath" {
+	if len(path) < 10 || path[len(path) - 10:] != "/*filepath" {
 		panic("path must end with /*filepath in path '" + path + "'")
 	}
 	fileServer := http.FileServer(root)
 
-	r.GET(path, makeGzipHandler(func(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
-		req.URL.Path = ps.ByName("filepath")
-		fileServer.ServeHTTP(w, req)
-	}))
+	r.GET(path,
+		makeCachedHandler(
+			makeVaryAcceptEncoding(
+				makeGzipHandler(
+					func(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+						req.URL.Path = ps.ByName("filepath")
+						fileServer.ServeHTTP(w, req)
+					}),
+			),
+		),
+	)
 }
 
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 	router := httprouter.New();
 
-	router.GET("/", makeGzipHandler(getIndex))
-	router.GET("/prices", makeGzipHandler(getPrices))
-	router.GET("/packages", makeGzipHandler(getPackages))
-	router.GET("/package/:url", makeGzipHandler(getPackage))
-	router.GET("/restaurant", makeGzipHandler(getRestaurant))
-	router.GET("/location", makeGzipHandler(getLocation))
-	router.GET("/gallery", makeGzipHandler(getGallery))
+	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
+	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
+	router.GET("/packages", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
+	router.GET("/package/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
+	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
+	router.GET("/location", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
+	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
-	router.GET("/api/package", getApiPackages)
-	router.GET("/api/package/:id", getApiPackage)
-	router.GET("/api/photo", getApiPhotos)
+	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
+	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public));
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data));
