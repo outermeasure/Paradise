@@ -6,6 +6,7 @@ import (
 	"os"
 	"github.com/ua-parser/uap-go/uaparser"
 	"html/template"
+	"time"
 )
 
 const ENVIRONMENT = "Environment.json"
@@ -22,7 +23,9 @@ func loadConfig(applicationState *ApplicationState) {
 
 func loadApplication(applicationState *ApplicationState) {
 	applicationState.Files = map[string]string{}
+	applicationState.FilesModificationTime = map[string]time.Time{}
 	applicationState.FilesBytes = map[string][]byte{}
+	applicationState.FilesBytesModificationTime = map[string]time.Time{}
 	applicationState.Templates = map[string]*template.Template{}
 
 	UaparserMust := func(t *uaparser.Parser, err error) *uaparser.Parser {
@@ -34,7 +37,7 @@ func loadApplication(applicationState *ApplicationState) {
 	applicationState.Parser =
 		UaparserMust(uaparser.New("regexes.yaml"))
 
-	applicationState.Page.Title = "Paradise"
+	applicationState.Page.Title = "Hotel Paradis"
 }
 
 func main() {

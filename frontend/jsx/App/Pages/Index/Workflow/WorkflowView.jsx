@@ -7,12 +7,12 @@ import BookingDetails from
 
 const getComponentByStep = (step) => {
 	switch (step) {
-	case Steps.PERSONAL_INFORMATION:
-		return <PersonalInformation/>;
-	case Steps.BOOKING_DETAILS:
-		return <BookingDetails/>;
-	default:
-		return null;
+		case Steps.PERSONAL_INFORMATION:
+			return <PersonalInformation/>;
+		case Steps.BOOKING_DETAILS:
+			return <BookingDetails/>;
+		default:
+			return null;
 	}
 };
 
@@ -36,7 +36,6 @@ const View = ({
 };
 
 View.propTypes = {
-	modalOpen: React.PropTypes.number,
 	closeModal: React.PropTypes.func,
 	workflowStep: React.PropTypes.string,
 };

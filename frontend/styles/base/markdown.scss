@@ -1,0 +1,16 @@
+.markdown {
+  margin: 16px;
+  border-radius: 0;
+  &-light {
+    h1 {
+      color: $navBackgroundColor;
+    }
+    h4 {
+      font-weight: 100;
+    }
+    h5 {
+      color: $accent;
+      font-weight: normal
+    }
+  }
+}

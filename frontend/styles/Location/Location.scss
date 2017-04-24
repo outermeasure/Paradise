@@ -1,0 +1,9 @@
+#Location {
+  .map {
+    width: 100%;
+    display: inline-block;
+    &-address {
+      height: 500px;
+    }
+  }
+}

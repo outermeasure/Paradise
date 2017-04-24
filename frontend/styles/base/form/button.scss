@@ -4,6 +4,11 @@ button {
   border-radius: 2px;
   margin: 0 8px 8px 0;
 
+  &:disabled,
+  &[disabled] {
+    opacity: 0.5 !important;
+  }
+
   &.flat {
 
   }

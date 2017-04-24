@@ -28,7 +28,7 @@ html {
 body {
   height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
 }
 
 @import "base/layout";
@@ -37,5 +37,8 @@ body {
 @import "base/card";
 @import "base/modal/modal";
 @import "base/progress";
+@import "base/markdown";
 
 @import "Index/Index";
+@import "Location/Location";
+@import "Gallery/Gallery";

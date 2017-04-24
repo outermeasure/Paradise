@@ -11,24 +11,30 @@ type SafeTemplateJs map[string]template.JS
 type SafeTemplateCss map[string]template.CSS
 
 type Configuration struct {
-	Host      string `json:"Host"`
-	Port      int `json:"Port"`
-	Assets    string `json:"Assets"`
-	Public    string `json:"Public"`
-	Data      string `json:"Data"`
-	Templates string `json:"Templates"`
-	Mode      string `json:"Mode"`
-	SSL       *SSL `json:"SSL,omitempty"`
+	Host         string `json:"Host"`
+	Port         int `json:"Port"`
+	Assets       string `json:"Assets"`
+	Public       string `json:"Public"`
+	Data         string `json:"Data"`
+	Templates    string `json:"Templates"`
+	Mode         string `json:"Mode"`
+	SSL          *SSL `json:"SSL,omitempty"`
+	GoogleApiKey *string `json:"GoogleApiKey,omitempty"`
 }
 
 type ApplicationState struct {
-	Configuration         *Configuration
-	Templates             map[string]*template.Template
-	AssetModificationTime time.Time
-	Page                  Page
-	Files                 map[string]string
-	FilesBytes            map[string][]byte
-	Parser                *uaparser.Parser
+	Configuration              *Configuration
+	Templates                  map[string]*template.Template
+	AssetModificationTime      time.Time
+	Page                       Page
+
+	Files                      map[string]string
+	FilesModificationTime      map[string]time.Time
+
+	FilesBytes                 map[string][]byte
+	FilesBytesModificationTime map[string]time.Time
+
+	Parser                     *uaparser.Parser
 }
 
 type VersionedScript struct {
@@ -37,15 +43,21 @@ type VersionedScript struct {
 }
 
 type Page struct {
-	SafeTemplateJs     SafeTemplateJs
-	UnsafeTemplateData UnsafeTemplateData
-	SafeTemplateCss    SafeTemplateCss
-	Platform           Platform
-	Title              string
-	Route              string
-	NavbarSelected     int
-	Packages           []Package
-	InheritedHTML      template.HTML
+	SafeTemplateJs           SafeTemplateJs
+	UnsafeTemplateData       UnsafeTemplateData
+	SafeTemplateCss          SafeTemplateCss
+	Platform                 Platform
+	Title                    string
+	Route                    string
+	Parameters               map[string]string
+	NavbarSelected           int
+	Packages                 []Package
+	PackageDetails           *Package
+	RenderedPackageMarkdown  template.HTML
+	RenderedPackageCover     template.HTMLAttr
+	RenderedPricesMarkdown   template.HTML
+	RenderedLocationMarkdown template.HTML
+	InheritedHTML            template.HTML
 }
 
 type Engine struct {
@@ -63,14 +75,26 @@ type Platform struct {
 }
 
 type Package struct {
-	Price       float64 `json:"Price"`
-	Photo       string `json:"Photo"`
-	Title       string `json:"Title"`
-	Description string `json:"Description"`
+	Id                  int `json:"Id"`
+	ShowOnIndexPage     bool `json:"ShowOnIndexPage"`
+	ShowOnPackagePage   bool `json:"ShowOnPackagePage"`
+	PageDetailsCover    string `json:"PageDetailsCover"`
+	PageDetailsMarkdown string `json:"PageDetailsMarkdown"`
+	Url                 string `json:"Url"`
+	Price               float64 `json:"Price"`
+	Photo               string `json:"Photo"`
+	Title               string `json:"Title"`
+	Description         string `json:"Description"`
+	Nights              int `json:"Nights"`
 }
 
 type SSL struct {
 	Port int `json:"Port"`
 	Key  string `json:"Key"`
 	Cert string `json:"Cert"`
+}
+
+type Photo struct {
+	Thumbnail string `json:"thumbnail"`
+	FullPicture string `json:"fullPicture"`
 }

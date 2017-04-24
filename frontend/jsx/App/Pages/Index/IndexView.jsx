@@ -2,8 +2,9 @@ import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
 import Workflow from './Workflow/WorkflowContainer';
-import OfferWorkflow from './OfferWorkflow/OfferWorkflowContainer';
-import Modal from 'react-modal';
+import OfferWorkflow from
+	'../../Components/OfferWorkflow/OfferWorkflowContainer';
+import Modal from '../../Components/Modal/Modal';
 import DatePicker from '../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../js/viewport';
 
@@ -57,7 +58,21 @@ const View = ({
 	modalOpen,
 	screenType,
 	clientObject,
+	offerClientObject,
 }) => {
+	const {
+		startDate,
+		endDate,
+	} = clientObject;
+
+	const disableStartDates = (date) =>
+		(endDate && endDate.getTime() <= date.getTime()) ||
+		Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+	const disableEndDates = (date) =>
+		startDate && startDate.getTime() >= date.getTime() ||
+		Date.now() - 24 * 3600 * 1000 > date.getTime();
+
 	return <div>
 		<Modal
 			contentLabel={""}
@@ -66,7 +81,8 @@ const View = ({
 			shouldCloseOnOverlayClick={true}
 			parentSelector={() => document.body}>
 			{
-				modalOpen === 0 ? <Workflow/> : (modalOpen === 1 ? <OfferWorkflow/> : null)
+				modalOpen === 0 ?
+					<Workflow/> : (modalOpen === 1 ? <OfferWorkflow/> : null)
 			}
 		</Modal>
 		<div className="presentation">
@@ -79,21 +95,27 @@ const View = ({
 					Pensiune de lux aflată în mijlocul Deltei Dunării</h1>
 				<form className="twelve columns text-center">
 					<DatePicker
-						value={clientObject.startDate}
+						value={startDate}
 						container="dialog"
 						screenType={screenType}
-						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
+						autoOk={true}
+						shouldDisableDate={disableStartDates}
+						mode={screenType === Viewport.SCREEN_DESKTOP ?
+							"landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("startDate", date, clientObject);
 						}}
 						locale="ro"
 						DateTimeFormat={DateTimeFormat}
-						placeholder={"Data inceput"}/>
+						placeholder={"Din"}/>
 					<DatePicker
-						value={clientObject.endDate}
+						value={endDate}
 						container="dialog"
 						screenType={screenType}
-						mode={screenType === Viewport.SCREEN_DESKTOP ? "landscape" : "portrait"}
+						autoOk={true}
+						shouldDisableDate={disableEndDates}
+						mode={screenType === Viewport.SCREEN_DESKTOP ?
+							"landscape" : "portrait"}
 						onChange={(e, date) => {
 							onChange("endDate", date, clientObject);
 						}}
@@ -123,6 +145,10 @@ const View = ({
 
 								<CardPaperRipple
 									className="content"
+									onClick={(e) => {
+										e.preventDefault();
+										window.location = `package/${pack.Url}`;
+									}}
 									tag="div">
 									<img
 										src={pack.Photo}/>
@@ -137,14 +163,19 @@ const View = ({
 								</CardPaperRipple>
 								<div className="actions">
 									<DetailsPaperRipple
-										onClick={(e) => e.preventDefault()}
+										onClick={(e) => {
+											e.preventDefault();
+											window.location =
+												`package/${pack.Url}`;
+										}}
 										tag="button">
 										Detalii
 									</DetailsPaperRipple>
 									<BookOfferPaperRipple
 										onClick={(e) => {
 											e.preventDefault();
-											openModal(1);
+											openModal(1, pack,
+												offerClientObject);
 										}}
 										tag="button"
 										className="accent">

@@ -1,5 +1,5 @@
 import View from './WorkflowView';
-import * as Actions from '../IndexActions';
+import * as AppActions from '../../../AppActions';
 import {
 	connect,
 } from 'react-redux';
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	closeModal() {
-		dispatch(Actions.setModalOpen(-1));
+		dispatch(AppActions.setModalOpen(-1));
 	},
 });
 

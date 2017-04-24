@@ -6,6 +6,7 @@
 	"Data": "data/",
 	"Templates": "templates/",
 	"Mode": "production",
+	"GoogleApiKey": "AIzaSyAkwBbLinc5hmSiUkIz3QFVp7xNuLzR5ek",
 	"SSL": {
 		"Port": 443,
 		"Key": "",

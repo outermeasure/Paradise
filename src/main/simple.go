@@ -12,6 +12,13 @@ import (
 	"io/ioutil"
 	"net"
 	"strconv"
+	"github.com/russross/blackfriday"
+	"path/filepath"
+	"github.com/nfnt/resize"
+	"path"
+	"image/jpeg"
+	"strings"
+	"compress/gzip"
 )
 
 func Template(path string) string {
@@ -21,6 +28,7 @@ func Template(path string) string {
 func BaseContext(r *http.Request) *Page {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
+		gApplicationState.AssetModificationTime = stat.ModTime()
 		gApplicationState.Page.UnsafeTemplateData,
 			gApplicationState.Page.SafeTemplateJs,
 			gApplicationState.Page.SafeTemplateCss =
@@ -29,6 +37,9 @@ func BaseContext(r *http.Request) *Page {
 	page := gApplicationState.Page
 	page.Platform = getPlatform(r.UserAgent())
 	page.Route = r.URL.Path
+	page.Parameters = map[string]string{}
+	page.Parameters["ExplicitRuntimeMode"] =
+		gApplicationState.Configuration.Mode
 	return &page
 }
 
@@ -72,28 +83,130 @@ func Render(w io.Writer, templateName string, page *Page) {
 	}
 }
 
+type gzipResponseWriter struct {
+	io.Writer
+	http.ResponseWriter
+}
+
+func (w gzipResponseWriter) Write(b []byte) (int, error) {
+	if "" == w.Header().Get("Content-Type") {
+		// If no content type, apply sniffing algorithm to un-gzipped body.
+		w.Header().Set("Content-Type", http.DetectContentType(b))
+	}
+	return w.Writer.Write(b)
+}
+
+func makeGzipHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			fn(w, r, p)
+			return
+		}
+		w.Header().Set("Content-Encoding", "gzip")
+		gz := gzip.NewWriter(w)
+		defer gz.Close()
+		gzr := gzipResponseWriter{Writer: gz, ResponseWriter: w}
+		fn(gzr, r, p)
+	}
+}
+
+func makeCachedHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		w.Header().Set("Cache-Control", "max-age=31536000")
+		fn(w, r, p)
+	}
+}
+
+func makeVaryAcceptEncoding(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		w.Header().Set("Vary", "Accept-Encoding")
+		fn(w, r, p)
+	}
+}
+
 func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 0
-	context.Packages = getParadisePackages(
+	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
+	context.Packages = []Package{}
+	for i := 0; i < len(all); i++ {
+		if (all[i].ShowOnIndexPage) {
+			context.Packages = append(context.Packages, all[i])
+		}
+	}
 	Render(w, "index.gohtml", context)
 }
 
 func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 1
+
+	file, _ := readFileBytesMemoized(
+		gApplicationState.Configuration.Data + "prices/prices.md",
+	)
+	html := blackfriday.MarkdownBasic(
+		file,
+	)
+	context.RenderedPricesMarkdown =
+		template.HTML(
+			html,
+		)
+	context.Parameters["markdownHTML"] = string(html)
 	Render(w, "prices.gohtml", context);
 }
 func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 2
-	context.Packages = getParadisePackages(
+	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
+	context.Packages = []Package{}
+	for i := 0; i < len(all); i++ {
+		if (all[i].ShowOnPackagePage) {
+			context.Packages = append(context.Packages, all[i])
+		}
+	}
 	Render(w, "packages.gohtml", context)
 }
+
+func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = 0
+	context.PackageDetails = getParadisePackageByUrl(
+		gApplicationState.Configuration.Data,
+		p.ByName("url"),
+	)
+	context.Route = "/package/:url"
+
+	if (context.PackageDetails != nil) {
+		file, _ := readFileBytesMemoized(
+			gApplicationState.Configuration.Data + context.PackageDetails.PageDetailsMarkdown,
+		)
+
+		html := blackfriday.MarkdownBasic(
+			file,
+		);
+
+		context.RenderedPackageMarkdown =
+			template.HTML(
+				html,
+			)
+
+		context.RenderedPackageCover = template.HTMLAttr(
+			context.PackageDetails.PageDetailsCover,
+		)
+
+		context.Parameters["url"] = context.PackageDetails.Url;
+		context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+		context.Parameters["markdownHTML"] = string(html)
+		context.Parameters["cover"] = context.PackageDetails.PageDetailsCover
+	}
+
+	Render(w, "package.gohtml", context)
+}
+
 func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 3
@@ -102,6 +215,20 @@ func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 4
+	file, _ := readFileBytesMemoized(
+		gApplicationState.Configuration.Data + "location/location.md",
+	)
+	html := blackfriday.MarkdownBasic(
+		file,
+	)
+	context.RenderedLocationMarkdown =
+		template.HTML(
+			html,
+		)
+	context.Parameters["markdownHTML"] = string(html)
+	if (gApplicationState.Configuration.GoogleApiKey != nil) {
+		context.Parameters["GoogleApiKey"] = *gApplicationState.Configuration.GoogleApiKey
+	}
 	Render(w, "location.gohtml", context)
 }
 
@@ -112,34 +239,21 @@ func getGallery(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func getApiPackage(w http.ResponseWriter, _ *http.Request, p httprouter.Params) {
-	jData, _ := json.Marshal(p.ByName("id"))
+	id, err := strconv.Atoi(p.ByName("id"));
+	pack := (*Package)(nil)
+	if (err == nil) {
+		pack = getParadisePackage(
+			gApplicationState.Configuration.Data,
+			id,
+		)
+	}
+
+	jData, _ := json.Marshal(pack)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jData)
 }
 
 var gApplicationState *ApplicationState
-
-func readFileMemoized(file string) (string, bool) {
-	loaded := false
-	if (gApplicationState.Files[file] == "") {
-		content, err := ioutil.ReadFile(file)
-		runtimeAssert(err)
-		gApplicationState.Files[file] = string(content)
-		loaded = true
-	}
-	return gApplicationState.Files[file], loaded
-}
-
-func readFileBytesMemoized(file string) ([]byte, bool) {
-	loaded := false
-	if gApplicationState.FilesBytes[file] == nil {
-		content, err := ioutil.ReadFile(file)
-		runtimeAssert(err)
-		loaded = true
-		gApplicationState.FilesBytes[file] = content
-	}
-	return gApplicationState.FilesBytes[file], loaded
-}
 
 func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTemplateCss) {
 	assets, err := ioutil.ReadFile(filename)
@@ -172,12 +286,70 @@ func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTem
 	return n, o, p
 }
 
-
 func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	jData, _ := json.Marshal(
 		getParadisePackages(
 			gApplicationState.Configuration.Data,
 		),
+	)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
+func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	photos := []Photo{}
+	filepath.Walk(
+		gApplicationState.Configuration.Data + "gallery/images/",
+		func(stringPath string, info os.FileInfo, err error) error {
+			stringPath = path.Clean(filepath.ToSlash(stringPath))
+
+			if (err != nil) {
+				return err
+			}
+
+			if (info.IsDir()) {
+				return nil
+			}
+			_, file := path.Split(stringPath)
+			ext := strings.ToLower(path.Ext(stringPath))
+
+			if (ext != ".jpg" && ext != ".jpeg") {
+				return nil
+			}
+
+			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/full/" + file); os.IsNotExist(err) {
+				photo, err := os.Open(stringPath)
+				runtimeAssert(err)
+				img, err := jpeg.Decode(photo)
+				photo.Close()
+				m := resize.Resize(1200, 0, img, resize.Lanczos3)
+				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/full/" + file)
+				runtimeAssert(err)
+				defer out.Close()
+				jpeg.Encode(out, m, nil)
+			}
+
+			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/thumbnails/" + file); os.IsNotExist(err) {
+				photo, err := os.Open(stringPath)
+				runtimeAssert(err)
+				img, err := jpeg.Decode(photo)
+				photo.Close()
+				m := resize.Resize(400, 0, img, resize.Lanczos3)
+				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/thumbnails/" + file)
+				runtimeAssert(err)
+				defer out.Close()
+				jpeg.Encode(out, m, nil)
+			}
+
+			photos = append(photos, Photo{
+				Thumbnail: "/static/gallery/thumbnails/" + file,
+				FullPicture: "/static/gallery/full/" + file,
+			})
+			return err
+		},
+	)
+	jData, _ := json.Marshal(
+		photos,
 	)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jData)
@@ -193,23 +365,44 @@ func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
 }
 
+func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
+	if len(path) < 10 || path[len(path) - 10:] != "/*filepath" {
+		panic("path must end with /*filepath in path '" + path + "'")
+	}
+	fileServer := http.FileServer(root)
+
+	r.GET(path,
+		makeCachedHandler(
+			makeVaryAcceptEncoding(
+				makeGzipHandler(
+					func(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+						req.URL.Path = ps.ByName("filepath")
+						fileServer.ServeHTTP(w, req)
+					}),
+			),
+		),
+	)
+}
+
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 	router := httprouter.New();
 
-	router.GET("/", getIndex)
-	router.GET("/prices", getPrices)
-	router.GET("/packages", getPackages)
-	router.GET("/restaurant", getRestaurant)
-	router.GET("/location", getLocation)
-	router.GET("/gallery", getGallery)
+	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
+	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
+	router.GET("/packages", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
+	router.GET("/package/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
+	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
+	router.GET("/location", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
+	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
-	router.GET("/api/package", getApiPackages)
-	router.GET("/api/package/:id", getApiPackage)
+	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
+	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 
-	router.ServeFiles("/public/*filepath", http.Dir(applicationState.Configuration.Public))
-	router.ServeFiles("/static/*filepath", http.Dir(applicationState.Configuration.Data))
-
+	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public));
+	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data));
+	router.NotFound = http.FileServer(http.Dir(applicationState.Configuration.Data + "public/"))
 
 	configuration := applicationState.Configuration;
 	ssl := configuration.SSL;

@@ -41,12 +41,6 @@ const NavigationBar = ({
 			<li>
 				<NavPaperRipple
 					tag="a"
-					className={selected === 3 ? "selected" : ""}
-					href="/restaurant">Restaurant</NavPaperRipple>
-			</li>
-			<li>
-				<NavPaperRipple
-					tag="a"
 					className={selected === 4 ? "selected" : ""}
 					href="/location">Locație</NavPaperRipple>
 			</li>

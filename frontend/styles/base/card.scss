@@ -8,6 +8,7 @@
   text-align: left;
   background-color: white;
   width: 340px;
+
   @media (max-width: 750px) {
     width: 300px;
   }
@@ -18,6 +19,7 @@
   border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
+  line-height: 1;
 
   .content {
     position: relative;
@@ -68,5 +70,30 @@
   &:hover,
   &:focus {
     @include box-shadow(0 4px 8px rgba(0, 0, 0, 0.26));
+  }
+
+  &-big {
+    max-width: 1020px;
+    margin-left: auto;
+    margin-right: auto;
+    width: inherit;
+    display: block;
+    cursor: inherit;
+    &:hover,
+    &:focus {
+      @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.26));
+    }
+
+    .cover {
+      width: 100%;
+      height: 300px;
+      background-size: cover;
+      background-position: 50%;
+    }
+
+    @media (max-width: 750px) {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 }

@@ -1,0 +1,32 @@
+#Gallery {
+  .card-collection {
+    margin-top: 24px;
+  }
+
+  img {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    max-width: 100%;
+  }
+}
+
+.GALLERY_full-photo {
+  max-height: 700px;
+  overflow-y: hidden;
+  img {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    max-width: 100%;
+  }
+
+  .close {
+    position: absolute;
+
+    i {
+      color: white;
+      @include text-shadow(1px 1px 3px rgba(0, 0, 0, 0.4))
+    }
+  }
+}
