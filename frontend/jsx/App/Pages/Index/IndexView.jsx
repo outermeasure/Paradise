@@ -7,6 +7,7 @@ import OfferWorkflow from
 import Modal from '../../Components/Modal/Modal';
 import DatePicker from '../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../js/viewport';
+import * as PaddingTools from '../../Components/PaddingTools';
 
 const DateTimeFormat = global.Intl.DateTimeFormat;
 
@@ -66,12 +67,12 @@ const View = ({
 	} = clientObject;
 
 	const disableStartDates = (date) =>
-		(endDate && endDate.getTime() <= date.getTime()) ||
-		Date.now() - 24 * 3600 * 1000 > date.getTime();
+	(endDate && endDate.getTime() <= date.getTime()) ||
+	Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	const disableEndDates = (date) =>
-		startDate && startDate.getTime() >= date.getTime() ||
-		Date.now() - 24 * 3600 * 1000 > date.getTime();
+	startDate && startDate.getTime() >= date.getTime() ||
+	Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	return <div>
 		<Modal
@@ -137,54 +138,65 @@ const View = ({
 		<div className="main">
 			<ul className="card-collection">
 				{
-					packages.items.map(
-						(pack, index) => {
-							return <li
-								key={index}
-								className="card">
+					PaddingTools
+						.addPaddingToCardCollection(3, packages.items)
+						.map(
+							(pack, index) => {
 
-								<CardPaperRipple
-									className="content"
-									onClick={(e) => {
-										e.preventDefault();
-										window.location = `package/${pack.Url}`;
-									}}
-									tag="div">
-									<img
-										src={pack.Photo}/>
+								if (pack.empty) {
+									return <li
+										key={index}
+										className="card empty">
+									</li>;
+								}
 
-									<div className="info">
-										<h3>{pack.Title}</h3>
-										<p>{pack.Description}</p>
-										<div className="price">
-											{pack.Price} lei / persoană
-										</div>
-									</div>
-								</CardPaperRipple>
-								<div className="actions">
-									<DetailsPaperRipple
+								return <li
+									key={index}
+									className="card">
+
+									<CardPaperRipple
+										className="content"
 										onClick={(e) => {
 											e.preventDefault();
 											window.location =
 												`package/${pack.Url}`;
 										}}
-										tag="button">
-										Detalii
-									</DetailsPaperRipple>
-									<BookOfferPaperRipple
-										onClick={(e) => {
-											e.preventDefault();
-											openModal(1, pack,
-												offerClientObject);
-										}}
-										tag="button"
-										className="accent">
-										Rezervă
-									</BookOfferPaperRipple>
-								</div>
-							</li>;
-						}
-					)
+										tag="div">
+										<img
+											src={pack.Photo}/>
+
+										<div className="info">
+											<h3>{pack.Title}</h3>
+											<p>{pack.Description}</p>
+											<div className="price">
+												{pack.Price} lei / persoană
+											</div>
+										</div>
+									</CardPaperRipple>
+									<div className="actions">
+										<DetailsPaperRipple
+											onClick={(e) => {
+												e.preventDefault();
+												window.location =
+													`package/${pack.Url}`;
+											}}
+											tag="button">
+											Detalii
+										</DetailsPaperRipple>
+										<BookOfferPaperRipple
+											onClick={(e) => {
+												e.preventDefault();
+												openModal(1, pack,
+													offerClientObject);
+											}}
+											tag="button"
+											className="accent">
+											Rezervă
+										</BookOfferPaperRipple>
+									</div>
+								</li>;
+							}
+						)
 				}
 			</ul>
 		</div>

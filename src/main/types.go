@@ -86,6 +86,7 @@ type Package struct {
 	Title               string `json:"Title"`
 	Description         string `json:"Description"`
 	Nights              int `json:"Nights"`
+	Empty               bool
 }
 
 type SSL struct {

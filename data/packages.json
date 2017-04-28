@@ -1,6 +1,19 @@
 {
 	"packages": [
 		{
+			"Id": 7,
+			"ShowOnIndexPage": true,
+			"ShowOnPackagePage": true,
+			"PageDetailsCover": "/static/images/ozi-cover.jpg",
+			"PageDetailsMarkdown": "packages/1day.md",
+			"Url": "one-day.html",
+			"Price": 290,
+			"Photo": "/static/images/ozi.jpg",
+			"Title": "Excursie de o zi in Delta Dunarii",
+			"Description": "O optiune excelenta pentru cei care vor un tur al deltei. Pachetul include transportul cu barca pe canalele Deltei Dunarii si masina de teren.",
+			"Nights": 0
+		},
+		{
 			"Id": 1,
 			"ShowOnIndexPage": false,
 			"ShowOnPackagePage": true,

@@ -4,6 +4,7 @@ import * as Colors from '../../../../js/colors';
 import OfferWorkflow from
 	'../../Components/OfferWorkflow/OfferWorkflowContainer';
 import Modal from '../../Components/Modal/Modal';
+import * as PaddingTools from '../../Components/PaddingTools';
 
 const BookOfferPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -54,8 +55,14 @@ const View = ({
 		<div className="main">
 			<ul className="card-collection">
 				{
-					packages.items.map(
+					PaddingTools.addPaddingToCardCollection(3, packages.items).map(
 						(pack, index) => {
+							if (pack.empty) {
+								return <li
+									key={index}
+									className="card empty">
+								</li>;
+							}
 							return <li
 								key={index}
 								className="card">

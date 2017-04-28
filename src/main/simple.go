@@ -25,6 +25,40 @@ func Template(path string) string {
 	return gApplicationState.Configuration.Templates + path;
 }
 
+func gcd(a int, b int) int {
+	if (a % b == 0) {
+		return b
+	} else {
+		return gcd(b, a % b)
+	}
+}
+
+func lcmN(n int) int {
+	p := 1
+	for i := 1; i <= n; i++ {
+		p = p * i / gcd(p, i)
+	}
+	return p
+}
+
+func addPaddingToPackages(maxItemsPerRow int, items []Package) []Package {
+	result := []Package{}
+	n := lcmN(maxItemsPerRow)
+
+	for i := 0; i < len(items); i++ {
+		items[i].Empty = false
+		result = append(result, items[i])
+	}
+
+	for i := len(items); i % n != 0; i++ {
+		result = append(result, Package{
+			Empty: true,
+		})
+	}
+
+	return result;
+}
+
 func BaseContext(r *http.Request) *Page {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
@@ -136,6 +170,8 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
+	context.Packages = addPaddingToPackages(3, context.Packages);
+
 	Render(w, "index.gohtml", context)
 }
 
@@ -168,6 +204,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
+	context.Packages = addPaddingToPackages(3, context.Packages);
 	Render(w, "packages.gohtml", context)
 }
 
