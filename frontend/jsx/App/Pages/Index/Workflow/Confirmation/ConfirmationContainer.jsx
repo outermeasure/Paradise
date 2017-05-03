@@ -17,14 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
 	onClose() {
 		dispatch(AppActions.setModalOpen(-1));
 	},
-	fromBeginning(clientObject) {
-		dispatch(Actions.setClientObject(
-			{
-				...clientObject,
-				startDate: null,
-				endDate: null,
-			}
-		));
+	fromBeginning() {
 		dispatch(Actions.setWorkflowStep(Steps.BOOKING_DETAILS));
 	},
 });

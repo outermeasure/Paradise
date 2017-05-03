@@ -107,6 +107,12 @@ const View = ({
 				className="flat workflow left">Inapoi
 			</GrayPaperRipple>
 			<PaperRipple
+				disabled={
+					clientObject.email === "" ||
+					clientObject.phoneNumber === "" ||
+					clientObject.firstName === "" ||
+					clientObject.lastName === ""
+				}
 				tag="button"
 				type="submit"
 				onClick={(e) => {

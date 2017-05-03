@@ -35,7 +35,9 @@ const View = ({
 		email,
 		selectedOffer,
 	} = clientObject;
-	const security = 30 * selectedOffer.Price / 100;
+	const numberOfNights = selectedOffer.Nights;
+	const full = selectedOffer.Price;
+	const security = 30 * full / 100;
 
 	return <div
 		className="popup"
@@ -45,14 +47,17 @@ const View = ({
 			progress={Steps.getStepIndexByLabel(step) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Rezervare efectuata</h3>
+			<h3>Rezervare efectuata pentru {
+				numberOfNights > 0 ? numberOfNights === 1 ? "o noapte" :
+					`${numberOfNights} nopti` : "o zi"
+			}
+			</h3>
 			<div className="font-container">
 				<i className="icon-circle-check"/>
 			</div>
-			<p className="top">Aveti de transferat</p>
+			<p className="top">Aveti de transferat in decurs de <strong>24 de ore</strong></p>
 			<p className="payment">{security} RON</p>
-			<p className="bottom">in decurs de <strong>
-				24 de ore</strong></p>
+			<p className="bottom">suma care reprezinta 30% din valoarea rezervarii de {full} RON</p>
 			<p className="notification">V-am trimis email la adresa {email} cu
 				pachetul dumneavoastra si detaliile platii.</p>
 		</div>
@@ -62,7 +67,7 @@ const View = ({
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
-					fromBeginning(clientObject);
+					fromBeginning();
 				}}
 				className="flat workflow left">De la inceput
 			</GrayPaperRipple>

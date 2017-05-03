@@ -1,4 +1,11 @@
 export const
+	getDaysBetween = (date1, date2) => {
+		return Math.floor(
+			Math.abs(
+				(date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)
+			)
+		);
+	},
 	getJSON = (url, next) => {
 		const request = new XMLHttpRequest();
 		request.open('GET', url, true);

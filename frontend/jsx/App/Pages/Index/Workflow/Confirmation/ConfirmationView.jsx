@@ -1,6 +1,8 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../../js/colors';
+import * as Utils from '../../../../../../js/utils';
+import * as RoomTypes from '../WorkflowRoomTypes';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
 import * as Steps from '../WorkflowSteps';
@@ -27,31 +29,40 @@ const GrayPaperRipple = (props) => <Ripple
 
 const View = ({
 	onClose,
-	step,
+	workflowStep,
 	fromBeginning,
 	clientObject,
 }) => {
 	const {
 		email,
 	} = clientObject;
-	const security = 30 * 32 / 100;
+
+	const numberOfNights = Utils.getDaysBetween(
+		clientObject.startDate,
+		clientObject.endDate);
+	const full = RoomTypes.Data[clientObject.roomType].priceLei *
+		numberOfNights;
+	const security = 30 * full / 100;
 
 	return <div
 		className="popup"
 		id="Confirmation">
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
-			progress={Steps.getStepIndexByLabel(step) /
+			progress={Steps.getStepIndexByLabel(workflowStep) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Rezervare efectuata</h3>
+			<h3>Rezervare efectuata pentru {
+					numberOfNights === 1 ? "o noapte" :
+						`${numberOfNights} nopti`
+				}
+			</h3>
 			<div className="font-container">
 				<i className="icon-circle-check"/>
 			</div>
-			<p className="top">Aveti de transferat</p>
+			<p className="top">Aveti de transferat in decurs de <strong>24 de ore</strong></p>
 			<p className="payment">{security} RON</p>
-			<p className="bottom">in decurs de <strong>
-				24 de ore</strong></p>
+			<p className="bottom">suma care reprezinta 30% din valoarea rezervarii de {full} RON</p>
 			<p className="notification">V-am trimis email la adresa {email} cu
 				pachetul dumneavoastra si detaliile platii.</p>
 		</div>
@@ -61,7 +72,7 @@ const View = ({
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
-					fromBeginning(clientObject);
+					fromBeginning();
 				}}
 				className="flat workflow left">De la inceput
 			</GrayPaperRipple>

@@ -125,12 +125,17 @@ const View = ({
 						placeholder={"Pana in"}/>
 					<BookTopPaperRipple
 						tag="button"
+						disabled={
+							!clientObject.startDate ||
+							!clientObject.endDate
+						}
 						type="submit"
 						onClick={(e) => {
 							e.preventDefault();
 							openModal(0);
 						}}
-						className="primary big">Rezervare
+						className="primary big">
+						Rezervare
 					</BookTopPaperRipple>
 				</form>
 			</div>

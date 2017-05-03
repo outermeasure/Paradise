@@ -26,7 +26,7 @@ const GrayPaperRipple = (props) => <Ripple
 />;
 
 const View = ({
-	step,
+	workflowStep,
 	onPrevious,
 	onNext,
 	clientObject,
@@ -41,7 +41,7 @@ const View = ({
 		id="BookingMessage">
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
-			progress={Steps.getStepIndexByLabel(step) /
+			progress={Steps.getStepIndexByLabel(workflowStep) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
 			<h3>Mesaj aditional rezervare</h3>
