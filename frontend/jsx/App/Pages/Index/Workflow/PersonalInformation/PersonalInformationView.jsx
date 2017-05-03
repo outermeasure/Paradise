@@ -113,7 +113,7 @@ const View = ({
 					e.preventDefault();
 					onNext();
 				}}
-				className="primary workflow right">Pasul urmator
+				className="primary workflow right">Pasul Urmator
 			</PaperRipple>
 		</div>
 	</div>;

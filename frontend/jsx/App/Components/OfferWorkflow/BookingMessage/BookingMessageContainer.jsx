@@ -1,13 +1,15 @@
-import View from './PersonalInformationView';
-import * as Actions from '../../IndexActions';
-import * as Steps from '../WorkflowSteps';
+import View from './BookingMessageView';
+import * as Actions from '../OfferWorkflowActions';
+import * as AppActions from '../../../AppActions';
+import * as Steps from '../OfferWorkflowSteps';
 import {
 	connect,
 } from 'react-redux';
 
 const mapStateToProps = (state) => {
 	return {
-		...state.Index,
+		screenType: state.App.screenType,
+		...state.OfferWorkflow,
 	};
 };
 
@@ -21,12 +23,12 @@ const mapDispatchToProps = (dispatch) => ({
 		));
 	},
 
-	onBack() {
-		dispatch(Actions.setWorkflowStep(Steps.BOOKING_DETAILS));
+	onPrevious() {
+		dispatch(Actions.setStep(Steps.PERSONAL_INFORMATION));
 	},
 
 	onNext() {
-		dispatch(Actions.setWorkflowStep(Steps.BOOKING_MESSAGE));
+		dispatch(Actions.setStep(Steps.CONFIRMATION));
 	},
 });
 

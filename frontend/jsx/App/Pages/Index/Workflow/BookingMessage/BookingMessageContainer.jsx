@@ -1,4 +1,4 @@
-import View from './PersonalInformationView';
+import View from './BookingMessageView';
 import * as Actions from '../../IndexActions';
 import * as Steps from '../WorkflowSteps';
 import {
@@ -7,6 +7,7 @@ import {
 
 const mapStateToProps = (state) => {
 	return {
+		screenType: state.App.screenType,
 		...state.Index,
 	};
 };
@@ -21,12 +22,12 @@ const mapDispatchToProps = (dispatch) => ({
 		));
 	},
 
-	onBack() {
-		dispatch(Actions.setWorkflowStep(Steps.BOOKING_DETAILS));
+	onPrevious() {
+		dispatch(Actions.setWorkflowStep(Steps.PERSONAL_INFORMATION));
 	},
 
 	onNext() {
-		dispatch(Actions.setWorkflowStep(Steps.BOOKING_MESSAGE));
+		dispatch(Actions.setWorkflowStep(Steps.CONFIRMATION));
 	},
 });
 

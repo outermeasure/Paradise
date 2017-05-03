@@ -1,18 +1,4 @@
 #Confirmation {
-
-  .font-container {
-    display: inline-block;
-    line-height: 1;
-    height: 160px;
-    width: 100%;
-    text-align: center;
-    i {
-      font-size: 140px;
-      line-height: 1;
-      color: $primary;
-    }
-  }
-
   p {
     color: rgba(darken($primary, 30%), 0.8);
     &.top {

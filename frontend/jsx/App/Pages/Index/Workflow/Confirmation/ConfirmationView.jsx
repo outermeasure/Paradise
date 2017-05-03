@@ -1,9 +1,9 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
-import * as Colors from '../../../../../js/colors';
+import * as Colors from '../../../../../../js/colors';
 import StepProgressBar from
-	'../../../Components/StepProgressBar/StepProgressBar';
-import * as Steps from '../OfferWorkflowSteps';
+	'../../../../Components/StepProgressBar/StepProgressBar';
+import * as Steps from '../WorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -33,9 +33,8 @@ const View = ({
 }) => {
 	const {
 		email,
-		selectedOffer,
 	} = clientObject;
-	const security = 30 * selectedOffer.Price / 100;
+	const security = 30 * 32 / 100;
 
 	return <div
 		className="popup"

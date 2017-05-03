@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 
 	onNext() {
-		dispatch(Actions.setStep(Steps.CONFIRMATION));
+		dispatch(Actions.setStep(Steps.BOOKING_MESSAGE));
 	},
 });
 

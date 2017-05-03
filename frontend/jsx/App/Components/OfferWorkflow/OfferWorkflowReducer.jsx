@@ -20,6 +20,7 @@ const
 		lastName: "",
 		phoneNumber: "",
 		email: "",
+		bookingMessage: "",
 		selectedOffer: BASE_PACKAGE,
 		startDate: null,
 		endDate: null,

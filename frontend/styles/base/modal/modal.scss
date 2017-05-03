@@ -86,3 +86,16 @@
     }
   }
 }
+
+.font-container {
+  display: inline-block;
+  line-height: 1;
+  height: 140px;
+  width: 100%;
+  text-align: center;
+  i {
+    font-size: 120px;
+    line-height: 1;
+    color: $primary;
+  }
+}

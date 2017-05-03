@@ -1,6 +1,7 @@
 export const
 	PERSONAL_INFORMATION = "PERSONAL_INFORMATION",
 	BOOKING_DETAILS = "BOOKING_DETAILS",
+	BOOKING_MESSAGE = "BOOKING_MESSAGE",
 	CONFIRMATION = "CONFIRMATION";
 
 export const
@@ -14,10 +15,14 @@ export const
 			return 1;
 		}
 
-		if (label === CONFIRMATION) {
+		if (label === BOOKING_MESSAGE) {
 			return 2;
+		}
+
+		if (label === CONFIRMATION) {
+			return 3;
 		}
 
 		return -1;
 	},
-	getNumberOfSteps = () => 3;
+	getNumberOfSteps = () => 4;

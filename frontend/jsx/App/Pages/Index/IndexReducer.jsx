@@ -7,14 +7,12 @@ const
 		lastName: "",
 		phoneNumber: "",
 		email: "",
+		bookingMessage: "",
 
 		roomType: 0,
-
 		lunch: false,
 		dinner: false,
-
 		boatTransfer: false,
-
 		birdWatching: false,
 		northLakes: false,
 		letea: false,

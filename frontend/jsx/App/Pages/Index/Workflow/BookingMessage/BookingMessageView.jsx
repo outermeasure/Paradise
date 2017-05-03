@@ -1,9 +1,9 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
-import * as Colors from '../../../../../js/colors';
+import * as Colors from '../../../../../../js/colors';
 import StepProgressBar from
-	'../../../Components/StepProgressBar/StepProgressBar';
-import * as Steps from '../OfferWorkflowSteps';
+	'../../../../Components/StepProgressBar/StepProgressBar';
+import * as Steps from '../WorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -26,35 +26,50 @@ const GrayPaperRipple = (props) => <Ripple
 />;
 
 const View = ({
-	onClose,
 	step,
-	fromBeginning,
+	onPrevious,
+	onNext,
 	clientObject,
+	onChange,
 }) => {
 	const {
-		email,
-		selectedOffer,
+		bookingMessage,
 	} = clientObject;
-	const security = 30 * selectedOffer.Price / 100;
 
 	return <div
 		className="popup"
-		id="Confirmation">
+		id="BookingMessage">
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
 			progress={Steps.getStepIndexByLabel(step) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Rezervare efectuata</h3>
+			<h3>Mesaj aditional rezervare</h3>
 			<div className="font-container">
-				<i className="icon-circle-check"/>
+				<i className="icon-mail"/>
 			</div>
-			<p className="top">Aveti de transferat</p>
-			<p className="payment">{security} RON</p>
-			<p className="bottom">in decurs de <strong>
-				24 de ore</strong></p>
-			<p className="notification">V-am trimis email la adresa {email} cu
-				pachetul dumneavoastra si detaliile platii.</p>
+			<form>
+				<ul className="vertical-layout">
+					<li>
+						<textarea
+							rows={4}
+							onChange={(e) => {
+								e.preventDefault();
+								onChange(
+									"bookingMessage",
+									e.target.value, clientObject);
+							}}
+							placeholder=
+								"Orice preferinta sau intrebari aveti, mentionati-le aici"
+							value={bookingMessage}
+						>
+						</textarea>
+					</li>
+				</ul>
+			</form>
+			<em>
+				Va vom contacta prin email/telefonic pentru a raspunde la intrebarile adresate.
+			</em>
 		</div>
 		<div className="actions">
 			<GrayPaperRipple
@@ -62,18 +77,18 @@ const View = ({
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
-					fromBeginning(clientObject);
+					onPrevious();
 				}}
-				className="flat workflow left">De la inceput
+				className="flat workflow left">Inapoi
 			</GrayPaperRipple>
 			<PaperRipple
 				tag="button"
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
-					onClose();
+					onNext();
 				}}
-				className="primary workflow right">Inchide
+				className="primary workflow right">Rezervare
 			</PaperRipple>
 		</div>
 	</div>;

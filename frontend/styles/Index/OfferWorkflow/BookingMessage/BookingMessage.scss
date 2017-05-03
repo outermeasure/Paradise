@@ -1,0 +1,18 @@
+#BookingMessage {
+  form {
+    margin-top: 20px;
+  }
+
+  em {
+    margin-top: 50px;
+    display: block;
+    text-align: center;
+    color: rgba(darken($primary, 30%), 0.8);
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+    height: auto;
+  }
+}
