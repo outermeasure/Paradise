@@ -90,6 +90,19 @@
 			"Title": "Sfanta Maria 2017 - 4 zile / 3 nopti",
 			"Description": "Petreceti vacanta de Sfanta Maria in Delta Dunarii. Pachetul include cazare, masa, transport cu barca si 3 excursii in Delta Dunarii",
 			"Nights": 3
+		},
+		{
+			"Id": 8,
+			"ShowOnIndexPage": true,
+			"ShowOnPackagePage": true,
+			"PageDetailsCover": "/static/images/pool-cover.jpg",
+			"PageDetailsMarkdown": "packages/delta_house_3.md",
+			"Url": "lux3-vila.html",
+			"Price": 1200,
+			"Photo": "/static/images/pool.jpg",
+			"Title": "Oferta de lux in Vila Delta House, 4 zile / 3 nopti",
+			"Description": "Experimentați servicii de clasa la complexul Paradise Delta House. Pachetul include cazare, masa, transport cu barca si 3 excursii in Delta Dunarii",
+			"Nights": 3
 		}
 	]
 }

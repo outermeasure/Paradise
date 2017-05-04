@@ -24,10 +24,26 @@ const View = ({
 					center: center,
 					zoom: zoom,
 				});
-				marker = new googleLibraries.maps.Marker({
+				new googleLibraries.maps.Marker({
 					position: center,
 					map: map,
 					title: 'Hotel Paradise',
+				});
+				new googleLibraries.maps.Marker({
+					position: {
+						lat: 45.181193,
+						lng: 28.804419,
+					},
+					map: map,
+					title: 'Imbarcare Tulcea',
+				});
+				new googleLibraries.maps.Marker({
+					position: {
+						lat: 45.229203,
+						lng: 29.252907,
+					},
+					map: map,
+					title: 'Casa Francesca',
 				});
 			} else {
 				map = null;
