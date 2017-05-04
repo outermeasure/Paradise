@@ -6,6 +6,8 @@ import OfferAndDateSelection from
 	'./OfferAndDateSelection/OfferAndDateSelectionContainer';
 import Confirmation from
 	'./Confirmation/ConfirmationContainer';
+import BookingMessage from
+	'./BookingMessage/BookingMessageContainer';
 
 const getComponentByStep = (step) => {
 	switch (step) {
@@ -13,6 +15,8 @@ const getComponentByStep = (step) => {
 			return <PersonalInformation/>;
 		case Steps.OFFER_AND_DATE_SELECTION:
 			return <OfferAndDateSelection/>;
+		case Steps.BOOKING_MESSAGE:
+			return <BookingMessage/>;
 		case Steps.CONFIRMATION:
 			return <Confirmation/>;
 		default:

@@ -1,5 +1,6 @@
-import View from './PersonalInformationView';
+import View from './BookingMessageView';
 import * as Actions from '../OfferWorkflowActions';
+import * as AppActions from '../../../AppActions';
 import * as Steps from '../OfferWorkflowSteps';
 import {
 	connect,
@@ -23,11 +24,18 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 
 	onPrevious() {
-		dispatch(Actions.setStep(Steps.OFFER_AND_DATE_SELECTION));
+		dispatch(Actions.setStep(Steps.PERSONAL_INFORMATION));
 	},
 
-	onNext() {
-		dispatch(Actions.setStep(Steps.BOOKING_MESSAGE));
+	onNext(clientObject) {
+		dispatch(Actions.createOfferBookingRequest(
+			clientObject,
+			(response, errors) => {
+				if (!errors) {
+					dispatch(Actions.setStep(Steps.CONFIRMATION));
+				}
+			}
+		));
 	},
 });
 

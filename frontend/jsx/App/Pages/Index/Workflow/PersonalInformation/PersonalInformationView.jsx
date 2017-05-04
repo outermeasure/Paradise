@@ -107,13 +107,19 @@ const View = ({
 				className="flat workflow left">Inapoi
 			</GrayPaperRipple>
 			<PaperRipple
+				disabled={
+					clientObject.email === "" ||
+					clientObject.phoneNumber === "" ||
+					clientObject.firstName === "" ||
+					clientObject.lastName === ""
+				}
 				tag="button"
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
 					onNext();
 				}}
-				className="primary workflow right">Pasul urmator
+				className="primary workflow right">Pasul Urmator
 			</PaperRipple>
 		</div>
 	</div>;

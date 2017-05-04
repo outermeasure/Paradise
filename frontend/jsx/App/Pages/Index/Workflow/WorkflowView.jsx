@@ -4,6 +4,10 @@ import PersonalInformation from
 	'./PersonalInformation/PersonalInformationContainer';
 import BookingDetails from
 	'./Booking/BookingDetailsContainer';
+import Confirmation from
+	'./Confirmation/ConfirmationContainer';
+import BookingMessage from
+	'./BookingMessage/BookingMessageContainer';
 
 const getComponentByStep = (step) => {
 	switch (step) {
@@ -11,6 +15,10 @@ const getComponentByStep = (step) => {
 			return <PersonalInformation/>;
 		case Steps.BOOKING_DETAILS:
 			return <BookingDetails/>;
+		case Steps.BOOKING_MESSAGE:
+			return <BookingMessage/>;
+		case Steps.CONFIRMATION:
+			return <Confirmation/>;
 		default:
 			return null;
 	}

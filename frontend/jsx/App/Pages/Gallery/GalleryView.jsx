@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Modal from '../../Components/Modal/Modal';
 import * as Colors from '../../../../js/colors';
 import PaperRipple from 'react-paper-ripple';
+import * as PaddingTools from '../../Components/PaddingTools';
 
 const CardPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -74,18 +75,26 @@ const View = ({
 		</Modal>
 		<ul className="card-collection">
 			{
-				all.map(
-					(photo, index) => <li key={index} className="card">
-						<CardPaperRipple
-							className="content"
-							onClick={(e) => {
-								e.preventDefault();
-								openPhoto(photo);
-							}}
-							tag="div">
-							<img src={photo.thumbnail}/>
-						</CardPaperRipple>
-					</li>
+				PaddingTools.addPaddingToCardCollection(4, all).map(
+					(photo, index) => {
+						if (photo.empty) {
+							return <li
+								key={index}
+								className="card empty">
+							</li>;
+						}
+						return <li key={index} className="card">
+							<CardPaperRipple
+								className="content"
+								onClick={(e) => {
+									e.preventDefault();
+									openPhoto(photo);
+								}}
+								tag="div">
+								<img src={photo.thumbnail}/>
+							</CardPaperRipple>
+						</li>;
+					}
 				)
 			}
 		</ul>

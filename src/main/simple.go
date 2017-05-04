@@ -25,6 +25,40 @@ func Template(path string) string {
 	return gApplicationState.Configuration.Templates + path;
 }
 
+func gcd(a int, b int) int {
+	if (a % b == 0) {
+		return b
+	} else {
+		return gcd(b, a % b)
+	}
+}
+
+func lcmN(n int) int {
+	p := 1
+	for i := 1; i <= n; i++ {
+		p = p * i / gcd(p, i)
+	}
+	return p
+}
+
+func addPaddingToPackages(maxItemsPerRow int, items []Package) []Package {
+	result := []Package{}
+	n := lcmN(maxItemsPerRow)
+
+	for i := 0; i < len(items); i++ {
+		items[i].Empty = false
+		result = append(result, items[i])
+	}
+
+	for i := len(items); i % n != 0; i++ {
+		result = append(result, Package{
+			Empty: true,
+		})
+	}
+
+	return result;
+}
+
 func BaseContext(r *http.Request) *Page {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
@@ -68,6 +102,20 @@ func LazyLoadLayout() {
 		LoadTemplate("layout/layout.gohtml", t)
 		gApplicationState.Templates["template"] = t
 	}
+}
+
+func RenderBookingEmail(booking *Booking) []byte {
+	LazyLoadTemplate("email/booking.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["email/booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
+}
+
+func RenderPackageBookingEmail(booking *PackageBooking) []byte {
+	LazyLoadTemplate("email/package_booking.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["email/package_booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
 }
 
 func Render(w io.Writer, templateName string, page *Page) {
@@ -136,6 +184,8 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
+	context.Packages = addPaddingToPackages(3, context.Packages);
+
 	Render(w, "index.gohtml", context)
 }
 
@@ -168,6 +218,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
+	context.Packages = addPaddingToPackages(3, context.Packages);
 	Render(w, "packages.gohtml", context)
 }
 
@@ -296,6 +347,82 @@ func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	w.Write(jData)
 }
 
+func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	packageBooking := PackageBooking{}
+	jData := []byte{}
+
+	err := decoder.Decode(&packageBooking)
+
+
+	if err == nil {
+		packageBooking.IsClient = true
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: "Hotel Paradise",
+				ReplyTo: "paradisedeltahotel@gmail.com",
+				To: packageBooking.Email,
+				Subject: "Rezervare Hotel Paradise",
+				Body: string(RenderPackageBookingEmail(&packageBooking)),
+			});
+
+		packageBooking.IsClient = false
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: packageBooking.FirstName + " " + packageBooking.LastName,
+				ReplyTo: packageBooking.Email,
+				To: "paradisedeltahotel@gmail.com",
+				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
+				Body: string(RenderPackageBookingEmail(&packageBooking)),
+			});
+		jData, _ = json.Marshal(true)
+	} else {
+		jData, _ = json.Marshal(err.Error())
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData);
+}
+
+func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	booking := Booking{}
+	jData := []byte{}
+
+	err := decoder.Decode(&booking)
+
+	if err == nil {
+		booking.IsClient = true
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: "Hotel Paradise",
+				ReplyTo: "paradisedeltahotel@gmail.com",
+				To: booking.Email,
+				Subject: "Rezervare Hotel Paradise",
+				Body: string(RenderBookingEmail(&booking)),
+			});
+
+		booking.IsClient = false
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: booking.FirstName + " " + booking.LastName,
+				ReplyTo: booking.Email,
+				To: "paradisedeltahotel@gmail.com",
+				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: "+ booking.Duration,
+				Body: string(RenderBookingEmail(&booking)),
+			});
+		jData, _ = json.Marshal(true)
+	} else {
+		jData, _ = json.Marshal(err.Error())
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData);
+}
+
 func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	photos := []Photo{}
 	filepath.Walk(
@@ -397,6 +524,9 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
+	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiBooking)))
+
 	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
 	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 

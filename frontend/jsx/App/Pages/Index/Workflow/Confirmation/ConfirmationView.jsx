@@ -1,9 +1,11 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
-import * as Colors from '../../../../../js/colors';
+import * as Colors from '../../../../../../js/colors';
+import * as Utils from '../../../../../../js/utils';
+import * as RoomTypes from '../WorkflowRoomTypes';
 import StepProgressBar from
-	'../../../Components/StepProgressBar/StepProgressBar';
-import * as Steps from '../OfferWorkflowSteps';
+	'../../../../Components/StepProgressBar/StepProgressBar';
+import * as Steps from '../WorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -27,16 +29,19 @@ const GrayPaperRipple = (props) => <Ripple
 
 const View = ({
 	onClose,
-	step,
+	workflowStep,
 	fromBeginning,
 	clientObject,
 }) => {
 	const {
 		email,
-		selectedOffer,
 	} = clientObject;
-	const numberOfNights = selectedOffer.Nights;
-	const full = selectedOffer.Price;
+
+	const numberOfNights = Utils.getDaysBetween(
+		clientObject.startDate,
+		clientObject.endDate);
+	const full = RoomTypes.Data[clientObject.roomType].priceLei *
+		numberOfNights;
 	const security = 30 * full / 100;
 
 	return <div
@@ -44,13 +49,13 @@ const View = ({
 		id="Confirmation">
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
-			progress={Steps.getStepIndexByLabel(step) /
+			progress={Steps.getStepIndexByLabel(workflowStep) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
 			<h3>Rezervare efectuata pentru {
-				numberOfNights > 0 ? numberOfNights === 1 ? "o noapte" :
-					`${numberOfNights} nopti` : "o zi"
-			}
+					numberOfNights === 1 ? "o noapte" :
+						`${numberOfNights} nopti`
+				}
 			</h3>
 			<div className="font-container">
 				<i className="icon-circle-check"/>

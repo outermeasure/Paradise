@@ -1,5 +1,6 @@
-import View from './PersonalInformationView';
+import View from './ConfirmationView';
 import * as Actions from '../../IndexActions';
+import * as AppActions from '../../../../AppActions';
 import * as Steps from '../WorkflowSteps';
 import {
 	connect,
@@ -7,26 +8,17 @@ import {
 
 const mapStateToProps = (state) => {
 	return {
+		screenType: state.App.screenType,
 		...state.Index,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	onChange(fieldName, fieldValue, clientObject) {
-		dispatch(Actions.setClientObject(
-			{
-				...clientObject,
-				[fieldName]: fieldValue,
-			}
-		));
+	onClose() {
+		dispatch(AppActions.setModalOpen(-1));
 	},
-
-	onBack() {
+	fromBeginning() {
 		dispatch(Actions.setWorkflowStep(Steps.BOOKING_DETAILS));
-	},
-
-	onNext() {
-		dispatch(Actions.setWorkflowStep(Steps.BOOKING_MESSAGE));
 	},
 });
 

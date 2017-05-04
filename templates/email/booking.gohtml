@@ -1,0 +1,150 @@
+
+<div style="font-family: sans-serif;">
+	<h2>Detalii rezervare</h2>
+	<hr/>
+	<table style="width: 320px; border: 1px solid #aaa;line-height:2;">
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Prenume
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.FirstName}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Nume
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.LastName}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Email
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.Email}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Telefon
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.PhoneNumber}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Tip Camera
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.RoomType}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Mesaj
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				{{.BookingMessage}}
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Pret / Noapte
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.PricePerNight}} RON</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Check In
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.CheckIn}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Check Out
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.CheckOut}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Durata
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.Duration}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Avans 30%
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.Security}} RON</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Total
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.Total}} RON</strong>
+			</td>
+		</tr>
+	</table>
+
+	{{if .IsClient}}
+	<hr/>
+	<br/>
+	Orice rezervare se face prin achitarea unui avans de 30% din costul pachetului ales. Avansul este nerambursabil. Pentru persoane juridice va rugam sa trimiteti datele de facturare ale firmei la adresa <strong>paradisedeltahotel@gmail.com</strong>
+	<br/>
+	<br/>
+	<table style="width: 320px; border: 1px solid #aaa;line-height:2;">
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Titular
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>SC Hotel Paradis SRL</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				IBAN
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>RO18BTRLRONCRT0386965701</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
+				Institutia
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>BANCA TRANSILVANIA, sucursala Tulcea</strong>
+			</td>
+		</tr>
+	</table>
+	{{end}}
+</div>

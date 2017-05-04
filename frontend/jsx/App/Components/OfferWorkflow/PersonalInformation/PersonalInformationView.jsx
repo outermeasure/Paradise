@@ -121,7 +121,7 @@ const View = ({
 					e.preventDefault();
 					onNext();
 				}}
-				className="primary workflow right">Rezervare
+				className="primary workflow right">Pasul Urmator
 			</PaperRipple>
 		</div>
 	</div>;
