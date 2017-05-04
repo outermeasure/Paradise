@@ -117,6 +117,8 @@ type Booking struct {
 	CheckOut       string `json:"checkOut"`
 	Duration       string `json:"duration"`
 
+	IsClient       bool
+
 	PricePerNight  int `json:"pricePerNight"`
 	Security       int `json:"security"`
 	Total          int `json:"total"`
@@ -134,6 +136,8 @@ type PackageBooking struct {
 	CheckIn        string `json:"checkIn"`
 	CheckOut       string `json:"checkOut"`
 	Duration       string `json:"duration"`
+
+	IsClient       bool
 
 	Security       int `json:"security"`
 	Total          int `json:"total"`

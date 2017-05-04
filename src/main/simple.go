@@ -354,14 +354,27 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 	err := decoder.Decode(&packageBooking)
 
+
 	if err == nil {
+		packageBooking.IsClient = true
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From: "Hotel Paradise",
-				ReplyTo: "adrian.soucup@gmail.com",
+				ReplyTo: "paradisedeltahotel@gmail.com",
 				To: packageBooking.Email,
 				Subject: "Rezervare Hotel Paradise",
+				Body: string(RenderPackageBookingEmail(&packageBooking)),
+			});
+
+		packageBooking.IsClient = false
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: packageBooking.FirstName + " " + packageBooking.LastName,
+				ReplyTo: packageBooking.Email,
+				To: "paradisedeltahotel@gmail.com",
+				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
 				Body: string(RenderPackageBookingEmail(&packageBooking)),
 			});
 		jData, _ = json.Marshal(true)
@@ -381,13 +394,25 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	err := decoder.Decode(&booking)
 
 	if err == nil {
+		booking.IsClient = true
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From: "Hotel Paradise",
-				ReplyTo: "adrian.soucup@gmail.com",
+				ReplyTo: "paradisedeltahotel@gmail.com",
 				To: booking.Email,
 				Subject: "Rezervare Hotel Paradise",
+				Body: string(RenderBookingEmail(&booking)),
+			});
+
+		booking.IsClient = false
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: booking.FirstName + " " + booking.LastName,
+				ReplyTo: booking.Email,
+				To: "paradisedeltahotel@gmail.com",
+				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: "+ booking.Duration,
 				Body: string(RenderBookingEmail(&booking)),
 			});
 		jData, _ = json.Marshal(true)

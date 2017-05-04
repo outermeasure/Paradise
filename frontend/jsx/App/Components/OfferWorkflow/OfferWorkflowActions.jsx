@@ -25,8 +25,13 @@ export const
 
 		const protocol = location.protocol;
 		const slashes = protocol.concat("//");
-		const host = slashes.concat(
-			window.location.hostname, ":", window.location.port);
+		let host = slashes.concat(
+			window.location.hostname);
+
+		if (window.location.port !== "80" &&
+			window.location.port !== "443") {
+			host = `${host}:${window.location.port}`;
+		}
 
 		const apiObject = {
 			firstName: clientObject.firstName,
