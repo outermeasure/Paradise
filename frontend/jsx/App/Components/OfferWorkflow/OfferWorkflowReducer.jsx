@@ -27,6 +27,7 @@ const
 	},
 	BASE_STATE = {
 		step: Steps.PERSONAL_INFORMATION,
+		busy: false,
 		clientObject: BASE_BOOKING,
 	};
 
@@ -36,6 +37,11 @@ const OfferWorkflowReducer = (state = BASE_STATE, action) => {
 			return {
 				...state,
 				step: action.step,
+			};
+		case Actions.SET_BUSY:
+			return {
+				...state,
+				busy: action.busy,
 			};
 		case Actions.SET_CLIENT_OBJECT:
 			return {

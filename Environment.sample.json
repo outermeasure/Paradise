@@ -6,10 +6,13 @@
 	"Data": "data/",
 	"Templates": "templates/",
 	"Mode": "production",
-	"GoogleApiKey": "AIzaSyAkwBbLinc5hmSiUkIz3QFVp7xNuLzR5ek",
 	"SSL": {
 		"Port": 443,
 		"Key": "",
 		"Cert": ""
-	}
+	},
+
+	"GoogleApiClientSecret": "<client_secret.json>",
+	"GoogleApiKey": "AIzaSyAkwBbLinc5hmSiUkIz3QFVp7xNuLzR5ek",
+	"GmailAccessToken": "<gmail_permission.json>"
 }

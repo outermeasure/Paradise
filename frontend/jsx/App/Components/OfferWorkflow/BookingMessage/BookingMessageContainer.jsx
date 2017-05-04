@@ -27,8 +27,15 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(Actions.setStep(Steps.PERSONAL_INFORMATION));
 	},
 
-	onNext() {
-		dispatch(Actions.setStep(Steps.CONFIRMATION));
+	onNext(clientObject) {
+		dispatch(Actions.createOfferBookingRequest(
+			clientObject,
+			(response, errors) => {
+				if (!errors) {
+					dispatch(Actions.setStep(Steps.CONFIRMATION));
+				}
+			}
+		));
 	},
 });
 

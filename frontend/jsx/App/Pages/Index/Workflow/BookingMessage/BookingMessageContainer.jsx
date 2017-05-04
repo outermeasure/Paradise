@@ -26,8 +26,15 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(Actions.setWorkflowStep(Steps.PERSONAL_INFORMATION));
 	},
 
-	onNext() {
-		dispatch(Actions.setWorkflowStep(Steps.CONFIRMATION));
+	onNext(clientObject) {
+		dispatch(Actions.createBookingRequest(
+			clientObject,
+			(response, errors) => {
+				if (!errors) {
+					dispatch(Actions.setWorkflowStep(Steps.CONFIRMATION));
+				}
+			}
+		));
 	},
 });
 

@@ -30,6 +30,7 @@ const View = ({
 	onPrevious,
 	onNext,
 	clientObject,
+	busy,
 	onChange,
 }) => {
 	const {
@@ -77,7 +78,7 @@ const View = ({
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
-					onPrevious();
+					!busy && onPrevious();
 				}}
 				className="flat workflow left">Inapoi
 			</GrayPaperRipple>
@@ -86,9 +87,17 @@ const View = ({
 				type="submit"
 				onClick={(e) => {
 					e.preventDefault();
-					onNext();
+					!busy && onNext(clientObject);
 				}}
-				className="primary workflow right">Rezervare
+				className="primary workflow right">
+				{
+					!busy ? "Rezervare" : [
+						"Se proceseaza ",
+						<i
+							key={1}
+							className="icon-donut_large spin"/>,
+					]
+				}
 			</PaperRipple>
 		</div>
 	</div>;

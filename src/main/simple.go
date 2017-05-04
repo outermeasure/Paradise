@@ -104,6 +104,20 @@ func LazyLoadLayout() {
 	}
 }
 
+func RenderBookingEmail(booking *Booking) []byte {
+	LazyLoadTemplate("email/booking.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["email/booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
+}
+
+func RenderPackageBookingEmail(booking *PackageBooking) []byte {
+	LazyLoadTemplate("email/package_booking.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["email/package_booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
+}
+
 func Render(w io.Writer, templateName string, page *Page) {
 	LazyLoadLayout()
 	LazyLoadTemplate(templateName)
@@ -333,6 +347,57 @@ func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	w.Write(jData)
 }
 
+func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	packageBooking := PackageBooking{}
+	jData := []byte{}
+
+	err := decoder.Decode(&packageBooking)
+
+	if err == nil {
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: "Hotel Paradise",
+				ReplyTo: "adrian.soucup@gmail.com",
+				To: packageBooking.Email,
+				Subject: "Rezervare Hotel Paradise",
+				Body: string(RenderPackageBookingEmail(&packageBooking)),
+			});
+		jData, _ = json.Marshal(true)
+	} else {
+		jData, _ = json.Marshal(err.Error())
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData);
+}
+
+func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	booking := Booking{}
+	jData := []byte{}
+
+	err := decoder.Decode(&booking)
+
+	if err == nil {
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From: "Hotel Paradise",
+				ReplyTo: "adrian.soucup@gmail.com",
+				To: booking.Email,
+				Subject: "Rezervare Hotel Paradise",
+				Body: string(RenderBookingEmail(&booking)),
+			});
+		jData, _ = json.Marshal(true)
+	} else {
+		jData, _ = json.Marshal(err.Error())
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData);
+}
+
 func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	photos := []Photo{}
 	filepath.Walk(
@@ -434,6 +499,9 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
+	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiBooking)))
+
 	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
 	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 

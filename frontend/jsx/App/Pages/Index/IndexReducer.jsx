@@ -8,15 +8,7 @@ const
 		phoneNumber: "",
 		email: "",
 		bookingMessage: "",
-
 		roomType: 0,
-		lunch: false,
-		dinner: false,
-		boatTransfer: false,
-		birdWatching: false,
-		northLakes: false,
-		letea: false,
-		sulina: false,
 
 		startDate: null,
 		endDate: null,
@@ -27,6 +19,7 @@ const
 		items: [],
 	},
 	BASE_STATE = {
+		busy: false,
 		packages: BASE_PACKAGES,
 		workflowStep: Steps.BOOKING_DETAILS,
 		clientObject: BASE_BOOKING,
@@ -51,6 +44,11 @@ const IndexReducer = (state = BASE_STATE, action) => {
 			return {
 				...state,
 				clientObject: action.clientObject,
+			};
+		case Actions.SET_BUSY:
+			return {
+				...state,
+				busy: action.busy,
 			};
 		case Actions.RECEIVE_PACKAGES:
 			return {

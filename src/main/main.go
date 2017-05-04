@@ -46,5 +46,6 @@ func main() {
 	loadConfig(&applicationState)
 	loadApplication(&applicationState)
 	fmt.Fprintf(os.Stdout, "Running in %s mode\n", applicationState.Configuration.Mode)
+	setupGmail(&applicationState)
 	runApplicationSimple(&applicationState)
 }
