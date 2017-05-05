@@ -1,6 +1,7 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../js/colors';
+import * as Utils from '../../../../../js/utils';
 import StepProgressBar from
 	'../../../Components/StepProgressBar/StepProgressBar';
 import * as Steps from '../OfferWorkflowSteps';
@@ -33,8 +34,49 @@ const View = ({
 		selectedOffer,
 	} = clientObject;
 
-	const disableStartDates = (date) =>
+	let disableStartDates = (date) =>
 		Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+	// St - Mary
+	if (selectedOffer.Id === 6) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "13/8/2017";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/08/13"), clientObject);
+		}
+	}
+
+	// Rusalii
+	if (selectedOffer.Id === 3) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "1/6/2017";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/06/01"), clientObject);
+		}
+	}
+
+	// 1 may
+	if (selectedOffer.Id === 2) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "28/4/2017";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/04/28"), clientObject);
+		}
+	}
+
+	if (selectedOffer.Id === 4 || selectedOffer.Id === 8) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) ||
+				date.getDay() !== 0 && date.getDay() !== 4;
+		};
+	}
 
 	const security = 30 * selectedOffer.Price / 100;
 

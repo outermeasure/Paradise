@@ -16,7 +16,7 @@
 		{
 			"Id": 1,
 			"ShowOnIndexPage": false,
-			"ShowOnPackagePage": true,
+			"ShowOnPackagePage": false,
 			"PageDetailsCover": "/static/images/pasti-cover.jpg",
 			"PageDetailsMarkdown": "packages/easter.md",
 			"Url": "easter.html",
