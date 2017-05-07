@@ -35,7 +35,7 @@ const View = ({
 	} = clientObject;
 
 	let disableStartDates = (date) =>
-		Date.now() - 24 * 3600 * 1000 > date.getTime();
+	Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	// St - Mary
 	if (selectedOffer.Id === 6) {
@@ -70,7 +70,11 @@ const View = ({
 		}
 	}
 
-	if (selectedOffer.Id === 4 || selectedOffer.Id === 8) {
+	let explanationString = false;
+	if (selectedOffer.Id === 4 || selectedOffer.Id === 8
+		|| selectedOffer.Id === 9 || selectedOffer.Id === 10) {
+
+		explanationString = true;
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
 			return oldDisable(date) ||
@@ -86,7 +90,7 @@ const View = ({
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
 			progress={Steps.getStepIndexByLabel(step) /
-				(Steps.getNumberOfSteps() - 1)}/>
+			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
 			<h3>{selectedOffer.Title}</h3>
 			<form>
@@ -124,7 +128,13 @@ const View = ({
 					</li>
 				</ul>
 			</form>
+
 			<em>
+				{explanationString ? <div>
+					Pentru aceasta oferta, intrarile se fac doar <strong>
+					joi</strong> si <strong>duminica</strong>.
+					<br/>
+				</div> : null}
 				Plata avansului de {security} lei nerambursabil
 				trebuie efectuata in cel mult 24 de ore dupa
 				completarea rezervarii online pentru confirmarea

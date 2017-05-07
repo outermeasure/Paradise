@@ -361,7 +361,7 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From: "Hotel Paradise",
-				ReplyTo: "paradisedeltahotel@gmail.com",
+				ReplyTo: "blackboymiha77@gmail.com",
 				To: packageBooking.Email,
 				Subject: "Rezervare Hotel Paradise",
 				Body: string(RenderPackageBookingEmail(&packageBooking)),
@@ -373,7 +373,7 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 			EmailMessage{
 				From: packageBooking.FirstName + " " + packageBooking.LastName,
 				ReplyTo: packageBooking.Email,
-				To: "paradisedeltahotel@gmail.com",
+				To: "blackboymiha77@gmail.com",
 				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
 				Body: string(RenderPackageBookingEmail(&packageBooking)),
 			});
@@ -399,7 +399,7 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From: "Hotel Paradise",
-				ReplyTo: "paradisedeltahotel@gmail.com",
+				ReplyTo: "blackboymiha77@gmail.com",
 				To: booking.Email,
 				Subject: "Rezervare Hotel Paradise",
 				Body: string(RenderBookingEmail(&booking)),
@@ -411,7 +411,7 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 			EmailMessage{
 				From: booking.FirstName + " " + booking.LastName,
 				ReplyTo: booking.Email,
-				To: "paradisedeltahotel@gmail.com",
+				To: "blackboymiha77@gmail.com",
 				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: "+ booking.Duration,
 				Body: string(RenderBookingEmail(&booking)),
 			});
