@@ -5,6 +5,7 @@ import Packages from './Pages/Packages/PackagesContainer';
 import Package from './Pages/Package/PackageContainer';
 import Prices from './Pages/Prices/PricesContainer';
 import Location from './Pages/Location/LocationContainer';
+import Edit from './Pages/Edit/Edit';
 import Gallery from './Pages/Gallery/GalleryContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
 
@@ -30,6 +31,8 @@ const getPage = (route, parameters) => {
 			/>;
 		case '/gallery':
 			return <Gallery/>;
+		case '/edit':
+			return <Edit/>;
 		default:
 			return <FourOhFour/>;
 	}

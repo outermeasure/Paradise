@@ -18,6 +18,7 @@ import (
 	"path"
 	"image/jpeg"
 	"strings"
+	"github.com/labstack/gommon/log"
 	"compress/gzip"
 )
 
@@ -158,6 +159,20 @@ func makeGzipHandler(fn httprouter.Handle) httprouter.Handle {
 	}
 }
 
+func makePseudoSecureHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+
+		auth := r.Header.Get("X-Authorization")
+		if (auth != gApplicationState.Configuration.PseudoSecureUrl) {
+			w.Header().Set("Content-Type", "text/plain")
+			w.WriteHeader(401)
+			w.Write([]byte("Unauthorized"));
+			return;
+		}
+		fn(w, r, p)
+	}
+}
+
 func makeCachedHandler(fn httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		w.Header().Set("Cache-Control", "max-age=31536000")
@@ -232,12 +247,8 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Route = "/package/:url"
 
 	if (context.PackageDetails != nil) {
-		file, _ := readFileBytesMemoized(
-			gApplicationState.Configuration.Data + context.PackageDetails.PageDetailsMarkdown,
-		)
-
 		html := blackfriday.MarkdownBasic(
-			file,
+			[]byte(context.PackageDetails.PageDetailsMarkdownString),
 		);
 
 		context.RenderedPackageMarkdown =
@@ -250,7 +261,7 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		)
 
 		context.Parameters["url"] = context.PackageDetails.Url;
-		context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+		context.Parameters["id"] = strconv.Itoa(*context.PackageDetails.Id)
 		context.Parameters["markdownHTML"] = string(html)
 		context.Parameters["cover"] = context.PackageDetails.PageDetailsCover
 	}
@@ -386,6 +397,35 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 	w.Write(jData);
 }
 
+func putApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	pack := Package{}
+	err := decoder.Decode(&pack)
+	success := false
+	if (err == nil) {
+		success = insertOrUpdatePackage(pack)
+	} else {
+		log.Error(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	jData, _ := json.Marshal(success)
+	w.Write(jData)
+}
+
+func deleteApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"));
+	success := false
+	if (err == nil) {
+		success = deletePackage(id)
+	} else {
+		log.Error(err)
+	}
+	jData, _ := json.Marshal(success)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
 func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	decoder := json.NewDecoder(r.Body)
 	booking := Booking{}
@@ -511,11 +551,27 @@ func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) 
 	)
 }
 
+func getAuthorization(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = -1
+	if (p.ByName("secret") == gApplicationState.Configuration.PseudoSecureUrl) {
+		context.Parameters["PseudoAuthorization"] =
+			gApplicationState.Configuration.PseudoSecureUrl
+	}
+	Render(w, "empty.gohtml", context)
+}
+
+func getEdit(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = -1
+	Render(w, "empty.gohtml", context)
+}
+
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 	router := httprouter.New();
-
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
+	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
 	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
 	router.GET("/packages", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
 	router.GET("/package/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
@@ -524,11 +580,21 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+
+
 	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
 	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiBooking)))
 
 	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
+
+	router.PUT("/api/package", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(putApiPackage))))
+	router.DELETE("/api/package/:id", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(deleteApiPackage))))
+
 	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
+
+	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public));
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data));

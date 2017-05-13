@@ -9,6 +9,65 @@ export const
 			)
 		);
 	},
+	putJSON = (url, json, next) => {
+		const request = new XMLHttpRequest();
+		request.open('PUT', url, true);
+
+		if (window.localStorage &&
+			window.localStorage.getItem("XAUTHORIZATION")) {
+			request.setRequestHeader(
+				'X-Authorization',
+				window.localStorage.getItem("XAUTHORIZATION"));
+		}
+
+		request.setRequestHeader(
+			'Content-Type', 'application/json; charset=UTF-8');
+
+		request.onload = function () {
+			if (request.status >= 200 && request.status < 400) {
+				const data = JSON.parse(request.responseText);
+				next(data, null);
+			} else {
+				next(null, [
+					`Server error (${request.status})`,
+				]);
+			}
+		};
+		request.onerror = function () {
+			next(null, [
+				"Service unavailable",
+			]);
+		};
+		request.send(JSON.stringify(json));
+	},
+	deleteJSON = (url, next) => {
+		const request = new XMLHttpRequest();
+		request.open('DELETE', url, true);
+
+		if (window.localStorage &&
+			window.localStorage.getItem("XAUTHORIZATION")) {
+			request.setRequestHeader(
+				'X-Authorization',
+				window.localStorage.getItem("XAUTHORIZATION"));
+		}
+
+		request.onload = function () {
+			if (request.status >= 200 && request.status < 400) {
+				const data = JSON.parse(request.responseText);
+				next(data, null);
+			} else {
+				next(null, [
+					`Server error (${request.status})`,
+				]);
+			}
+		};
+		request.onerror = function () {
+			next(null, [
+				"Service unavailable",
+			]);
+		};
+		request.send();
+	},
 	postJSON = (url, json, next) => {
 		const request = new XMLHttpRequest();
 		request.open('POST', url, true);

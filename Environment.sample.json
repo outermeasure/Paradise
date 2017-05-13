@@ -14,5 +14,8 @@
 
 	"GoogleApiClientSecret": "<client_secret.json>",
 	"GoogleApiKey": "AIzaSyAkwBbLinc5hmSiUkIz3QFVp7xNuLzR5ek",
-	"GmailAccessToken": "<gmail_permission.json>"
+	"GmailAccessToken": "<gmail_permission.json>",
+	"DbConnectionString": "user:password@tcp(x.x.x.x:3306)/paradise?charset=utf8mb4,utf8",
+
+	"PseudoSecureUrl": ""
 }

@@ -24,6 +24,8 @@ type Configuration struct {
 	GoogleApiKey          *string `json:"GoogleApiKey,omitempty"`
 	GoogleApiClientSecret string `json:"GoogleApiClientSecret"`
 	GmailAccessToken      string `json:"GmailAccessToken"`
+	DbConnectionString    string `json:"DbConnectionString"`
+	PseudoSecureUrl       string `json:"PseudoSecureUrl"`
 }
 
 type ApplicationState struct {
@@ -80,18 +82,19 @@ type Platform struct {
 }
 
 type Package struct {
-	Id                  int `json:"Id"`
-	ShowOnIndexPage     bool `json:"ShowOnIndexPage"`
-	ShowOnPackagePage   bool `json:"ShowOnPackagePage"`
-	PageDetailsCover    string `json:"PageDetailsCover"`
-	PageDetailsMarkdown string `json:"PageDetailsMarkdown"`
-	Url                 string `json:"Url"`
-	Price               float64 `json:"Price"`
-	Photo               string `json:"Photo"`
-	Title               string `json:"Title"`
-	Description         string `json:"Description"`
-	Nights              int `json:"Nights"`
-	Empty               bool
+	Id                        *int `json:"Id,omitempty"`
+	ShowOnIndexPage           bool `json:"ShowOnIndexPage"`
+	ShowOnPackagePage         bool `json:"ShowOnPackagePage"`
+	PageDetailsCover          string `json:"PageDetailsCover"`
+	PageDetailsMarkdown       string `json:"PageDetailsMarkdown"`
+	PageDetailsMarkdownString string `json:"PageDetailsMarkdownString"`
+	Url                       string `json:"Url"`
+	Price                     float64 `json:"Price"`
+	Photo                     string `json:"Photo"`
+	Title                     string `json:"Title"`
+	Description               string `json:"Description"`
+	Nights                    int `json:"Nights"`
+	Empty                     bool
 }
 
 type SSL struct {

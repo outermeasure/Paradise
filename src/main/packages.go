@@ -1,36 +1,19 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
-func getParadisePackages(dataFolder string) []Package {
-	type Packages struct {
-		Packages   []Package `json:"packages"`
-	}
-	packages := Packages{}
-	file, _ := readFileBytesMemoized(dataFolder + "packages.json")
-
-	if err := json.Unmarshal(file, &packages); err != nil {
-		fmt.Println(err)
-	}
-	return packages.Packages
+func getParadisePackages(_ string) []Package {
+	return readPackages()
 }
 
-
-func getParadisePackage(dataFolder string, id int) *Package {
-	packages := getParadisePackages(dataFolder)
-	for i := 0; i < len(packages); i++ {
-		if (packages[i].Id == id) {
-			return &packages[i]
-		}
+func getParadisePackage(_ string, id int) *Package {
+	p := readPackageById(id);
+	if (p.Id == nil) {
+		return nil;
 	}
-	return nil
+	return &p;
 }
 
-func getParadisePackageByUrl(dataFolder string, url string) *Package {
-	packages := getParadisePackages(dataFolder)
+func getParadisePackageByUrl(_ string, url string) *Package {
+	packages := readPackages()
 	for i := 0; i < len(packages); i++ {
 		if (packages[i].Url == url) {
 			return &packages[i]

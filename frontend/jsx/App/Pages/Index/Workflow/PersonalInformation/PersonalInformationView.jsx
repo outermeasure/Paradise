@@ -45,7 +45,6 @@ const View = ({
 							id="LastName"
 							value={clientObject.lastName}
 							fullWidth={true}
-							className="medium-big"
 							floatingLabelText={"Nume"}
 							onChange={(e, v) => {
 								e.preventDefault();
@@ -58,7 +57,6 @@ const View = ({
 						<TextField
 							value={clientObject.firstName}
 							fullWidth={true}
-							className="medium-big"
 							floatingLabelText={"Prenume"}
 							onChange={(e, v) => {
 								e.preventDefault();
@@ -71,7 +69,6 @@ const View = ({
 						<TextField
 							value={clientObject.phoneNumber}
 							fullWidth={true}
-							className="medium-big"
 							floatingLabelText={"Telefon"}
 							onChange={(e, v) => {
 								e.preventDefault();
@@ -84,7 +81,6 @@ const View = ({
 						<TextField
 							value={clientObject.email}
 							fullWidth={true}
-							className="medium-big"
 							floatingLabelText={"Email"}
 							onChange={(e, v) => {
 								e.preventDefault();

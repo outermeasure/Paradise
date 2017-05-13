@@ -24,6 +24,16 @@ import {
 	createLogger,
 } from 'redux-logger';
 
+if (window.localStorage) {
+	if (window.PARAMETERS.hasOwnProperty("PseudoAuthorization")) {
+		window.localStorage.setItem("XAUTHORIZATION",
+			window.PARAMETERS.PseudoAuthorization);
+	}
+}
+if (window.PARAMETERS.hasOwnProperty("PseudoAuthorization")) {
+	delete window.PARAMETERS.PseudoAuthorization;
+}
+
 let middleware;
 
 if (window.PARAMETERS.ExplicitRuntimeMode === "develop") {
@@ -42,7 +52,8 @@ const store = Redux.createStore(
 	middleware
 );
 
-document.addEventListener("touchstart", () => {}, true);
+document.addEventListener("touchstart", () => {
+}, true);
 injectTapEventPlugin();
 
 addOnScreenTypeChangedListener(
