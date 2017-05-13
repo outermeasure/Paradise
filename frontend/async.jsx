@@ -28,6 +28,7 @@ if (window.localStorage) {
 	if (window.PARAMETERS.hasOwnProperty("PseudoAuthorization")) {
 		window.localStorage.setItem("XAUTHORIZATION",
 			window.PARAMETERS.PseudoAuthorization);
+		window.location = '/edit';
 	}
 }
 if (window.PARAMETERS.hasOwnProperty("PseudoAuthorization")) {
