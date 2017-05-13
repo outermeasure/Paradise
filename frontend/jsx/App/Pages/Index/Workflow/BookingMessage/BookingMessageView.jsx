@@ -54,7 +54,7 @@ const View = ({
 					<li>
 						<textarea
 							rows={4}
-							onChange={(e) => {
+							onBlur={(e) => {
 								e.preventDefault();
 								onChange(
 									"bookingMessage",
@@ -62,7 +62,7 @@ const View = ({
 							}}
 							placeholder=
 								"Orice preferinta sau intrebari aveti, mentionati-le aici"
-							value={bookingMessage}
+							defaultValue={bookingMessage}
 						>
 						</textarea>
 					</li>

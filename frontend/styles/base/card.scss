@@ -14,6 +14,11 @@
   }
 
   margin-bottom: 24px;
+
+  &.empty {
+    margin-bottom: 0;
+  }
+
   display: inline-block;
   vertical-align: top;
   border-radius: 2px;

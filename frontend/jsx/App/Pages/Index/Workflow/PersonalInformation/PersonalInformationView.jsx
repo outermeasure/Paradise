@@ -1,9 +1,10 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../../js/colors';
+import * as Validations from '../../../../../../js/validations';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
-import TextField from 'material-ui/TextField'
+import TextField from 'material-ui/TextField';
 import * as Steps from '../WorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
@@ -26,101 +27,150 @@ const GrayPaperRipple = (props) => <Ripple
 	}}
 />;
 
-const View = ({
-	onChange,
-	onNext,
-	onBack,
-	clientObject,
-	workflowStep
-}) => {
-	return <div className="popup" id="PersonalInformation">
-		<StepProgressBar steps={Steps.getNumberOfSteps()}
-		                 progress={Steps.getStepIndexByLabel(workflowStep) / (Steps.getNumberOfSteps() - 1)}/>
-		<div className="min-height">
-			<h3>Informatii personale</h3>
-			<form>
-				<ul className="vertical-layout">
-					<li>
-						<TextField
-							id="LastName"
-							value={clientObject.lastName}
-							fullWidth={true}
-							floatingLabelText={"Nume"}
-							onChange={(e, v) => {
-								e.preventDefault();
-								onChange("lastName", v, clientObject);
-							}}
-							type="text"
-							hintText="Ex: Pop"/>
-					</li>
-					<li>
-						<TextField
-							value={clientObject.firstName}
-							fullWidth={true}
-							floatingLabelText={"Prenume"}
-							onChange={(e, v) => {
-								e.preventDefault();
-								onChange("firstName", v, clientObject);
-							}}
-							type="text"
-							hintText="Ex: Ioan"/>
-					</li>
-					<li>
-						<TextField
-							value={clientObject.phoneNumber}
-							fullWidth={true}
-							floatingLabelText={"Telefon"}
-							onChange={(e, v) => {
-								e.preventDefault();
-								onChange("phoneNumber", v, clientObject);
-							}}
-							type="text"
-							hintText="XXXX-XXX-XXX"/>
-					</li>
-					<li>
-						<TextField
-							value={clientObject.email}
-							fullWidth={true}
-							floatingLabelText={"Email"}
-							onChange={(e, v) => {
-								e.preventDefault();
-								onChange("email", v, clientObject);
-							}}
-							type="text"
-							hintText="Ex: pop.ioan@gmail.com"/>
-					</li>
-				</ul>
-			</form>
-		</div>
-		<div className="actions">
-			<GrayPaperRipple
-				tag="button"
-				type="submit"
-				onClick={(e) => {
-					e.preventDefault();
-					onBack();
-				}}
-				className="flat workflow left">Inapoi
-			</GrayPaperRipple>
-			<PaperRipple
-				disabled={
-					clientObject.email === "" ||
-					clientObject.phoneNumber === "" ||
-					clientObject.firstName === "" ||
-					clientObject.lastName === ""
-				}
-				tag="button"
-				type="submit"
-				onClick={(e) => {
-					e.preventDefault();
-					onNext();
-				}}
-				className="primary workflow right">Pasul Urmator
-			</PaperRipple>
-		</div>
-	</div>;
-};
+class View extends React.Component {
 
-View.propTypes = {};
+	constructor(props) {
+		super(props);
+		this.state = {
+			errors: {
+				firstName: null,
+				lastName: null,
+				phoneNumber: null,
+				email: null,
+			},
+		};
+	}
+
+	render() {
+		const {
+			onChange,
+			onNext,
+			onBack,
+			clientObject,
+			workflowStep
+		} = this.props;
+
+		const {
+			errors,
+		} = this.state;
+
+		const that = this;
+
+		const validation = {};
+
+		if (errors) {
+			for (const field in errors) {
+				if (errors.hasOwnProperty(field)) {
+					validation[field] = errors[field] ? {
+						errorText: errors[field][0],
+						errorStyle: {
+							position: "absolute",
+							bottom: "-12px",
+						},
+					} : {};
+				}
+			}
+		}
+
+
+		return <div className="popup" id="PersonalInformation">
+			<StepProgressBar
+				steps={Steps.getNumberOfSteps()}
+				progress={Steps.getStepIndexByLabel(workflowStep) / (Steps.getNumberOfSteps() - 1)}/>
+			<div className="min-height">
+				<h3>Informatii personale</h3>
+				<form>
+					<ul className="vertical-layout">
+						<li>
+							<TextField
+								id="LastName"
+								{...validation.lastName}
+								defaultValue={clientObject.lastName}
+								fullWidth={true}
+								floatingLabelText={"Nume"}
+								onBlur={(e) => {
+									e.preventDefault();
+									onChange("lastName",
+										e.target.value, clientObject);
+								}}
+								type="text"
+								hintText="Ex: Pop"/>
+						</li>
+						<li>
+							<TextField
+								{...validation.firstName}
+								defaultValue={clientObject.firstName}
+								fullWidth={true}
+								floatingLabelText={"Prenume"}
+								onBlur={(e) => {
+									e.preventDefault();
+									onChange("firstName",
+										e.target.value, clientObject);
+								}}
+								type="text"
+								hintText="Ex: Ioan"/>
+						</li>
+						<li>
+							<TextField
+								{...validation.phoneNumber}
+								defaultValue={clientObject.phoneNumber}
+								fullWidth={true}
+								floatingLabelText={"Telefon"}
+								onBlur={(e) => {
+									e.preventDefault();
+									onChange("phoneNumber",
+										e.target.value, clientObject);
+								}}
+								type="text"
+								hintText="XXXX-XXX-XXX"/>
+						</li>
+						<li>
+							<TextField
+								{...validation.email}
+								defaultValue={clientObject.email}
+								fullWidth={true}
+								floatingLabelText={"Email"}
+								onBlur={(e) => {
+									e.preventDefault();
+									onChange("email",
+										e.target.value, clientObject);
+								}}
+								type="text"
+								hintText="Ex: pop.ioan@gmail.com"/>
+						</li>
+					</ul>
+				</form>
+			</div>
+			<div className="actions">
+				<GrayPaperRipple
+					tag="button"
+					type="submit"
+					onClick={(e) => {
+						e.preventDefault();
+						onBack();
+					}}
+					className="flat workflow left">Inapoi
+				</GrayPaperRipple>
+				<PaperRipple
+					tag="button"
+					type="submit"
+					onClick={(e) => {
+						e.preventDefault();
+						const errors = Validations.getErrors(that.props);
+						if (!errors) {
+							onNext();
+						} else {
+							that.setState({
+								...that.state,
+								errors,
+							});
+						}
+					}}
+					className="primary workflow right">Pasul Urmator
+				</PaperRipple>
+			</div>
+		</div>;
+	}
+}
 
 export default View;
