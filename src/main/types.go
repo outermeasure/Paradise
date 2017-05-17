@@ -97,6 +97,31 @@ type Package struct {
 	Empty                     bool
 }
 
+type PackageV2 struct {
+	Id                    *int `json:"Id,omitempty"`
+
+	Url                   string `json:"Url"`
+	Price                 float64 `json:"Price"`
+	Currency              string `json:"Currency"`
+	AllowedDates          *[]time.Time `json:"AllowedDates,omitempty"`
+	Nights                int `json:"Nights"`
+
+	CardTitle             string `json:"CardTitle"`
+	CardPhoto             string `json:"CardPhoto"`
+	CardDescription       string `json:"CardDescription"`
+
+	PageDetailsCoverPhoto string `json:"PageDetailsCoverPhoto"`
+	PageDetailsMarkdown   string `json:"PageDetailsMarkdown"`
+
+	ShowOnIndexPage       bool `json:"ShowOnIndexPage"`
+	ShowOnPackagePage     bool `json:"ShowOnPackagePage"`
+
+	RankOnIndexPage       float64 `json:"RankOnIndexPage"`
+	RankOnPackagePage     float64 `json:"RankOnPackagePage"`
+
+	Photos                *[]string `json:"Photos,omitempty"`
+}
+
 type SSL struct {
 	Port int `json:"Port"`
 	Key  string `json:"Key"`

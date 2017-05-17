@@ -569,6 +569,7 @@ func getEdit(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
+
 	router := httprouter.New();
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
 	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))

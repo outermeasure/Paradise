@@ -2,7 +2,6 @@ import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../js/colors';
 import StepProgressBar from '../../StepProgressBar/StepProgressBar';
-import TextField from 'material-ui/TextField';
 import * as Steps from '../OfferWorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
@@ -54,7 +53,7 @@ const View = ({
 					<li>
 						<textarea
 							rows={4}
-							onChange={(e) => {
+							onBlur={(e) => {
 								e.preventDefault();
 								onChange(
 									"bookingMessage",

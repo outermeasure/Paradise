@@ -38,6 +38,7 @@ func readPackageById(id int) Package {
 			log.Error(err)
 			return Package{}
 		}
+		q.Id = &id
 		return q
 	}
 	// Nothing found
@@ -52,7 +53,7 @@ func readPackages() []Package {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT Id, Data FROM Packages")
+	rows, err := db.Query("SELECT Id, Data, Version FROM Packages")
 	if (err != nil) {
 		log.Error(err)
 		return []Package{}
@@ -63,11 +64,17 @@ func readPackages() []Package {
 	for rows.Next() {
 		var Data string
 		var Id int
-		err := rows.Scan(&Id, &Data)
+		var Version int
+		err := rows.Scan(&Id, &Data, &Version)
 		if (err != nil) {
 			log.Error(err)
 			return a
 		}
+
+		if (Version != 1) {
+			continue
+		}
+
 		q := Package{}
 		err = json.Unmarshal([]byte(Data), &q)
 		if (err != nil) {
@@ -80,48 +87,66 @@ func readPackages() []Package {
 	return a
 }
 
-func insertOrUpdatePackage(pack Package) bool {
-	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
+func insertOrUpdatePackage(pack interface{}) bool {
+	var err error = nil
+	var version int
+	var db *sql.DB
+	var jData []byte = []byte("")
+	var create bool = false
+	var update bool = false
+	var id int
+
+	switch p := pack.(type) {
+	case PackageV2:
+	case Package: {
+		create = p.Id == nil
+		update = !create
+		if update {
+			id = *p.Id;
+		}
+
+		p.Id = nil
+		jData, _ = json.Marshal(p)
+	}}
+
+	db, err = sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
 	if (err != nil) {
 		log.Error(err)
 		return false
 	}
 	defer db.Close()
 
-	if pack.Id == nil {
-		jData, _ := json.Marshal(pack)
-		_, err := db.Query(
-			"INSERT INTO Packages (Data) VALUES (?)",
-			jData,
-		)
-		if (err != nil) {
-			log.Error(err)
-			return false
-		}
-		return true
-	} else {
-		jData, _ := json.Marshal(pack)
-		_, err := db.Query(
-			"UPDATE Packages SET Data=? WHERE ID=?",
-			jData,
-			*pack.Id,
-		)
-		if (err != nil) {
-			log.Error(err)
-			return false
-		}
-		return true
+	switch pack.(type) {
+	case Package: {
+		version = 1
+		break;
 	}
-}
+	case PackageV2: {
+		version = 2
+		break;
+	}}
 
-func migrate() {
-	packs := readPackages()
-
-	for i := 0; i < len(packs); i++ {
-		markdownString, _ := readFileMemoized("data/" + packs[i].PageDetailsMarkdown)
-		packs[i].PageDetailsMarkdownString = markdownString;
-		insertOrUpdatePackage(packs[i]);
+	if create {
+		_, err = db.Query(
+			"INSERT INTO Packages (Data, Version) VALUES (?, ?)",
+			jData,
+			version,
+		)
 	}
+
+	if update {
+		_, err = db.Query(
+			"UPDATE Packages SET Data=?, Version=? WHERE ID=?",
+			jData,
+			version,
+			id,
+		)
+	}
+	if (err != nil) {
+		log.Error(err)
+		return false
+	}
+	return true
 }
 
 func deletePackage(id int) bool {
