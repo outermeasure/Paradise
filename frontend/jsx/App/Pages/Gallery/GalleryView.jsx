@@ -4,6 +4,7 @@ import Modal from '../../Components/Modal/Modal';
 import * as Colors from '../../../../js/colors';
 import PaperRipple from 'react-paper-ripple';
 import * as PaddingTools from '../../Components/PaddingTools';
+import PropTypes from 'prop-types';
 
 const CardPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -103,11 +104,11 @@ const View = ({
 };
 
 View.propTypes = {
-	modalOpen: React.PropTypes.number,
-	closeModal: React.PropTypes.func,
-	selectedPhoto: React.PropTypes.object,
-	openPhoto: React.PropTypes.func,
-	photos: React.PropTypes.object,
+	modalOpen: PropTypes.number,
+	closeModal: PropTypes.func,
+	selectedPhoto: PropTypes.object,
+	openPhoto: PropTypes.func,
+	photos: PropTypes.object,
 };
 
 export default View;

@@ -8,6 +8,7 @@ import Location from './Pages/Location/LocationContainer';
 import Edit from './Pages/Edit/Edit';
 import Gallery from './Pages/Gallery/GalleryContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
+import PropTypes from 'prop-types';
 
 const getPage = (route, parameters) => {
 	switch (route) {
@@ -54,8 +55,8 @@ const AppView = ({
 };
 
 AppView.propTypes = {
-	selectedTab: React.PropTypes.number.isRequired,
-	route: React.PropTypes.string.isRequired,
-	parameters: React.PropTypes.object,
+	selectedTab: PropTypes.number.isRequired,
+	route: PropTypes.string.isRequired,
+	parameters: PropTypes.object,
 };
 export default AppView;

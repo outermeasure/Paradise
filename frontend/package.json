@@ -36,7 +36,7 @@
     "material-ui": "^0.17.1",
     "node-sass": "^4.5.0",
     "normalizecss": "^3.0.0",
-    "prop-types": "^15.5.8",
+    "prop-types": "^15.5.10",
     "react": "^15.4.2",
     "react-datepicker": "^0.44.0",
     "react-dom": "^15.4.2",

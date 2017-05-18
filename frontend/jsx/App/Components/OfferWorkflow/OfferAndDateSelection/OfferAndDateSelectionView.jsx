@@ -92,7 +92,7 @@ const View = ({
 			progress={Steps.getStepIndexByLabel(step) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>{selectedOffer.Title}</h3>
+			<h3>{selectedOffer.CardTitle}</h3>
 			<form>
 				<ul className="vertical-layout">
 					<li>

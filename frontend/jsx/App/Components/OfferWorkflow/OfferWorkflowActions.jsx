@@ -39,7 +39,7 @@ export const
 			phoneNumber: clientObject.phoneNumber,
 			email: clientObject.email,
 			bookingMessage: clientObject.bookingMessage,
-			packageName: clientObject.selectedOffer.Title,
+			packageName: clientObject.selectedOffer.CardTitle,
 			packageUrl: `${host}/package/${clientObject.selectedOffer.Url}`,
 			checkIn: Utils.getRoDate(clientObject.startDate),
 			checkOut: Utils.getRoDate(clientObject.endDate),
@@ -47,6 +47,7 @@ export const
 				`${numberOfNights} nopti` : "o zi",
 			security: security,
 			total: full,
+			currency: clientObject.selectedOffer.Currency,
 		};
 
 		Utils.postJSON(

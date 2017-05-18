@@ -1,5 +1,6 @@
 import React from 'react';
 import GoogleMap from '../../Components/GoogleMap/GoogleMapContainer';
+import PropTypes from 'prop-types';
 
 const View = ({
 	markdownHTML,
@@ -22,9 +23,9 @@ const View = ({
 };
 
 View.propTypes = {
-	markdownHTML: React.PropTypes.string,
-	cover: React.PropTypes.string,
-	googleMapKey: React.PropTypes.string,
+	markdownHTML: PropTypes.string,
+	cover: PropTypes.string,
+	googleMapKey: PropTypes.string,
 };
 
 export default View;

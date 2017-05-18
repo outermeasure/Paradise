@@ -1,6 +1,7 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
+import PropTypes from 'prop-types';
 
 const PAPER_RIPPLE_COLOR = Colors.colorLuminance(Colors.PRIMARY, 0.2);
 
@@ -62,7 +63,7 @@ const NavigationBar = ({
 };
 
 NavigationBar.propTypes = {
-	selected: React.PropTypes.number.isRequired,
+	selected: PropTypes.number.isRequired,
 };
 
 export default NavigationBar;

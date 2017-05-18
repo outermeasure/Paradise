@@ -8,6 +8,7 @@ import Confirmation from
 	'./Confirmation/ConfirmationContainer';
 import BookingMessage from
 	'./BookingMessage/BookingMessageContainer';
+import PropTypes from 'prop-types';
 
 const getComponentByStep = (step) => {
 	switch (step) {
@@ -44,8 +45,8 @@ const View = ({
 };
 
 View.propTypes = {
-	closeModal: React.PropTypes.func,
-	workflowStep: React.PropTypes.string,
+	closeModal: PropTypes.func,
+	workflowStep: PropTypes.string,
 };
 
 export default View;

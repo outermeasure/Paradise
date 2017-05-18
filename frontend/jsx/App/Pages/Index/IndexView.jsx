@@ -7,6 +7,8 @@ import OfferWorkflow from
 import Modal from '../../Components/Modal/Modal';
 import DatePicker from '../../Components/DatePicker/DatePicker';
 import * as Viewport from '../../../../js/viewport';
+import PropTypes from 'prop-types';
+
 import * as PaddingTools from '../../Components/PaddingTools';
 
 const DateTimeFormat = global.Intl.DateTimeFormat;
@@ -126,8 +128,7 @@ const View = ({
 					<BookTopPaperRipple
 						tag="button"
 						disabled={
-							!clientObject.startDate ||
-							!clientObject.endDate
+							!clientObject.startDate || !clientObject.endDate
 						}
 						type="submit"
 						onClick={(e) => {
@@ -143,65 +144,50 @@ const View = ({
 		<div className="main">
 			<ul className="card-collection">
 				{
-					PaddingTools
-						.addPaddingToCardCollection(3, packages.items)
-						.map(
-							(pack, index) => {
+					packages.items.map(
+						(pack, index) => <li
+							key={index}
+							className="card">
 
-								if (pack.empty) {
-									return <li
-										key={index}
-										className="card empty">
-									</li>;
-								}
-
-								return <li
-									key={index}
-									className="card">
-
-									<CardPaperRipple
-										className="content"
-										onClick={(e) => {
-											e.preventDefault();
-											window.location =
-												`package/${pack.Url}`;
-										}}
-										tag="div">
-										<img
-											src={pack.Photo}/>
-
-										<div className="info">
-											<h3>{pack.Title}</h3>
-											<p>{pack.Description}</p>
-											<div className="price">
-												{pack.Price} lei / persoană
-											</div>
-										</div>
-									</CardPaperRipple>
-									<div className="actions">
-										<DetailsPaperRipple
-											onClick={(e) => {
-												e.preventDefault();
-												window.location =
-													`package/${pack.Url}`;
-											}}
-											tag="button">
-											Detalii
-										</DetailsPaperRipple>
-										<BookOfferPaperRipple
-											onClick={(e) => {
-												e.preventDefault();
-												openModal(1, pack,
-													offerClientObject);
-											}}
-											tag="button"
-											className="accent">
-											Rezervă
-										</BookOfferPaperRipple>
+							<CardPaperRipple
+								className="content"
+								onClick={(e) => {
+									e.preventDefault();
+									window.location =
+										`package/${pack.Url}`;
+								}}
+								tag="div">
+								<img src={pack.CardPhoto}/>
+								<div className="info">
+									<h3>{pack.CardTitle}</h3>
+									<p>{pack.CardDescription}</p>
+									<div className="price">
+										{pack.Price} {pack.Currency} / persoană
 									</div>
-								</li>;
-							}
-						)
+								</div>
+							</CardPaperRipple>
+							<div className="actions">
+								<DetailsPaperRipple
+									onClick={(e) => {
+										e.preventDefault();
+										window.location =
+											`package/${pack.Url}`;
+									}}
+									tag="button">
+									Detalii
+								</DetailsPaperRipple>
+								<BookOfferPaperRipple
+									onClick={(e) => {
+										e.preventDefault();
+										openModal(1, pack,
+											offerClientObject);
+									}}
+									tag="button"
+									className="accent">
+									Rezervă
+								</BookOfferPaperRipple>
+							</div>
+						</li>)
 				}
 			</ul>
 		</div>
@@ -209,19 +195,20 @@ const View = ({
 };
 
 View.propTypes = {
-	packages: React.PropTypes.shape({
-		items: React.PropTypes.arrayOf(
-			React.PropTypes.shape({
-				Price: React.PropTypes.number.isRequired,
-				Photo: React.PropTypes.string.isRequired,
-				Title: React.PropTypes.string.isRequired,
-				Description: React.PropTypes.string.isRequired,
+	packages: PropTypes.shape({
+		items: PropTypes.arrayOf(
+			PropTypes.shape({
+				Price: PropTypes.number.isRequired,
+				Currency: PropTypes.string.isRequired,
+				CardPhoto: PropTypes.string.isRequired,
+				CardTitle: PropTypes.string.isRequired,
+				CardDescription: PropTypes.string.isRequired,
 			})
 		).isRequired,
-		isFetching: React.PropTypes.bool,
-		receivedAt: React.PropTypes.number,
+		isFetching: PropTypes.bool,
+		receivedAt: PropTypes.number,
 	}),
-	openModal: React.PropTypes.func,
+	openModal: PropTypes.func,
 };
 
 export default View;

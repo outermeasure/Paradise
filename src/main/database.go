@@ -71,7 +71,7 @@ func readPackages() []Package {
 			return a
 		}
 
-		if (Version != 1) {
+		if (Version != 2) {
 			continue
 		}
 
@@ -97,8 +97,7 @@ func insertOrUpdatePackage(pack interface{}) bool {
 	var id int
 
 	switch p := pack.(type) {
-	case PackageV2:
-	case Package: {
+	case Package:
 		create = p.Id == nil
 		update = !create
 		if update {
@@ -107,7 +106,7 @@ func insertOrUpdatePackage(pack interface{}) bool {
 
 		p.Id = nil
 		jData, _ = json.Marshal(p)
-	}}
+	}
 
 	db, err = sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
 	if (err != nil) {
@@ -118,10 +117,6 @@ func insertOrUpdatePackage(pack interface{}) bool {
 
 	switch pack.(type) {
 	case Package: {
-		version = 1
-		break;
-	}
-	case PackageV2: {
 		version = 2
 		break;
 	}}
@@ -136,7 +131,7 @@ func insertOrUpdatePackage(pack interface{}) bool {
 
 	if update {
 		_, err = db.Query(
-			"UPDATE Packages SET Data=?, Version=? WHERE ID=?",
+			"UPDATE Packages SET Data=?, Version=? WHERE Id=?",
 			jData,
 			version,
 			id,

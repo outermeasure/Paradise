@@ -95,6 +95,7 @@ func setupGmail(appState *ApplicationState) {
 }
 
 func SendEmail(client *http.Client, msg EmailMessage) {
+	return
 	srv, err := gmail.New(client)
 	if err != nil {
 		log.Printf("Unable to retrieve gmail Client %v", err)

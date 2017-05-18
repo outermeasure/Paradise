@@ -37,7 +37,7 @@ module.exports = {
 			{
 				root: path.join(__dirname, '../'),
 				verbose: true,
-				dry: false,
+				dry: true,
 				exclude: [],
 			}
 		),

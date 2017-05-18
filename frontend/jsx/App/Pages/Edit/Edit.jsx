@@ -19,14 +19,13 @@ const BASE_FOCUSED_PACKAGE = {
 	Id: null,
 	ShowOnIndexPage: false,
 	ShowOnPackagePage: false,
-	PageDetailsCover: "",
+	PageDetailsCoverPhoto: "",
 	PageDetailsMarkdown: "",
-	PageDetailsMarkdownString: "",
 	Url: "",
 	Price: 1000,
-	Photo: "",
-	Title: "",
-	Description: "",
+	CardPhoto: "",
+	CardTitle: "",
+	CardDescription: "",
 	Nights: 1,
 	Empty: false,
 };
@@ -101,7 +100,7 @@ class Edit extends React.Component {
 				{
 					this.state.packages.map(
 						(pack, index) => <tr key={index}>
-							<td>{pack.Title}</td>
+							<td>{pack.CardTitle}</td>
 							<td>
 								<ul>
 									<li>
@@ -148,18 +147,19 @@ class Edit extends React.Component {
 							<i className="icon-close2"/>
 						</button>
 					</div>
-					<h3>
-						Modifica Oferta
-					</h3>
-
+					{fp ? <h3>
+						{fp.Id || fp.Id === 0 ?
+							"Modificare Pachet" : "Adaugare Pachet"}
+					</h3> : null}
 					{fp ? <form>
 						<ul>
-							<li>
+							{fp.Id || fp.Id === 0 ? <li>
 								<label>Id</label>
-								<input type="text"
-											 defaultValue={fp.Id}
-											 disabled={true}/>
-							</li>
+								<input
+									type="text"
+									defaultValue={fp.Id}
+									disabled={true}/>
+							</li> : null}
 							<li>
 								<Checkbox
 									label="Arata pe pagina principala"
@@ -194,14 +194,14 @@ class Edit extends React.Component {
 								<label>Imaginea de cover (URL)</label>
 								<input
 									type="text"
-									defaultValue={fp.PageDetailsCover}
+									defaultValue={fp.PageDetailsCoverPhoto}
 									onBlur={
 										(e) => {
 											that.setState({
 												...that.state,
 												focusedPackage: {
 													...that.state.focusedPackage,
-													PageDetailsCover: e.target.value,
+													PageDetailsCoverPhoto: e.target.value,
 												},
 											});
 										}
@@ -212,14 +212,14 @@ class Edit extends React.Component {
 								<label>Descrierea ofertei</label>
 								<textarea
 									rows="9"
-									defaultValue={fp.PageDetailsMarkdownString}
+									defaultValue={fp.PageDetailsMarkdown}
 									onBlur={
 										(e) => {
 											that.setState({
 												...that.state,
 												focusedPackage: {
 													...that.state.focusedPackage,
-													PageDetailsMarkdownString: e.target.value,
+													PageDetailsMarkdown: e.target.value,
 												},
 											});
 										}
@@ -244,7 +244,7 @@ class Edit extends React.Component {
 								/>
 							</li>
 							<li>
-								<label>Pret (Lei)</label>
+								<label>Pret</label>
 								<input
 									type="text"
 									defaultValue={fp.Price}
@@ -262,16 +262,34 @@ class Edit extends React.Component {
 								/>
 							</li>
 							<li>
-								<label>Fotografie card (URL)</label>
+								<label>Moneda</label>
 								<input
-									defaultValue={fp.Photo}
+									type="text"
+									defaultValue={fp.Currency}
 									onBlur={
 										(e) => {
 											that.setState({
 												...that.state,
 												focusedPackage: {
 													...that.state.focusedPackage,
-													Photo: e.target.value,
+													Currency: e.target.value,
+												},
+											});
+										}
+									}
+								/>
+							</li>
+							<li>
+								<label>Fotografie card (URL)</label>
+								<input
+									defaultValue={fp.CardPhoto}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													CardPhoto: e.target.value,
 												},
 											});
 										}
@@ -279,16 +297,16 @@ class Edit extends React.Component {
 									type="text"/>
 							</li>
 							<li>
-								<label>Titlu</label>
+								<label>Titlu Card</label>
 								<input
-									defaultValue={fp.Title}
+									defaultValue={fp.CardTitle}
 									onBlur={
 										(e) => {
 											that.setState({
 												...that.state,
 												focusedPackage: {
 													...that.state.focusedPackage,
-													Title: e.target.value,
+													CardTitle: e.target.value,
 												},
 											});
 										}
@@ -298,14 +316,14 @@ class Edit extends React.Component {
 							<li>
 								<label>Descriere Card</label>
 								<input
-									defaultValue={fp.Description}
+									defaultValue={fp.CardDescription}
 									onBlur={
 										(e) => {
 											that.setState({
 												...that.state,
 												focusedPackage: {
 													...that.state.focusedPackage,
-													Description: e.target.value,
+													CardDescription: e.target.value,
 												},
 											});
 										}
@@ -328,22 +346,6 @@ class Edit extends React.Component {
 										}
 									}
 									type="text"/>
-							</li>
-							<li>
-								<label>Extra</label>
-								<Checkbox
-									label="Oferta goala"
-									onCheck={(e, v) => {
-										that.setState({
-											...that.state,
-											focusedPackage: {
-												...that.state.focusedPackage,
-												Empty: v,
-											},
-										});
-									}}
-									checked={fp.Empty}
-								/>
 							</li>
 						</ul>
 					</form> : null }

@@ -42,21 +42,12 @@ func lcmN(n int) int {
 	return p
 }
 
-func addPaddingToPackages(maxItemsPerRow int, items []Package) []Package {
-	result := []Package{}
+func addPadding(maxItemsPerRow int, numberOfItems int) []byte {
+	result := []byte{}
 	n := lcmN(maxItemsPerRow)
-
-	for i := 0; i < len(items); i++ {
-		items[i].Empty = false
-		result = append(result, items[i])
+	for i := numberOfItems; i % n != 0; i++ {
+		result = append(result, byte(0))
 	}
-
-	for i := len(items); i % n != 0; i++ {
-		result = append(result, Package{
-			Empty: true,
-		})
-	}
-
 	return result;
 }
 
@@ -199,7 +190,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
-	context.Packages = addPaddingToPackages(3, context.Packages);
+	context.Padding = addPadding(3, len(context.Packages));
 
 	Render(w, "index.gohtml", context)
 }
@@ -233,7 +224,10 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
-	context.Packages = addPaddingToPackages(3, context.Packages);
+	context.Padding = addPadding(
+		3,
+		len(context.Packages),
+	);
 	Render(w, "packages.gohtml", context)
 }
 
@@ -248,7 +242,7 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	if (context.PackageDetails != nil) {
 		html := blackfriday.MarkdownBasic(
-			[]byte(context.PackageDetails.PageDetailsMarkdownString),
+			[]byte(context.PackageDetails.PageDetailsMarkdown),
 		);
 
 		context.RenderedPackageMarkdown =
@@ -257,13 +251,13 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			)
 
 		context.RenderedPackageCover = template.HTMLAttr(
-			context.PackageDetails.PageDetailsCover,
+			context.PackageDetails.PageDetailsCoverPhoto,
 		)
 
 		context.Parameters["url"] = context.PackageDetails.Url;
 		context.Parameters["id"] = strconv.Itoa(*context.PackageDetails.Id)
 		context.Parameters["markdownHTML"] = string(html)
-		context.Parameters["cover"] = context.PackageDetails.PageDetailsCover
+		context.Parameters["cover"] = context.PackageDetails.PageDetailsCoverPhoto
 	}
 
 	Render(w, "package.gohtml", context)

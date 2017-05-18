@@ -61,7 +61,7 @@ const View = ({
 							}}
 							placeholder=
 								"Orice preferinta sau intrebari aveti, mentionati-le aici"
-							value={bookingMessage}
+							defaultValue={bookingMessage}
 						>
 						</textarea>
 					</li>

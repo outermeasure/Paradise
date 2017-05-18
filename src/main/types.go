@@ -58,7 +58,10 @@ type Page struct {
 	Route                    string
 	Parameters               map[string]string
 	NavbarSelected           int
+
 	Packages                 []Package
+	Padding                  []byte
+
 	PackageDetails           *Package
 	RenderedPackageMarkdown  template.HTML
 	RenderedPackageCover     template.HTMLAttr
@@ -82,22 +85,6 @@ type Platform struct {
 }
 
 type Package struct {
-	Id                        *int `json:"Id,omitempty"`
-	ShowOnIndexPage           bool `json:"ShowOnIndexPage"`
-	ShowOnPackagePage         bool `json:"ShowOnPackagePage"`
-	PageDetailsCover          string `json:"PageDetailsCover"`
-	PageDetailsMarkdown       string `json:"PageDetailsMarkdown"`
-	PageDetailsMarkdownString string `json:"PageDetailsMarkdownString"`
-	Url                       string `json:"Url"`
-	Price                     float64 `json:"Price"`
-	Photo                     string `json:"Photo"`
-	Title                     string `json:"Title"`
-	Description               string `json:"Description"`
-	Nights                    int `json:"Nights"`
-	Empty                     bool
-}
-
-type PackageV2 struct {
 	Id                    *int `json:"Id,omitempty"`
 
 	Url                   string `json:"Url"`
@@ -169,6 +156,8 @@ type PackageBooking struct {
 
 	Security       int `json:"security"`
 	Total          int `json:"total"`
+
+	Currency       string `json:"currency"`
 }
 
 type EmailMessage struct {

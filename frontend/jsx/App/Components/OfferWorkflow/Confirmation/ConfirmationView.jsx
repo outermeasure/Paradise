@@ -56,8 +56,8 @@ const View = ({
 				<i className="icon-circle-check"/>
 			</div>
 			<p className="top">Aveti de transferat in decurs de <strong>24 de ore</strong></p>
-			<p className="payment">{security} RON</p>
-			<p className="bottom">suma care reprezinta 30% din valoarea rezervarii de {full} RON</p>
+			<p className="payment">{security} {selectedOffer.Currency}</p>
+			<p className="bottom">suma care reprezinta 30% din valoarea rezervarii de {full} {selectedOffer.Currency}</p>
 			<p className="notification">V-am trimis email la adresa {email} cu
 				pachetul dumneavoastra si detaliile platii.</p>
 		</div>
