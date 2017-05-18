@@ -76,15 +76,8 @@ const View = ({
 		</Modal>
 		<ul className="card-collection">
 			{
-				PaddingTools.addPaddingToCardCollection(4, all).map(
-					(photo, index) => {
-						if (photo.empty) {
-							return <li
-								key={index}
-								className="card empty">
-							</li>;
-						}
-						return <li key={index} className="card">
+				all.map(
+					(photo, index) => <li key={index} className="card">
 							<CardPaperRipple
 								className="content"
 								onClick={(e) => {
@@ -94,9 +87,12 @@ const View = ({
 								tag="div">
 								<img src={photo.thumbnail}/>
 							</CardPaperRipple>
-						</li>;
-					}
+						</li>
 				)
+			}
+			{
+				PaddingTools.addPadding(4, all.length).map(
+					(_, i) => <li key={i} className="card empty"/>)
 			}
 		</ul>
 		{ isFetching ? "Loading..." : null }

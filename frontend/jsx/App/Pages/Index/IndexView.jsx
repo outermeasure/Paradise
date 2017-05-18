@@ -189,6 +189,10 @@ const View = ({
 							</div>
 						</li>)
 				}
+				{
+					PaddingTools.addPadding(3, packages.items.length).map(
+						(_, i) => <li key={i} className="card empty"/>)
+				}
 			</ul>
 		</div>
 	</div>;
