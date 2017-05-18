@@ -23,6 +23,8 @@ type Configuration struct {
 
 	GoogleApiKey          *string `json:"GoogleApiKey,omitempty"`
 	GoogleApiClientSecret string `json:"GoogleApiClientSecret"`
+	BookingEmailAddress   string `json:"BookingEmailAddress"`
+
 	GmailAccessToken      string `json:"GmailAccessToken"`
 	DbConnectionString    string `json:"DbConnectionString"`
 	PseudoSecureUrl       string `json:"PseudoSecureUrl"`
