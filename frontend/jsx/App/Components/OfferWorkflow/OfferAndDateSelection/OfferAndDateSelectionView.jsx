@@ -72,7 +72,8 @@ const View = ({
 
 	let explanationString = false;
 	if (selectedOffer.Id === 27 || selectedOffer.Id === 30
-		|| selectedOffer.Id === 31 || selectedOffer.Id === 32) {
+		|| selectedOffer.Id === 31 || selectedOffer.Id === 32
+		|| selectedOffer.Id === 35 || selectedOffer.Id === 36) {
 
 		explanationString = true;
 		const oldDisable = disableStartDates;
