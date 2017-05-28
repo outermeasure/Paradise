@@ -127,6 +127,7 @@ type Booking struct {
 	LastName       string `json:"lastName"`
 	PhoneNumber    string `json:"phoneNumber"`
 	Email          string `json:"email"`
+	Nid            string `json:"nid"`
 	BookingMessage string `json:"bookingMessage"`
 	RoomType       string `json:"roomType"`
 
@@ -146,6 +147,8 @@ type PackageBooking struct {
 	LastName       string `json:"lastName"`
 	PhoneNumber    string `json:"phoneNumber"`
 	Email          string `json:"email"`
+	Nid            string `json:"nid"`
+
 	BookingMessage string `json:"bookingMessage"`
 	PackageName    string `json:"packageName"`
 	PackageUrl     string `json:"packageUrl"`

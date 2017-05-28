@@ -38,7 +38,7 @@ const View = ({
 	Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	// St - Mary
-	if (selectedOffer.Id === 6) {
+	if (selectedOffer.Id === 29) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
 			return oldDisable(date) || Utils.getRoDate(date) !== "13/8/2017";
@@ -49,7 +49,7 @@ const View = ({
 	}
 
 	// Rusalii
-	if (selectedOffer.Id === 3) {
+	if (selectedOffer.Id === 26) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
 			return oldDisable(date) || Utils.getRoDate(date) !== "1/6/2017";
@@ -60,7 +60,7 @@ const View = ({
 	}
 
 	// 1 may
-	if (selectedOffer.Id === 2) {
+	if (selectedOffer.Id === 25) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
 			return oldDisable(date) || Utils.getRoDate(date) !== "28/4/2017";
@@ -71,14 +71,25 @@ const View = ({
 	}
 
 	let explanationString = false;
-	if (selectedOffer.Id === 4 || selectedOffer.Id === 8
-		|| selectedOffer.Id === 9 || selectedOffer.Id === 10) {
+	if (selectedOffer.Id === 27 || selectedOffer.Id === 30
+		|| selectedOffer.Id === 31 || selectedOffer.Id === 32) {
 
 		explanationString = true;
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
 			return oldDisable(date) ||
 				date.getDay() !== 0 && date.getDay() !== 4;
+		};
+	}
+
+	let explanationString2 = false;
+	if (selectedOffer.Id === 28) {
+
+		explanationString2 = true;
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) ||
+				date.getDay() !== 0;
 		};
 	}
 
@@ -133,6 +144,11 @@ const View = ({
 				{explanationString ? <div>
 					Pentru aceasta oferta, intrarile se fac doar <strong>
 					joi</strong> si <strong>duminica</strong>.
+					<br/>
+				</div> : null}
+				{explanationString2 ? <div>
+					Pentru aceasta oferta, intrarile se fac doar <strong>
+					Duminica</strong>.
 					<br/>
 				</div> : null}
 				Plata avansului de {security} lei nerambursabil

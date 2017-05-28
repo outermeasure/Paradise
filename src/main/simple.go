@@ -361,17 +361,6 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 
 	if err == nil {
-		packageBooking.IsClient = true
-		SendEmail(
-			gApplicationState.GmailClient,
-			EmailMessage{
-				From: "Hotel Paradise",
-				ReplyTo: gApplicationState.Configuration.BookingEmailAddress,
-				To: packageBooking.Email,
-				Subject: "Rezervare Hotel Paradise",
-				Body: string(RenderPackageBookingEmail(&packageBooking)),
-			});
-
 		packageBooking.IsClient = false
 		SendEmail(
 			gApplicationState.GmailClient,
@@ -428,17 +417,6 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	err := decoder.Decode(&booking)
 
 	if err == nil {
-		booking.IsClient = true
-		SendEmail(
-			gApplicationState.GmailClient,
-			EmailMessage{
-				From: "Hotel Paradise",
-				ReplyTo: gApplicationState.Configuration.BookingEmailAddress,
-				To: booking.Email,
-				Subject: "Rezervare Hotel Paradise",
-				Body: string(RenderBookingEmail(&booking)),
-			});
-
 		booking.IsClient = false
 		SendEmail(
 			gApplicationState.GmailClient,

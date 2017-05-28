@@ -55,11 +55,10 @@ const View = ({
 			<div className="font-container">
 				<i className="icon-circle-check"/>
 			</div>
-			<p className="top">Aveti de transferat in decurs de <strong>24 de ore</strong></p>
+			<p className="top">Avansul de baza este:</p>
 			<p className="payment">{security} {selectedOffer.Currency}</p>
-			<p className="bottom">suma care reprezinta 30% din valoarea rezervarii de {full} {selectedOffer.Currency}</p>
-			<p className="notification">V-am trimis email la adresa {email} cu
-				pachetul dumneavoastra si detaliile platii.</p>
+			<p className="bottom">suma care reprezinta 30% din valoarea totala de {full} {selectedOffer.Currency}<br/><strong>Atentie: Daca ati rezervat pe mai multe persoane pretul final poate varia.</strong></p>
+			<p className="notification">Va vom trimite prin email factura proforma de indata ce verificam disponibilitatea camere(i/lor).</p>
 		</div>
 		<div className="actions">
 			<GrayPaperRipple

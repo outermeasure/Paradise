@@ -138,6 +138,20 @@ class View extends React.Component {
 								type="text"
 								hintText="Ex: pop.ioan@gmail.com"/>
 						</li>
+						<li>
+							<TextField
+								{...validation.nid}
+								defaultValue={clientObject.nid}
+								fullWidth={true}
+								floatingLabelText={"CUI/CNP"}
+								onBlur={(e) => {
+									e.preventDefault();
+									onChange("nid",
+										e.target.value, clientObject);
+								}}
+								type="text"
+								hintText="18XXXXXXXXXXX"/>
+						</li>
 					</ul>
 				</form>
 			</div>

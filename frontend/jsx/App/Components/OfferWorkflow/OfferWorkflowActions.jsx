@@ -38,6 +38,7 @@ export const
 			lastName: clientObject.lastName,
 			phoneNumber: clientObject.phoneNumber,
 			email: clientObject.email,
+			nid: clientObject.nid,
 			bookingMessage: clientObject.bookingMessage,
 			packageName: clientObject.selectedOffer.CardTitle,
 			packageUrl: `${host}/package/${clientObject.selectedOffer.Url}`,

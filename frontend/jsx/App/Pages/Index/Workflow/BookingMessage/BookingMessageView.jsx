@@ -61,7 +61,7 @@ const View = ({
 									e.target.value, clientObject);
 							}}
 							placeholder=
-								"Orice preferinta sau intrebari aveti, mentionati-le aici"
+								"Va rugam sa specificati numarul si tipul de camere daca doriti mai mult de una"
 							defaultValue={bookingMessage}
 						>
 						</textarea>

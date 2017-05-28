@@ -7,6 +7,10 @@ export const
 		const re = /^([\\(\\)\\+0-9\s\-\\#]+)$/;
 		return re.test(phoneNumber);
 	},
+	validateNID = (cui) => {
+		const re = /^[0-9]+$/;
+		return re.test(cui);
+	},
 	getErrors = (props) => {
 		const {
 			clientObject,
@@ -17,6 +21,7 @@ export const
 			lastName: null,
 			phoneNumber: null,
 			email: null,
+			nid: null,
 		};
 
 		const {
@@ -24,6 +29,7 @@ export const
 			phoneNumber,
 			firstName,
 			lastName,
+			nid,
 		} = clientObject;
 
 		let hadError = false;
@@ -62,6 +68,15 @@ export const
 		if (lastName === '') {
 			addError("lastName", "Numele nu poate fi omis");
 		}
+
+		if (nid === '') {
+			addError("nid", "CNP/CUI nu poate fi omis");
+		}
+
+		if (!validateNID(nid)) {
+			addError("nid", "CNP/CUI invalid");
+		}
+
 		return hadError ? errors : null;
 	};
 

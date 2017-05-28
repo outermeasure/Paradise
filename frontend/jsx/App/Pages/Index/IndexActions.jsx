@@ -47,6 +47,7 @@ export const
 			lastName: clientObject.lastName,
 			phoneNumber: clientObject.phoneNumber,
 			email: clientObject.email,
+			nid: clientObject.nid,
 			bookingMessage: clientObject.bookingMessage,
 			roomType: RoomTypes.Data[clientObject.roomType].labelRo,
 			checkIn: Utils.getRoDate(clientObject.startDate),
