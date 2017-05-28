@@ -62,7 +62,7 @@ const View = ({
 			</div>
 			<p className="top">Avansul de baza este:</p>
 			<p className="payment">{security} RON</p>
-			<p className="bottom">suma care reprezinta 30% din valoarea totala de {full} RON. <br/><strong>Atentie: Daca ati rezervat mai multe camere pretul final poate varia.</strong></p>
+			<p className="bottom">suma care reprezinta 30% din valoarea totala de {full} RON. <br/><strong>Atentie: Daca ati rezervat mai multe camere pretul final se poate modifica.</strong></p>
 			<p className="notification">Va vom trimite prin email factura proforma de indata ce verificam disponibilitatea camere(i/lor).</p>
 		</div>
 		<div className="actions">
