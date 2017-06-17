@@ -2,6 +2,7 @@ import React from 'react';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Index from './Pages/Index/IndexContainer';
 import Packages from './Pages/Packages/PackagesContainer';
+import Reviews from './Pages/Reviews/ReviewsContainer';
 import Package from './Pages/Package/PackageContainer';
 import Prices from './Pages/Prices/PricesContainer';
 import Location from './Pages/Location/LocationContainer';
@@ -34,6 +35,8 @@ const getPage = (route, parameters) => {
 			return <Gallery/>;
 		case '/edit':
 			return <Edit/>;
+		case '/reviews':
+            return <Reviews/>;
 		default:
 			return <FourOhFour/>;
 	}

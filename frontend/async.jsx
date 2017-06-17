@@ -6,6 +6,7 @@ import App from './jsx/App/AppContainer';
 import * as AppActions from './jsx/App/AppActions';
 import * as IndexActions from './jsx/App/Pages/Index/IndexActions';
 import * as PackagesActions from './jsx/App/Pages/Packages/PackagesActions';
+import * as ReviewsActions from './jsx/App/Pages/Reviews/ReviewsActions';
 import * as GalleryActions from './jsx/App/Pages/Gallery/GalleryActions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -90,6 +91,10 @@ if (window.ROUTE === '/') {
 		0,
 		renderApplication
 	));
+} else if (window.ROUTE === '/reviews') {
+    store.dispatch(ReviewsActions.fetchReviews(
+        renderApplication
+    ));
 } else {
 	renderApplication();
 }

@@ -32,6 +32,13 @@ body {
   overflow-y: scroll !important;
 }
 
+#eXTReMe-Free-nhu65ar {
+  opacity: 0.5;
+  position: relative;
+  left: 10%;
+  bottom: 0;
+}
+
 @import "base/layout";
 @import "base/form/form";
 @import "base/navigation_bar";
@@ -44,3 +51,4 @@ body {
 @import "Location/Location";
 @import "Gallery/Gallery";
 @import "Edit/PackageEdit";
+@import "Reviews/Reviews";

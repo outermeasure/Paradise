@@ -90,6 +90,8 @@ const View = ({
 		</Modal>
 		<div className="presentation">
 			<div className="main">
+				<div className="phone-number">(+4)0755-248-260</div>
+				<div className="phone-number">(+4)0741-991-297</div>
 				<h1
 					className={
 						"top light text-center " +

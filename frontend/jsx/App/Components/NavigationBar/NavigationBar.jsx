@@ -48,6 +48,12 @@ const NavigationBar = ({
 			<li>
 				<NavPaperRipple
 					tag="a"
+					className={selected === 6 ? "selected" : ""}
+					href="/reviews">Recenzii</NavPaperRipple>
+			</li>
+			<li>
+				<NavPaperRipple
+					tag="a"
 					className={selected === 5 ? "selected" : ""}
 					href="/gallery">Galerie Foto</NavPaperRipple>
 			</li>
