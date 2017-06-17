@@ -231,6 +231,33 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	Render(w, "packages.gohtml", context)
 }
 
+func getReviews(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = 6
+	all := getParadiseReviews(
+		gApplicationState.Configuration.Data,
+	)
+	context.Reviews = []Review{}
+	for i := 0; i < len(all); i++ {
+		context.Reviews = append(context.Reviews, all[i])
+	}
+	context.Padding = addPadding(
+		3,
+		len(context.Reviews),
+	);
+	Render(w, "reviews.gohtml", context)
+}
+
+func getApiReviews(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	jData, _ := json.Marshal(
+		getParadiseReviews(
+			gApplicationState.Configuration.Data,
+		),
+	)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
 func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 0
@@ -396,11 +423,40 @@ func putApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 	w.Write(jData)
 }
 
+func putApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	rev := Review{}
+	err := decoder.Decode(&rev)
+	success := false
+	if (err == nil) {
+		success = insertOrUpdateReview(rev)
+	} else {
+		log.Error(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	jData, _ := json.Marshal(success)
+	w.Write(jData)
+}
+
 func deleteApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id, err := strconv.Atoi(p.ByName("id"));
 	success := false
 	if (err == nil) {
 		success = deletePackage(id)
+	} else {
+		log.Error(err)
+	}
+	jData, _ := json.Marshal(success)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
+func deleteApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"));
+	success := false
+	if (err == nil) {
+		success = deleteReview(id)
 	} else {
 		log.Error(err)
 	}
@@ -547,12 +603,14 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
 	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
 	router.GET("/packages", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
+	router.GET("/reviews", makeVaryAcceptEncoding(makeGzipHandler(getReviews)))
 	router.GET("/package/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
 	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
 	router.GET("/location", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
 	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(getApiReviews)))
 
 
 	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
@@ -562,8 +620,12 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.PUT("/api/package", makePseudoSecureHandler(
 		makeVaryAcceptEncoding(makeGzipHandler(putApiPackage))))
+	router.PUT("/api/review", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(putApiReview))))
 	router.DELETE("/api/package/:id", makePseudoSecureHandler(
 		makeVaryAcceptEncoding(makeGzipHandler(deleteApiPackage))))
+	router.DELETE("/api/review/:id", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(deleteApiReview))))
 
 	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 

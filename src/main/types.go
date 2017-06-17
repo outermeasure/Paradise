@@ -62,6 +62,7 @@ type Page struct {
 	NavbarSelected           int
 
 	Packages                 []Package
+	Reviews                  []Review
 	Padding                  []byte
 
 	PackageDetails           *Package
@@ -171,4 +172,11 @@ type EmailMessage struct {
 	ReplyTo string
 	Body    string
 	From    string
+}
+
+type Review struct {
+	Id      *int `json:"Id,omitempty"`
+		Name    string
+	Date    string
+	Content string
 }
