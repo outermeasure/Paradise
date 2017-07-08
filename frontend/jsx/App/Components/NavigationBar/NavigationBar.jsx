@@ -56,7 +56,7 @@ class NavigationBar extends React.Component {
 		const {
 			selected,
 		} = this.props;
-		return <nav
+		return <div><nav
 			className="no-selection">
 			<NavPaperRipple
 				tag="div"
@@ -79,23 +79,6 @@ class NavigationBar extends React.Component {
 			</ul>
 			<div className="sandwich">
 				<i className="icon-bars" />
-				<Drawer
-					docked={false}
-					width={200}
-					openSecondary={true}
-					open={this.state.open}
-					onRequestChange={(open) => this.setState({ open })}
-				>
-					{MENU_ITEMS.map(
-						(item, i) => <MenuItem key={i}
-							onTouchTap={() => {
-								this.setState({ open: false });
-								window.location = item.url;
-							}}
-						>{item.label}</MenuItem>
-					)
-					}
-				</Drawer>
 				<NavPaperRipple
 					tag="a"
 					href="/"
@@ -104,7 +87,25 @@ class NavigationBar extends React.Component {
 						this.setState({ open: true });
 					}} />
 			</div>
-		</nav>;
+		</nav>
+			<Drawer
+				docked={false}
+				zDepth={9000}
+				openSecondary={true}
+				open={this.state.open}
+				onRequestChange={(open) => this.setState({ open })}
+			>
+				{MENU_ITEMS.map(
+					(item, i) => <MenuItem key={i}
+						onTouchTap={() => {
+							this.setState({ open: false });
+							window.location = item.url;
+						}}
+					>{item.label}</MenuItem>
+				)
+				}
+			</Drawer>
+		</div>;
 	}
 };
 
