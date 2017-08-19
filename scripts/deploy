@@ -1,0 +1,12 @@
+#!/bin/bash
+root=$(git rev-parse --show-toplevel)
+./scripts/clean-all
+
+cd "${root}/frontend"
+npm i
+
+cd "${root}"
+./scripts/build-www
+
+cd "${root}"
+./scripts/build-fe-minified

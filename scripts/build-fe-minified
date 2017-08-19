@@ -1,0 +1,4 @@
+#!/bin/bash
+root=$(git rev-parse --show-toplevel)
+cd "${root}/frontend"
+NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p --config webpack.config.js
