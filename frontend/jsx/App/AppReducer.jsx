@@ -2,6 +2,7 @@ import * as AppActions from './AppActions';
 import IndexReducer from './Pages/Index/IndexReducer';
 import GalleryReducer from './Pages/Gallery/GalleryReducer';
 import PackagesReducer from './Pages/Packages/PackagesReducer';
+import ReviewsReducer from './Pages/Reviews/ReviewsReducer';
 import OfferWorkflowReducer from
 	'./Components/OfferWorkflow/OfferWorkflowReducer';
 import {
@@ -54,4 +55,5 @@ export default combineReducers({
 	Packages: PackagesReducer,
 	OfferWorkflow: OfferWorkflowReducer,
 	Gallery: GalleryReducer,
+	Reviews: ReviewsReducer,
 });

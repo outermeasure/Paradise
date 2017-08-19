@@ -18,6 +18,7 @@ import (
 	"path"
 	"image/jpeg"
 	"strings"
+	"github.com/labstack/gommon/log"
 	"compress/gzip"
 )
 
@@ -41,21 +42,12 @@ func lcmN(n int) int {
 	return p
 }
 
-func addPaddingToPackages(maxItemsPerRow int, items []Package) []Package {
-	result := []Package{}
+func addPadding(maxItemsPerRow int, numberOfItems int) []byte {
+	result := []byte{}
 	n := lcmN(maxItemsPerRow)
-
-	for i := 0; i < len(items); i++ {
-		items[i].Empty = false
-		result = append(result, items[i])
+	for i := numberOfItems; i % n != 0; i++ {
+		result = append(result, byte(0))
 	}
-
-	for i := len(items); i % n != 0; i++ {
-		result = append(result, Package{
-			Empty: true,
-		})
-	}
-
 	return result;
 }
 
@@ -158,6 +150,20 @@ func makeGzipHandler(fn httprouter.Handle) httprouter.Handle {
 	}
 }
 
+func makePseudoSecureHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+
+		auth := r.Header.Get("X-Authorization")
+		if (auth != gApplicationState.Configuration.PseudoSecureUrl) {
+			w.Header().Set("Content-Type", "text/plain")
+			w.WriteHeader(401)
+			w.Write([]byte("Unauthorized"));
+			return;
+		}
+		fn(w, r, p)
+	}
+}
+
 func makeCachedHandler(fn httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		w.Header().Set("Cache-Control", "max-age=31536000")
@@ -184,7 +190,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
-	context.Packages = addPaddingToPackages(3, context.Packages);
+	context.Padding = addPadding(3, len(context.Packages));
 
 	Render(w, "index.gohtml", context)
 }
@@ -218,8 +224,38 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
-	context.Packages = addPaddingToPackages(3, context.Packages);
+	context.Padding = addPadding(
+		3,
+		len(context.Packages),
+	);
 	Render(w, "packages.gohtml", context)
+}
+
+func getReviews(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = 6
+	all := getParadiseReviews(
+		gApplicationState.Configuration.Data,
+	)
+	context.Reviews = []Review{}
+	for i := 0; i < len(all); i++ {
+		context.Reviews = append(context.Reviews, all[i])
+	}
+	context.Padding = addPadding(
+		3,
+		len(context.Reviews),
+	);
+	Render(w, "reviews.gohtml", context)
+}
+
+func getApiReviews(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	jData, _ := json.Marshal(
+		getParadiseReviews(
+			gApplicationState.Configuration.Data,
+		),
+	)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
 }
 
 func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -232,12 +268,8 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Route = "/package/:url"
 
 	if (context.PackageDetails != nil) {
-		file, _ := readFileBytesMemoized(
-			gApplicationState.Configuration.Data + context.PackageDetails.PageDetailsMarkdown,
-		)
-
 		html := blackfriday.MarkdownBasic(
-			file,
+			[]byte(context.PackageDetails.PageDetailsMarkdown),
 		);
 
 		context.RenderedPackageMarkdown =
@@ -246,13 +278,13 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			)
 
 		context.RenderedPackageCover = template.HTMLAttr(
-			context.PackageDetails.PageDetailsCover,
+			context.PackageDetails.PageDetailsCoverPhoto,
 		)
 
 		context.Parameters["url"] = context.PackageDetails.Url;
-		context.Parameters["id"] = strconv.Itoa(context.PackageDetails.Id)
+		context.Parameters["id"] = strconv.Itoa(*context.PackageDetails.Id)
 		context.Parameters["markdownHTML"] = string(html)
-		context.Parameters["cover"] = context.PackageDetails.PageDetailsCover
+		context.Parameters["cover"] = context.PackageDetails.PageDetailsCoverPhoto
 	}
 
 	Render(w, "package.gohtml", context)
@@ -356,24 +388,13 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 
 	if err == nil {
-		packageBooking.IsClient = true
-		SendEmail(
-			gApplicationState.GmailClient,
-			EmailMessage{
-				From: "Hotel Paradise",
-				ReplyTo: "paradisedeltahotel@gmail.com",
-				To: packageBooking.Email,
-				Subject: "Rezervare Hotel Paradise",
-				Body: string(RenderPackageBookingEmail(&packageBooking)),
-			});
-
 		packageBooking.IsClient = false
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From: packageBooking.FirstName + " " + packageBooking.LastName,
 				ReplyTo: packageBooking.Email,
-				To: "paradisedeltahotel@gmail.com",
+				To: gApplicationState.Configuration.BookingEmailAddress,
 				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
 				Body: string(RenderPackageBookingEmail(&packageBooking)),
 			});
@@ -386,6 +407,64 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 	w.Write(jData);
 }
 
+func putApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	pack := Package{}
+	err := decoder.Decode(&pack)
+	success := false
+	if (err == nil) {
+		success = insertOrUpdatePackage(pack)
+	} else {
+		log.Error(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	jData, _ := json.Marshal(success)
+	w.Write(jData)
+}
+
+func putApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	rev := Review{}
+	err := decoder.Decode(&rev)
+	success := false
+	if (err == nil) {
+		success = insertOrUpdateReview(rev)
+	} else {
+		log.Error(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	jData, _ := json.Marshal(success)
+	w.Write(jData)
+}
+
+func deleteApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"));
+	success := false
+	if (err == nil) {
+		success = deletePackage(id)
+	} else {
+		log.Error(err)
+	}
+	jData, _ := json.Marshal(success)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
+func deleteApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id, err := strconv.Atoi(p.ByName("id"));
+	success := false
+	if (err == nil) {
+		success = deleteReview(id)
+	} else {
+		log.Error(err)
+	}
+	jData, _ := json.Marshal(success)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
 func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	decoder := json.NewDecoder(r.Body)
 	booking := Booking{}
@@ -394,24 +473,13 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	err := decoder.Decode(&booking)
 
 	if err == nil {
-		booking.IsClient = true
-		SendEmail(
-			gApplicationState.GmailClient,
-			EmailMessage{
-				From: "Hotel Paradise",
-				ReplyTo: "paradisedeltahotel@gmail.com",
-				To: booking.Email,
-				Subject: "Rezervare Hotel Paradise",
-				Body: string(RenderBookingEmail(&booking)),
-			});
-
 		booking.IsClient = false
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From: booking.FirstName + " " + booking.LastName,
 				ReplyTo: booking.Email,
-				To: "paradisedeltahotel@gmail.com",
+				To: gApplicationState.Configuration.BookingEmailAddress,
 				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: "+ booking.Duration,
 				Body: string(RenderBookingEmail(&booking)),
 			});
@@ -511,24 +579,57 @@ func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) 
 	)
 }
 
+func getAuthorization(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = -1
+	if (p.ByName("secret") == gApplicationState.Configuration.PseudoSecureUrl) {
+		context.Parameters["PseudoAuthorization"] =
+			gApplicationState.Configuration.PseudoSecureUrl
+	}
+	Render(w, "empty.gohtml", context)
+}
+
+func getEdit(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = -1
+	Render(w, "empty.gohtml", context)
+}
+
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
-	router := httprouter.New();
 
+	router := httprouter.New();
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
+	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
 	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
 	router.GET("/packages", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
+	router.GET("/reviews", makeVaryAcceptEncoding(makeGzipHandler(getReviews)))
 	router.GET("/package/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
 	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
 	router.GET("/location", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
 	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
+	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(getApiReviews)))
+
+
 	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
 	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiBooking)))
 
 	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
+
+	router.PUT("/api/package", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(putApiPackage))))
+	router.PUT("/api/review", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(putApiReview))))
+	router.DELETE("/api/package/:id", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(deleteApiPackage))))
+	router.DELETE("/api/review/:id", makePseudoSecureHandler(
+		makeVaryAcceptEncoding(makeGzipHandler(deleteApiReview))))
+
 	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
+
+	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public));
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data));

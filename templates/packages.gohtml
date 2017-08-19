@@ -1,15 +1,15 @@
 <div class="main">
 	<ul class="card-collection">
-		{{range $i, $v := .Packages}}{{if eq $v.Empty false}}<li class="card">
-			<img src="{{$v.Photo}}"/>
+		{{range $i, $v := .Packages}}<li class="card">
+			<img src="{{$v.CardPhoto}}"/>
 			<div class="info">
-				<h3>{{$v.Title}}</h3>
-				<p>{{$v.Description}}</p>
-				<div class="price">{{$v.Price}} lei / persoană</div>
-			</div>
-			<div class="actions">
+				<h3>{{$v.CardTitle}}</h3>
+				<p>{{$v.CardDescription}}</p>
+				<div class="price">{{$v.Price}} {{$v.Currency}} / persoană</div>
+			</div><div class="actions">
 				<button>Detalii</button><button class="accent">Rezervă</button>
-			</div>
-		</li>{{else}}<li class="card empty"></li>{{end}}{{end}}
+			</div></li>{{end}}
+		{{range .Padding}}
+		<li class="card empty"></li>{{end}}
 	</ul>
 </div>

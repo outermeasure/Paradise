@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const View = ({
 	markdownHTML,
@@ -14,8 +15,8 @@ const View = ({
 };
 
 View.propTypes = {
-	markdownHTML: React.PropTypes.string,
-	cover: React.PropTypes.string,
+	markdownHTML: PropTypes.string,
+	cover: PropTypes.string,
 };
 
 export default View;

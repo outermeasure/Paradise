@@ -2,11 +2,14 @@ import React from 'react';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Index from './Pages/Index/IndexContainer';
 import Packages from './Pages/Packages/PackagesContainer';
+import Reviews from './Pages/Reviews/ReviewsContainer';
 import Package from './Pages/Package/PackageContainer';
 import Prices from './Pages/Prices/PricesContainer';
 import Location from './Pages/Location/LocationContainer';
+import Edit from './Pages/Edit/Edit';
 import Gallery from './Pages/Gallery/GalleryContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
+import PropTypes from 'prop-types';
 
 const getPage = (route, parameters) => {
 	switch (route) {
@@ -30,6 +33,10 @@ const getPage = (route, parameters) => {
 			/>;
 		case '/gallery':
 			return <Gallery/>;
+		case '/edit':
+			return <Edit/>;
+		case '/reviews':
+            return <Reviews/>;
 		default:
 			return <FourOhFour/>;
 	}
@@ -51,8 +58,8 @@ const AppView = ({
 };
 
 AppView.propTypes = {
-	selectedTab: React.PropTypes.number.isRequired,
-	route: React.PropTypes.string.isRequired,
-	parameters: React.PropTypes.object,
+	selectedTab: PropTypes.number.isRequired,
+	route: PropTypes.string.isRequired,
+	parameters: PropTypes.object,
 };
 export default AppView;

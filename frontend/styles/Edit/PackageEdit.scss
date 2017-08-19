@@ -1,0 +1,117 @@
+.PackageEdit {
+  ul {
+    list-style: none;
+    margin-bottom: 0;
+
+    li {
+      display: inline-block;
+      margin-bottom: 0;
+      margin-left: 10px;
+    }
+  }
+
+  table {
+
+    th:last-child {
+      padding-left: 22px;
+    }
+
+    th:first-child {
+      padding-left: 0;
+    }
+  }
+
+  button {
+    position: relative;
+  }
+}
+
+div {
+  &.PackageEditPopup {
+    ul {
+      list-style: none;
+    }
+
+    overflow: hidden;
+    form {
+      max-height: 500px;
+      overflow-y: scroll;
+      margin-bottom: 0;
+
+      @media (max-width: 750px) {
+        max-height: inherit;
+        overflow: hidden;
+        padding-bottom: 95px;
+      }
+    }
+
+    .actions {
+      line-height: 1;
+      display: inline-block;
+      width: 100%;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+      padding-right: 10px;
+      padding-bottom: 5px;
+
+      .right {
+        float: right;
+      }
+
+      .left {
+        float: left;
+      }
+
+      @media (max-width: 750px) {
+        width: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px 16px 16px;
+        z-index: 9;
+
+        @include linear-gradient("to top", rgba(white, 1) 0%, rgba(white, 1) 85%, rgba(white, 0) 100%);
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+
+    .close {
+      position: absolute;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: normal;
+      background-color: $lightGray;
+      padding: 12px;
+      color: $mediumDark;
+      line-height: 1;
+      margin: 0;
+      border-bottom: 1px solid $lightDark;
+
+      @media (max-width: 750px) {
+        padding: 19px;
+      }
+    }
+
+    ul {
+      margin-top: 30px;
+    }
+
+    li {
+      padding-left: 1em;
+      padding-right: 1em;
+
+      input,
+      textarea {
+        resize: none;
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}

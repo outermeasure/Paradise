@@ -1,0 +1,12 @@
+#!/bin/bash
+
+go get github.com/nfnt/resize
+go get golang.org/x/net/context
+go get golang.org/x/oauth2/google
+go get github.com/tdewolff/minify
+go get google.golang.org/api/gmail/v1
+go get github.com/go-sql-driver/mysql
+go get github.com/labstack/gommon/log
+go get github.com/russross/blackfriday
+go get github.com/julienschmidt/httprouter
+go get github.com/ua-parser/uap-go/uaparser

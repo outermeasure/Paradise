@@ -4,6 +4,7 @@ import * as Colors from '../../../../js/colors';
 import OfferWorkflow from
 	'../../Components/OfferWorkflow/OfferWorkflowContainer';
 import Modal from '../../Components/Modal/Modal';
+import PropTypes from 'prop-types';
 import * as PaddingTools from '../../Components/PaddingTools';
 
 const BookOfferPaperRipple = (props) => <PaperRipple
@@ -55,59 +56,55 @@ const View = ({
 		<div className="main">
 			<ul className="card-collection">
 				{
-					PaddingTools.addPaddingToCardCollection(3, packages.items).map(
-						(pack, index) => {
-							if (pack.empty) {
-								return <li
-									key={index}
-									className="card empty">
-								</li>;
-							}
-							return <li
-								key={index}
-								className="card">
+					packages.items.map(
+						(pack, index) => <li
+							key={index}
+							className="card">
 
-								<CardPaperRipple
-									className="content"
+							<CardPaperRipple
+								className="content"
+								onClick={(e) => {
+									e.preventDefault();
+									window.location = `package/${pack.Url}`;
+								}}
+								tag="div">
+								<img
+									src={pack.CardPhoto}/>
+
+								<div className="info">
+									<h3>{pack.CardTitle}</h3>
+									<p>{pack.CardDescription}</p>
+									<div className="price">
+										{pack.Price} {pack.Currency} / persoană
+									</div>
+								</div>
+							</CardPaperRipple>
+							<div className="actions">
+								<DetailsPaperRipple
 									onClick={(e) => {
 										e.preventDefault();
-										window.location = `package/${pack.Url}`;
+										window.location =
+											`package/${pack.Url}`;
 									}}
-									tag="div">
-									<img
-										src={pack.Photo}/>
-
-									<div className="info">
-										<h3>{pack.Title}</h3>
-										<p>{pack.Description}</p>
-										<div className="price">
-											{pack.Price} lei / persoană
-										</div>
-									</div>
-								</CardPaperRipple>
-								<div className="actions">
-									<DetailsPaperRipple
-										onClick={(e) => {
-											e.preventDefault();
-											window.location =
-												`package/${pack.Url}`;
-										}}
-										tag="button">
-										Detalii
-									</DetailsPaperRipple>
-									<BookOfferPaperRipple
-										onClick={(e) => {
-											e.preventDefault();
-											openModal(1, pack, clientObject);
-										}}
-										tag="button"
-										className="accent">
-										Rezervă
-									</BookOfferPaperRipple>
-								</div>
-							</li>;
-						}
+									tag="button">
+									Detalii
+								</DetailsPaperRipple>
+								<BookOfferPaperRipple
+									onClick={(e) => {
+										e.preventDefault();
+										openModal(1, pack, clientObject);
+									}}
+									tag="button"
+									className="accent">
+									Rezervă
+								</BookOfferPaperRipple>
+							</div>
+						</li>
 					)
+				}
+				{
+					PaddingTools.addPadding(3, packages.items.length).map(
+						(_, i) => <li key={i} className="card empty"/>)
 				}
 			</ul>
 		</div>
@@ -115,19 +112,20 @@ const View = ({
 };
 
 View.propTypes = {
-	packages: React.PropTypes.shape({
-		items: React.PropTypes.arrayOf(
-			React.PropTypes.shape({
-				Price: React.PropTypes.number.isRequired,
-				Photo: React.PropTypes.string.isRequired,
-				Title: React.PropTypes.string.isRequired,
-				Description: React.PropTypes.string.isRequired,
+	packages: PropTypes.shape({
+		items: PropTypes.arrayOf(
+			PropTypes.shape({
+				Price: PropTypes.number.isRequired,
+				Currency: PropTypes.string.isRequired,
+				CardPhoto: PropTypes.string.isRequired,
+				CardTitle: PropTypes.string.isRequired,
+				CardDescription: PropTypes.string.isRequired,
 			})
 		).isRequired,
-		isFetching: React.PropTypes.bool,
-		receivedAt: React.PropTypes.number,
+		isFetching: PropTypes.bool,
+		receivedAt: PropTypes.number,
 	}),
-	openModal: React.PropTypes.func,
+	openModal: PropTypes.func,
 };
 
 export default View;

@@ -10,8 +10,8 @@
 
 #####Masa
 - Mic dejun **gratuit inclus**.
-- Demipensiune (cina sau pranz) **80 lei/pers**.
-- Pensiune complete (pranz + cina) **150lei/pers**.
+- Demipensiune (cina sau pranz) **70 lei/pers**.
+- Pensiune complete (pranz + cina) **140lei/pers**.
 
 
 #####Transport 

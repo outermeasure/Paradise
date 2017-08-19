@@ -23,7 +23,11 @@ type Configuration struct {
 
 	GoogleApiKey          *string `json:"GoogleApiKey,omitempty"`
 	GoogleApiClientSecret string `json:"GoogleApiClientSecret"`
+	BookingEmailAddress   string `json:"BookingEmailAddress"`
+
 	GmailAccessToken      string `json:"GmailAccessToken"`
+	DbConnectionString    string `json:"DbConnectionString"`
+	PseudoSecureUrl       string `json:"PseudoSecureUrl"`
 }
 
 type ApplicationState struct {
@@ -56,7 +60,11 @@ type Page struct {
 	Route                    string
 	Parameters               map[string]string
 	NavbarSelected           int
+
 	Packages                 []Package
+	Reviews                  []Review
+	Padding                  []byte
+
 	PackageDetails           *Package
 	RenderedPackageMarkdown  template.HTML
 	RenderedPackageCover     template.HTMLAttr
@@ -80,18 +88,28 @@ type Platform struct {
 }
 
 type Package struct {
-	Id                  int `json:"Id"`
-	ShowOnIndexPage     bool `json:"ShowOnIndexPage"`
-	ShowOnPackagePage   bool `json:"ShowOnPackagePage"`
-	PageDetailsCover    string `json:"PageDetailsCover"`
-	PageDetailsMarkdown string `json:"PageDetailsMarkdown"`
-	Url                 string `json:"Url"`
-	Price               float64 `json:"Price"`
-	Photo               string `json:"Photo"`
-	Title               string `json:"Title"`
-	Description         string `json:"Description"`
-	Nights              int `json:"Nights"`
-	Empty               bool
+	Id                    *int `json:"Id,omitempty"`
+
+	Url                   string `json:"Url"`
+	Price                 float64 `json:"Price"`
+	Currency              string `json:"Currency"`
+	AllowedDates          *[]time.Time `json:"AllowedDates,omitempty"`
+	Nights                int `json:"Nights"`
+
+	CardTitle             string `json:"CardTitle"`
+	CardPhoto             string `json:"CardPhoto"`
+	CardDescription       string `json:"CardDescription"`
+
+	PageDetailsCoverPhoto string `json:"PageDetailsCoverPhoto"`
+	PageDetailsMarkdown   string `json:"PageDetailsMarkdown"`
+
+	ShowOnIndexPage       bool `json:"ShowOnIndexPage"`
+	ShowOnPackagePage     bool `json:"ShowOnPackagePage"`
+
+	RankOnIndexPage       float64 `json:"RankOnIndexPage"`
+	RankOnPackagePage     float64 `json:"RankOnPackagePage"`
+
+	Photos                *[]string `json:"Photos,omitempty"`
 }
 
 type SSL struct {
@@ -110,6 +128,7 @@ type Booking struct {
 	LastName       string `json:"lastName"`
 	PhoneNumber    string `json:"phoneNumber"`
 	Email          string `json:"email"`
+	Nid            string `json:"nid"`
 	BookingMessage string `json:"bookingMessage"`
 	RoomType       string `json:"roomType"`
 
@@ -129,6 +148,8 @@ type PackageBooking struct {
 	LastName       string `json:"lastName"`
 	PhoneNumber    string `json:"phoneNumber"`
 	Email          string `json:"email"`
+	Nid            string `json:"nid"`
+
 	BookingMessage string `json:"bookingMessage"`
 	PackageName    string `json:"packageName"`
 	PackageUrl     string `json:"packageUrl"`
@@ -141,6 +162,8 @@ type PackageBooking struct {
 
 	Security       int `json:"security"`
 	Total          int `json:"total"`
+
+	Currency       string `json:"currency"`
 }
 
 type EmailMessage struct {
@@ -149,4 +172,11 @@ type EmailMessage struct {
 	ReplyTo string
 	Body    string
 	From    string
+}
+
+type Review struct {
+	Id      *int `json:"Id,omitempty"`
+		Name    string
+	Date    string
+	Content string
 }

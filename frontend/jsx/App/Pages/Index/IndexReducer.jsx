@@ -7,6 +7,7 @@ const
 		lastName: "",
 		phoneNumber: "",
 		email: "",
+		nid: "",
 		bookingMessage: "",
 		roomType: 0,
 

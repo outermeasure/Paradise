@@ -41,6 +41,15 @@
 
 		<tr style="border: 1px solid #aaa;line-height:2;">
 			<td style="border: 1px solid #aaa;line-height:2;">
+				CUI/CNP
+			</td>
+			<td style="border: 1px solid #aaa;line-height:2;">
+				<strong>{{.Nid}}</strong>
+			</td>
+		</tr>
+
+		<tr style="border: 1px solid #aaa;line-height:2;">
+			<td style="border: 1px solid #aaa;line-height:2;">
 				Pachet
 			</td>
 			<td style="border: 1px solid #aaa;line-height:2;">
@@ -89,7 +98,7 @@
 				Avans 30%
 			</td>
 			<td style="border: 1px solid #aaa;line-height:2;">
-				<strong>{{.Security}} RON</strong>
+				<strong>{{.Security}} {{.Currency}}</strong>
 			</td>
 		</tr>
 
@@ -98,7 +107,7 @@
 				Total
 			</td>
 			<td style="border: 1px solid #aaa;line-height:2;">
-				<strong>{{.Total}} RON</strong>
+				<strong>{{.Total}} {{.Currency}}</strong>
 			</td>
 		</tr>
 	</table>

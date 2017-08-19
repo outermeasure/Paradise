@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const
 	STEP_WIDTH = 45,
@@ -73,8 +74,8 @@ const StepProgressBar = ({
 };
 
 StepProgressBar.propTypes = {
-	steps: React.PropTypes.number.isRequired,
-	progress: React.PropTypes.number.isRequired,
+	steps: PropTypes.number.isRequired,
+	progress: PropTypes.number.isRequired,
 };
 
 export default StepProgressBar;

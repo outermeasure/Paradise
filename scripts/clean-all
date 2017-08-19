@@ -1,0 +1,5 @@
+#!/bin/bash
+root=$(git rev-parse --show-toplevel)
+cd "${root}"
+./scripts/clean-npm-deps
+./scripts/clean-fe

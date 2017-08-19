@@ -16,7 +16,7 @@
 		{
 			"Id": 1,
 			"ShowOnIndexPage": false,
-			"ShowOnPackagePage": true,
+			"ShowOnPackagePage": false,
 			"PageDetailsCover": "/static/images/pasti-cover.jpg",
 			"PageDetailsMarkdown": "packages/easter.md",
 			"Url": "easter.html",
@@ -101,6 +101,32 @@
 			"Price": 1200,
 			"Photo": "/static/images/pool.jpg",
 			"Title": "Oferta de lux in Vila Delta House, 4 zile / 3 nopti",
+			"Description": "Experimentați servicii de clasa la complexul Paradise Delta House. Pachetul include cazare, masa, transport cu barca si 3 excursii in Delta Dunarii",
+			"Nights": 3
+		},
+		{
+			"Id": 9,
+			"ShowOnIndexPage": true,
+			"ShowOnPackagePage": true,
+			"PageDetailsCover": "/static/images/francesca-cover.jpg",
+			"PageDetailsMarkdown": "packages/francesca.md",
+			"Url": "francesca.html",
+			"Price": 1200,
+			"Photo": "/static/images/francesca.jpg",
+			"Title": "Oferta de lux in Vila Francesca, 4 zile / 3 nopti",
+			"Description": "Experimentați servicii de clasa la complexul Paradise Delta House. Pachetul include cazare, masa, transport cu barca si 3 excursii in Delta Dunarii",
+			"Nights": 3
+		},
+		{
+			"Id": 10,
+			"ShowOnIndexPage": true,
+			"ShowOnPackagePage": true,
+			"PageDetailsCover": "/static/images/white-dove-cover.jpg",
+			"PageDetailsMarkdown": "packages/white_dove.md",
+			"Url": "white-dove.html",
+			"Price": 1200,
+			"Photo": "/static/images/white-dove.jpg",
+			"Title": "Oferta de lux, Pensiunea Porumbelul Alb, 4 zile / 3 nopti",
 			"Description": "Experimentați servicii de clasa la complexul Paradise Delta House. Pachetul include cazare, masa, transport cu barca si 3 excursii in Delta Dunarii",
 			"Nights": 3
 		}

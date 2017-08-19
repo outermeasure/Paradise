@@ -4,6 +4,7 @@ import Modal from '../../Components/Modal/Modal';
 import * as Colors from '../../../../js/colors';
 import PaperRipple from 'react-paper-ripple';
 import * as PaddingTools from '../../Components/PaddingTools';
+import PropTypes from 'prop-types';
 
 const CardPaperRipple = (props) => <PaperRipple
 	{...props}
@@ -75,15 +76,8 @@ const View = ({
 		</Modal>
 		<ul className="card-collection">
 			{
-				PaddingTools.addPaddingToCardCollection(4, all).map(
-					(photo, index) => {
-						if (photo.empty) {
-							return <li
-								key={index}
-								className="card empty">
-							</li>;
-						}
-						return <li key={index} className="card">
+				all.map(
+					(photo, index) => <li key={index} className="card">
 							<CardPaperRipple
 								className="content"
 								onClick={(e) => {
@@ -93,9 +87,12 @@ const View = ({
 								tag="div">
 								<img src={photo.thumbnail}/>
 							</CardPaperRipple>
-						</li>;
-					}
+						</li>
 				)
+			}
+			{
+				PaddingTools.addPadding(4, all.length).map(
+					(_, i) => <li key={i} className="card empty"/>)
 			}
 		</ul>
 		{ isFetching ? "Loading..." : null }
@@ -103,11 +100,11 @@ const View = ({
 };
 
 View.propTypes = {
-	modalOpen: React.PropTypes.number,
-	closeModal: React.PropTypes.func,
-	selectedPhoto: React.PropTypes.object,
-	openPhoto: React.PropTypes.func,
-	photos: React.PropTypes.object,
+	modalOpen: PropTypes.number,
+	closeModal: PropTypes.func,
+	selectedPhoto: PropTypes.object,
+	openPhoto: PropTypes.func,
+	photos: PropTypes.object,
 };
 
 export default View;

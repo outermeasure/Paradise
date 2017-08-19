@@ -54,15 +54,15 @@ const View = ({
 					<li>
 						<textarea
 							rows={4}
-							onChange={(e) => {
+							onBlur={(e) => {
 								e.preventDefault();
 								onChange(
 									"bookingMessage",
 									e.target.value, clientObject);
 							}}
 							placeholder=
-								"Orice preferinta sau intrebari aveti, mentionati-le aici"
-							value={bookingMessage}
+								"Va rugam sa specificati numarul si tipul de camere daca doriti mai mult de una"
+							defaultValue={bookingMessage}
 						>
 						</textarea>
 					</li>

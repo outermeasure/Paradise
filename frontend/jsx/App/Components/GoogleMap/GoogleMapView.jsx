@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const View = ({
 	className,
@@ -53,10 +54,10 @@ const View = ({
 };
 
 View.propTypes = {
-	className: React.PropTypes.string,
-	googleLibraries: React.PropTypes.object,
-	loadGoogleLibraries: React.PropTypes.func,
-	parameters: React.PropTypes.object,
+	className: PropTypes.string,
+	googleLibraries: PropTypes.object,
+	loadGoogleLibraries: PropTypes.func,
+	parameters: PropTypes.object,
 };
 
 export default View;

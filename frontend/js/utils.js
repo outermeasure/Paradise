@@ -1,6 +1,6 @@
 export const
 	getRoDate = (date) => {
-		return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+		return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 	},
 	getDaysBetween = (date1, date2) => {
 		return Math.floor(
@@ -8,6 +8,65 @@ export const
 				(date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)
 			)
 		);
+	},
+	putJSON = (url, json, next) => {
+		const request = new XMLHttpRequest();
+		request.open('PUT', url, true);
+
+		if (window.localStorage &&
+			window.localStorage.getItem("XAUTHORIZATION")) {
+			request.setRequestHeader(
+				'X-Authorization',
+				window.localStorage.getItem("XAUTHORIZATION"));
+		}
+
+		request.setRequestHeader(
+			'Content-Type', 'application/json; charset=UTF-8');
+
+		request.onload = function () {
+			if (request.status >= 200 && request.status < 400) {
+				const data = JSON.parse(request.responseText);
+				next(data, null);
+			} else {
+				next(null, [
+					`Server error (${request.status})`,
+				]);
+			}
+		};
+		request.onerror = function () {
+			next(null, [
+				"Service unavailable",
+			]);
+		};
+		request.send(JSON.stringify(json));
+	},
+	deleteJSON = (url, next) => {
+		const request = new XMLHttpRequest();
+		request.open('DELETE', url, true);
+
+		if (window.localStorage &&
+			window.localStorage.getItem("XAUTHORIZATION")) {
+			request.setRequestHeader(
+				'X-Authorization',
+				window.localStorage.getItem("XAUTHORIZATION"));
+		}
+
+		request.onload = function () {
+			if (request.status >= 200 && request.status < 400) {
+				const data = JSON.parse(request.responseText);
+				next(data, null);
+			} else {
+				next(null, [
+					`Server error (${request.status})`,
+				]);
+			}
+		};
+		request.onerror = function () {
+			next(null, [
+				"Service unavailable",
+			]);
+		};
+		request.send();
 	},
 	postJSON = (url, json, next) => {
 		const request = new XMLHttpRequest();

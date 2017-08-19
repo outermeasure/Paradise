@@ -1,0 +1,74 @@
+#Reviews {
+  .review {
+    h3 {
+      font-size: 1.7rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding-left: 16px;
+      padding-top: 16px;
+      padding-right: 16px;
+      color: $navBackgroundColor;
+    }
+
+    h5 {
+      font-size: 1.6rem;
+      color: #5a5e6a;
+      padding-left: 16px;
+      padding-right: 16px
+    }
+
+    p {
+      max-height: 250px;
+      padding: 16px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: #5a5e6a;
+      letter-spacing: 0.3px;
+
+      //ie
+      scrollbar-base-color: #d9d9d9;
+      scrollbar-3dlight-color: $mediumDark;
+      scrollbar-highlight-color: $mediumDark;
+      scrollbar-track-color: #d9d9d9;
+      scrollbar-arrow-color: #ccc;
+      scrollbar-shadow-color: $mediumDark;
+      scrollbar-dark-shadow-color: $mediumDark;
+
+      //webkit, non-Mac only
+      &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+
+      &::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+        display: none;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #d9d9d9;
+
+        &:hover {
+          background: #d9d9d9;
+        }
+
+        &:horizontal {
+          margin-left: 300px;
+        }
+      }
+
+      &::-webkit-scrollbar-track-piece {
+        display: none;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $mediumDark;
+        border-radius: 20px;
+      }
+    }
+  }
+}

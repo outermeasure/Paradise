@@ -1,6 +1,7 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../js/colors';
+import * as Utils from '../../../../../js/utils';
 import StepProgressBar from
 	'../../../Components/StepProgressBar/StepProgressBar';
 import * as Steps from '../OfferWorkflowSteps';
@@ -33,8 +34,65 @@ const View = ({
 		selectedOffer,
 	} = clientObject;
 
-	const disableStartDates = (date) =>
-		Date.now() - 24 * 3600 * 1000 > date.getTime();
+	let disableStartDates = (date) =>
+	Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+	// St - Mary
+	if (selectedOffer.Id === 29) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "13/8/2017";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/08/13"), clientObject);
+		}
+	}
+
+	// Rusalii
+	if (selectedOffer.Id === 26) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "1/6/2017";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/06/01"), clientObject);
+		}
+	}
+
+	// 1 may
+	if (selectedOffer.Id === 25) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "28/4/2017";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/04/28"), clientObject);
+		}
+	}
+
+	let explanationString = false;
+	if (selectedOffer.Id === 27 || selectedOffer.Id === 30
+		|| selectedOffer.Id === 31 || selectedOffer.Id === 32
+		|| selectedOffer.Id === 35 || selectedOffer.Id === 36) {
+
+		explanationString = true;
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) ||
+				date.getDay() !== 0 && date.getDay() !== 4;
+		};
+	}
+
+	let explanationString2 = false;
+	if (selectedOffer.Id === 28) {
+
+		explanationString2 = true;
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) ||
+				date.getDay() !== 0;
+		};
+	}
 
 	const security = 30 * selectedOffer.Price / 100;
 
@@ -44,9 +102,9 @@ const View = ({
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
 			progress={Steps.getStepIndexByLabel(step) /
-				(Steps.getNumberOfSteps() - 1)}/>
+			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>{selectedOffer.Title}</h3>
+			<h3>{selectedOffer.CardTitle}</h3>
 			<form>
 				<ul className="vertical-layout">
 					<li>
@@ -82,7 +140,18 @@ const View = ({
 					</li>
 				</ul>
 			</form>
+
 			<em>
+				{explanationString ? <div>
+					Pentru aceasta oferta, intrarile se fac doar <strong>
+					joi</strong> si <strong>duminica</strong>.
+					<br/>
+				</div> : null}
+				{explanationString2 ? <div>
+					Pentru aceasta oferta, intrarile se fac doar <strong>
+					Duminica</strong>.
+					<br/>
+				</div> : null}
 				Plata avansului de {security} lei nerambursabil
 				trebuie efectuata in cel mult 24 de ore dupa
 				completarea rezervarii online pentru confirmarea

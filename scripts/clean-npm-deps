@@ -1,0 +1,4 @@
+#!/bin/bash
+root=$(git rev-parse --show-toplevel)
+cd "${root}/frontend/node_modules"
+ls | grep -v 'hotel-paradise' | xargs rm -rf
