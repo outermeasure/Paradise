@@ -68,6 +68,7 @@ func BaseContext(r *http.Request) *Page {
 	page.Parameters = map[string]string{}
 	page.Parameters["ExplicitRuntimeMode"] =
 		gApplicationState.Configuration.Mode
+
 	return &page
 }
 
@@ -637,6 +638,7 @@ func getAuthorization(w http.ResponseWriter, r *http.Request, p httprouter.Param
 func getEdit(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = -1
+	context.Platform.Short = context.Platform.Short + " show-tracker"
 	Render(w, "empty.gohtml", context)
 }
 
