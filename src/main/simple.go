@@ -244,7 +244,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.SEOContentLanguage = "ro_RO"
 	context.SEODescription = "Pachetele turistice oferite de complexul Hotel Paradise din Delta Dunarii"
 	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,oferta sejur delta,sejur delta"
-	context.Title = "Pachete turistice complex Hotel Paradise"
+	context.Title = "Oferte turistice complex Hotel Paradise"
 
 	Render(w, "packages.gohtml", context)
 }
@@ -288,7 +288,7 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		gApplicationState.Configuration.Data,
 		p.ByName("url"),
 	)
-	context.Route = "/package/:url"
+	context.Route = "/oferta/:url"
 
 	if context.PackageDetails != nil {
 		html := blackfriday.MarkdownBasic(
@@ -645,14 +645,15 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router := httprouter.New()
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
-	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
-	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
-	router.GET("/packages", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
-	router.GET("/reviews", makeVaryAcceptEncoding(makeGzipHandler(getReviews)))
-	router.GET("/package/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
+	router.GET("/tarife", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
+	router.GET("/oferte", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
+	router.GET("/recenzii", makeVaryAcceptEncoding(makeGzipHandler(getReviews)))
+	router.GET("/oferta/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
 	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
-	router.GET("/location", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
-	router.GET("/gallery", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
+	router.GET("/locatie", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
+	router.GET("/galerie", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
+
+	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
 	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(getApiReviews)))

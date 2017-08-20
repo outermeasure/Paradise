@@ -82,16 +82,16 @@ if (window.ROUTE === '/') {
 	store.dispatch(IndexActions.fetchPackages(
 		renderApplication
 	));
-} else if (window.ROUTE === '/packages') {
+} else if (window.ROUTE === '/oferte') {
 	store.dispatch(PackagesActions.fetchPackages(
 		renderApplication
 	));
-} else if (window.ROUTE === '/gallery') {
+} else if (window.ROUTE === '/galerie') {
 	store.dispatch(GalleryActions.fetchPhotos(
 		0,
 		renderApplication
 	));
-} else if (window.ROUTE === '/reviews') {
+} else if (window.ROUTE === '/recenzii') {
     store.dispatch(ReviewsActions.fetchReviews(
         renderApplication
     ));

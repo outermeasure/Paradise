@@ -156,7 +156,7 @@ const View = ({
 								onClick={(e) => {
 									e.preventDefault();
 									window.location =
-										`package/${pack.Url}`;
+										`oferta/${pack.Url}`;
 								}}
 								tag="div">
 								<img src={pack.CardPhoto}/>
@@ -173,7 +173,7 @@ const View = ({
 									onClick={(e) => {
 										e.preventDefault();
 										window.location =
-											`package/${pack.Url}`;
+											`oferta/${pack.Url}`;
 									}}
 									tag="button">
 									Detalii

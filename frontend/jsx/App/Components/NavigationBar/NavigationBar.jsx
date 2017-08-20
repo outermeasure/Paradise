@@ -19,27 +19,27 @@ const NavPaperRipple = (props) => <PaperRipple
 const MENU_ITEMS = [
 	{
 		label: "Prețuri",
-		url: "/prices",
+		url: "/tarife",
 		index: 1,
 	},
 	{
-		label: "Pachete",
-		url: "/packages",
+		label: "Oferte",
+		url: "/oferte",
 		index: 2,
 	},
 	{
 		label: "Locație",
-		url: "/location",
+		url: "/locatie",
 		index: 4,
 	},
 	{
 		label: "Recenzii",
-		url: "/reviews",
+		url: "/recenzii",
 		index: 6,
 	},
 	{
 		label: "Galerie Foto",
-		url: "/gallery",
+		url: "/galerie",
 		index: 5,
 	},
 ];
@@ -90,7 +90,7 @@ class NavigationBar extends React.Component {
 		</nav>
 			<Drawer
 				docked={false}
-				zDepth={9000}
+				zDepth={5}
 				openSecondary={true}
 				open={this.state.open}
 				onRequestChange={(open) => this.setState({ open })}

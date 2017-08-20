@@ -65,7 +65,7 @@ const View = ({
 								className="content"
 								onClick={(e) => {
 									e.preventDefault();
-									window.location = `package/${pack.Url}`;
+									window.location = `oferta/${pack.Url}`;
 								}}
 								tag="div">
 								<img
@@ -84,7 +84,7 @@ const View = ({
 									onClick={(e) => {
 										e.preventDefault();
 										window.location =
-											`package/${pack.Url}`;
+											`oferta/${pack.Url}`;
 									}}
 									tag="button">
 									Detalii

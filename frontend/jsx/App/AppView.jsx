@@ -15,27 +15,27 @@ const getPage = (route, parameters) => {
 	switch (route) {
 		case '/':
 			return <Index/>;
-		case '/packages':
+		case '/oferte':
 			return <Packages/>;
-		case '/package/:url':
+		case '/oferta/:url':
 			return <Package
 				id={parameters["id"]}
 				markdownHTML={parameters["markdownHTML"]}
 				cover={parameters["cover"]}
 			/>;
-		case '/prices':
+		case '/tarife':
 			return <Prices
 				markdownHTML={parameters["markdownHTML"]}
 			/>;
-		case '/location':
+		case '/locatie':
 			return <Location
 				markdownHTML={parameters["markdownHTML"]}
 			/>;
-		case '/gallery':
+		case '/galerie':
 			return <Gallery/>;
 		case '/edit':
 			return <Edit/>;
-		case '/reviews':
+		case '/recenzii':
             return <Reviews/>;
 		default:
 			return <FourOhFour/>;
