@@ -1,36 +1,37 @@
 package main
 
 import (
-	"net/http"
-	"html/template"
-	"github.com/julienschmidt/httprouter"
-	"os"
 	"bytes"
-	"io"
-	"fmt"
+	"compress/gzip"
 	"encoding/json"
+	"fmt"
+	"html/template"
+	"image/jpeg"
+	"io"
 	"io/ioutil"
 	"net"
-	"strconv"
-	"github.com/russross/blackfriday"
-	"path/filepath"
-	"github.com/nfnt/resize"
+	"net/http"
+	"os"
 	"path"
-	"image/jpeg"
+	"path/filepath"
+	"strconv"
 	"strings"
+
+	"github.com/julienschmidt/httprouter"
 	"github.com/labstack/gommon/log"
-	"compress/gzip"
+	"github.com/nfnt/resize"
+	"github.com/russross/blackfriday"
 )
 
 func Template(path string) string {
-	return gApplicationState.Configuration.Templates + path;
+	return gApplicationState.Configuration.Templates + path
 }
 
 func gcd(a int, b int) int {
-	if (a % b == 0) {
+	if a%b == 0 {
 		return b
 	} else {
-		return gcd(b, a % b)
+		return gcd(b, a%b)
 	}
 }
 
@@ -45,10 +46,10 @@ func lcmN(n int) int {
 func addPadding(maxItemsPerRow int, numberOfItems int) []byte {
 	result := []byte{}
 	n := lcmN(maxItemsPerRow)
-	for i := numberOfItems; i % n != 0; i++ {
+	for i := numberOfItems; i%n != 0; i++ {
 		result = append(result, byte(0))
 	}
-	return result;
+	return result
 }
 
 func BaseContext(r *http.Request) *Page {
@@ -70,7 +71,7 @@ func BaseContext(r *http.Request) *Page {
 }
 
 func LazyLoadTemplate(templateName string) {
-	if (gApplicationState.Templates[templateName] == nil) {
+	if gApplicationState.Templates[templateName] == nil {
 		gApplicationState.Templates[templateName] =
 			LoadTemplate(templateName, template.New(templateName))
 	}
@@ -78,14 +79,14 @@ func LazyLoadTemplate(templateName string) {
 
 func LoadTemplate(templateName string, t *template.Template) *template.Template {
 	file, load := readFileMemoized(Template(templateName))
-	if (load) {
+	if load {
 		return template.Must(t.New(templateName).Parse(file))
 	}
-	return t;
+	return t
 }
 
 func LazyLoadLayout() {
-	if (gApplicationState.Templates["template"] == nil) {
+	if gApplicationState.Templates["template"] == nil {
 		t := template.New("template")
 		LoadTemplate("layout/components/head.gohtml", t)
 		LoadTemplate("layout/components/header.gohtml", t)
@@ -154,11 +155,11 @@ func makePseudoSecureHandler(fn httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 		auth := r.Header.Get("X-Authorization")
-		if (auth != gApplicationState.Configuration.PseudoSecureUrl) {
+		if auth != gApplicationState.Configuration.PseudoSecureUrl {
 			w.Header().Set("Content-Type", "text/plain")
 			w.WriteHeader(401)
-			w.Write([]byte("Unauthorized"));
-			return;
+			w.Write([]byte("Unauthorized"))
+			return
 		}
 		fn(w, r, p)
 	}
@@ -186,11 +187,16 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	)
 	context.Packages = []Package{}
 	for i := 0; i < len(all); i++ {
-		if (all[i].ShowOnIndexPage) {
+		if all[i].ShowOnIndexPage {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
-	context.Padding = addPadding(3, len(context.Packages));
+	context.Padding = addPadding(3, len(context.Packages))
+
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Hotel Paradise este o zona de lux aflata in mijlocul Deltei. Camerele, restaurantul precum si locatia, va ofera decorul ideal pentru a va elibera de stres."
+	context.SEOKeywords = "cazare lux delta dunarii,hotel paradise delta,paradise delta house,sejur delta dunarii,team building delta"
+	context.Title = "Complex Hotel Paradise"
 
 	Render(w, "index.gohtml", context)
 }
@@ -210,7 +216,13 @@ func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			html,
 		)
 	context.Parameters["markdownHTML"] = string(html)
-	Render(w, "prices.gohtml", context);
+
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Preturile si tarifele Hotel Paradise | Paradise Delta House din Delta Dunarii"
+	context.SEOKeywords = "pret hotel paradise,pret paradise delta house,tarif sejur delta dunarii,pret tarif delta dunarii"
+	context.Title = "Tarife complex Hotel Paradise"
+
+	Render(w, "prices.gohtml", context)
 }
 func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
@@ -220,14 +232,19 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	)
 	context.Packages = []Package{}
 	for i := 0; i < len(all); i++ {
-		if (all[i].ShowOnPackagePage) {
+		if all[i].ShowOnPackagePage {
 			context.Packages = append(context.Packages, all[i])
 		}
 	}
 	context.Padding = addPadding(
 		3,
 		len(context.Packages),
-	);
+	)
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Pachetele turistice oferite de complexul Hotel Paradise din Delta Dunarii"
+	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,oferta sejur delta,sejur delta"
+	context.Title = "Pachete turistice complex Hotel Paradise"
+
 	Render(w, "packages.gohtml", context)
 }
 
@@ -244,7 +261,12 @@ func getReviews(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Padding = addPadding(
 		3,
 		len(context.Reviews),
-	);
+	)
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Ce cred clientii complexului Hotel Paradise din Delta Dunarii"
+	context.SEOKeywords = "pareri clienti hotel paradise,paradise delta house,recenzii hotel paradise"
+	context.Title = "Recenzii complex Hotel Paradise"
+
 	Render(w, "reviews.gohtml", context)
 }
 
@@ -267,10 +289,10 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	)
 	context.Route = "/package/:url"
 
-	if (context.PackageDetails != nil) {
+	if context.PackageDetails != nil {
 		html := blackfriday.MarkdownBasic(
 			[]byte(context.PackageDetails.PageDetailsMarkdown),
-		);
+		)
 
 		context.RenderedPackageMarkdown =
 			template.HTML(
@@ -281,10 +303,15 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			context.PackageDetails.PageDetailsCoverPhoto,
 		)
 
-		context.Parameters["url"] = context.PackageDetails.Url;
+		context.Parameters["url"] = context.PackageDetails.Url
 		context.Parameters["id"] = strconv.Itoa(*context.PackageDetails.Id)
 		context.Parameters["markdownHTML"] = string(html)
 		context.Parameters["cover"] = context.PackageDetails.PageDetailsCoverPhoto
+
+		context.Title = context.PackageDetails.CardTitle
+		context.SEODescription = context.PackageDetails.CardDescription
+		context.SEOKeywords = context.PackageDetails.SEOKeywords
+		context.SEOContentLanguage = context.PackageDetails.SEOContentLanguage
 	}
 
 	Render(w, "package.gohtml", context)
@@ -293,6 +320,12 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 3
+
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Restaurant Paradise Delta House"
+	context.SEOKeywords = "restaurant hotel paradise,restaurant paradise delta house"
+	context.Title = "Restaurant Hotel Paradise"
+
 	Render(w, "restaurant.gohtml", context)
 }
 func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -309,22 +342,34 @@ func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			html,
 		)
 	context.Parameters["markdownHTML"] = string(html)
-	if (gApplicationState.Configuration.GoogleApiKey != nil) {
+	if gApplicationState.Configuration.GoogleApiKey != nil {
 		context.Parameters["GoogleApiKey"] = *gApplicationState.Configuration.GoogleApiKey
 	}
+
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Locatie complex Hotel Paradise"
+	context.SEOKeywords = "locatie hotel paradise delta,locatie paradise delta house,harta hotel paradise,locatie hotel paradise"
+	context.Title = "Amplasare Hotel Paradise"
+
 	Render(w, "location.gohtml", context)
 }
 
 func getGallery(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 5
+
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Galerie foto complex Hotel Paradise"
+	context.SEOKeywords = "galerie hotel paradise delta,galerie paradise delta house,galerie hotel paradise,poze hotel paradise"
+	context.Title = "Galerie Hotel Paradise"
+
 	Render(w, "gallery.gohtml", context)
 }
 
 func getApiPackage(w http.ResponseWriter, _ *http.Request, p httprouter.Params) {
-	id, err := strconv.Atoi(p.ByName("id"));
+	id, err := strconv.Atoi(p.ByName("id"))
 	pack := (*Package)(nil)
-	if (err == nil) {
+	if err == nil {
 		pack = getParadisePackage(
 			gApplicationState.Configuration.Data,
 			id,
@@ -348,22 +393,22 @@ func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTem
 	err = json.Unmarshal(assets, &m)
 	runtimeAssert(err)
 
-	if (m["inline_sync_top"].Js != "") {
+	if m["inline_sync_top"].Js != "" {
 		file, _ := readFileMemoized("public/" + m["inline_sync_top"].Js)
 		o["inline_sync_js_top"] =
 			template.JS(file)
 	}
-	if (m["inline_sync_top"].Css != "") {
+	if m["inline_sync_top"].Css != "" {
 		file, _ := readFileMemoized("public/" + m["inline_sync_top"].Css)
 		p["inline_sync_css_top"] =
 			template.CSS(file)
 	}
 
-	if (m["async"].Js != "") {
+	if m["async"].Js != "" {
 		n["async_js"] = "/public/" + m["async"].Js
 	}
 
-	if (m["async"].Css != "") {
+	if m["async"].Css != "" {
 		n["async_css"] = "/public/" + m["async"].Css
 	}
 	return n, o, p
@@ -386,25 +431,24 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 	err := decoder.Decode(&packageBooking)
 
-
 	if err == nil {
 		packageBooking.IsClient = false
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
-				From: packageBooking.FirstName + " " + packageBooking.LastName,
+				From:    packageBooking.FirstName + " " + packageBooking.LastName,
 				ReplyTo: packageBooking.Email,
-				To: gApplicationState.Configuration.BookingEmailAddress,
+				To:      gApplicationState.Configuration.BookingEmailAddress,
 				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
-				Body: string(RenderPackageBookingEmail(&packageBooking)),
-			});
+				Body:    string(RenderPackageBookingEmail(&packageBooking)),
+			})
 		jData, _ = json.Marshal(true)
 	} else {
 		jData, _ = json.Marshal(err.Error())
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(jData);
+	w.Write(jData)
 }
 
 func putApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -412,7 +456,7 @@ func putApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 	pack := Package{}
 	err := decoder.Decode(&pack)
 	success := false
-	if (err == nil) {
+	if err == nil {
 		success = insertOrUpdatePackage(pack)
 	} else {
 		log.Error(err)
@@ -428,7 +472,7 @@ func putApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	rev := Review{}
 	err := decoder.Decode(&rev)
 	success := false
-	if (err == nil) {
+	if err == nil {
 		success = insertOrUpdateReview(rev)
 	} else {
 		log.Error(err)
@@ -440,9 +484,9 @@ func putApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func deleteApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	id, err := strconv.Atoi(p.ByName("id"));
+	id, err := strconv.Atoi(p.ByName("id"))
 	success := false
-	if (err == nil) {
+	if err == nil {
 		success = deletePackage(id)
 	} else {
 		log.Error(err)
@@ -453,9 +497,9 @@ func deleteApiPackage(w http.ResponseWriter, r *http.Request, p httprouter.Param
 }
 
 func deleteApiReview(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	id, err := strconv.Atoi(p.ByName("id"));
+	id, err := strconv.Atoi(p.ByName("id"))
 	success := false
-	if (err == nil) {
+	if err == nil {
 		success = deleteReview(id)
 	} else {
 		log.Error(err)
@@ -477,38 +521,38 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
-				From: booking.FirstName + " " + booking.LastName,
+				From:    booking.FirstName + " " + booking.LastName,
 				ReplyTo: booking.Email,
-				To: gApplicationState.Configuration.BookingEmailAddress,
-				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: "+ booking.Duration,
-				Body: string(RenderBookingEmail(&booking)),
-			});
+				To:      gApplicationState.Configuration.BookingEmailAddress,
+				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: " + booking.Duration,
+				Body:    string(RenderBookingEmail(&booking)),
+			})
 		jData, _ = json.Marshal(true)
 	} else {
 		jData, _ = json.Marshal(err.Error())
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(jData);
+	w.Write(jData)
 }
 
 func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	photos := []Photo{}
 	filepath.Walk(
-		gApplicationState.Configuration.Data + "gallery/images/",
+		gApplicationState.Configuration.Data+"gallery/images/",
 		func(stringPath string, info os.FileInfo, err error) error {
 			stringPath = path.Clean(filepath.ToSlash(stringPath))
 
-			if (err != nil) {
+			if err != nil {
 				return err
 			}
 
-			if (info.IsDir()) {
+			if info.IsDir() {
 				return nil
 			}
 			_, file := path.Split(stringPath)
 			ext := strings.ToLower(path.Ext(stringPath))
 
-			if (ext != ".jpg" && ext != ".jpeg") {
+			if ext != ".jpg" && ext != ".jpeg" {
 				return nil
 			}
 
@@ -537,7 +581,7 @@ func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			}
 
 			photos = append(photos, Photo{
-				Thumbnail: "/static/gallery/thumbnails/" + file,
+				Thumbnail:   "/static/gallery/thumbnails/" + file,
 				FullPicture: "/static/gallery/full/" + file,
 			})
 			return err
@@ -551,17 +595,17 @@ func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
-	ssl := gApplicationState.Configuration.SSL;
-	port := ssl.Port;
-	host := gApplicationState.Configuration.Host;
-	toURL := "https://" + net.JoinHostPort(host, strconv.Itoa(port));
+	ssl := gApplicationState.Configuration.SSL
+	port := ssl.Port
+	host := gApplicationState.Configuration.Host
+	toURL := "https://" + net.JoinHostPort(host, strconv.Itoa(port))
 	toURL += r.URL.RequestURI()
 	w.Header().Set("Connection", "close")
 	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
 }
 
 func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
-	if len(path) < 10 || path[len(path) - 10:] != "/*filepath" {
+	if len(path) < 10 || path[len(path)-10:] != "/*filepath" {
 		panic("path must end with /*filepath in path '" + path + "'")
 	}
 	fileServer := http.FileServer(root)
@@ -582,7 +626,7 @@ func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) 
 func getAuthorization(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = -1
-	if (p.ByName("secret") == gApplicationState.Configuration.PseudoSecureUrl) {
+	if p.ByName("secret") == gApplicationState.Configuration.PseudoSecureUrl {
 		context.Parameters["PseudoAuthorization"] =
 			gApplicationState.Configuration.PseudoSecureUrl
 	}
@@ -598,7 +642,7 @@ func getEdit(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 
-	router := httprouter.New();
+	router := httprouter.New()
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
 	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
 	router.GET("/prices", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
@@ -611,7 +655,6 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
 	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(getApiReviews)))
-
 
 	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
 	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiBooking)))
@@ -631,12 +674,12 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
 
-	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public));
-	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data));
+	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public))
+	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data))
 	router.NotFound = http.FileServer(http.Dir(applicationState.Configuration.Data + "public/"))
 
-	configuration := applicationState.Configuration;
-	ssl := configuration.SSL;
+	configuration := applicationState.Configuration
+	ssl := configuration.SSL
 	httpAddress := net.JoinHostPort(configuration.Host, strconv.Itoa(configuration.Port))
 
 	if ssl != nil {
@@ -645,7 +688,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 		go http.ListenAndServeTLS(tlsAddress, ssl.Cert, ssl.Key, router)
 
 		fmt.Fprintf(os.Stdout, "Listening on %s...\n", httpAddress)
-		http.ListenAndServe(httpAddress, http.HandlerFunc(redirectToHTTPS));
+		http.ListenAndServe(httpAddress, http.HandlerFunc(redirectToHTTPS))
 	} else {
 		fmt.Fprintf(os.Stdout, "Listening on %s...\n", httpAddress)
 		http.ListenAndServe(httpAddress, router)
