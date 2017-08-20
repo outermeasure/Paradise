@@ -19,5 +19,7 @@
 	"GmailAccessToken": "<gmail_permission.json>",
 	"DbConnectionString": "user:password@tcp(x.x.x.x:3306)/paradise?charset=utf8mb4,utf8",
 
+	"GoogleSiteVerification": "<google-site-verification>",
+
 	"PseudoSecureUrl": ""
 }

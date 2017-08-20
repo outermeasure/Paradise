@@ -26,9 +26,10 @@ type Configuration struct {
 	GoogleApiClientSecret string  `json:"GoogleApiClientSecret"`
 	BookingEmailAddress   string  `json:"BookingEmailAddress"`
 
-	GmailAccessToken   string `json:"GmailAccessToken"`
-	DbConnectionString string `json:"DbConnectionString"`
-	PseudoSecureUrl    string `json:"PseudoSecureUrl"`
+	GmailAccessToken       string `json:"GmailAccessToken"`
+	DbConnectionString     string `json:"DbConnectionString"`
+	PseudoSecureUrl        string `json:"PseudoSecureUrl"`
+	GoogleSiteVerification string `json:"GoogleSiteVerification"`
 }
 
 type ApplicationState struct {
@@ -59,9 +60,10 @@ type Page struct {
 	Platform           Platform
 	Title              string
 
-	SEODescription     string
-	SEOKeywords        string
-	SEOContentLanguage string
+	SEODescription         string
+	SEOKeywords            string
+	SEOContentLanguage     string
+	GoogleSiteVerification string
 
 	Route          string
 	Parameters     map[string]string

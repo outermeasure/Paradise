@@ -63,6 +63,7 @@ func BaseContext(r *http.Request) *Page {
 	}
 	page := gApplicationState.Page
 	page.Platform = getPlatform(r.UserAgent())
+	page.GoogleSiteVerification = gApplicationState.Configuration.GoogleSiteVerification
 	page.Route = r.URL.Path
 	page.Parameters = map[string]string{}
 	page.Parameters["ExplicitRuntimeMode"] =
