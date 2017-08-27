@@ -10,20 +10,17 @@ const mapStateToProps = (state) => {
 	case '/':
 		selectedTab = 0;
 		break;
-	case '/tarife':
+	case '/oferte':
 		selectedTab = 1;
 		break;
-	case '/oferte':
+	case '/locatie':
 		selectedTab = 2;
 		break;
-	case '/restaurant':
+	case '/recenzii':
 		selectedTab = 3;
 		break;
-	case '/locatie':
+	case '/tarife':
 		selectedTab = 4;
-		break;
-	case '/galerie':
-		selectedTab = 5;
 		break;
 	default:
 		selectedTab = -1;

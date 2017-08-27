@@ -19,10 +19,11 @@ export const
 		type: SET_SELECTED_PHOTO,
 		selectedPhoto,
 	}),
-	fetchPhotos = (page, next) => (dispatch) => {
+	fetchPhotos = (page, which, next) => (dispatch) => {
 		dispatch(requestPhotos());
 		Fetch.Photos.all(
 			page,
+			which,
 			(items, error) => {
 				if (error) {
 					console.log(error);

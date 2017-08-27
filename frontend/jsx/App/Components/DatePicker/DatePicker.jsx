@@ -296,6 +296,7 @@ class DatePicker extends Component {
 			hideCalendarDate,
 			style,
 			textFieldStyle,
+			injectedTag,
 			...other
 		} = this.props;
 
@@ -307,6 +308,7 @@ class DatePicker extends Component {
 				className="calendar"
 				tag="div"
 				style={prepareStyles(Object.assign({}, style))}>
+				{injectedTag}
 				<input
 					{...other}
 					onFocus={this.handleFocus}

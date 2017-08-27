@@ -31,7 +31,7 @@ const getPage = (route, parameters) => {
 			return <Location
 				markdownHTML={parameters["markdownHTML"]}
 			/>;
-		case '/galerie':
+		case '/galerie/:url':
 			return <Gallery/>;
 		case '/edit':
 			return <Edit/>;

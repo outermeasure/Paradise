@@ -183,7 +183,7 @@ func makeVaryAcceptEncoding(fn httprouter.Handle) httprouter.Handle {
 
 func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 0
+	context.NavbarSelected = -1
 	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
@@ -205,7 +205,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 1
+	context.NavbarSelected = 4
 
 	file, _ := readFileBytesMemoized(
 		gApplicationState.Configuration.Data + "prices/prices.md",
@@ -228,7 +228,7 @@ func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 2
+	context.NavbarSelected = 1
 	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
@@ -252,7 +252,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func getReviews(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 6
+	context.NavbarSelected = 3
 	all := getParadiseReviews(
 		gApplicationState.Configuration.Data,
 	)
@@ -284,7 +284,7 @@ func getApiReviews(w http.ResponseWriter, r *http.Request, _ httprouter.Params) 
 
 func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 0
+	context.NavbarSelected = -1
 	context.PackageDetails = getParadisePackageByUrl(
 		gApplicationState.Configuration.Data,
 		p.ByName("url"),
@@ -321,7 +321,7 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 3
+	context.NavbarSelected = -1
 
 	context.SEOContentLanguage = "ro_RO"
 	context.SEODescription = "Restaurant Paradise Delta House"
@@ -332,7 +332,7 @@ func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 }
 func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 4
+	context.NavbarSelected = 2
 	file, _ := readFileBytesMemoized(
 		gApplicationState.Configuration.Data + "location/location.md",
 	)
@@ -358,8 +358,9 @@ func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func getGallery(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
-	context.NavbarSelected = 5
-
+	context.NavbarSelected = -1
+	context.Parameters["Gallery"] = p.ByName("url")
+	context.Route = "/galerie/:url"
 	context.SEOContentLanguage = "ro_RO"
 	context.SEODescription = "Galerie foto complex Hotel Paradise"
 	context.SEOKeywords = "galerie hotel paradise delta,galerie paradise delta house,galerie hotel paradise,poze hotel paradise"
@@ -537,10 +538,10 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 	w.Write(jData)
 }
 
-func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func getApiPhotos(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	photos := []Photo{}
 	filepath.Walk(
-		gApplicationState.Configuration.Data+"gallery/images/",
+		gApplicationState.Configuration.Data+"gallery/images/"+p.ByName("url")+"/",
 		func(stringPath string, info os.FileInfo, err error) error {
 			stringPath = path.Clean(filepath.ToSlash(stringPath))
 
@@ -558,33 +559,33 @@ func getApiPhotos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 				return nil
 			}
 
-			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/full/" + file); os.IsNotExist(err) {
+			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/full/" + p.ByName("url") + "/" + file); os.IsNotExist(err) {
 				photo, err := os.Open(stringPath)
 				runtimeAssert(err)
 				img, err := jpeg.Decode(photo)
 				photo.Close()
 				m := resize.Resize(1200, 0, img, resize.Lanczos3)
-				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/full/" + file)
+				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/full/" + p.ByName("url") + "/" + file)
 				runtimeAssert(err)
 				defer out.Close()
 				jpeg.Encode(out, m, nil)
 			}
 
-			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/thumbnails/" + file); os.IsNotExist(err) {
+			if _, err := os.Stat(gApplicationState.Configuration.Data + "gallery/thumbnails/" + p.ByName("url") + "/" + file); os.IsNotExist(err) {
 				photo, err := os.Open(stringPath)
 				runtimeAssert(err)
 				img, err := jpeg.Decode(photo)
 				photo.Close()
 				m := resize.Resize(400, 0, img, resize.Lanczos3)
-				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/thumbnails/" + file)
+				out, err := os.Create(gApplicationState.Configuration.Data + "gallery/thumbnails/" + p.ByName("url") + "/" + file)
 				runtimeAssert(err)
 				defer out.Close()
 				jpeg.Encode(out, m, nil)
 			}
 
 			photos = append(photos, Photo{
-				Thumbnail:   "/static/gallery/thumbnails/" + file,
-				FullPicture: "/static/gallery/full/" + file,
+				Thumbnail:   "/static/gallery/thumbnails/" + p.ByName("url") + "/" + file,
+				FullPicture: "/static/gallery/full/" + p.ByName("url") + "/" + file,
 			})
 			return err
 		},
@@ -653,7 +654,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/oferta/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
 	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
 	router.GET("/locatie", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
-	router.GET("/galerie", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
+	router.GET("/galerie/:url", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
 
 	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
 
@@ -674,7 +675,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.DELETE("/api/review/:id", makePseudoSecureHandler(
 		makeVaryAcceptEncoding(makeGzipHandler(deleteApiReview))))
 
-	router.GET("/api/photo", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
+	router.GET("/api/photo/:url", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 
 	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
 

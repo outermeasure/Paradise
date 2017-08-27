@@ -1,24 +1,49 @@
-<div>
+<div id="Index">
 	<div class="presentation">
 		<div class="main">
-		    <div class="phone-number">(+4)0755-248-260</div>
-        	<div class="phone-number">(+4)0741-991-297</div>
-			<h1 class="top light text-center text-bolder twelve columns">Pensiune de lux aflată în mijlocul Deltei
-				Dunării</h1>
-			<form class="twelve columns text-center">
-				<div class="calendar">
-					<input type="text" class="big" name="from" placeholder="Din"/>
-					<i class="big icon-calendar2"></i>
-				</div><div class="calendar">
-					<input type="text" class="big" name="until" placeholder="Pana in"/>
-					<i class="big icon-calendar2"></i>
-				</div><button disabled="disabled" type="submit" class="primary big">Rezervare</button>
-			</form>
+		<div class="row">
+			<div class="short-description six column text-left">
+				<h1 class="text"><span>PARADISE DELTA HOUSE</span><br />pensiune de lux<span class="stars">****</span><br />in mijlocul Deltei Dunarii</h1>
+				<p>Pensiunea este aflată pe o insulă in fața localității Mila 23 și este cel mai bun punct de plecare din Delta Dunării. Îți oferim excursii în sălbăticie, la pescuit sau la Marea Neagră, ca să te poți relaxa în vacanța ta.</p>
+			</div>
+			<div class="six column text-right">
+				<div class="row gallery">
+					<h2 class="section"><i class="icon-photo2"></i> Galerie Foto</h2>
+					<table>
+					<tbody>
+						<tr>
+							<td class="a"><a href="/galerie/pensiune">Pensiune</a></td>
+							<td class="b"><a href="/galerie/camere">Camere</a></td>
+						</tr>
+						<tr>
+							<td class="d"><a href="/galerie/excursii">Excursii</a></td>
+							<td class="c"><a href="/galerie/pescuit">Pescuit</a></td>
+						</tr>
+						<tr>
+							<td class="e"><a href="/galerie/piscina">Piscina</a></td>
+							<td class="f"><a href="/galerie/restaurant">Restaurant</a></td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<form class="twelve columns text-center">
+			<div class="calendar">
+				<h2 class="section abs"><i class="icon-bed"></i> Rezervare Cazare</h2>
+				<input type="text" class="big" name="from" placeholder="Din"/>
+				<i class="big icon-calendar2"></i>
+			</div><div class="calendar">
+				<input type="text" class="big" name="until" placeholder="Pana in"/>
+				<i class="big icon-calendar2"></i>
+			</div><button disabled="disabled" type="submit" class="primary big">Selecteaza perioada</button>
+		</form>
 		</div>
 	</div>
 	<div class="main">
 		<ul class="card-collection">
 			{{range $i, $v := .Packages}}<li class="card">
+				{{if eq $i 0}}<h2 class="section abs"><i class="icon-local_offer"></i> Oferte</h2>{{end}}
 				<img src="{{$v.CardPhoto}}"/><div class="info">
 					<h3>{{$v.CardTitle}}</h3>
 					<p>{{$v.CardDescription}}</p>

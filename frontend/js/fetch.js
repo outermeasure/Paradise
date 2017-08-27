@@ -7,6 +7,6 @@ const encode = encodeURIComponent;
 
 export const
 	Photos = {
-		all: (page, onReceive) =>
-			getJSON(`/api/photo?${limit(20, page)}`, onReceive),
+		all: (page, which, onReceive) =>
+			getJSON(`/api/photo/${which}/?${limit(20, page)}`, onReceive),
 	};

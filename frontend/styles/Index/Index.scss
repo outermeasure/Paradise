@@ -1,47 +1,192 @@
-.presentation {
-  width: 100%;
-  height: 400px;
-  background-size: contain;
-  @include image-linear-gradient(url(../images/pensiune.jpg), "to top", rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.65) 100%);
-  background-position: 50% 60%;
-  background-repeat: no-repeat;
+#Index {
+  $thumbnailOpacity: 0.55;
 
-  h1 {
-    margin-top: 20px;
-    margin-bottom: 288px;
+
+  .card-collection {
+    margin-top: 60px;
   }
 
-  .phone-number {
-    text-align: right;
-    color: white;
-    font-weight: bold;
-  }
+  .presentation {
+    width: 100%;
+    margin-top: 40px;
 
-  .calendar {
-    margin-right: 16px;
-    margin-bottom: 16px;
-  }
+    @media (max-width: 750px) {
+      margin-top: 20px;
+    }
 
-  button {
-    position: relative;
-    margin-bottom: 16px;
-  }
+    .column {
+      display: inline-block;
+      margin: 0;
+    }
 
-  @media (max-width: 1000px) {
-    height: auto;
-    display: inline-block;
+    .six {
+      width: 50%;
+
+      @media (max-width: 750px) {
+        width: 100%;
+      }
+    }
+
+    h1.text {
+      font-size: 32px;
+      margin-bottom: 50px;
+
+      span {
+        font-weight: 900;
+        color: $primary;
+
+        &.stars {
+          color: $amber;
+          margin-left: 10px;
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+
+    .gallery {
+      font-size: 32px;
+
+      h2.section {
+        margin-bottom: 5px;
+      }
+
+      table, td {
+        padding: 0;
+        text-align: center;
+        color: $light;
+        border: 4px solid $light;
+        line-height: 3;
+        background-size: cover;
+
+        @include text-shadow(1px 1px 3px rgba(0, 0, 0, 0.4));
+      }
+
+      td {
+        width: 50%;
+        border-radius: 2px;
+        font-weight: 600;
+        letter-spacing: -1px;
+
+        a {
+          color: white;
+          text-decoration: none;
+          width: 100%;
+          display: inline-block;
+
+          &:hover,
+          &:focus {
+            text-decoration: none;
+            color: white;
+          }
+        }
+      }
+
+      table {
+        width: 100%;
+      }
+
+      .a {
+        line-height: 3.5;
+
+        @include image-linear-gradient(url(../images/pensiune.jpg), "to top", rgba(0, 0, 0, $thumbnailOpacity) 0%, rgba(0, 0, 0, $thumbnailOpacity) 100%);
+
+        background-size: cover;
+        background-position: 50%;
+      }
+
+      .b {
+        line-height: 3.5;
+
+        @include image-linear-gradient(url(../images/camere.jpg), "to top", rgba(0, 0, 0, $thumbnailOpacity) 0%, rgba(0, 0, 0, $thumbnailOpacity) 100%);
+
+        background-size: cover;
+        background-position: 50%;
+      }
+
+      .c {
+        line-height: 4;
+
+        @include image-linear-gradient(url(../images/pescuit.jpg), "to top", rgba(0, 0, 0, $thumbnailOpacity) 0%, rgba(0, 0, 0, $thumbnailOpacity) 100%);
+
+        background-size: cover;
+        background-position: 50%;
+      }
+
+      .d {
+        line-height: 4;
+
+        @include image-linear-gradient(url(../images/excursii.jpg), "to top", rgba(0, 0, 0, $thumbnailOpacity) 0%, rgba(0, 0, 0, $thumbnailOpacity) 100%);
+
+        background-size: cover;
+        background-position: 50%;
+      }
+
+      .e {
+        @include image-linear-gradient(url(../images/piscina.jpg), "to top", rgba(0, 0, 0, $thumbnailOpacity) 0%, rgba(0, 0, 0, $thumbnailOpacity) 100%);
+
+        background-size: cover;
+        background-position: 50%;
+      }
+
+      .f {
+        @include image-linear-gradient(url(../images/restaurant.jpg), "to top", rgba(0, 0, 0, $thumbnailOpacity) 0%, rgba(0, 0, 0, $thumbnailOpacity) 100%);
+
+        background-size: cover;
+        background-position: 50%;
+      }
+    }
+
+    .short-description {
+      padding-right: 20px;
+
+      p {
+        font-size: 20px;
+        line-height: 2;
+      }
+    }
+
+    .calendar {
+      margin-right: 24px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      position: relative;
+      margin-bottom: 16px;
+    }
 
     form.twelve.columns {
+      margin-top: 60px;
       margin-bottom: 0;
       .calendar,
       button {
-        display: block;
-        width: 100%;
+        width: 340px;
       }
 
       .calendar {
         input {
+          width: 340px;
+        }
+      }
+    }
+
+    @media (max-width: 1132px) {
+      height: auto;
+      display: inline-block;
+
+      form.twelve.columns {
+        margin-bottom: 0;
+        .calendar,
+        button {
+          display: block;
           width: 100%;
+        }
+
+        .calendar {
+          input {
+            width: 100%;
+          }
         }
       }
     }

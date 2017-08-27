@@ -18,29 +18,24 @@ const NavPaperRipple = (props) => <PaperRipple
 
 const MENU_ITEMS = [
 	{
-		label: "Prețuri",
-		url: "/tarife",
-		index: 1,
-	},
-	{
 		label: "Oferte",
 		url: "/oferte",
-		index: 2,
+		index: 1,
 	},
 	{
 		label: "Locație",
 		url: "/locatie",
-		index: 4,
+		index: 2,
 	},
 	{
 		label: "Recenzii",
 		url: "/recenzii",
-		index: 6,
+		index: 3,
 	},
 	{
-		label: "Galerie Foto",
-		url: "/galerie",
-		index: 5,
+		label: "Tarife",
+		url: "/tarife",
+		index: 4,
 	},
 ];
 
@@ -58,35 +53,35 @@ class NavigationBar extends React.Component {
 		} = this.props;
 		return <div><nav
 			className="no-selection">
-			<NavPaperRipple
-				tag="div"
-				className="brand">
-				<i className="icon-pelican2" />
-				<div className="text"><span>PARADISE</span><br />Delta House</div>
-				<a href="/" />
-			</NavPaperRipple>
-			<ul className="navbar">
-				{
-					MENU_ITEMS.map(
-						(item, i) => <li key={i}>
-							<NavPaperRipple
-								tag="a"
-								className={selected === item.index ? "selected" : ""}
-								href={item.url}>{item.label}</NavPaperRipple>
-						</li>
-					)
-				}
-			</ul>
-			<div className="sandwich">
-				<i className="icon-bars" />
 				<NavPaperRipple
-					tag="a"
-					href="/"
-					onClick={(e) => {
-						e.preventDefault();
-						this.setState({ open: true });
-					}} />
-			</div>
+					tag="div"
+					className="brand">
+					<i className="icon-pelican2" />
+					<div className="text"><span>PARADISE</span><br />Delta House</div>
+					<a href="/" />
+				</NavPaperRipple>
+				<ul className="navbar">
+					{
+						MENU_ITEMS.map(
+							(item, i) => <li key={i}>
+								<NavPaperRipple
+									tag="a"
+									className={selected === item.index ? "selected" : ""}
+									href={item.url}>{item.label}</NavPaperRipple>
+							</li>
+						)
+					}
+				</ul>
+				<div className="sandwich">
+					<i className="icon-bars" />
+					<NavPaperRipple
+						tag="a"
+						href="/"
+						onClick={(e) => {
+							e.preventDefault();
+							this.setState({ open: true });
+						}} />
+				</div>
 		</nav>
 			<Drawer
 				docked={false}

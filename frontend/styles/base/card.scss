@@ -8,6 +8,7 @@
   text-align: left;
   background-color: white;
   width: 340px;
+  position: relative;
 
   @media (max-width: 750px) {
     width: 300px;
@@ -22,7 +23,6 @@
   display: inline-block;
   vertical-align: top;
   border-radius: 2px;
-  overflow: hidden;
   cursor: pointer;
   line-height: 1;
 

@@ -167,7 +167,7 @@ const View = ({
 					e.preventDefault();
 					onNext();
 				}}
-				className="primary workflow right">Pasul Urmator
+				className="primary workflow right">{startDate === null ? "Selecteaza data de inceput": "Pasul Urmator"}
 			</PaperRipple>
 		</div>
 	</div>;

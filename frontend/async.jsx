@@ -86,9 +86,10 @@ if (window.ROUTE === '/') {
 	store.dispatch(PackagesActions.fetchPackages(
 		renderApplication
 	));
-} else if (window.ROUTE === '/galerie') {
+} else if (window.ROUTE.substr(0, 8) === '/galerie') {
 	store.dispatch(GalleryActions.fetchPhotos(
 		0,
+		window.PARAMETERS["Gallery"],
 		renderApplication
 	));
 } else if (window.ROUTE === '/recenzii') {

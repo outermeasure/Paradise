@@ -69,14 +69,14 @@ const View = ({
 	} = clientObject;
 
 	const disableStartDates = (date) =>
-	(endDate && endDate.getTime() <= date.getTime()) ||
-	Date.now() - 24 * 3600 * 1000 > date.getTime();
+		(endDate && endDate.getTime() <= date.getTime()) ||
+		Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	const disableEndDates = (date) =>
-	startDate && startDate.getTime() >= date.getTime() ||
-	Date.now() - 24 * 3600 * 1000 > date.getTime();
+		startDate && startDate.getTime() >= date.getTime() ||
+		Date.now() - 24 * 3600 * 1000 > date.getTime();
 
-	return <div>
+	return <div id="Index">
 		<Modal
 			contentLabel={""}
 			isOpen={modalOpen !== -1}
@@ -85,21 +85,45 @@ const View = ({
 			parentSelector={() => document.body}>
 			{
 				modalOpen === 0 ?
-					<Workflow/> : (modalOpen === 1 ? <OfferWorkflow/> : null)
+					<Workflow /> : (modalOpen === 1 ? <OfferWorkflow /> : null)
 			}
 		</Modal>
 		<div className="presentation">
 			<div className="main">
-				<div className="phone-number">(+4)0755-248-260</div>
-				<div className="phone-number">(+4)0741-991-297</div>
-				<h1
-					className={
-						"top light text-center " +
-						"text-bolder twelve columns"
-					}>
-					Pensiune de lux aflată în mijlocul Deltei Dunării</h1>
+				<div className="row">
+					<div className="short-description six column text-left">
+						<h1 className="text"><span>PARADISE DELTA HOUSE</span><br />pensiune de lux<span className="stars">****</span><br />in mijlocul Deltei Dunarii</h1>
+						<p>
+							Pensiunea este aflată pe o insulă in fața localității Mila 23 și este cel mai bun punct de plecare din Delta Dunării. Îți oferim excursii în sălbăticie, la pescuit sau la Marea Neagră, ca să te poți relaxa în vacanța ta.
+						</p>
+					</div>
+					<div className="six column text-right">
+						<div className="row gallery">
+							<h2 className="section"><i className="icon-photo2"></i> Galerie Foto</h2>
+							<table>
+								<tbody>
+									<tr>
+										<td className="a"><a href="/galerie/pensiune">Pensiune</a></td>
+										<td className="b"><a href="/galerie/camere">Camere</a></td>
+									</tr>
+									<tr>
+										<td className="d"><a href="/galerie/excursii">Excursii</a></td>
+										<td className="c"><a href="/galerie/pescuit">Pescuit</a></td>
+									</tr>
+									<tr>
+										<td className="e"><a href="/galerie/piscina">Piscina</a></td>
+										<td className="f"><a href="/galerie/restaurant">Restaurant</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 				<form className="twelve columns text-center">
 					<DatePicker
+						injectedTag={
+							<h2 className="section abs"><i className="icon-bed"></i> Rezervare Cazare</h2>
+						}
 						value={startDate}
 						container="dialog"
 						screenType={screenType}
@@ -112,7 +136,7 @@ const View = ({
 						}}
 						locale="ro"
 						DateTimeFormat={DateTimeFormat}
-						placeholder={"Din"}/>
+						placeholder={"Din"} />
 					<DatePicker
 						value={endDate}
 						container="dialog"
@@ -126,7 +150,7 @@ const View = ({
 						}}
 						DateTimeFormat={DateTimeFormat}
 						locale="ro"
-						placeholder={"Pana in"}/>
+						placeholder={"Pana in"} />
 					<BookTopPaperRipple
 						tag="button"
 						disabled={
@@ -138,7 +162,7 @@ const View = ({
 							openModal(0);
 						}}
 						className="primary big">
-						Rezervare
+						{!clientObject.startDate || !clientObject.endDate ? "Selecteaza perioada" : "Rezervare"}
 					</BookTopPaperRipple>
 				</form>
 			</div>
@@ -150,7 +174,7 @@ const View = ({
 						(pack, index) => <li
 							key={index}
 							className="card">
-
+							{index === 0 ? <h2 className="section abs"><i className="icon-local_offer"></i> Oferte</h2> : null}
 							<CardPaperRipple
 								className="content"
 								onClick={(e) => {
@@ -159,7 +183,7 @@ const View = ({
 										`oferta/${pack.Url}`;
 								}}
 								tag="div">
-								<img src={pack.CardPhoto}/>
+								<img src={pack.CardPhoto} />
 								<div className="info">
 									<h3>{pack.CardTitle}</h3>
 									<p>{pack.CardDescription}</p>
@@ -193,7 +217,7 @@ const View = ({
 				}
 				{
 					PaddingTools.addPadding(3, packages.items.length).map(
-						(_, i) => <li key={i} className="card empty"/>)
+						(_, i) => <li key={i} className="card empty" />)
 				}
 			</ul>
 		</div>
