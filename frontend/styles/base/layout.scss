@@ -2,7 +2,7 @@
 .footer {
   max-width: 1200px;
   margin: auto;
-  padding: 0 24px 0 24px;
+  padding: 24px;
   @media (max-width: 750px) {
     padding: 10px;
   }
@@ -12,6 +12,10 @@
     display: table;
     clear: both;
   }
+}
+
+h1 {
+  padding-top: 20px;
 }
 
 .text-center {

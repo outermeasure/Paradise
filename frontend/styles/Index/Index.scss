@@ -1,6 +1,12 @@
 #Index {
   $thumbnailOpacity: 0.55;
+  .main {
+    padding: 0 24px 0 24px;
+  }
 
+  h1 {
+    padding-top: 0;
+  }
 
   .card-collection {
     margin-top: 60px;
