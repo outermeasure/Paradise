@@ -1,7 +1,7 @@
 #BookingDetails {
   @media (max-width: 750px) {
     .min-height {
-      padding-bottom: 60px;
+        padding-bottom: 80px;
     }
   }
 
@@ -17,10 +17,21 @@
     color: $mediumDark;
   }
 
+  .total-label {
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 600;
+    color: $lighterDark;
+    span {
+        margin-left: 8px;
+        color: $primary;
+        font-weight: 900;
+    }
+  }
+
   .service {
-    margin-top: 20px;
     .beds {
-      padding-top: 20px;
       padding-bottom: 20px;
 
       max-width: 400px;

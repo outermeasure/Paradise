@@ -44,7 +44,7 @@ const View = ({
 			progress={Steps.getStepIndexByLabel(step) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Mesaj aditional rezervare</h3>
+            <h3>Ai dori sa ne lasi un mesaj?</h3>
 			<div className="font-container">
 				<i className="icon-mail"/>
 			</div>

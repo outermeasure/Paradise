@@ -45,7 +45,7 @@ const View = ({
 			progress={Steps.getStepIndexByLabel(workflowStep) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Mesaj aditional rezervare</h3>
+			<h3>Ai dori sa ne lasi un mesaj?</h3>
 			<div className="font-container">
 				<i className="icon-mail"/>
 			</div>
@@ -61,7 +61,7 @@ const View = ({
 									e.target.value, clientObject);
 							}}
 							placeholder=
-								"Va rugam sa specificati numarul si tipul de camere daca doriti mai mult de una"
+								"Va rugam sa specificati numarul si tipul de camere daca doriti mai multe"
 							defaultValue={bookingMessage}
 						>
 						</textarea>
@@ -69,7 +69,7 @@ const View = ({
 				</ul>
 			</form>
 			<em>
-				Va vom contacta prin email/telefonic pentru a raspunde la intrebarile adresate.
+				Va vom contacta prin email/telefonic pentru a va ajuta.
 			</em>
 		</div>
 		<div className="actions">

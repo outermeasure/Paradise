@@ -7,6 +7,7 @@ import {
 
 const mapStateToProps = (state) => {
 	return {
+        screenType: state.App.screenType,
 		...state.Index,
 	};
 };

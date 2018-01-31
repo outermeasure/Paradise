@@ -36,10 +36,15 @@ export const
 
 		const numberOfNights = Utils.getDaysBetween(
 			clientObject.startDate,
-			clientObject.endDate);
+            clientObject.endDate);
 
-		const full = RoomTypes.Data[clientObject.roomType].priceLei *
-			numberOfNights;
+        const full = Utils.computePrice(
+            clientObject.startDate,
+            clientObject.endDate,
+            RoomTypes.Data[clientObject.roomType].priceLei,
+            RoomTypes.Data[clientObject.roomType].priceLeiSeason,
+        );
+
 		const security = 30 * full / 100;
 
 		const apiObject = {
@@ -52,7 +57,6 @@ export const
 			roomType: RoomTypes.Data[clientObject.roomType].labelRo,
 			checkIn: Utils.getRoDate(clientObject.startDate),
 			checkOut: Utils.getRoDate(clientObject.endDate),
-			pricePerNight: RoomTypes.Data[clientObject.roomType].priceLei,
 			duration: numberOfNights > 0 ? numberOfNights === 1 ? "o noapte" :
 				`${numberOfNights} nopti` : "o zi",
 			security: security,

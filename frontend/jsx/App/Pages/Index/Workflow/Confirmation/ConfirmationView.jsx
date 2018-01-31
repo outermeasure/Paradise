@@ -37,11 +37,17 @@ const View = ({
 		email,
 	} = clientObject;
 
-	const numberOfNights = Utils.getDaysBetween(
-		clientObject.startDate,
-		clientObject.endDate);
-	const full = RoomTypes.Data[clientObject.roomType].priceLei *
-		numberOfNights;
+    const numberOfNights = Utils.getDaysBetween(
+        clientObject.startDate,
+        clientObject.endDate);
+
+    const full = Utils.computePrice(
+        clientObject.startDate,
+        clientObject.endDate,
+        RoomTypes.Data[clientObject.roomType].priceLei,
+        RoomTypes.Data[clientObject.roomType].priceLeiSeason,
+    );
+
 	const security = 30 * full / 100;
 
 	return <div

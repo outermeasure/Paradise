@@ -2,6 +2,7 @@ import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../../js/colors';
 import * as Validations from '../../../../../../js/validations';
+import * as Viewport from '../../../../../../js/viewport';
 import StepProgressBar from
 	'../../../../Components/StepProgressBar/StepProgressBar';
 import TextField from 'material-ui/TextField';
@@ -47,7 +48,8 @@ class View extends React.Component {
 			onNext,
 			onBack,
 			clientObject,
-			workflowStep
+            workflowStep,
+            screenType,
 		} = this.props;
 
 		const {
@@ -65,7 +67,7 @@ class View extends React.Component {
 						errorText: errors[field][0],
 						errorStyle: {
 							position: "absolute",
-							bottom: "-12px",
+							top: "72px",
 						},
 					} : {};
 				}
@@ -78,15 +80,14 @@ class View extends React.Component {
 				steps={Steps.getNumberOfSteps()}
 				progress={Steps.getStepIndexByLabel(workflowStep) / (Steps.getNumberOfSteps() - 1)}/>
 			<div className="min-height">
-				<h3>Informatii personale</h3>
+                <h3>Spune-ne despre tine</h3>
 				<form>
-					<ul className="vertical-layout">
+					<ul className="vertical-layout" style={{marginTop: "50px"}}>
 						<li>
 							<TextField
 								id="LastName"
 								{...validation.lastName}
 								defaultValue={clientObject.lastName}
-								fullWidth={true}
 								floatingLabelText={"Nume"}
 								onBlur={(e) => {
 									e.preventDefault();
@@ -94,19 +95,23 @@ class View extends React.Component {
 										e.target.value, clientObject);
 								}}
 								type="text"
+                                style={{
+                                    width: screenType === Viewport.SCREEN_DESKTOP ? "140px" : "100%",
+                                    marginRight: screenType === Viewport.SCREEN_DESKTOP ? "40px" : "auto",
+                                }}
 								hintText="Ex: Pop"/>
-						</li>
-						<li>
-							<TextField
+                            <TextField
 								{...validation.firstName}
 								defaultValue={clientObject.firstName}
-								fullWidth={true}
 								floatingLabelText={"Prenume"}
 								onBlur={(e) => {
 									e.preventDefault();
 									onChange("firstName",
 										e.target.value, clientObject);
 								}}
+                                style={{
+                                    width: screenType === Viewport.SCREEN_DESKTOP ? "140px" : "100%",
+                                }}
 								type="text"
 								hintText="Ex: Ioan"/>
 						</li>
@@ -137,20 +142,6 @@ class View extends React.Component {
 								}}
 								type="text"
 								hintText="Ex: pop.ioan@gmail.com"/>
-						</li>
-						<li>
-							<TextField
-								{...validation.nid}
-								defaultValue={clientObject.nid}
-								fullWidth={true}
-								floatingLabelText={"CUI/CNP"}
-								onBlur={(e) => {
-									e.preventDefault();
-									onChange("nid",
-										e.target.value, clientObject);
-								}}
-								type="text"
-								hintText="18XXXXXXXXXXX"/>
 						</li>
 					</ul>
 				</form>

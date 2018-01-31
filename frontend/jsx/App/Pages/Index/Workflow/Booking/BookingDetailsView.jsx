@@ -1,6 +1,7 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../../js/colors';
+import * as Utils from '../../../../../../js/utils';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import * as Steps from '../WorkflowSteps';
 import StepProgressBar from
@@ -30,7 +31,7 @@ const styles = {
 const makeRoomLabel = (roomType) => `Camera ${Data[roomType].labelRo}, ` +
 `${Data[roomType].persons > 1 ?
 	`${Data[roomType].persons} persoane` : `o persoana`}, ` +
-`${Data[roomType].priceLei} lei / noapte`;
+`${Data[roomType].priceLei}-${Data[roomType].priceLeiSeason} lei / noapte`;
 
 const View = ({
 	onChange,
@@ -39,16 +40,30 @@ const View = ({
 	clientObject,
 }) => {
 	const roomTypes = _.toPairs(RoomTypes);
-	const {roomType} = clientObject;
+    const {roomType} = clientObject;
+
+    const numberOfNights = Utils.getDaysBetween(
+        clientObject.startDate,
+        clientObject.endDate);
 
 
-	return <div className="popup" id="BookingDetails">
+    const full = Utils.computePrice(
+        clientObject.startDate,
+        clientObject.endDate,
+        Data[clientObject.roomType].priceLei,
+        Data[clientObject.roomType].priceLeiSeason,
+    );
+
+    return <div className="popup" id="BookingDetails">
 		<StepProgressBar
 			steps={Steps.getNumberOfSteps()}
 			progress={Steps.getStepIndexByLabel(workflowStep) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Detalii rezervare</h3>
+			<h3>Alege o camera pentru {
+				numberOfNights > 0 ? numberOfNights === 1 ? "o noapte" :
+					`${numberOfNights} nopti` : "o zi"
+			}</h3>
 			<form>
 				<ul className="vertical-layout">
 					<li>
@@ -78,7 +93,7 @@ const View = ({
 					</li>
 				</ul>
 			</form>
-			<div className="service">
+            <div className="service">
 				{
 
 					roomType !== null ? <ul className="beds">
@@ -117,6 +132,7 @@ const View = ({
 					</ul> : null
 				}
 			</div>
+            <div className="total-label">TOTAL<span>{full} LEI</span></div>
 		</div>
 		<div className="actions">
 			<PaperRipple

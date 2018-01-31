@@ -8,7 +8,35 @@ export const
 				(date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)
 			)
 		);
-	},
+    },
+    isInSeason = (date) => {
+        const month = date.getMonth();
+        const seasonMonths = [
+            5,
+            6,
+            7,
+            8,
+        ];
+        return !!seasonMonths.find((seasonMonth) => seasonMonth === month);
+    },
+    computePrice = (dateStart, dateEnd, price, priceSeason) => {
+        const numberOfNights = getDaysBetween(
+			dateStart,
+            dateEnd
+        );
+
+        let full = 0;
+        for (let i = 0; i < numberOfNights; i++) {
+            const aux = new Date(dateStart.getTime() + i * 24 * 60 * 60 * 1000);
+
+            if (isInSeason(aux)) {
+                full += priceSeason;
+            } else {
+                full += price;
+            }
+        }
+        return full;
+    },
 	putJSON = (url, json, next) => {
 		const request = new XMLHttpRequest();
 		request.open('PUT', url, true);

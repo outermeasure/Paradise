@@ -149,9 +149,8 @@ type Booking struct {
 
 	IsClient bool
 
-	PricePerNight int `json:"pricePerNight"`
-	Security      int `json:"security"`
-	Total         int `json:"total"`
+	Security int `json:"security"`
+	Total    int `json:"total"`
 }
 
 type PackageBooking struct {

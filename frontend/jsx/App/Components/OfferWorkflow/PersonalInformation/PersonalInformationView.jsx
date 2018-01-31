@@ -2,6 +2,7 @@ import React from 'react';
 import Ripple from 'react-paper-ripple';
 import * as Colors from '../../../../../js/colors';
 import * as Validations from '../../../../../js/validations';
+import * as Viewport from '../../../../../js/viewport';
 import StepProgressBar from
 	'../../../Components/StepProgressBar/StepProgressBar';
 import TextField from 'material-ui/TextField';
@@ -46,7 +47,8 @@ class View extends React.Component {
 			onChange,
 			onNext,
 			onPrevious,
-			clientObject,
+            clientObject,
+            screenType,
 			step,
 		} = this.props;
 
@@ -78,9 +80,9 @@ class View extends React.Component {
 				progress={Steps.getStepIndexByLabel(step) /
 				(Steps.getNumberOfSteps() - 1)}/>
 			<div className="min-height">
-				<h3>Informatii personale</h3>
+                <h3>Spune-ne despre tine</h3>
 				<form>
-					<ul className="vertical-layout">
+                    <ul className="vertical-layout" style={{marginTop: "50px"}}>
 						<li>
 							<TextField
 								id="LastName"
@@ -94,9 +96,11 @@ class View extends React.Component {
 										e.target.value, clientObject);
 								}}
 								type="text"
+                                style={{
+                                    width: screenType === Viewport.SCREEN_DESKTOP ? "140px" : "100%",
+                                    marginRight: screenType === Viewport.SCREEN_DESKTOP ? "40px" : "auto",
+                                }}
 								hintText="Ex: Pop"/>
-						</li>
-						<li>
 							<TextField
 								{...validation.firstName}
 								defaultValue={clientObject.firstName}
@@ -108,6 +112,9 @@ class View extends React.Component {
 										e.target.value, clientObject);
 								}}
 								type="text"
+                                style={{
+                                    width: screenType === Viewport.SCREEN_DESKTOP ? "140px" : "100%",
+                                }}
 								hintText="Ex: Ioan"/>
 						</li>
 						<li>
@@ -137,20 +144,6 @@ class View extends React.Component {
 								}}
 								type="text"
 								hintText="Ex: pop.ioan@gmail.com"/>
-						</li>
-						<li>
-							<TextField
-								{...validation.nid}
-								defaultValue={clientObject.nid}
-								fullWidth={true}
-								floatingLabelText={"CUI/CNP"}
-								onBlur={(e) => {
-									e.preventDefault();
-									onChange("nid",
-										e.target.value, clientObject);
-								}}
-								type="text"
-								hintText="18XXXXXXXXXXX"/>
 						</li>
 					</ul>
 				</form>
