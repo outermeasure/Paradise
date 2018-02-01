@@ -347,6 +347,40 @@ class Edit extends React.Component {
 									}
 									type="text"/>
 							</li>
+                            <li>
+								<label>Rang pagina principala</label>
+								<input
+									defaultValue={fp.RankOnIndexPage}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													RankOnIndexPage: parseInt(e.target.value),
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
+                            <li>
+								<label>Rang pagina oferte</label>
+								<input
+									defaultValue={fp.RankOnPackagePage}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													RankOnPackagePage: parseInt(e.target.value),
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
 						</ul>
 					</form> : null }
 					<div className="actions">

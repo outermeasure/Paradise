@@ -123,6 +123,30 @@ type Package struct {
 	Photos *[]string `json:"Photos,omitempty"`
 }
 
+type ByIndexPage []Package
+
+func (s ByIndexPage) Len() int {
+	return len(s)
+}
+func (s ByIndexPage) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+func (s ByIndexPage) Less(i, j int) bool {
+	return s[i].RankOnIndexPage < s[j].RankOnIndexPage
+}
+
+type ByPackagePage []Package
+
+func (s ByPackagePage) Len() int {
+	return len(s)
+}
+func (s ByPackagePage) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+func (s ByPackagePage) Less(i, j int) bool {
+	return s[i].RankOnPackagePage < s[j].RankOnPackagePage
+}
+
 type SSL struct {
 	Port int    `json:"Port"`
 	Key  string `json:"Key"`

@@ -2,24 +2,23 @@ package main
 
 import (
 	"database/sql"
-	"github.com/labstack/gommon/log"
 	"encoding/json"
-)
 
-import (
+	"github.com/labstack/gommon/log"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func readPackageById(id int) Package {
 	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return Package{}
 	}
 	defer db.Close()
 
 	rows, err := db.Query("SELECT Data FROM Packages WHERE Id=?", id)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return Package{}
 	}
@@ -28,13 +27,13 @@ func readPackageById(id int) Package {
 	for rows.Next() {
 		var Data string
 		err := rows.Scan(&Data)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return Package{}
 		}
 		q := Package{}
 		err = json.Unmarshal([]byte(Data), &q)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return Package{}
 		}
@@ -47,14 +46,14 @@ func readPackageById(id int) Package {
 
 func readPackages() []Package {
 	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return []Package{}
 	}
 	defer db.Close()
 
 	rows, err := db.Query("SELECT Id, Data, Version FROM Packages")
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return []Package{}
 	}
@@ -66,24 +65,25 @@ func readPackages() []Package {
 		var Id int
 		var Version int
 		err := rows.Scan(&Id, &Data, &Version)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return a
 		}
 
-		if (Version != 2) {
+		if Version != 2 {
 			continue
 		}
 
 		q := Package{}
 		err = json.Unmarshal([]byte(Data), &q)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return a
 		}
 		q.Id = &Id
 		a = append(a, q)
 	}
+
 	return a
 }
 
@@ -101,7 +101,7 @@ func insertOrUpdatePackage(pack interface{}) bool {
 		create = p.Id == nil
 		update = !create
 		if update {
-			id = *p.Id;
+			id = *p.Id
 		}
 
 		p.Id = nil
@@ -109,17 +109,19 @@ func insertOrUpdatePackage(pack interface{}) bool {
 	}
 
 	db, err = sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
 	defer db.Close()
 
 	switch pack.(type) {
-	case Package: {
-		version = 2
-		break;
-	}}
+	case Package:
+		{
+			version = 2
+			break
+		}
+	}
 
 	if create {
 		_, err = db.Query(
@@ -137,7 +139,7 @@ func insertOrUpdatePackage(pack interface{}) bool {
 			id,
 		)
 	}
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
@@ -146,7 +148,7 @@ func insertOrUpdatePackage(pack interface{}) bool {
 
 func deletePackage(id int) bool {
 	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
@@ -155,24 +157,23 @@ func deletePackage(id int) bool {
 		"DELETE FROM Packages WHERE Id=?",
 		id,
 	)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
 	return true
 }
 
-
 func readReviewById(id int) Review {
 	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return Review{}
 	}
 	defer db.Close()
 
 	rows, err := db.Query("SELECT Data FROM Reviews WHERE Id=?", id)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return Review{}
 	}
@@ -181,13 +182,13 @@ func readReviewById(id int) Review {
 	for rows.Next() {
 		var Data string
 		err := rows.Scan(&Data)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return Review{}
 		}
 		q := Review{}
 		err = json.Unmarshal([]byte(Data), &q)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return Review{}
 		}
@@ -200,14 +201,14 @@ func readReviewById(id int) Review {
 
 func readReviews() []Review {
 	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return []Review{}
 	}
 	defer db.Close()
 
 	rows, err := db.Query("SELECT Id, Data, Version FROM Reviews")
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return []Review{}
 	}
@@ -219,18 +220,18 @@ func readReviews() []Review {
 		var Id int
 		var Version int
 		err := rows.Scan(&Id, &Data, &Version)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return a
 		}
 
-		if (Version != 1) {
+		if Version != 1 {
 			continue
 		}
 
 		q := Review{}
 		err = json.Unmarshal([]byte(Data), &q)
-		if (err != nil) {
+		if err != nil {
 			log.Error(err)
 			return a
 		}
@@ -254,7 +255,7 @@ func insertOrUpdateReview(rev interface{}) bool {
 		create = p.Id == nil
 		update = !create
 		if update {
-			id = *p.Id;
+			id = *p.Id
 		}
 
 		p.Id = nil
@@ -262,17 +263,19 @@ func insertOrUpdateReview(rev interface{}) bool {
 	}
 
 	db, err = sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
 	defer db.Close()
 
 	switch rev.(type) {
-	case Review: {
-		version = 1
-		break;
-	}}
+	case Review:
+		{
+			version = 1
+			break
+		}
+	}
 
 	if create {
 		_, err = db.Query(
@@ -290,7 +293,7 @@ func insertOrUpdateReview(rev interface{}) bool {
 			id,
 		)
 	}
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
@@ -299,7 +302,7 @@ func insertOrUpdateReview(rev interface{}) bool {
 
 func deleteReview(id int) bool {
 	db, err := sql.Open("mysql", gApplicationState.Configuration.DbConnectionString)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}
@@ -308,7 +311,7 @@ func deleteReview(id int) bool {
 		"DELETE FROM Reviews WHERE Id=?",
 		id,
 	)
-	if (err != nil) {
+	if err != nil {
 		log.Error(err)
 		return false
 	}

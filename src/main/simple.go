@@ -14,6 +14,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -187,6 +188,8 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
+	sort.Sort(ByIndexPage(all))
+
 	context.Packages = []Package{}
 	for i := 0; i < len(all); i++ {
 		if all[i].ShowOnIndexPage {
@@ -232,6 +235,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	all := getParadisePackages(
 		gApplicationState.Configuration.Data,
 	)
+	sort.Sort(ByPackagePage(all))
 	context.Packages = []Package{}
 	for i := 0; i < len(all); i++ {
 		if all[i].ShowOnPackagePage {
@@ -418,10 +422,10 @@ func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTem
 }
 
 func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	all := getParadisePackages(gApplicationState.Configuration.Data)
+	sort.Sort(ByIndexPage(all))
 	jData, _ := json.Marshal(
-		getParadisePackages(
-			gApplicationState.Configuration.Data,
-		),
+		all,
 	)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jData)

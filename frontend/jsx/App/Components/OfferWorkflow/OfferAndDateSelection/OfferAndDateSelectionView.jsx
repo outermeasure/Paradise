@@ -35,7 +35,18 @@ const View = ({
 	} = clientObject;
 
 	let disableStartDates = (date) =>
-	Date.now() - 24 * 3600 * 1000 > date.getTime();
+    Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+    // Easter
+	if (selectedOffer.Id === 23) {
+		const oldDisable = disableStartDates;
+		disableStartDates = (date) => {
+			return oldDisable(date) || Utils.getRoDate(date) !== "6/4/2018";
+		};
+		if (!startDate) {
+			onChangeStartDate(new Date("2017/04/06"), clientObject);
+		}
+	}
 
 	// St - Mary
 	if (selectedOffer.Id === 29) {
@@ -52,10 +63,10 @@ const View = ({
 	if (selectedOffer.Id === 26) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
-			return oldDisable(date) || Utils.getRoDate(date) !== "1/6/2017";
+			return oldDisable(date) || Utils.getRoDate(date) !== "25/5/2018";
 		};
 		if (!startDate) {
-			onChangeStartDate(new Date("2017/06/01"), clientObject);
+			onChangeStartDate(new Date("2018/05/25"), clientObject);
 		}
 	}
 
@@ -63,10 +74,10 @@ const View = ({
 	if (selectedOffer.Id === 25) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
-			return oldDisable(date) || Utils.getRoDate(date) !== "28/4/2017";
+			return oldDisable(date) || Utils.getRoDate(date) !== "28/4/2018";
 		};
 		if (!startDate) {
-			onChangeStartDate(new Date("2017/04/28"), clientObject);
+			onChangeStartDate(new Date("2018/04/28"), clientObject);
 		}
 	}
 
