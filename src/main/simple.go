@@ -604,7 +604,7 @@ func getApiPhotos(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 	ssl := gApplicationState.Configuration.SSL
 	port := ssl.Port
-	host := gApplicationState.Configuration.Host
+	host := r.Host
 	toURL := "https://" + net.JoinHostPort(host, strconv.Itoa(port))
 	toURL += r.URL.RequestURI()
 	w.Header().Set("Connection", "close")
