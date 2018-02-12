@@ -601,14 +601,51 @@ func getApiPhotos(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	w.Write(jData)
 }
 
+func stripPort(hostport string) string {
+	colon := strings.IndexByte(hostport, ':')
+	if colon == -1 {
+		return hostport
+	}
+	if i := strings.IndexByte(hostport, ']'); i != -1 {
+		return strings.TrimPrefix(hostport[:i], "[")
+	}
+	return hostport[:colon]
+}
+
+func portOnly(hostport string) string {
+	colon := strings.IndexByte(hostport, ':')
+	if colon == -1 {
+		return ""
+	}
+	if i := strings.Index(hostport, "]:"); i != -1 {
+		return hostport[i+len("]:"):]
+	}
+	if strings.Contains(hostport, "]") {
+		return ""
+	}
+	return hostport[colon+len(":"):]
+}
+
 func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
-	ssl := gApplicationState.Configuration.SSL
-	port := ssl.Port
-	host := r.Host
-	toURL := "https://" + net.JoinHostPort(host, strconv.Itoa(port))
+	toURL := "https://" + net.JoinHostPort(stripPort(r.Host), strconv.Itoa(gApplicationState.Configuration.SSL.Port))
 	toURL += r.URL.RequestURI()
 	w.Header().Set("Connection", "close")
 	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
+}
+
+func redirectToNew(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	port := "80";
+	extractedPort := portOnly(r.Host)
+	if extractedPort != "" {
+		port = extractedPort
+	}
+	toURL := "http://" + net.JoinHostPort(stripPort(r.Host), port)
+	ssl := gApplicationState.Configuration.SSL
+	if ssl != nil {
+		toURL = "https://" + net.JoinHostPort(stripPort(r.Host), strconv.Itoa(ssl.Port))
+	}
+	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
+	w.Header().Set("Connection", "close")
 }
 
 func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
@@ -682,6 +719,11 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/api/photo/:url", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
 
 	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
+
+	router.GET("/index.php", redirectToNew);
+	router.GET("/en/index.php", redirectToNew);
+	router.GET("/en", redirectToNew);
+
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data))
