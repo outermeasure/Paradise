@@ -17,7 +17,7 @@ export const
 	fetchPackages = (next) => (dispatch) => {
 		dispatch(requestPackages());
 		return Utils.getJSON(
-			'/api/package',
+			'/api/packages',
 			(response, error) => {
 				if (error) {
 					console.log(error);

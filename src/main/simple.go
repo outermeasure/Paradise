@@ -461,9 +461,19 @@ func loadResources(filename string) (UnsafeTemplateData, SafeTemplateJs, SafeTem
 	return n, o, p
 }
 
-func getApiPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func getApiPackagesByIndexPage(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	all := getParadisePackages(gApplicationState.Configuration.Data)
 	sort.Sort(ByIndexPage(all))
+	jData, _ := json.Marshal(
+		all,
+	)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
+func getApiPackagesByPackagePage(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	all := getParadisePackages(gApplicationState.Configuration.Data)
+	sort.Sort(ByPackagePage(all))
 	jData, _ := json.Marshal(
 		all,
 	)
@@ -741,7 +751,8 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getEdit))))
 
-	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPackages))))
+	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPackagesByIndexPage))))
+	router.GET("/api/packages", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPackagesByPackagePage))))
 	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiReviews))))
 
 	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(postApiPackageBooking))))
