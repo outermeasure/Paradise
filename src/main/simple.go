@@ -144,6 +144,30 @@ func (w gzipResponseWriter) Write(b []byte) (int, error) {
 	return w.Writer.Write(b)
 }
 
+func makeStripWWWHandler(fn httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		onlyHost := stripPort(r.Host)
+		if strings.HasPrefix(onlyHost, "www.") {
+			onlyHost = strings.TrimPrefix(onlyHost, "www.")
+			port := "80"
+			extractedPort := portOnly(r.Host)
+			if extractedPort != "" {
+				port = extractedPort
+			}
+			toURL := "http://" + net.JoinHostPort(onlyHost, port)
+			ssl := gApplicationState.Configuration.SSL
+			if ssl != nil {
+				toURL = "https://" + net.JoinHostPort(onlyHost, strconv.Itoa(ssl.Port))
+			}
+			toURL += r.URL.RequestURI()
+			w.Header().Set("Connection", "close")
+			http.Redirect(w, r, toURL, http.StatusMovedPermanently)
+			return
+		}
+		fn(w, r, p)
+	}
+}
+
 func makeGzipHandler(fn httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
@@ -674,10 +698,12 @@ func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) 
 		makeCachedHandler(
 			makeVaryAcceptEncoding(
 				makeGzipHandler(
-					func(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
-						req.URL.Path = ps.ByName("filepath")
-						fileServer.ServeHTTP(w, req)
-					}),
+					makeStripWWWHandler(
+						func(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+							req.URL.Path = ps.ByName("filepath")
+							fileServer.ServeHTTP(w, req)
+						}),
+				),
 			),
 		),
 	)
@@ -704,41 +730,41 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	gApplicationState = applicationState
 
 	router := httprouter.New()
-	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(getIndex)))
-	router.GET("/tarife", makeVaryAcceptEncoding(makeGzipHandler(getPrices)))
-	router.GET("/oferte", makeVaryAcceptEncoding(makeGzipHandler(getPackages)))
-	router.GET("/recenzii", makeVaryAcceptEncoding(makeGzipHandler(getReviews)))
-	router.GET("/oferta/:url", makeVaryAcceptEncoding(makeGzipHandler(getPackage)))
-	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(getRestaurant)))
-	router.GET("/locatie", makeVaryAcceptEncoding(makeGzipHandler(getLocation)))
-	router.GET("/galerie/:url", makeVaryAcceptEncoding(makeGzipHandler(getGallery)))
+	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getIndex))))
+	router.GET("/tarife", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPrices))))
+	router.GET("/oferte", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackages))))
+	router.GET("/recenzii", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getReviews))))
+	router.GET("/oferta/:url", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackage))))
+	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getRestaurant))))
+	router.GET("/locatie", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getLocation))))
+	router.GET("/galerie/:url", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getGallery))))
 
-	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(getEdit)))
+	router.GET("/edit", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getEdit))))
 
-	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(getApiPackages)))
-	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(getApiReviews)))
+	router.GET("/api/package", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPackages))))
+	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiReviews))))
 
-	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiPackageBooking)))
-	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(postApiBooking)))
+	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(postApiPackageBooking))))
+	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(postApiBooking))))
 
-	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(getApiPackage)))
+	router.GET("/api/package/:id", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPackage))))
 
 	router.PUT("/api/package", makePseudoSecureHandler(
-		makeVaryAcceptEncoding(makeGzipHandler(putApiPackage))))
+		makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(putApiPackage)))))
 	router.PUT("/api/review", makePseudoSecureHandler(
-		makeVaryAcceptEncoding(makeGzipHandler(putApiReview))))
+		makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(putApiReview)))))
 	router.DELETE("/api/package/:id", makePseudoSecureHandler(
-		makeVaryAcceptEncoding(makeGzipHandler(deleteApiPackage))))
+		makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(deleteApiPackage)))))
 	router.DELETE("/api/review/:id", makePseudoSecureHandler(
-		makeVaryAcceptEncoding(makeGzipHandler(deleteApiReview))))
+		makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(deleteApiReview)))))
 
-	router.GET("/api/photo/:url", makeVaryAcceptEncoding(makeGzipHandler(getApiPhotos)))
+	router.GET("/api/photo/:url", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPhotos))))
 
-	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
+	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getAuthorization))))
 
-	router.GET("/index.php", redirectToNew)
-	router.GET("/en/index.php", redirectToNew)
-	router.GET("/en", redirectToNew)
+	router.GET("/index.php", makeStripWWWHandler(redirectToNew))
+	router.GET("/en/index.php", makeStripWWWHandler(redirectToNew))
+	router.GET("/en", makeStripWWWHandler(redirectToNew))
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data))
