@@ -109,8 +109,10 @@ type Package struct {
 	CardPhoto       string `json:"CardPhoto"`
 	CardDescription string `json:"CardDescription"`
 
-	SEOKeywords        string
-	SEOContentLanguage string
+	SEOTitle           *string `json:"SEOTitle,omitempty"`
+	SEOKeywords        *string `json:"SEOKeywords,omitempty"`
+	SEOContentLanguage *string `json:"SEOContentLanguage,omitempty"`
+	SEODescription     *string `json:"SEODescription,omitempty"`
 
 	PageDetailsCoverPhoto string `json:"PageDetailsCoverPhoto"`
 	PageDetailsMarkdown   string `json:"PageDetailsMarkdown"`

@@ -314,10 +314,18 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		context.Parameters["markdownHTML"] = string(html)
 		context.Parameters["cover"] = context.PackageDetails.PageDetailsCoverPhoto
 
-		context.Title = context.PackageDetails.CardTitle
-		context.SEODescription = context.PackageDetails.CardDescription
-		context.SEOKeywords = context.PackageDetails.SEOKeywords
-		context.SEOContentLanguage = context.PackageDetails.SEOContentLanguage
+		if context.PackageDetails.SEOTitle != nil {
+			context.Title = *context.PackageDetails.SEOTitle
+		}
+		if context.PackageDetails.SEOContentLanguage != nil {
+			context.SEOContentLanguage = *context.PackageDetails.SEOContentLanguage
+		}
+		if context.PackageDetails.SEODescription != nil {
+			context.SEODescription = *context.PackageDetails.SEODescription
+		}
+		if context.PackageDetails.SEOKeywords != nil {
+			context.SEOKeywords = *context.PackageDetails.SEOKeywords
+		}
 	}
 
 	Render(w, "package.gohtml", context)
@@ -634,7 +642,7 @@ func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 }
 
 func redirectToNew(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	port := "80";
+	port := "80"
 	extractedPort := portOnly(r.Host)
 	if extractedPort != "" {
 		port = extractedPort
@@ -720,10 +728,9 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(getAuthorization)))
 
-	router.GET("/index.php", redirectToNew);
-	router.GET("/en/index.php", redirectToNew);
-	router.GET("/en", redirectToNew);
-
+	router.GET("/index.php", redirectToNew)
+	router.GET("/en/index.php", redirectToNew)
+	router.GET("/en", redirectToNew)
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data))

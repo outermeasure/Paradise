@@ -381,6 +381,74 @@ class Edit extends React.Component {
 									}
 									type="text"/>
 							</li>
+                            <li>
+								<label>Titlu SEO</label>
+								<input
+									defaultValue={fp.SEOTitle}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													SEOTitle: e.target.value,
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
+                            <li>
+								<label>Descriere SEO</label>
+								<input
+									defaultValue={fp.SEODescription}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													SEODescription: e.target.value,
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
+                            <li>
+								<label>Cuvinte cheie SEO</label>
+								<input
+									defaultValue={fp.SEOKeywords}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													SEOKeywords: e.target.value,
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
+                            <li>
+								<label>Limba SEO</label>
+								<input
+									defaultValue={fp.SEOContentLanguage}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													SEOContentLanguage: e.target.value,
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
 						</ul>
 					</form> : null }
 					<div className="actions">
