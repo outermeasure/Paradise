@@ -177,12 +177,8 @@ const View = ({
 							{index === 0 ? <h2 className="section abs"><i className="icon-local_offer"></i> Oferte</h2> : null}
 							<CardPaperRipple
 								className="content"
-								onClick={(e) => {
-									e.preventDefault();
-									window.location =
-										`oferta/${pack.Url}`;
-								}}
-								tag="div">
+                                href={`oferta/${pack.Url}`}
+								tag="a">
 								<img src={pack.CardPhoto} />
 								<div className="info">
 									<h3>{pack.CardTitle}</h3>

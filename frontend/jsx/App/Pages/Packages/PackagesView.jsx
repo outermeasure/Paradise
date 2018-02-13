@@ -64,11 +64,8 @@ const View = ({
 
 							<CardPaperRipple
 								className="content"
-								onClick={(e) => {
-									e.preventDefault();
-									window.location = `oferta/${pack.Url}`;
-								}}
-								tag="div">
+                                href={`oferta/${pack.Url}`}
+								tag="a">
 								<img
 									src={pack.CardPhoto}/>
 
