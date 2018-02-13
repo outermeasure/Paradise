@@ -6,6 +6,7 @@ import App from './jsx/App/AppContainer';
 import * as AppActions from './jsx/App/AppActions';
 import * as IndexActions from './jsx/App/Pages/Index/IndexActions';
 import * as PackagesActions from './jsx/App/Pages/Packages/PackagesActions';
+import * as PackageAction from './jsx/App/Pages/Package/PackageActions';
 import * as ReviewsActions from './jsx/App/Pages/Reviews/ReviewsActions';
 import * as GalleryActions from './jsx/App/Pages/Gallery/GalleryActions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -77,13 +78,17 @@ const renderApplication = () => {
 		document.getElementById('paradise')
 	);
 };
-
+return;
 if (window.ROUTE === '/') {
 	store.dispatch(IndexActions.fetchPackages(
 		renderApplication
 	));
 } else if (window.ROUTE === '/oferte') {
 	store.dispatch(PackagesActions.fetchPackages(
+		renderApplication
+	));
+} else if (window.ROUTE === '/oferta/:url') {
+	store.dispatch(PackageAction.fetchPackages(
 		renderApplication
 	));
 } else if (window.ROUTE.substr(0, 8) === '/galerie') {

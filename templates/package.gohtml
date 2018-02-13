@@ -1,6 +1,12 @@
-<div class="card card-big">
+<div id="Package" class="card card-big">
 	<div class="cover" style="background-image: url({{.RenderedPackageCover}})"></div>
+    <div class="top-button">
+        <h1>{{.RenderedPackageTitle}}</h1><button class="accent big">Rezervă</button>
+    </div>
 	<div class="markdown markdown-light">
 		{{.RenderedPackageMarkdown}}
 	</div>
+    <div class="bottom-button">
+        <button class="accent big">Rezervă</button>
+    </div>
 </div>

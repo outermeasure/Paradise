@@ -159,7 +159,24 @@ class Edit extends React.Component {
 									type="text"
 									defaultValue={fp.Id}
 									disabled={true}/>
-							</li> : null}
+                            </li> : null}
+                            <li>
+								<label>Titlu Pagina</label>
+								<input
+									defaultValue={fp.Title}
+									onBlur={
+										(e) => {
+											that.setState({
+												...that.state,
+												focusedPackage: {
+													...that.state.focusedPackage,
+													Title: e.target.value,
+												},
+											});
+										}
+									}
+									type="text"/>
+							</li>
 							<li>
 								<Checkbox
 									label="Arata pe pagina principala"

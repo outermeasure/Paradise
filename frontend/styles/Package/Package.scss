@@ -1,0 +1,33 @@
+#Package {
+    position: relative;
+    .top-button {
+        padding: 0 16px;
+        h1 {
+            color: $navBackgroundColor;
+            display: inline-block;
+            width: calc(100% - 200px);
+            @media (max-width: 750px) {
+                width: 100%;
+            }
+            vertical-align: top;
+        }
+        button {
+            margin-top: 20px;
+            vertical-align: top;
+            display: inline-block;
+            width: 200px;
+            @media (max-width: 750px) {
+                width: 100%;
+            }
+        }
+    }
+    .bottom-button {
+        padding: 16px;
+    }
+
+    .markdown.markdown-light {
+        h1 {
+            display: none;
+        }
+    }
+}

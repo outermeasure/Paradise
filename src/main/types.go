@@ -76,6 +76,7 @@ type Page struct {
 
 	PackageDetails           *Package
 	RenderedPackageMarkdown  template.HTML
+	RenderedPackageTitle     string
 	RenderedPackageCover     template.HTMLAttr
 	RenderedPricesMarkdown   template.HTML
 	RenderedLocationMarkdown template.HTML
@@ -104,6 +105,7 @@ type Package struct {
 	Currency     string       `json:"Currency"`
 	AllowedDates *[]time.Time `json:"AllowedDates,omitempty"`
 	Nights       int          `json:"Nights"`
+	Title        *string      `json:"Title,omitempty"`
 
 	CardTitle       string `json:"CardTitle"`
 	CardPhoto       string `json:"CardPhoto"`

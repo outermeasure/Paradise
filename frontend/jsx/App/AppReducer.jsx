@@ -8,6 +8,7 @@ import OfferWorkflowReducer from
 import {
 	combineReducers,
 } from 'redux';
+import PackageReducer from './Pages/Package/PackageReducer';
 
 const BASE_STATE = {
 	route: null,
@@ -55,5 +56,6 @@ export default combineReducers({
 	Packages: PackagesReducer,
 	OfferWorkflow: OfferWorkflowReducer,
 	Gallery: GalleryReducer,
-	Reviews: ReviewsReducer,
+    Reviews: ReviewsReducer,
+    Package: PackageReducer,
 });

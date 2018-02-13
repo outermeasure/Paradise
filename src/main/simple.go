@@ -305,6 +305,10 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 				html,
 			)
 
+		if context.PackageDetails.Title != nil {
+			context.RenderedPackageTitle = *context.PackageDetails.Title
+		}
+
 		context.RenderedPackageCover = template.HTMLAttr(
 			context.PackageDetails.PageDetailsCoverPhoto,
 		)
