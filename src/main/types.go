@@ -28,9 +28,10 @@ type Configuration struct {
 
 	BookingEmailAddress string `json:"BookingEmailAddress"`
 
-	DbConnectionString     string `json:"DbConnectionString"`
-	PseudoSecureUrl        string `json:"PseudoSecureUrl"`
-	GoogleSiteVerification string `json:"GoogleSiteVerification"`
+	DbConnectionString                  string `json:"DbConnectionString"`
+	PseudoSecureUrl                     string `json:"PseudoSecureUrl"`
+	GoogleSiteVerification              string `json:"GoogleSiteVerification"`
+	HotelParadiseGoogleSiteVerification string `json:"HotelParadiseGoogleSiteVerification"`
 }
 
 type ApplicationState struct {
