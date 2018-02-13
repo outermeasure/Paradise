@@ -78,7 +78,6 @@ const renderApplication = () => {
 		document.getElementById('paradise')
 	);
 };
-return;
 if (window.ROUTE === '/') {
 	store.dispatch(IndexActions.fetchPackages(
 		renderApplication
