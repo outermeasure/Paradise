@@ -67,7 +67,7 @@ class View extends React.Component {
 						errorText: errors[field][0],
 						errorStyle: {
 							position: "absolute",
-							bottom: "-12px",
+							top: "72px",
 						},
 					} : {};
 				}
