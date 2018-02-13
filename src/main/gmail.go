@@ -1,18 +1,19 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strings"
+
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/gmail/v1"
-	"encoding/base64"
-	"strings"
 )
 
 // getClient uses a Context and Config to retrieve a Token
@@ -48,8 +49,8 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 
 // tokenCacheFile generates credential file path/filename.
 // It returns the generated credential path/filename.
-func tokenCacheFile(appState *ApplicationState) (string) {
-	return appState.Configuration.GmailAccessToken
+func tokenCacheFile(appState *ApplicationState) string {
+	return *appState.Configuration.GmailAccessToken
 }
 
 // tokenFromFile retrieves a Token from a given file path.
@@ -78,9 +79,14 @@ func saveToken(file string, token *oauth2.Token) {
 }
 
 func setupGmail(appState *ApplicationState) {
+	if appState.Configuration.GmailAccessToken == nil ||
+		appState.Configuration.GoogleApiClientSecret == nil ||
+		appState.Configuration.GoogleApiKey == nil {
+		return
+	}
 	ctx := context.Background()
 
-	b, err := ioutil.ReadFile(appState.Configuration.GoogleApiClientSecret)
+	b, err := ioutil.ReadFile(*appState.Configuration.GoogleApiClientSecret)
 	if err != nil {
 		log.Printf("Unable to read client secret file: %v", err)
 		return

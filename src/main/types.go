@@ -23,10 +23,11 @@ type Configuration struct {
 	SSL       *SSL   `json:"SSL,omitempty"`
 
 	GoogleApiKey          *string `json:"GoogleApiKey,omitempty"`
-	GoogleApiClientSecret string  `json:"GoogleApiClientSecret"`
-	BookingEmailAddress   string  `json:"BookingEmailAddress"`
+	GoogleApiClientSecret *string `json:"GoogleApiClientSecret"`
+	GmailAccessToken      *string `json:"GmailAccessToken"`
 
-	GmailAccessToken       string `json:"GmailAccessToken"`
+	BookingEmailAddress string `json:"BookingEmailAddress"`
+
 	DbConnectionString     string `json:"DbConnectionString"`
 	PseudoSecureUrl        string `json:"PseudoSecureUrl"`
 	GoogleSiteVerification string `json:"GoogleSiteVerification"`
