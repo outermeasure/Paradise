@@ -44,14 +44,13 @@
 		<ul class="card-collection">
 			{{range $i, $v := .Packages}}<li class="card">
 				{{if eq $i 0}}<h2 class="section abs"><i class="icon-local_offer"></i> Oferte</h2>{{end}}
-				<img src="{{$v.CardPhoto}}"/><div class="info">
+                <a class="content" href="oferta/{{$v.Url}}"><img src="{{$v.CardPhoto}}"/><div class="info">
 					<h3>{{$v.CardTitle}}</h3>
 					<p>{{$v.CardDescription}}</p>
 					<div class="price">{{$v.Price}} {{$v.Currency}} / persoană</div>
-				</div><div class="actions">
+				</div></a><div class="actions">
 					<button>Detalii</button><button class="accent">Rezervă</button>
-				</div></li>{{end}}
-			{{range .Padding}}<li class="card empty"></li>{{end}}
+				</div></li>{{end}}{{range .Padding}}<li class="card empty"></li>{{end}}
 		</ul>
 	</div>
 </div>

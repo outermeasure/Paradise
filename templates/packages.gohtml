@@ -2,15 +2,12 @@
     <h1>Oferte 2018 delta dunarii - Paradise Delta House</h1>
 	<ul class="card-collection">
 		{{range $i, $v := .Packages}}<li class="card">
-			<img src="{{$v.CardPhoto}}"/>
-			<div class="info">
+            <a class="content" href="oferta/{{$v.Url}}">
+			<img src="{{$v.CardPhoto}}"/><div class="info">
 				<h3>{{$v.CardTitle}}</h3>
 				<p>{{$v.CardDescription}}</p>
 				<div class="price">{{$v.Price}} {{$v.Currency}} / persoană</div>
-			</div><div class="actions">
-				<button>Detalii</button><button class="accent">Rezervă</button>
-			</div></li>{{end}}
-		{{range .Padding}}
-		<li class="card empty"></li>{{end}}
+			</div></a><div class="actions">
+				<button>Detalii</button><button class="accent">Rezervă</button></div></li>{{end}}{{range .Padding}}<li class="card empty"></li>{{end}}
 	</ul>
 </div>
