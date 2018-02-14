@@ -1,2 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /forum/
+Disallow: /index.php
+Disallow: /en/
+
