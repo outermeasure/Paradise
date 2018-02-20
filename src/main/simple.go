@@ -698,6 +698,22 @@ func redirectToNew(w http.ResponseWriter, r *http.Request, _ httprouter.Params) 
 	w.Header().Set("Connection", "close")
 }
 
+func redirectToPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	port := "80"
+	extractedPort := portOnly(r.Host)
+	if extractedPort != "" {
+		port = extractedPort
+	}
+	toURL := "http://" + net.JoinHostPort(stripPort(r.Host), port)
+	ssl := gApplicationState.Configuration.SSL
+	if ssl != nil {
+		toURL = "https://" + net.JoinHostPort(stripPort(r.Host), strconv.Itoa(ssl.Port))
+	}
+	toURL += "/oferte"
+	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
+	w.Header().Set("Connection", "close")
+}
+
 func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
 	if len(path) < 10 || path[len(path)-10:] != "/*filepath" {
 		panic("path must end with /*filepath in path '" + path + "'")
@@ -774,8 +790,13 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/authorization/:secret", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getAuthorization))))
 
 	router.GET("/index.php", makeStripWWWHandler(redirectToNew))
-	router.GET("/en/index.php", makeStripWWWHandler(redirectToNew))
 	router.GET("/en", makeStripWWWHandler(redirectToNew))
+	router.GET("/en/:page", makeStripWWWHandler(redirectToNew))
+
+	router.GET("/forum", makeStripWWWHandler(redirectToNew))
+	router.GET("/forum/:page", makeStripWWWHandler(redirectToNew))
+	router.GET("/oferte-pensiune-delta-dunarii", makeStripWWWHandler(redirectToPackages))
+	router.GET("/oferte-pensiune-delta-dunarii/:page", makeStripWWWHandler(redirectToPackages))
 
 	ServeFilesGzipped(router, "/public/*filepath", http.Dir(applicationState.Configuration.Public))
 	ServeFilesGzipped(router, "/static/*filepath", http.Dir(applicationState.Configuration.Data))
