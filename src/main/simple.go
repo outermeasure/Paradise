@@ -228,7 +228,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	context.SEOContentLanguage = "ro_RO"
 	context.SEODescription = "Pensiunea Paradise Delta House  este o zona de lux, 4 stele, aflata in Delta Dunarii. Camerele, restaurantul precum si locatia, va ofera decorul ideal pentru a va elibera de stres."
-	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2018, pachet de Rusalii,sejur all inclusive in delta dunarii 2018"
+	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2018, pachet de Rusalii,sejur all inclusive in delta dunarii 2018, cazare mila 23"
 	context.Title = "Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
 
 	Render(w, "index.gohtml", context)
@@ -275,9 +275,9 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		len(context.Packages),
 	)
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Pachetele turistice oferite de complexul Hotel Paradise din Delta Dunarii"
-	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,oferta sejur delta,sejur delta"
-	context.Title = "Oferte turistice complex Hotel Paradise"
+	context.SEODescription = "Oferte turistice 2018 Delta Dunarii -  Paradise Delta House - 4 stele"
+	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,sejur delta,oferte de lux,all iclusive,oferte paste 2018 delta dunarii,oferta 4 zile 3 nopti,pecuit in delta,1 mai 2018 delta dunarii,pachet de rusalii 2018,Sejur de lux, 4 zile in Delta Dunarii"
+	context.Title = "Oferte turistice 2018 Delta Dunarii -  Paradise Delta House - Mila 23"
 
 	Render(w, "packages.gohtml", context)
 }
