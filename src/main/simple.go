@@ -393,9 +393,9 @@ func getLocation(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Locatie complex Hotel Paradise"
-	context.SEOKeywords = "locatie hotel paradise delta,locatie paradise delta house,harta hotel paradise,locatie hotel paradise"
-	context.Title = "Amplasare Hotel Paradise"
+	context.SEODescription = "Paradise Delta House 4 stele - localizata in mijlocul Deltei Dunarii - sat Mila 23"
+	context.SEOKeywords = "locatie hotel paradise delta,locatie paradise delta house,harta hotel paradise,locatie hotel paradise, delta dunarii, mila 23, pensiune delta, pensiune 4 stele, barca, salupa, transfer Tulcea"
+	context.Title = "Locatie Paradise Delta House 4 stele- Delta Dunarii - sat Mila 23"
 
 	Render(w, "location.gohtml", context)
 }
