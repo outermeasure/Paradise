@@ -716,7 +716,7 @@ func redirectToPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	if ssl != nil {
 		toURL = "https://" + net.JoinHostPort(stripPort(r.Host), strconv.Itoa(ssl.Port))
 	}
-	toURL += "/oferte"
+	toURL += "/oferta"
 	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
 	w.Header().Set("Connection", "close")
 }

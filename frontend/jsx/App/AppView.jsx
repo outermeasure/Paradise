@@ -15,7 +15,7 @@ const getPage = (route, parameters) => {
     switch (route) {
         case '/':
             return <Index />;
-        case '/oferte':
+        case '/oferta':
             return <Packages />;
         case '/oferta/:url':
             return <Package

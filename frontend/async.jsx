@@ -82,7 +82,7 @@ if (window.ROUTE === '/') {
 	store.dispatch(IndexActions.fetchPackages(
 		renderApplication
 	));
-} else if (window.ROUTE === '/oferte') {
+} else if (window.ROUTE === '/oferta') {
 	store.dispatch(PackagesActions.fetchPackages(
 		renderApplication
 	));

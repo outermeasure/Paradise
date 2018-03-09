@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
 	const packages = {};
 	if (state.App.route === '/') {
 		packages.packages = state.Index.packages.items;
-	} else if (state.App.route === '/oferte') {
+	} else if (state.App.route === '/oferta') {
 		packages.packages = state.Packages.packages.items;
 	} else if (state.App.route === '/oferta/:url') {
         packages.packages = state.Package.packages.items;

@@ -19,7 +19,7 @@ const NavPaperRipple = (props) => <PaperRipple
 const MENU_ITEMS = [
 	{
 		label: "Oferte",
-		url: "/oferte",
+		url: "/oferta",
 		index: 1,
 	},
 	{

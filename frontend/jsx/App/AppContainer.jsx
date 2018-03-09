@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 	case '/':
 		selectedTab = 0;
 		break;
-	case '/oferte':
+	case '/oferta':
 		selectedTab = 1;
 		break;
 	case '/locatie':
