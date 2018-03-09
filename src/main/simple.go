@@ -315,6 +315,13 @@ func getApiReviews(w http.ResponseWriter, r *http.Request, _ httprouter.Params) 
 }
 
 func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	switch p.ByName("url") {
+	case "pachet_pasti_2018.html":
+		redirectToPath("/oferta/oferta_paste_2018_delta_dunarii.html")(
+			w, r, p,
+		)
+		return
+	}
 	context := BaseContext(r)
 	context.NavbarSelected = -1
 	context.PackageDetails = getParadisePackageByUrl(
@@ -712,6 +719,24 @@ func redirectToPackages(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	toURL += "/oferte"
 	http.Redirect(w, r, toURL, http.StatusMovedPermanently)
 	w.Header().Set("Connection", "close")
+}
+
+func redirectToPath(path string) func(http.ResponseWriter, *http.Request, httprouter.Params) {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		port := "80"
+		extractedPort := portOnly(r.Host)
+		if extractedPort != "" {
+			port = extractedPort
+		}
+		toURL := "http://" + net.JoinHostPort(stripPort(r.Host), port)
+		ssl := gApplicationState.Configuration.SSL
+		if ssl != nil {
+			toURL = "https://" + net.JoinHostPort(stripPort(r.Host), strconv.Itoa(ssl.Port))
+		}
+		toURL += path
+		http.Redirect(w, r, toURL, http.StatusMovedPermanently)
+		w.Header().Set("Connection", "close")
+	}
 }
 
 func ServeFilesGzipped(r *httprouter.Router, path string, root http.FileSystem) {
