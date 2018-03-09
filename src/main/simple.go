@@ -783,7 +783,10 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router := httprouter.New()
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getIndex))))
 	router.GET("/tarife", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPrices))))
-	router.GET("/oferte", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackages))))
+	router.GET("/oferta", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackages))))
+	router.GET("/oferte", makeVaryAcceptEncoding(makeGzipHandler(
+		redirectToPath("/oferta"),
+	)))
 	router.GET("/recenzii", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getReviews))))
 	router.GET("/oferta/:url", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackage))))
 	router.GET("/restaurant", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getRestaurant))))
