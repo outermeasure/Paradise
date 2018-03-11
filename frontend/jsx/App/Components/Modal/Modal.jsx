@@ -61,6 +61,7 @@ var Modal = createReactClass({
 	},
 
 	componentDidMount: function() {
+		window.SCROLL_TOP_WORKAROUND = null;
 		this.node = document.createElement('div');
 		this.node.className = this.props.portalClassName;
 
@@ -145,12 +146,16 @@ var Modal = createReactClass({
 			document.getElementById("paradise").removeAttribute("style");
 			elementClass(document.body).remove('ReactModal__Body--open');
 
-			window.scrollTo(
-				(document.documentElement &&
-				document.documentElement.scrollLeft) ||
-				document.body.scrollLeft,
-				window.SCROLL_TOP_WORKAROUND
-			);
+			if (window.SCROLL_TOP_WORKAROUND !== null) {
+				window.scrollTo(
+					(document.documentElement &&
+					document.documentElement.scrollLeft) ||
+					document.body.scrollLeft,
+					window.SCROLL_TOP_WORKAROUND
+				);
+
+				window.SCROLL_TOP_WORKAROUND = null;
+			}	
 		}
 
 		if (props.ariaHideApp) {

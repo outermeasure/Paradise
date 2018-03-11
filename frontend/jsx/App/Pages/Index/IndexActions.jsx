@@ -7,7 +7,8 @@ export const
 	RECEIVE_PACKAGES = "INDEX.RECEIVE_PACKAGES",
 	SET_WORKFLOW_STEP = "INDEX.SET_WORKFLOW_STEP",
 	SET_BUSY = "INDEX.SET_BUSY",
-	SET_CLIENT_OBJECT = "INDEX.SET_CLIENT_OBJECT";
+	SET_CLIENT_OBJECT = "INDEX.SET_CLIENT_OBJECT",
+	CLEAR_CLIENT_DATES = "INDEX.CLEAR_CLIENT_DATES";
 
 export const
 	requestPackages = () => ({
@@ -30,9 +31,11 @@ export const
 		type: SET_BUSY,
 		busy,
 	}),
+	clearClientDates = () => ({
+		type: CLEAR_CLIENT_DATES,
+	}),
 	createBookingRequest = (clientObject, next) => (dispatch) => {
 		dispatch(setBusy(true));
-
 
 		const numberOfNights = Utils.getDaysBetween(
 			clientObject.startDate,

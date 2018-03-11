@@ -10,7 +10,6 @@ const
 		nid: "",
 		bookingMessage: "",
 		roomType: 0,
-
 		startDate: null,
 		endDate: null,
 	},
@@ -59,6 +58,15 @@ const IndexReducer = (state = BASE_STATE, action) => {
 					isFetching: false,
 					items: action.items,
 					receivedAt: action.receivedAt,
+				},
+			};
+		case Actions.CLEAR_CLIENT_DATES:
+			return {
+				...state,
+				clientObject: {
+					...state.clientObject,
+					startDate: null,
+					endDate: null,
 				},
 			};
 		default:

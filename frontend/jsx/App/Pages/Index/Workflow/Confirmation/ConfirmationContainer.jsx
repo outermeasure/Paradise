@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	onClose() {
+		dispatch(Actions.clearClientDates());
 		dispatch(AppActions.setModalOpen(-1));
 	},
 	fromBeginning() {

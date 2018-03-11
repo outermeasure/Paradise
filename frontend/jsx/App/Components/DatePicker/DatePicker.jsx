@@ -279,6 +279,7 @@ class DatePicker extends Component {
 			container,
 			defaultDate, // eslint-disable-line no-unused-vars
 			dialogContainerStyle,
+			disabled,
 			disableYearSelection,
 			firstDayOfWeek,
 			formatDate: formatDateProp,
@@ -301,7 +302,6 @@ class DatePicker extends Component {
 
 		const {prepareStyles} = this.context.muiTheme;
 		const formatDate = formatDateProp || this.formatDate;
-		const {disabled} = {...other};
 
 		return (
 			<InputPaperRipple
@@ -315,6 +315,7 @@ class DatePicker extends Component {
 					{...other}
 					onFocus={this.handleFocus}
 					onTouchTap={this.handleTouchTap}
+					disabled={disabled}
 					readOnly="readonly"
 					ref="input"
 					style={textFieldStyle}

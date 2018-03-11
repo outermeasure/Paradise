@@ -33,7 +33,7 @@ const View = ({
 		<div className="close">
 			<button onClick={(e) => {
 				e.preventDefault();
-				closeModal();
+				closeModal(workflowStep);
 			}}>
 				<i className="icon-close2"/>
 			</button>
