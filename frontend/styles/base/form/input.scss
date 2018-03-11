@@ -127,4 +127,14 @@ input:disabled {
       right: $mediumBigPadding;
     }
   }
+
+  input:not([disabled]),
+  i:not([disabled]) {
+    &.medium-big,
+    &.big,
+    &.huge
+    {
+      cursor: pointer;
+    }
+  }
 }

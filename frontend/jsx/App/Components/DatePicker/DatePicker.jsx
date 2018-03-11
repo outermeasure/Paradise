@@ -8,7 +8,6 @@ import PaperRipple from 'react-paper-ripple';
 const InputPaperRipple = (props) => <PaperRipple
 	{...props}
 	color={Colors.colorLuminance(Colors.LIGHT, -0.25)}
-	opacity={0.3}
 	rmConfig={{
 		stiffness: 50,
 		damping: 20,
@@ -302,23 +301,27 @@ class DatePicker extends Component {
 
 		const {prepareStyles} = this.context.muiTheme;
 		const formatDate = formatDateProp || this.formatDate;
+		const {disabled} = {...other};
 
 		return (
 			<InputPaperRipple
 				className="calendar"
 				tag="div"
-				style={prepareStyles(Object.assign({}, style))}>
+				style={prepareStyles(Object.assign({}, style))}
+				opacity={disabled ? 0 : 0.3}
+			>
 				{injectedTag}
 				<input
 					{...other}
 					onFocus={this.handleFocus}
 					onTouchTap={this.handleTouchTap}
-					disabled="disabled"
+					readOnly="readonly"
 					ref="input"
 					style={textFieldStyle}
 					value={this.state.date ? formatDate(this.state.date) : ''}
 					className="big"
-					type="text"/>
+					type="text"
+				/>
 				<DatePickerDialog
 					DateTimeFormat={DateTimeFormat}
 					autoOk={autoOk}
@@ -341,7 +344,11 @@ class DatePicker extends Component {
 					shouldDisableDate={shouldDisableDate}
 					hideCalendarDate={hideCalendarDate}
 				/>
-				<i className="big icon-calendar2"/>
+				<i
+					disabled={disabled}
+					onTouchTap={this.handleTouchTap}
+					className="big icon-calendar2"
+				/>
 			</InputPaperRipple>
 		);
 	}
