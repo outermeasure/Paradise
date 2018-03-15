@@ -61,17 +61,17 @@ const AppView = ({
                         <div className="six columns text-left">
                             <ul>
                                 <li>
-                                    <a href="https://www.facebook.com/ParadiseDeltaHouse/"><i className="icon-067-official"></i> Gaseste-ne pe Facebook</a>
+                                    <a href="https://www.facebook.com/ParadiseDeltaHouse/" target="_blank"><i className="icon-067-official"></i> Gaseste-ne pe Facebook</a>
                                 </li>
                                 <li>
-                                    <a href="https://www.booking.com/hotel/ro/paradise-delta-house.html"><i className="icon-blur_circular"/>Profilul Booking</a>
+                                    <a href="https://www.booking.com/hotel/ro/paradise-delta-house.html" target="_blank"><i className="icon-blur_circular"/>Profilul Booking</a>
                                 </li>
                             </ul>
                         </div>
                         <div className="six columns text-right">
                             <ul>
                                 <li>
-                                    <a href="https://www.tripadvisor.com/Hotel_Review-g1652471-d3292201-Reviews-Pensiunea_Paradise_Delta_House-Sulina_Tulcea_County_Southeast_Romania.html"><i className="icon-0023"></i> Profilul Trip Advisor</a>
+                                    <a href="https://www.tripadvisor.com/Hotel_Review-g1652471-d3292201-Reviews-Pensiunea_Paradise_Delta_House-Sulina_Tulcea_County_Southeast_Romania.html" target="_blank"><i className="icon-0023"></i> Profilul Trip Advisor</a>
                                 </li>
                             </ul>
                         </div>

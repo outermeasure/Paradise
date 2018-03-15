@@ -162,3 +162,31 @@ nav {
     opacity: 1;
   }
 }
+
+.material-ui {
+  &-drawer {
+    width: 100%;
+  }
+
+  &-menu {
+    background-color: $navBackgroundColor;
+    height: 100%;
+
+    &-item {
+      color: $navColor !important;
+      font-size: 18px !important;
+      text-align: right;
+
+      &-selected {
+        background-color: $navBackgroundSelectedColor !important;
+        color: $navSelectedColor !important;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: $navBackgroundHFColor !important;
+        color: $navHFColor !important;
+      }
+    }
+  }
+}

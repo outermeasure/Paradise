@@ -16,7 +16,7 @@ const NavPaperRipple = (props) => <PaperRipple
 	}}
 />;
 
-const MENU_ITEMS = [
+const DESKTOP_MENU_ITEMS = [
 	{
 		label: "Oferte",
 		url: "/oferta",
@@ -39,6 +39,12 @@ const MENU_ITEMS = [
 	},
 ];
 
+const MOBILE_MENU_ITEMS = [{
+		label: "Acasa",
+		url: "/",
+		index: 0,
+	}].concat(DESKTOP_MENU_ITEMS)
+
 class NavigationBar extends React.Component {
 
 	constructor() {
@@ -51,8 +57,7 @@ class NavigationBar extends React.Component {
 		const {
 			selected,
 		} = this.props;
-		return <div><nav
-			className="no-selection">
+		return <div><nav className="no-selection">
 				<NavPaperRipple
 					tag="div"
 					className="brand">
@@ -62,7 +67,7 @@ class NavigationBar extends React.Component {
 				</NavPaperRipple>
 				<ul className="navbar">
 					{
-						MENU_ITEMS.map(
+						DESKTOP_MENU_ITEMS.map(
 							(item, i) => <li key={i}>
 								<NavPaperRipple
 									tag="a"
@@ -84,21 +89,27 @@ class NavigationBar extends React.Component {
 				</div>
 		</nav>
 			<Drawer
+				className="material-ui-drawer"
 				docked={false}
 				zDepth={5}
+				width={150}
 				openSecondary={true}
 				open={this.state.open}
 				onRequestChange={(open) => this.setState({ open })}
 			>
-				{MENU_ITEMS.map(
-					(item, i) => <MenuItem key={i}
-						onTouchTap={() => {
-							this.setState({ open: false });
-							window.location = item.url;
-						}}
-					>{item.label}</MenuItem>
-				)
-				}
+				<div className="material-ui-menu">
+					{MOBILE_MENU_ITEMS.map((item, i) => 
+						<MenuItem 
+							key={i} 
+							className={selected === item.index ? "material-ui-menu-item material-ui-menu-item-selected" : "material-ui-menu-item" }
+							onTouchTap={() => {this.setState({ open: false });
+								window.location = item.url;
+							}}
+						>
+							{item.label}
+						</MenuItem>
+					)}
+				</div>
 			</Drawer>
 		</div>;
 	}
