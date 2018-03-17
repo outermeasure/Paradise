@@ -53,6 +53,29 @@ func addPadding(maxItemsPerRow int, numberOfItems int) []byte {
 	return result
 }
 
+func formatPrice(n float64) string {
+	in := strconv.FormatInt(int64(n), 10)
+	out := make([]byte, len(in)+(len(in)-2+int(in[0]/'0'))/3)
+	if in[0] == '-' {
+		in, out[0] = in[1:], '-'
+	}
+
+	for i, j, k := len(in)-1, len(out)-1, 0; ; i, j = i-1, j-1 {
+		out[j] = in[i]
+		if i == 0 {
+			return string(out)
+		}
+		if k++; k == 3 {
+			j, k = j-1, 0
+			out[j] = '.'
+		}
+	}
+}
+
+func doStuff(n float64) float64 {
+	return n
+}
+
 func BaseContext(r *http.Request) *Page {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
@@ -87,7 +110,7 @@ func LazyLoadTemplate(templateName string) {
 func LoadTemplate(templateName string, t *template.Template) *template.Template {
 	file, load := readFileMemoized(Template(templateName))
 	if load {
-		return template.Must(t.New(templateName).Parse(file))
+		return template.Must(t.New(templateName).Funcs(template.FuncMap{"formatPrice": formatPrice,}).Parse(file))
 	}
 	return t
 }

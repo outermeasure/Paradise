@@ -1,6 +1,7 @@
 import React from 'react';
 import PaperRipple from 'react-paper-ripple';
 import * as Colors from '../../../../js/colors';
+import * as Utils from '../../../../js/utils';
 import OfferWorkflow from
 	'../../Components/OfferWorkflow/OfferWorkflowContainer';
 import Modal from '../../Components/Modal/Modal';
@@ -73,7 +74,7 @@ const View = ({
 									<h3>{pack.CardTitle}</h3>
 									<p>{pack.CardDescription}</p>
 									<div className="price">
-										{pack.Price} {pack.Currency} / persoană
+										{Utils.formatPrice(pack.Price)} {pack.Currency} / persoană
 									</div>
 								</div>
 							</CardPaperRipple>

@@ -52,6 +52,7 @@ const View = ({
         clientObject.endDate,
         Data[clientObject.roomType].priceLei,
         Data[clientObject.roomType].priceLeiSeason,
+		true
     );
 
     return <div className="popup" id="BookingDetails">

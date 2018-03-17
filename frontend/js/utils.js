@@ -19,13 +19,13 @@ export const
         ];
         return !!seasonMonths.find((seasonMonth) => seasonMonth === month);
     },
-    computePrice = (dateStart, dateEnd, price, priceSeason) => {
+    computePrice = (dateStart, dateEnd, price, priceSeason, isPriceFormatted) => {
         const numberOfNights = getDaysBetween(
 			dateStart,
             dateEnd
         );
 
-        let full = 0;
+        let full = 0, shouldFormatPrice = isPriceFormatted || false;
         for (let i = 0; i < numberOfNights; i++) {
             const aux = new Date(dateStart.getTime() + i * 24 * 60 * 60 * 1000);
 
@@ -35,8 +35,12 @@ export const
                 full += price;
             }
         }
-        return full;
+		return shouldFormatPrice ? formatPrice(full) : full;
     },
+	formatPrice = (price) => {
+		const stringWithoutDecimals = price.toString().split(',')[0];
+  		return stringWithoutDecimals.replace(/\./g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	},
 	putJSON = (url, json, next) => {
 		const request = new XMLHttpRequest();
 		request.open('PUT', url, true);

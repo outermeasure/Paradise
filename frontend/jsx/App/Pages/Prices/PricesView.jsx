@@ -11,6 +11,7 @@ const View = ({
 				__html: markdownHTML,
 			}}>
 		</div>
+		<br/>
 	</div>;
 };
 

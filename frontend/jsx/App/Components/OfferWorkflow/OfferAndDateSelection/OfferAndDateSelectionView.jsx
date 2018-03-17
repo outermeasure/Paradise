@@ -106,7 +106,7 @@ const View = ({
 	}
 
 	const areDatesPredefined = selectedOffer.Id === 23 || selectedOffer.Id === 26 || selectedOffer.Id === 25;
-	const security = 30 * selectedOffer.Price / 100;
+	const security = Utils.formatPrice(30 * selectedOffer.Price / 100);
 
 	return <div
 		className="popup"

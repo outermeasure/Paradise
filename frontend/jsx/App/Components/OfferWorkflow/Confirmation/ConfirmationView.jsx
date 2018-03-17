@@ -4,6 +4,7 @@ import * as Colors from '../../../../../js/colors';
 import StepProgressBar from
 	'../../../Components/StepProgressBar/StepProgressBar';
 import * as Steps from '../OfferWorkflowSteps';
+import * as Utils from '../../../../../js/utils';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -36,8 +37,8 @@ const View = ({
 		selectedOffer,
 	} = clientObject;
 	const numberOfNights = selectedOffer.Nights;
-	const full = selectedOffer.Price;
-	const security = 30 * full / 100;
+	const full = Utils.formatPrice(selectedOffer.Price);
+	const security = Utils.formatPrice(30 * full / 100);
 
 	return <div
 		className="popup"

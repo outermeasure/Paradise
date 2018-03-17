@@ -46,9 +46,10 @@ const View = ({
         clientObject.endDate,
         RoomTypes.Data[clientObject.roomType].priceLei,
         RoomTypes.Data[clientObject.roomType].priceLeiSeason,
+		true
     );
 
-	const security = 30 * full / 100;
+	const security = Utils.formatPrice(30 * full / 100);
 
 	return <div
 		className="popup"
