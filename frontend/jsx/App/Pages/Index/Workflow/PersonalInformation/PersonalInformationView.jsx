@@ -1,5 +1,6 @@
 import React from 'react';
 import Ripple from 'react-paper-ripple';
+import InputMask from "react-input-mask";
 import * as Colors from '../../../../../../js/colors';
 import * as Validations from '../../../../../../js/validations';
 import * as Viewport from '../../../../../../js/viewport';
@@ -127,7 +128,13 @@ class View extends React.Component {
 										e.target.value, clientObject);
 								}}
 								type="text"
-								hintText="XXXX-XXX-XXX"/>
+							>
+								<InputMask 
+									defaultValue={clientObject.phoneNumber} 
+									mask="(0999) 999 999" 
+									maskChar="X" 
+								/>
+							</TextField>
 						</li>
 						<li>
 							<TextField
