@@ -1,32 +1,27 @@
 #Gallery {
   .card-collection {
     margin-top: 24px;
-  }
 
-  img {
-    display: inline-block;
-    width: 100%;
-    vertical-align: middle;
-    max-width: 100%;
-  }
-}
+    .card {
+      text-align: left;
+      background-color: white;
+      width: 340px;
+      position: relative;
 
-.GALLERY_full-photo {
-  max-height: 700px;
-  overflow-y: hidden;
-  img {
-    display: inline-block;
-    width: 100%;
-    vertical-align: middle;
-    max-width: 100%;
-  }
+      @media (max-width:750px) and (min-width:650px) { 
+        width: 300px;
+      }
 
-  .close {
-    position: absolute;
-
-    i {
-      color: white;
-      @include text-shadow(1px 1px 3px rgba(0, 0, 0, 0.4))
+      @media (max-width: 649px) {
+        width: 80%;
+      }
     }
+  }
+
+  img {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    max-width: 100%;
   }
 }

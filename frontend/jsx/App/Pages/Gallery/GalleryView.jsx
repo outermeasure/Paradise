@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import Modal from '../../Components/Modal/Modal';
+import Lightbox from 'react-images';
 import * as Colors from '../../../../js/colors';
 import PaperRipple from 'react-paper-ripple';
 import * as PaddingTools from '../../Components/PaddingTools';
@@ -17,10 +17,12 @@ const CardPaperRipple = (props) => <PaperRipple
 />;
 
 const View = ({
-	modalOpen,
+	isModalOpen,
 	closeModal,
 	openPhoto,
 	selectedPhoto,
+	nextPhoto,
+	previousPhoto,
 	photos,
 }) => {
 
@@ -30,66 +32,55 @@ const View = ({
 	} = photos;
 
 	const all = [];
-	_.forOwn(
-		pages,
-		(page) => {
-			const {
-				items,
-			} = page;
-			const {
-				length,
-			} = items;
+	_.forOwn(pages, (page) => {
+		const { items, } = page;
+		const { length, } = items;
 
-			for (let i = 0; i < length; i++) {
-				all.push(items[i]);
-			}
+		for (let i = 0; i < length; i++) {
+			all.push(items[i]);
 		}
-	);
+	});
+
+	let lightboxPhotos= [];
+	lightboxPhotos = _.map(all, (photo) => {
+		return  { src: photo.fullPicture }
+	});
+
+	const handleImageClick = () => {
+		if (selectedPhoto === lightboxPhotos.length - 1) {
+			return;
+		} else {
+			nextPhoto() 
+		}
+	};
 
 	return <div id="Gallery">
-		<Modal
-			contentLabel={""}
-			isOpen={modalOpen !== -1}
-			onRequestClose={closeModal}
-			shouldCloseOnOverlayClick={true}
-			style={{
-				content: {
-					width: "80%",
-				},
-			}}
-			parentSelector={() => document.body}>
-			{
-				modalOpen === 2 ?
-					<div className="GALLERY_full-photo">
-						<div className="close">
-							<button onClick={(e) => {
-								e.preventDefault();
-								closeModal();
-							}}>
-								<i className="icon-close2"/>
-							</button>
-						</div>
-						<img src={selectedPhoto.fullPicture}/>
-					</div> :
-					null
-			}
-		</Modal>
+		<Lightbox
+			images={lightboxPhotos}
+			isOpen={isModalOpen}
+			onClickImage={handleImageClick}
+			onClickPrev={previousPhoto}
+			onClickNext={nextPhoto}
+			onClose={closeModal}
+			currentImage={selectedPhoto}
+			imageCountSeparator=" din "
+			leftArrowTitle="înapoi"
+			rightArrowTitle="înainte"
+			closeButtonTitle="închide"
+			spinner={() => {return null;}}
+		/>
 		<ul className="card-collection">
-			{
-				all.map(
-					(photo, index) => <li key={index} className="card">
-							<CardPaperRipple
-								className="content"
-								onClick={(e) => {
-									e.preventDefault();
-									openPhoto(photo);
-								}}
-								tag="div">
-								<img src={photo.thumbnail}/>
-							</CardPaperRipple>
-						</li>
-				)
-			}
+			{ all.map((photo, index) => 
+				<li key={index} className="card">
+					<CardPaperRipple
+						className="content"
+						onClick={(e) => { e.preventDefault(); openPhoto(index); }}
+						tag="div"
+					>
+						<img src={photo.thumbnail} />
+					</CardPaperRipple>
+				</li>
+			)}
 			{
 				PaddingTools.addPadding(4, all.length).map(
 					(_, i) => <li key={i} className="card empty"/>)
@@ -100,10 +91,12 @@ const View = ({
 };
 
 View.propTypes = {
-	modalOpen: PropTypes.number,
+	isModalOpen: PropTypes.bool,
 	closeModal: PropTypes.func,
-	selectedPhoto: PropTypes.object,
+	selectedPhoto: PropTypes.number,
 	openPhoto: PropTypes.func,
+	previousPhoto: PropTypes.func,
+	nextPhoto: PropTypes.func,
 	photos: PropTypes.object,
 };
 

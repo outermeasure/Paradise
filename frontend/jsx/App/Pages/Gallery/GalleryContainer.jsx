@@ -8,17 +8,23 @@ import {
 const mapStateToProps = (state) => {
 	return {
 		...state.Gallery,
-		modalOpen: state.App.modalOpen,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => ({
 	closeModal() {
-		dispatch(AppActions.setModalOpen(-1));
+		dispatch(Actions.setCloseModal());
+		dispatch(Actions.setSelectedPhoto(0));
 	},
-	openPhoto(photo) {
-		dispatch(Actions.setSelectedPhoto(photo));
-		dispatch(AppActions.setModalOpen(2));
+	openPhoto(index) {
+		dispatch(Actions.setSelectedPhoto(index));
+		dispatch(Actions.setOpenModal());
+	},
+	nextPhoto() {
+		dispatch(Actions.nextPhoto());
+	},
+	previousPhoto() {
+		dispatch(Actions.previousPhoto());
 	},
 });
 

@@ -39,6 +39,7 @@
     "react": "^15.4.2",
     "react-datepicker": "^0.44.0",
     "react-dom": "^15.4.2",
+    "react-images": "^0.5.17",
     "react-input-mask": "^1.2.2",
     "react-modal": "^1.7.3",
     "react-paper-ripple": "^0.2.1",

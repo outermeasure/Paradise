@@ -16,7 +16,8 @@ const
 	},
 	BASE_STATE = {
 		photos: BASE_PHOTOS,
-		selectedPhoto: BASE_PHOTO,
+		selectedPhoto: 0,
+		isModalOpen: false,
 	};
 
 const GalleryReducer = (state = BASE_STATE, action) => {
@@ -25,6 +26,26 @@ const GalleryReducer = (state = BASE_STATE, action) => {
 			return {
 				...state,
 				selectedPhoto: action.selectedPhoto,
+			};
+		case Actions.NEXT_PHOTO:
+			return {
+				...state,
+				selectedPhoto: state.selectedPhoto + 1,
+			};
+		case Actions.PREVIOUS_PHOTO:
+			return {
+				...state,
+				selectedPhoto: state.selectedPhoto - 1,
+			};
+		case Actions.SET_OPEN_MODAL:
+			return {
+				...state,
+				isModalOpen: true,
+			};
+		case Actions.SET_CLOSE_MODAL:
+			return {
+				...state,
+				isModalOpen: false,
 			};
 		case Actions.REQUEST_PHOTOS:
 			return {
