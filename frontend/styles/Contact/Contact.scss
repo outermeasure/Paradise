@@ -1,0 +1,51 @@
+#Contact {
+    .contact-form {
+        min-height: 419px;
+        margin: 0 16px 16px 16px;
+
+        @media (max-width: 750px) { 
+            min-height: 469px;
+        }
+
+        &-controls {
+            list-style: none;
+            margin-bottom: 0;
+
+            &-lastName {
+                margin-right: 40px;
+            }
+
+            &-lastName,
+            &-firstName {
+                width: calc(50% - 20px) !important;
+            }
+
+            &-message {
+                min-height: 113px;
+            }
+        }
+
+        &-actions {
+            width: 100%;
+            height: 50px;
+
+            @media (max-width: 750px) { 
+                height: 100px;
+            }
+
+            &-submitBtn {
+                float: right;
+
+                @media (max-width: 750px) {
+                    width: 100%;
+                }
+            }
+
+            &-mandatoryText {
+                display: inline-block;
+                height: 40px;
+                line-height: 40px;
+            }
+        }
+    }
+}

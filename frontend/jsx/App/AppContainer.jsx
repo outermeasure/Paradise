@@ -22,6 +22,9 @@ const mapStateToProps = (state) => {
 	case '/tarife':
 		selectedTab = 4;
 		break;
+	case '/contact':
+		selectedTab = 5;
+		break;
 	default:
 		selectedTab = -1;
 	}

@@ -68,6 +68,7 @@ const View = ({
 			rightArrowTitle="înainte"
 			closeButtonTitle="închide"
 			spinner={() => {return null;}}
+			width={1920}
 		/>
 		<ul className="card-collection">
 			{ all.map((photo, index) => 

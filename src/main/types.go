@@ -81,6 +81,7 @@ type Page struct {
 	RenderedPackageCover     template.HTMLAttr
 	RenderedPricesMarkdown   template.HTML
 	RenderedLocationMarkdown template.HTML
+	RenderedContactMarkdown  template.HTML
 	InheritedHTML            template.HTML
 }
 
@@ -181,6 +182,14 @@ type Booking struct {
 
 	Security int `json:"security"`
 	Total    int `json:"total"`
+}
+
+type ContactForm struct {
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"lastName"`
+	PhoneNumber string `json:"phoneNumber"`
+	Email       string `json:"email"`
+	Message     string `json:"message"`
 }
 
 type PackageBooking struct {

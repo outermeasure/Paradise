@@ -9,6 +9,7 @@ import Location from './Pages/Location/LocationContainer';
 import Edit from './Pages/Edit/Edit';
 import Gallery from './Pages/Gallery/GalleryContainer';
 import FourOhFour from './Pages/FourOhFour/FourOhFourContainer';
+import Contact from './Pages/Contact/ContactContainer';
 import PropTypes from 'prop-types';
 
 const getPage = (route, parameters) => {
@@ -37,6 +38,10 @@ const getPage = (route, parameters) => {
             return <Edit />;
         case '/recenzii':
             return <Reviews />;
+        case '/contact':
+            return <Contact 
+                markdownHTML={parameters["markdownHTML"]}
+            />;
         default:
             return <FourOhFour />;
     }

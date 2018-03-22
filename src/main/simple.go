@@ -72,10 +72,6 @@ func formatPrice(n float64) string {
 	}
 }
 
-func doStuff(n float64) float64 {
-	return n
-}
-
 func BaseContext(r *http.Request) *Page {
 	stat, _ := os.Stat(gApplicationState.Configuration.Assets)
 	if stat.ModTime().After(gApplicationState.AssetModificationTime) {
@@ -280,6 +276,31 @@ func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	Render(w, "prices.gohtml", context)
 }
+
+func getContact(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	context := BaseContext(r)
+	context.NavbarSelected = 5
+
+	file, _ := readFileBytesMemoized(
+		gApplicationState.Configuration.Data + "contact/contact.md",
+	)
+	html := blackfriday.MarkdownBasic(
+		file,
+	)
+	context.RenderedContactMarkdown =
+		template.HTML(
+			html,
+		)
+	context.Parameters["markdownHTML"] = string(html)
+
+	context.SEOContentLanguage = "ro_RO"
+	context.SEODescription = "Pensiunea Paradise Delta House  este o zona de lux, 4 stele, aflata in Delta Dunarii. Camerele, restaurantul precum si locatia, va ofera decorul ideal pentru a va elibera de stres."
+	context.SEOKeywords = "contact cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2018, pachet de Rusalii,sejur all inclusive in delta dunarii 2018, cazare mila 23"
+	context.Title = "Contact Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
+
+	Render(w, "contact.gohtml", context)
+}
+
 func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context := BaseContext(r)
 	context.NavbarSelected = 1
@@ -507,6 +528,32 @@ func getApiPackagesByPackagePage(w http.ResponseWriter, r *http.Request, _ httpr
 	jData, _ := json.Marshal(
 		all,
 	)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
+}
+
+func postApiContactForm(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	decoder := json.NewDecoder(r.Body)
+	contactForm := ContactForm{}
+	jData := []byte{}
+
+	err := decoder.Decode(&contactForm)
+
+	if err == nil {
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From:    contactForm.FirstName + " " + contactForm.LastName,
+				ReplyTo: contactForm.Email,
+				To:      gApplicationState.Configuration.BookingEmailAddress,
+				Subject: "Formularul de contact a fost completat de: " + contactForm.FirstName + " " + contactForm.LastName,
+				Body:    contactForm.Message,
+			})
+		jData, _ = json.Marshal(true)
+	} else {
+		jData, _ = json.Marshal(err.Error())
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jData)
 }
@@ -806,6 +853,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router := httprouter.New()
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getIndex))))
 	router.GET("/tarife", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPrices))))
+	router.GET("/contact", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getContact))))
 	router.GET("/oferta", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackages))))
 	router.GET("/oferte", makeVaryAcceptEncoding(makeGzipHandler(
 		redirectToPath("/oferta"),
@@ -822,6 +870,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 	router.GET("/api/packages", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiPackagesByPackagePage))))
 	router.GET("/api/review", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getApiReviews))))
 
+	router.POST("/api/contact", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(postApiContactForm))))
 	router.POST("/api/package/booking", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(postApiPackageBooking))))
 	router.POST("/api/booking", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(postApiBooking))))
 

@@ -9,6 +9,7 @@ import {
 	combineReducers,
 } from 'redux';
 import PackageReducer from './Pages/Package/PackageReducer';
+import ContactReducer from './Pages/Contact/ContactReducer';
 
 const BASE_STATE = {
 	route: null,
@@ -58,4 +59,5 @@ export default combineReducers({
 	Gallery: GalleryReducer,
     Reviews: ReviewsReducer,
     Package: PackageReducer,
+	Contact: ContactReducer,
 });

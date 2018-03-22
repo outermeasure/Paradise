@@ -18,6 +18,7 @@ export const
 			lastName: null,
 			phoneNumber: null,
 			email: null,
+			message: null,
 		};
 
 		const {
@@ -25,6 +26,7 @@ export const
 			phoneNumber,
 			firstName,
 			lastName,
+			message,
 		} = clientObject;
 
 		let hadError = false;
@@ -62,6 +64,10 @@ export const
 
 		if (lastName === '') {
 			addError("lastName", "Numele nu poate fi omis");
+		}
+
+		if (message === '') {
+			addError("message", "Comentariul nu poate fi omis");
 		}
 
 		return hadError ? errors : null;

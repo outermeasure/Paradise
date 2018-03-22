@@ -37,6 +37,11 @@ const DESKTOP_MENU_ITEMS = [
 		url: "/tarife",
 		index: 4,
 	},
+	{
+		label: "Contact",
+		url: "/contact",
+		index: 5,
+	},
 ];
 
 const MOBILE_MENU_ITEMS = [{
