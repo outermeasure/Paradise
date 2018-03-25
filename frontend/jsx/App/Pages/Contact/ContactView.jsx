@@ -42,6 +42,12 @@ const View = ({
 		}
 	}
 
+	const resetValue = (input, hasMask) => {
+		if (input !== null && input.state.hasValue && input.props.defaultValue === "") {
+			hasMask ? input.input.setInputValue("") : input.getInputNode().value = "";
+		}
+	};
+
 	return <div className="card card-big" id="Contact">
 		<div
 			className="markdown markdown-light"
@@ -49,10 +55,11 @@ const View = ({
 				__html: markdownHTML,
 			}}>
 		</div>
-		<div className="contact-form"> 
+		<div className="contact-form">
 			<ul className="contact-form-controls">
 				<li>
 					<TextField
+						ref={input => resetValue(input)}
 						defaultValue={contactObject.lastName}
 						disabled={busy}
 						className="contact-form-controls-lastName"
@@ -67,6 +74,7 @@ const View = ({
 						hintText="Ex: Pop"
 					/>
 					<TextField
+						ref={input => resetValue(input)}
 						defaultValue={contactObject.firstName}
 						disabled={busy}
 						className="contact-form-controls-firstName"
@@ -82,6 +90,7 @@ const View = ({
 				</li>
 				<li>
 					<TextField
+						ref={input => resetValue(input, true)}
 						defaultValue={contactObject.phoneNumber}
 						disabled={busy}
 						className="contact-form-controls-phoneNumber"
@@ -101,6 +110,7 @@ const View = ({
 				</li>
 				<li>
 					<TextField
+						ref={input => resetValue(input)}
 						defaultValue={contactObject.email}
 						disabled={busy}
 						className="contact-form-controls-email"
@@ -117,6 +127,7 @@ const View = ({
 				</li>
 				<li>
 					<TextField
+						ref={input => resetValue(input)}
 						defaultValue={contactObject.message}
 						disabled={busy}
 						className="contact-form-controls-message"
