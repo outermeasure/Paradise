@@ -26,8 +26,7 @@ type Configuration struct {
 	GoogleApiClientSecret *string `json:"GoogleApiClientSecret"`
 	GmailAccessToken      *string `json:"GmailAccessToken"`
 
-	BookingEmailAddress string `json:"BookingEmailAddress"`
-	ContactEmailAddress string `json:"ContactEmailAddress"`
+	PropertyOwnerEmailAddress string `json:"PropertyOwnerEmailAddress"`
 
 	DbConnectionString                  string `json:"DbConnectionString"`
 	PseudoSecureUrl                     string `json:"PseudoSecureUrl"`

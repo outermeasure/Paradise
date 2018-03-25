@@ -4,6 +4,7 @@ export const
 	SET_ERRORS = "CONTACT.SET_ERRORS",
 	SET_CONTACT_OBJECT = "CONTACT.SET_CONTACT_OBJECT",
 	SET_BUSY = "CONTACT.SET_BUSY",
+	SET_NOTIFICATION = "CONTACT.SET_NOTIFICATION",
 	CLEAR_CONTACT_FORM = "CONTACT.CLEAR_CONTACT_FORM";
 
 export const
@@ -22,6 +23,10 @@ export const
 		type: SET_CONTACT_OBJECT,
 		contactObject,
 	}),
+    setNotification = (notificationType) => ({
+		type: SET_NOTIFICATION,
+		notificationType,
+	}),
 	onSendMessage = (contactObject) => (dispatch) => {
 		dispatch(setBusy(true));
 
@@ -33,6 +38,9 @@ export const
 
 				if (!errors) {
 					dispatch(clearContactForm());
+					dispatch(setNotification('success'));
+				} else {
+					dispatch(setNotification('failed'));
 				}
 			}
 		);

@@ -6,6 +6,7 @@ import * as Colors from '../../../../js/colors';
 import * as Validations from '../../../../js/validations';
 import * as Viewport from '../../../../js/viewport';
 import TextField from 'material-ui/TextField';
+import Card from 'material-ui/Card';
 
 const PaperRipple = (props) => <Ripple
 	{...props}
@@ -25,6 +26,7 @@ const View = ({
 	onChange,
 	onSendMessage,
 	busy,
+	notificationType,
 }) => {
 	const validation = {};
 
@@ -49,6 +51,18 @@ const View = ({
 		}
 	};
 
+	const displayNotification = () => {
+		var notificationText = null;
+
+		if (notificationType === 'success') {
+			notificationText = [ <i key={1} className="contact-form-notification-success-icon icon-done"/>, " Va multumim ! Formularul de contact a fost trimis." ];
+		} else if (notificationType === 'failed') {
+			notificationText = [ <i key={1} className="contact-form-notification-error-icon icon-error"/>, " A avut loc o eroare ! Formularul de contact nu a fost trimis."  ];
+		}
+
+		return notificationText === null ? null : <div className="contact-form-notification">{ notificationText }</div>;
+	}
+
 	return <div className="card card-big" id="Contact">
 		<div
 			className="markdown markdown-light"
@@ -57,6 +71,7 @@ const View = ({
 			}}>
 		</div>
 		<div className="contact-form">
+			{displayNotification()}
 			<ul className="contact-form-controls">
 				<li>
 					<TextField
@@ -185,7 +200,8 @@ View.propTypes = {
 	setErrors: PropTypes.func,
 	onChange: PropTypes.func,
 	onSendMessage: PropTypes.func,
-	busy: PropTypes.bool
+	busy: PropTypes.bool,
+	notificationType: PropTypes.string,
 };
 
 export default View;

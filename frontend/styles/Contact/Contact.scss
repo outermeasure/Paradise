@@ -7,6 +7,19 @@
             min-height: 469px;
         }
 
+        &-notification {
+            padding: 10px 0 10px;
+            font-size: 18px;
+
+            &-success-icon {
+                color: green;
+            }
+
+            &-error-icon {
+                color: red;
+            }
+        }
+
         &-controls {
             list-style: none;
             margin-bottom: 0;

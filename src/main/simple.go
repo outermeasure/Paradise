@@ -559,7 +559,7 @@ func postApiContactForm(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 			EmailMessage{
 				From:    contactForm.FirstName + " " + contactForm.LastName,
 				ReplyTo: contactForm.Email,
-				To:      gApplicationState.Configuration.ContactEmailAddress,
+				To:      gApplicationState.Configuration.PropertyOwnerEmailAddress,
 				Subject: "Formularul de contact a fost completat de: " + contactForm.FirstName + " " + contactForm.LastName,
 				Body:    contactForm.Message,
 			})
@@ -588,7 +588,7 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 			EmailMessage{
 				From:    packageBooking.FirstName + " " + packageBooking.LastName,
 				ReplyTo: packageBooking.Email,
-				To:      gApplicationState.Configuration.BookingEmailAddress,
+				To:      gApplicationState.Configuration.PropertyOwnerEmailAddress,
 				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
 				Body:    string(RenderPackageBookingEmail(&packageBooking)),
 			})
@@ -598,7 +598,7 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From:    "Pensiunea Paradise Delta House",
-				ReplyTo: gApplicationState.Configuration.ContactEmailAddress,
+				ReplyTo: gApplicationState.Configuration.PropertyOwnerEmailAddress,
 				To:      packageBooking.Email,
 				Subject: "Confirmarea rezervarii pensiunea Paradise Delta House" + ", check in: " + packageBooking.CheckIn + ", durata: " + packageBooking.Duration,
 				Body:    string(RenderCustomerPackageBookingEmail(&packageBooking)),
@@ -687,7 +687,7 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 			EmailMessage{
 				From:    booking.FirstName + " " + booking.LastName,
 				ReplyTo: booking.Email,
-				To:      gApplicationState.Configuration.BookingEmailAddress,
+				To:      gApplicationState.Configuration.PropertyOwnerEmailAddress,
 				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: " + booking.Duration,
 				Body:    string(RenderBookingEmail(&booking)),
 			})
@@ -697,7 +697,7 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From:    "Pensiunea Paradise Delta House",
-				ReplyTo: gApplicationState.Configuration.ContactEmailAddress,
+				ReplyTo: gApplicationState.Configuration.PropertyOwnerEmailAddress,
 				To:      booking.Email,
 				Subject: "Confirmarea rezervarii pensiunea Paradise Delta House" + ", check in: " + booking.CheckIn + ", durata: " + booking.Duration,
 				Body:    string(RenderCustomerBookingEmail(&booking)),
