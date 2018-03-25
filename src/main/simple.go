@@ -123,6 +123,20 @@ func LazyLoadLayout() {
 	}
 }
 
+func RenderCustomerBookingEmail(booking *Booking) []byte {
+	LazyLoadTemplate("email/customer_booking.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["email/customer_booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
+}
+
+func RenderCustomerPackageBookingEmail(booking *PackageBooking) []byte {
+	LazyLoadTemplate("email/customer_package_booking.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["email/customer_package_booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
+}
+
 func RenderBookingEmail(booking *Booking) []byte {
 	LazyLoadTemplate("email/booking.gohtml")
 	buffer := &bytes.Buffer{}
@@ -567,6 +581,8 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 	if err == nil {
 		packageBooking.IsClient = false
+
+		// Send email to office
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
@@ -576,6 +592,18 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 				Subject: packageBooking.FirstName + " " + packageBooking.LastName + ", check in: " + packageBooking.CheckIn + ", pachet: " + packageBooking.PackageName,
 				Body:    string(RenderPackageBookingEmail(&packageBooking)),
 			})
+
+		// Send email to customer
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From:    "Pensiunea Paradise Delta House",
+				ReplyTo: gApplicationState.Configuration.BookingEmailAddress,
+				To:      packageBooking.Email,
+				Subject: "Confirmarea rezervarii pensiunea Paradise Delta House" + ", check in: " + packageBooking.CheckIn + ", durata: " + packageBooking.Duration,
+				Body:    string(RenderCustomerPackageBookingEmail(&packageBooking)),
+			})
+
 		jData, _ = json.Marshal(true)
 	} else {
 		jData, _ = json.Marshal(err.Error())
@@ -652,6 +680,8 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 
 	if err == nil {
 		booking.IsClient = false
+
+		// Send email to office
 		SendEmail(
 			gApplicationState.GmailClient,
 			EmailMessage{
@@ -661,6 +691,18 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 				Subject: booking.FirstName + " " + booking.LastName + ", check in: " + booking.CheckIn + ", durata: " + booking.Duration,
 				Body:    string(RenderBookingEmail(&booking)),
 			})
+
+		// Send email to customer
+		SendEmail(
+			gApplicationState.GmailClient,
+			EmailMessage{
+				From:    "Pensiunea Paradise Delta House",
+				ReplyTo: gApplicationState.Configuration.BookingEmailAddress,
+				To:      booking.Email,
+				Subject: "Confirmarea rezervarii pensiunea Paradise Delta House" + ", check in: " + booking.CheckIn + ", durata: " + booking.Duration,
+				Body:    string(RenderCustomerBookingEmail(&booking)),
+			})
+
 		jData, _ = json.Marshal(true)
 	} else {
 		jData, _ = json.Marshal(err.Error())
