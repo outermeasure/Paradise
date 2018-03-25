@@ -44,7 +44,8 @@ const View = ({
 
 	const resetValue = (input, hasMask) => {
 		if (input !== null && input.state.hasValue && input.props.defaultValue === "") {
-			hasMask ? input.input.setInputValue("") : input.getInputNode().value = "";
+			var defaultValue = input.props.defaultValue;
+			hasMask ? input.input.setInputValue(defaultValue) : input.getInputNode().value = defaultValue;
 		}
 	};
 
@@ -163,6 +164,7 @@ const View = ({
 							}
 						});
 						if (!errors) {
+							setErrors(null);
 							onSendMessage(contactObject);
 						} else {
 							setErrors(errors);

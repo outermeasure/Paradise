@@ -559,7 +559,7 @@ func postApiContactForm(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 			EmailMessage{
 				From:    contactForm.FirstName + " " + contactForm.LastName,
 				ReplyTo: contactForm.Email,
-				To:      gApplicationState.Configuration.BookingEmailAddress,
+				To:      gApplicationState.Configuration.ContactEmailAddress,
 				Subject: "Formularul de contact a fost completat de: " + contactForm.FirstName + " " + contactForm.LastName,
 				Body:    contactForm.Message,
 			})
@@ -598,7 +598,7 @@ func postApiPackageBooking(w http.ResponseWriter, r *http.Request, _ httprouter.
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From:    "Pensiunea Paradise Delta House",
-				ReplyTo: gApplicationState.Configuration.BookingEmailAddress,
+				ReplyTo: gApplicationState.Configuration.ContactEmailAddress,
 				To:      packageBooking.Email,
 				Subject: "Confirmarea rezervarii pensiunea Paradise Delta House" + ", check in: " + packageBooking.CheckIn + ", durata: " + packageBooking.Duration,
 				Body:    string(RenderCustomerPackageBookingEmail(&packageBooking)),
@@ -697,7 +697,7 @@ func postApiBooking(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 			gApplicationState.GmailClient,
 			EmailMessage{
 				From:    "Pensiunea Paradise Delta House",
-				ReplyTo: gApplicationState.Configuration.BookingEmailAddress,
+				ReplyTo: gApplicationState.Configuration.ContactEmailAddress,
 				To:      booking.Email,
 				Subject: "Confirmarea rezervarii pensiunea Paradise Delta House" + ", check in: " + booking.CheckIn + ", durata: " + booking.Duration,
 				Body:    string(RenderCustomerBookingEmail(&booking)),

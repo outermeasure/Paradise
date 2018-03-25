@@ -27,6 +27,7 @@ type Configuration struct {
 	GmailAccessToken      *string `json:"GmailAccessToken"`
 
 	BookingEmailAddress string `json:"BookingEmailAddress"`
+	ContactEmailAddress string `json:"ContactEmailAddress"`
 
 	DbConnectionString                  string `json:"DbConnectionString"`
 	PseudoSecureUrl                     string `json:"PseudoSecureUrl"`
