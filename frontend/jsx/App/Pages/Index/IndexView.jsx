@@ -69,6 +69,9 @@ const View = ({
 		endDate,
 	} = clientObject;
 
+	let startDatePicker = null, 
+		endDatePicker = null;
+
 	const disableStartDates = (date) =>
 		(endDate && endDate.getTime() <= date.getTime()) ||
 		Date.now() - 24 * 3600 * 1000 > date.getTime();
@@ -76,6 +79,14 @@ const View = ({
 	const disableEndDates = (date) =>
 		startDate && startDate.getTime() >= date.getTime() ||
 		Date.now() - 24 * 3600 * 1000 > date.getTime();
+
+	const openToDate = (datePicker, date) => {
+		if (datePicker !== null && 
+			datePicker.state.date === undefined && 
+			date !== null) {
+			datePicker.setState({dialogDate: date})
+		}
+	};
 
 	return <div id="Index">
 		<Modal
@@ -122,6 +133,7 @@ const View = ({
 				</div>
 				<form className="twelve columns text-center">
 					<DatePicker
+						ref={(datePicker) => startDatePicker = datePicker}
 						injectedTag={
 							<h2 className="section abs"><i className="icon-bed"></i> Rezervare Cazare</h2>
 						}
@@ -137,8 +149,11 @@ const View = ({
 						}}
 						locale="ro"
 						DateTimeFormat={DateTimeFormat}
-						placeholder={"Din"} />
+						placeholder={"Din"}
+						onShow={() => openToDate(startDatePicker, endDate)}
+					/>
 					<DatePicker
+						ref={(datePicker) => endDatePicker = datePicker}
 						value={endDate}
 						container="dialog"
 						screenType={screenType}
@@ -151,7 +166,9 @@ const View = ({
 						}}
 						DateTimeFormat={DateTimeFormat}
 						locale="ro"
-						placeholder={"Pana in"} />
+						placeholder={"Pana in"}
+						onShow={() => openToDate(endDatePicker, startDate)}
+					/>
 					<BookTopPaperRipple
 						tag="button"
 						disabled={

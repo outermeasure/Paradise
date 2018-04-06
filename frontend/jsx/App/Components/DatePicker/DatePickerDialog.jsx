@@ -145,6 +145,7 @@ class DatePickerDialog extends Component {
 		return (
 			<div {...other} ref="root">
 				<Container
+					className="calendar-container"
 					anchorEl={this.refs.root} // For Popover
 					animation={animation || PopoverAnimationVertical} // For Popover
 					bodyStyle={styles.dialogBodyContent}
