@@ -1,3 +1,13 @@
+#Content {
+  min-height: calc(100vh - 234px);
+}
+
+#Footer {
+  a {
+    display: block;
+  }
+}
+
 .main,
 .footer {
   max-width: 1200px;
