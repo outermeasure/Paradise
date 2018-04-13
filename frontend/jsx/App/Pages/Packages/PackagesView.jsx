@@ -74,7 +74,7 @@ const View = ({
 									<h3>{pack.CardTitle}</h3>
 									<p>{pack.CardDescription}</p>
 									<div className="price">
-										{Utils.formatPrice(pack.Price)} {pack.Currency} / persoană
+										{ pack.Price === 0 ? "La cerere" : (Utils.formatPrice(pack.Price) + " " + pack.Currency + " / persoană") }
 									</div>
 								</div>
 							</CardPaperRipple>

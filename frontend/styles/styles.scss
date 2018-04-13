@@ -177,13 +177,10 @@ footer {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
     color: white;
 
-    ul {
-        list-style: none;
-
-        li {
-            display: block;
-            margin: 20px;
-        }
+    .presentation {
+        max-width: 1020px;
+        margin: auto;
+        padding: 26px;
     }
 
     .icon-067-official {

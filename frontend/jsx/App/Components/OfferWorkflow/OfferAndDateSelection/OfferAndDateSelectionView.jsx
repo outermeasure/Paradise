@@ -156,19 +156,12 @@ const View = ({
 
 			<em>
 				{explanationString ? <div>
-					Pentru aceasta oferta, intrarile se fac doar <strong>
-					joi</strong> si <strong>duminica</strong>.
-					<br/>
+					<p>Pentru aceasta oferta, intrarile se fac doar <strong>joi</strong> si <strong>duminica</strong>.</p>
 				</div> : null}
 				{explanationString2 ? <div>
-					Pentru aceasta oferta, intrarile se fac doar <strong>
-					Duminica</strong>.
-					<br/>
+					<p>Pentru aceasta oferta, intrarile se fac doar <strong>Duminica</strong>.</p>
 				</div> : null}
-				Plata avansului de {security} lei nerambursabil
-				trebuie efectuata in cel mult 24 de ore dupa
-				completarea rezervarii online pentru confirmarea
-				acesteia
+				<p>Rezervarea se face prin achitarea unui avans de <strong>30%</strong> din costul pachetului ales. Avansul este nerambursabil.</p>
 			</em>
 		</div>
 		<div className="actions">

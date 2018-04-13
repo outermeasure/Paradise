@@ -47,7 +47,13 @@
                 <a class="content" href="oferta/{{$v.Url}}"><img src="{{$v.CardPhoto}}"/><div class="info">
 					<h3>{{$v.CardTitle}}</h3>
 					<p>{{$v.CardDescription}}</p>
-					<div class="price">{{formatPrice $v.Price}} {{$v.Currency}} / persoană</div>
+					<div class="price">
+						{{ if not $v.Price }}
+							{{"La cerere"}}
+						{{ else }}
+							{{formatPrice $v.Price}} {{$v.Currency}} / persoană
+						{{ end }}
+					</div>
 				</div></a><div class="actions">
 					<button>Detalii</button><button class="accent">Rezervă</button>
 				</div></li>{{end}}{{range .Padding}}<li class="card empty"></li>{{end}}

@@ -33,9 +33,73 @@ nav {
     line-height: $navHeightNarrow;
   }
   display: block;
-  margin: 0;
+  margin: 20px 0 0 0;
   @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.26));
   overflow: hidden;
+
+  .infobar {
+    height: 20px;
+    line-height: 20px;
+    padding: 0 15px 0 16px;
+    font-size: 12px;
+    background-color: #397fb6;
+    color: #fafafa;
+    overflow: hidden;
+    z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    i {
+      position: relative;
+      top: 1px;
+      margin-right: 4px;
+    }
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      color: #fafafa;
+      text-decoration: none;
+    }
+
+    &-phone {
+      margin-right: 10px;
+
+      @media (max-width: 450px) {
+        display: block;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+
+    &-spacer {
+      margin: 0 5px 0 5px;
+
+      @media (max-width: 450px) {
+        display: none;
+      }
+    }
+
+    &-mail {
+      margin: 0 10px 0 10px;
+
+      @media (max-width: 450px) {
+        display: none;
+      }
+    }
+
+    &-time {
+      float: right;
+      cursor: default;
+
+      @media (max-width: 640px) {
+        display: none;
+      }
+    }
+  }
 
   .sandwich,
   .brand {

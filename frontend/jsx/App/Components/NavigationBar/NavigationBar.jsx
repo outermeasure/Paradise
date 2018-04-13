@@ -58,11 +58,28 @@ class NavigationBar extends React.Component {
 			open: false,
 		};
 	}
+
 	render() {
 		const {
 			selected,
 		} = this.props;
-		return <div><nav className="no-selection">
+
+		return <div>
+			<nav className="no-selection">
+				<div className="infobar">
+					<span className="infobar-phone">
+						<a href="tel:0755248260"><i className="icon-stay_primary_portrait"></i>(0755) 248 260</a>
+						<span> - </span>
+						<a href="tel:0741991297">(0741) 991 297</a>
+					</span>
+					<span> | </span>
+					<span className="infobar-mail">
+						<a href="mailto:paradisedeltahouse@yahoo.com"><i className="icon-mail_outline"></i>paradisedeltahouse@yahoo.com</a>
+					</span>
+					<span className="infobar-time">
+						<i className="icon-clock"></i>Luni – Duminica 00.00 – 24.00
+					</span>
+				</div>
 				<NavPaperRipple
 					tag="div"
 					className="brand">

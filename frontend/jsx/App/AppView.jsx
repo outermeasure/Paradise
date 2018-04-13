@@ -56,29 +56,21 @@ const AppView = ({
         <header id="Header">
             <NavigationBar selected={selectedTab} />
         </header>
-        <main>
+        <main id="Content">
             {getPage(route, parameters)}
         </main>
-        <footer>
+        <footer id="Footer">
             <div className="presentation">
                 <div className="main">
                     <div className="row">
-                        <div className="six columns text-left">
-                            <ul>
-                                <li>
-                                    <a href="https://www.facebook.com/ParadiseDeltaHouse/" target="_blank"><i className="icon-067-official"></i> Gaseste-ne pe Facebook</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.booking.com/hotel/ro/paradise-delta-house.html" target="_blank"><i className="icon-blur_circular"/>Profilul Booking</a>
-                                </li>
-                            </ul>
+                        <div className="four columns">
+                            <a href="https://www.facebook.com/ParadiseDeltaHouse/" target="_blank"><i className="icon-067-official"></i> Gaseste-ne pe Facebook</a>
                         </div>
-                        <div className="six columns text-right">
-                            <ul>
-                                <li>
-                                    <a href="https://www.tripadvisor.com/Hotel_Review-g1652471-d3292201-Reviews-Pensiunea_Paradise_Delta_House-Sulina_Tulcea_County_Southeast_Romania.html" target="_blank"><i className="icon-0023"></i> Profilul Trip Advisor</a>
-                                </li>
-                            </ul>
+                        <div className="four columns">
+                            <a href="https://www.booking.com/hotel/ro/paradise-delta-house.html" target="_blank"><i className="icon-blur_circular"></i>Profilul Booking</a>
+                        </div>
+                        <div className="four columns">
+                            <a href="https://www.tripadvisor.com/Hotel_Review-g1652471-d3292201-Reviews-Pensiunea_Paradise_Delta_House-Sulina_Tulcea_County_Southeast_Romania.html" target="_blank"><i className="icon-0023"></i> Profilul Trip Advisor</a>
                         </div>
                     </div>
                 </div>

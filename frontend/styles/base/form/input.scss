@@ -85,6 +85,19 @@ input:disabled {
   display: inline-block;
   vertical-align: top;
 
+  &-container {
+      button {
+        &:disabled,
+        &[disabled] {
+          opacity: 0.3 !important;
+        }
+
+        span {
+          font-weight: 600 !important;
+        }
+      }
+  }
+
   input,
   textarea {
     padding-right: 2 * $mediumPadding + $mediumFontSize;
