@@ -1,0 +1,15 @@
+[Unit]
+Description=Paradise Delta House Web Server
+After=syslog.target network.target
+ConditionPathExists=/var/www/Paradise/www-hp
+
+[Service]
+WorkingDirectory=/var/www/Paradise
+ExecStart=/var/www/Paradise/www-hp
+ExecStop=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+Alias=paradisedeltahouse.service
+WantedBy=multi-user.target

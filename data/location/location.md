@@ -1,7 +1,7 @@
 #Adresa
 
 ------
-#####Mila 23, comuna Crisan
+##Mila 23, comuna Crisan
 
 Pensiunea este asezata pe partea opusa a satului Mila 23, pe o insula, departe de galagia cotidiana, fiind cel mai bun punct de plecare din Delta Dunarii.
 
