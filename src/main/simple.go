@@ -106,7 +106,7 @@ func LazyLoadTemplate(templateName string) {
 func LoadTemplate(templateName string, t *template.Template) *template.Template {
 	file, load := readFileMemoized(Template(templateName))
 	if load {
-		return template.Must(t.New(templateName).Funcs(template.FuncMap{"formatPrice": formatPrice,}).Parse(file))
+		return template.Must(t.New(templateName).Funcs(template.FuncMap{"formatPrice": formatPrice}).Parse(file))
 	}
 	return t
 }
@@ -148,6 +148,13 @@ func RenderPackageBookingEmail(booking *PackageBooking) []byte {
 	LazyLoadTemplate("email/package_booking.gohtml")
 	buffer := &bytes.Buffer{}
 	gApplicationState.Templates["email/package_booking.gohtml"].Execute(buffer, booking)
+	return buffer.Bytes()
+}
+
+func RenderSitemap(w io.Writer, siteRootAddress string) []byte {
+	LazyLoadTemplate("sitemap.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["sitemap.gohtml"].ExecuteTemplate(buffer, "sitemap.gohtml", siteRootAddress)
 	return buffer.Bytes()
 }
 
@@ -265,6 +272,15 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Title = "Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
 
 	Render(w, "index.gohtml", context)
+}
+
+func getSitemap(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	toURL := "http://" + net.JoinHostPort(stripPort(r.Host), portOnly(r.Host))
+	ssl := gApplicationState.Configuration.SSL
+	if ssl != nil {
+		toURL = "https://" + net.JoinHostPort(stripPort(r.Host), strconv.Itoa(ssl.Port))
+	}
+	RenderSitemap(w, toURL)
 }
 
 func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -894,6 +910,7 @@ func runApplicationSimple(applicationState *ApplicationState) {
 
 	router := httprouter.New()
 	router.GET("/", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getIndex))))
+	//router.GET("/sitemap.xml", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getSitemap))))
 	router.GET("/tarife", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPrices))))
 	router.GET("/contact", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getContact))))
 	router.GET("/oferta", makeVaryAcceptEncoding(makeGzipHandler(makeStripWWWHandler(getPackages))))
