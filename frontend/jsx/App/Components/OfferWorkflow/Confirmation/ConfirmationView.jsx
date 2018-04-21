@@ -48,18 +48,12 @@ const View = ({
 			progress={Steps.getStepIndexByLabel(step) /
 			(Steps.getNumberOfSteps() - 1)}/>
 		<div className="min-height">
-			<h3>Rezervare efectuata pentru {
-				numberOfNights > 0 ? numberOfNights === 1 ? "o noapte" :
-					`${numberOfNights} nopti` : "o zi"
-			}
-			</h3>
+			<h3>Cererea de rezervare pentru { numberOfNights > 0 ? (numberOfNights === 1 ? "o noapte" : `${numberOfNights} nopti`) : "o zi" } a fost efectuata</h3>
 			<div className="font-container">
 				<i className="icon-circle-check"/>
 			</div>
-			<p className="top">Avansul de baza este:</p>
-			<p className="payment">{security} {selectedOffer.Currency}</p>
-			<p className="bottom">suma care reprezinta 30% din valoarea totala de {Utils.formatPrice(full)} {selectedOffer.Currency}<br/><strong>Atentie: Daca ati rezervat pe mai multe persoane pretul final se poate modifica.</strong></p>
-			<p className="notification">Va vom trimite prin email factura proforma de indata ce verificam disponibilitatea camere(i/lor).</p>
+			<p className="payment">Va multumim pentru solicitare !</p>
+			<p className="notification">Va vom trimite prin email datele necesare efectuarii rezervarii precum si disponibilitatea.</p>
 		</div>
 		<div className="actions">
 			<GrayPaperRipple
