@@ -111,7 +111,10 @@ const View = ({
 					</div>
 					<div className="six column text-right">
 						<div className="row gallery">
-							<h2 className="section"><i className="icon-photo2"></i> Galerie Foto</h2>
+							<h2 className="section">
+								<i className="icon-photo2"></i> Galerie Foto
+							</h2>
+							<span className="edenred-logo" title="Posibilitate de plata cu tichete de vacanta: Edenred, Sodexo, Chèque Déjeuner"></span>
 							<table>
 								<tbody>
 									<tr>
