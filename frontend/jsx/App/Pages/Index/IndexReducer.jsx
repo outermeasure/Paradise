@@ -10,6 +10,7 @@ const
 		nid: "",
 		bookingMessage: "",
 		roomType: 0,
+		privacyAgreement: false,
 		startDate: null,
 		endDate: null,
 	},

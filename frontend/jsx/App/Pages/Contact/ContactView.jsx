@@ -6,6 +6,7 @@ import * as Colors from '../../../../js/colors';
 import * as Validations from '../../../../js/validations';
 import * as Viewport from '../../../../js/viewport';
 import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
 import Card from 'material-ui/Card';
 
 const PaperRipple = (props) => <Ripple
@@ -160,6 +161,18 @@ const View = ({
 						hintText="Va rugam adaugati intrebari sau sugestii legate de oferte"
 					/>
 				</li>
+				<li>
+					<p className="contact-form-controls-privacyAgreement-header">CONFIDENTIALITATE DATE CLIENT</p>
+					<Checkbox
+						defaultChecked={contactObject.privacyAgreement}
+						className="contact-form-controls-privacyAgreement"
+						label="Datele personale oferite de dumneavoastra sunt folosite pentru a va procesa rezervarile si pentru a va raspunde la intrebari. Datele personale NU vor fi folosite in scopuri de marketing. *"
+						onCheck={(e) => {
+							onChange("privacyAgreement", e.target.checked, contactObject);
+						}}
+						iconStyle={validation && validation.privacyAgreement && validation.privacyAgreement.errorText != null ? {fill:'rgb(244, 67, 54)'} : {}}
+					/>
+				</li>
 			</ul>
 			<div className="contact-form-actions">
 				<span className="contact-form-actions-mandatoryText">Campurile marcate cu * sunt obligatorii</span>
@@ -175,7 +188,8 @@ const View = ({
 								lastName: contactObject.lastName,
 								phoneNumber: '0111111111',
 								email: contactObject.email,
-								message: contactObject.message ? (contactObject.message).trim() : ''
+								message: contactObject.message ? (contactObject.message).trim() : '',
+								privacyAgreement: contactObject.privacyAgreement
 							}
 						});
 						if (!errors) {

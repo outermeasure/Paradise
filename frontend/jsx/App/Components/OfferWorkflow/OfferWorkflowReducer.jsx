@@ -23,6 +23,7 @@ const
 		email: "",
 		bookingMessage: "",
 		selectedOffer: BASE_PACKAGE,
+		privacyAgreement: false,
 		startDate: null,
 		endDate: null,
 	},

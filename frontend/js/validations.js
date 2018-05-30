@@ -19,6 +19,7 @@ export const
 			phoneNumber: null,
 			email: null,
 			message: null,
+			privacyAgreement: null,
 		};
 
 		const {
@@ -27,6 +28,7 @@ export const
 			firstName,
 			lastName,
 			message,
+			privacyAgreement,
 		} = clientObject;
 
 		let hadError = false;
@@ -68,6 +70,10 @@ export const
 
 		if (message === '') {
 			addError("message", "Comentariul nu poate fi omis");
+		}
+
+		if (privacyAgreement === false) {
+			addError("privacyAgreement", "Va rugam sa ne acordati consimtamantul dumneavoastra");
 		}
 
 		return hadError ? errors : null;

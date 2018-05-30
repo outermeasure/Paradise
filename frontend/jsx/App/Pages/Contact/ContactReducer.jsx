@@ -6,6 +6,7 @@ const
 		firstName: '',
 		email: '',
 		message: '',
+		privacyAgreement: false,
 	},
 	BASE_CONTACT = {
 		lastName: '',
@@ -13,6 +14,7 @@ const
 		phoneNumber: '',
 		email: '',
 		message: '',
+		privacyAgreement: false,
 	},
 	BASE_STATE = {
 		notificationType: null,
@@ -52,6 +54,7 @@ const ContactReducer = (state = BASE_STATE, action) => {
 					phoneNumber: '',
 					email: '',
 					message: '',
+					privacyAgreement: false,
 				}
 			};
 		default:

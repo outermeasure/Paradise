@@ -36,6 +36,20 @@
             &-message {
                 min-height: 113px;
             }
+
+           &-privacyAgreement {
+                color: rgb(68,68,68) !important;
+
+                label {
+                    color: rgb(68,68,68) !important;
+                    line-height: 20px !important;
+                    font-weight: 400 !important;
+                }
+
+                &-header {
+                    margin-top: 20px;
+                }
+            }
         }
 
         &-actions {

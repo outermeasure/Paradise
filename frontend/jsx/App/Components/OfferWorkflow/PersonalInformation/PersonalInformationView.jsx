@@ -7,6 +7,7 @@ import * as Viewport from '../../../../../js/viewport';
 import StepProgressBar from
 	'../../../Components/StepProgressBar/StepProgressBar';
 import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
 import * as Steps from '../OfferWorkflowSteps';
 
 const PaperRipple = (props) => <Ripple
@@ -82,10 +83,11 @@ class View extends React.Component {
 				(Steps.getNumberOfSteps() - 1)}/>
 			<div className="min-height">
                 <h3>Spune-ne despre tine</h3>
-				<form>
+				<form className="information-form">
                     <ul className="vertical-layout" style={{marginTop: "50px"}}>
 						<li>
 							<TextField
+								className="information-form-lastName"
 								id="LastName"
 								{...validation.lastName}
 								defaultValue={clientObject.lastName}
@@ -103,6 +105,7 @@ class View extends React.Component {
                                 }}
 								hintText="Ex: Pop"/>
 							<TextField
+								className="information-form-firstName"
 								{...validation.firstName}
 								defaultValue={clientObject.firstName}
 								fullWidth={true}
@@ -120,6 +123,7 @@ class View extends React.Component {
 						</li>
 						<li>
 							<TextField
+								className="information-form-phoneNumber"
 								{...validation.phoneNumber}
 								defaultValue={clientObject.phoneNumber}
 								fullWidth={true}
@@ -140,6 +144,7 @@ class View extends React.Component {
 						</li>
 						<li>
 							<TextField
+								className="information-form-email"
 								{...validation.email}
 								defaultValue={clientObject.email}
 								fullWidth={true}
@@ -151,6 +156,18 @@ class View extends React.Component {
 								}}
 								type="text"
 								hintText="Ex: pop.ioan@gmail.com"/>
+						</li>
+						<li>
+							<p className="information-form-privacyAgreement-header">CONFIDENTIALITATE DATE CLIENT</p>
+							<Checkbox
+								defaultChecked={clientObject.privacyAgreement}
+								className="information-form-privacyAgreement"
+								label="Datele personale oferite de dumneavoastra sunt folosite pentru a va procesa rezervarile. Datele personale NU vor fi folosite in scopuri de marketing."
+								onCheck={(e) => {
+									onChange("privacyAgreement", e.target.checked, clientObject);
+								}}
+								iconStyle={validation && validation.privacyAgreement && validation.privacyAgreement.errorText != null ? {fill:'rgb(244, 67, 54)'} : {}}
+							/>
 						</li>
 					</ul>
 				</form>
