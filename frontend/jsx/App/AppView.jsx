@@ -1,5 +1,6 @@
 import React from 'react';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
+import CookieBanner from './Components/CookieDisclaimer/CookieDisclaimer';
 import Index from './Pages/Index/IndexContainer';
 import Packages from './Pages/Packages/PackagesContainer';
 import Reviews from './Pages/Reviews/ReviewsContainer';
@@ -76,6 +77,7 @@ const AppView = ({
                 </div>
             </div>
         </footer>
+        <CookieBanner />
     </div>;
 };
 
