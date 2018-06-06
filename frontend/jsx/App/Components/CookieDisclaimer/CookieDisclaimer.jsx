@@ -30,7 +30,7 @@ const styles = {
   }
 }
 
-const message = "Confidentialitatea ta este importanta pentru noi si vrem sa fim transparenti ! \n " +
+const message = "Confidentialitatea ta este importanta pentru noi si vrem sa fim transparenti ! \n\n" +
   "Utilizam cookie-uri pentru a optimiza functionalitatea site-ului web, a imbunatati experienta de navigare, a se interactiona cu retele de socializare si pentru buna functionare a chat-ului. " +
   "Prin clic pe butonul \"DA, ACCEPT\" acceptati utilizarea modulelor cookie.";
 
