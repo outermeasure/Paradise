@@ -30,18 +30,13 @@ const styles = {
   }
 }
 
-const message = "Confidentialitatea ta este importanta pentru noi si vrem sa fim transparenti ! \n\n" +
-  "Utilizam cookie-uri pentru a optimiza functionalitatea site-ului web, a imbunatati experienta de navigare, a se interactiona cu retele de socializare si pentru buna functionare a chat-ului. " +
-  "Prin clic pe butonul \"DA, ACCEPT\" acceptati utilizarea modulelor cookie.";
-
-
 class CookieDisclaimer extends React.Component {
 
 	render() {
 		return <div>
         <CookieBanner
             styles={styles}
-            message={message}
+            message={"Confidentialitatea ta este importanta pentru noi si vrem sa fim transparenti ! \n\n Utilizam cookie-uri pentru a optimiza functionalitatea site-ului web, a imbunatati experienta de navigare, a se interactiona cu retele de socializare si pentru buna functionare a chat-ului. Prin clic pe butonul \"DA, ACCEPT\" acceptati utilizarea modulelor cookie."}
             link={<a href='https://protectia-datelor.eu/legislatie-gdpr/' target='_blank' ><br/><br/>Informatii suplimentare</a>}
             buttonMessage={'DA, ACCEPT'}
             dismissOnScroll={false}
