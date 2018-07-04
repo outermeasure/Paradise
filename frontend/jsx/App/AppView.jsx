@@ -64,14 +64,17 @@ const AppView = ({
             <div className="presentation">
                 <div className="main">
                     <div className="row">
-                        <div className="four columns">
+                        <div className="three columns">
                             <a href="https://www.facebook.com/ParadiseDeltaHouse/" target="_blank"><i className="icon-067-official"></i> Gaseste-ne pe Facebook</a>
                         </div>
-                        <div className="four columns">
+                        <div className="three columns">
                             <a href="https://www.booking.com/hotel/ro/paradise-delta-house.html" target="_blank"><i className="icon-blur_circular"></i>Profilul Booking</a>
                         </div>
-                        <div className="four columns">
+                        <div className="three columns">
                             <a href="https://www.tripadvisor.com/Hotel_Review-g1652471-d3292201-Reviews-Pensiunea_Paradise_Delta_House-Sulina_Tulcea_County_Southeast_Romania.html" target="_blank"><i className="icon-0023"></i> Profilul Trip Advisor</a>
+                        </div>
+                        <div className="three columns">
+                            <a href="http://blog.paradisedeltahouse.ro" target="_blank"><i className="icon-pencil"></i> Blog Paradise Delta House</a>
                         </div>
                     </div>
                 </div>
