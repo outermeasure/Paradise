@@ -3,10 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-	"github.com/ua-parser/uap-go/uaparser"
 	"html/template"
+	"os"
 	"time"
+
+	"github.com/ua-parser/uap-go/uaparser"
 )
 
 const ENVIRONMENT = "Environment.json"

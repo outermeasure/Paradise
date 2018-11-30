@@ -22,5 +22,7 @@
     "GoogleSiteVerification": "<google-site-verification>",
     "HotelParadiseGoogleSiteVerification": "<hp-google-site-verification>",
 
-	"PseudoSecureUrl": ""
+  "PseudoSecureUrl": "",
+  "DesiredLanguage": "",
+  "CurrentLanguage": ""
 }

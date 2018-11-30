@@ -32,6 +32,8 @@ type Configuration struct {
 	PseudoSecureUrl                     string `json:"PseudoSecureUrl"`
 	GoogleSiteVerification              string `json:"GoogleSiteVerification"`
 	HotelParadiseGoogleSiteVerification string `json:"HotelParadiseGoogleSiteVerification"`
+	DesiredLanguage                     string `json:"DesiredLanguage"`
+	CurrentLanguage                     string `json:"CurrentLanguage"`
 }
 
 type ApplicationState struct {
