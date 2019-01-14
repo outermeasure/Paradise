@@ -129,6 +129,8 @@ type Package struct {
 	RankOnIndexPage   float64 `json:"RankOnIndexPage"`
 	RankOnPackagePage float64 `json:"RankOnPackagePage"`
 
+	Table *[][]string `json:"Table,omitempty"`
+
 	Photos *[]string `json:"Photos,omitempty"`
 }
 

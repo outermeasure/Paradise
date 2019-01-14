@@ -6,220 +6,211 @@
 @import "base/fonts";
 @import "base/mixins";
 @import "base/animations";
-
 div {
-    margin: 0;
-    padding: 0;
-    border: none;
-    box-sizing: border-box;
-    -webkit-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    vertical-align: baseline;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  vertical-align: baseline;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body,
 html {
-    cursor: auto;
-    width: 100%;
-    background-color: $light;
-    color: #444;
+  cursor: auto;
+  width: 100%;
+  background-color: $light;
+  color: #444;
 }
 
 body {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll !important;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll !important;
 }
 
 #eXTReMe-Free-nhu65ar {
-    display: none;
-    position: relative;
-    left: 10%;
-    bottom: 0;
+  display: none;
+  position: relative;
+  left: 10%;
+  bottom: 0;
 }
 
 .show-tracker {
-    #eXTReMe-Free-nhu65ar {
-        display: block;
-    }
+  #eXTReMe-Free-nhu65ar {
+    display: block;
+  }
 }
 
 /* Absolute Center Spinner */
+
 .overlay-spinner {
-    position: fixed;
-    z-index: 999;
-    height: 2em;
-    width: 2em;
-    overflow: show;
-    margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 /* Transparent Overlay */
+
 .overlay-spinner:before {
-    content: '';
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* :not(:required) hides these rules from IE9 and below */
+
 .overlay-spinner:not(:required) {
-    /* hide "loading..." text */
-    font: 0/0 a;
-    color: transparent;
-    text-shadow: none;
-    background-color: transparent;
-    border: 0;
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
 }
 
 .overlay-spinner:not(:required):after {
-    content: '';
-    display: block;
-    font-size: 10px;
-    width: 1em;
-    height: 1em;
-    margin-top: -0.5em;
-    -webkit-animation: spinner 1500ms infinite linear;
-    -moz-animation: spinner 1500ms infinite linear;
-    -ms-animation: spinner 1500ms infinite linear;
-    -o-animation: spinner 1500ms infinite linear;
-    animation: spinner 1500ms infinite linear;
-    border-radius: 0.5em;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
-    box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
 }
 
 /* Animation */
 
 @-webkit-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @-moz-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @-o-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 footer {
-    background: $accent;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  background: $accent;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  color: white;
+  .presentation {
+    max-width: 1200px;
+    margin: auto;
+    padding-bottom: 26px;
+    padding-top: 26px;
+  }
+  .icon-067-official {
+    position: relative;
+    top: 1px;
+    margin-right: 8px;
+  }
+  .icon-0023 {
+    position: relative;
+    top: 2px;
+    margin-right: 8px;
+  }
+  .icon-blur_circular {
+    position: relative;
+    top: 2px;
+    margin-right: 8px;
+  }
+  .icon-pencil {
+    position: relative;
+    top: 2px;
+    margin-right: 8px;
+  }
+  a {
     color: white;
-
-    .presentation {
-        max-width: 1200px;
-        margin: auto;
-        padding-bottom: 26px;
-        padding-top: 26px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    &:hover,
+    &:focus,
+    &:active {
+      color: white;
     }
-
-    .icon-067-official {
-        position: relative;
-        top: 1px;
-        margin-right: 8px;
-    }
-
-    .icon-0023 {
-        position: relative;
-        top: 2px;
-        margin-right: 8px;
-    }
-
-    .icon-blur_circular {
-        position: relative;
-        top: 2px;
-        margin-right: 8px;
-    }
-    
-    .icon-pencil {
-        position: relative;
-        top: 2px;
-        margin-right: 8px;
-    }
-    
-    a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 600;
-
-        &:hover,
-        &:focus,
-        &:active {
-            color: white;
-        }
-    }
+  }
 }
 
 @import "base/layout";
@@ -231,7 +222,7 @@ footer {
 @import "base/progress";
 @import "base/markdown";
 @import "base/sections";
-
+@import "base/availability_table";
 @import "Index/Index";
 @import "Contact/Contact";
 @import "Location/Location";

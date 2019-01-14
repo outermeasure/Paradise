@@ -158,6 +158,13 @@ func RenderSitemap(w io.Writer, siteRootAddress string) []byte {
 	return buffer.Bytes()
 }
 
+func RenderTable(tableData [][]string) []byte {
+	LazyLoadTemplate("table.gohtml")
+	buffer := &bytes.Buffer{}
+	gApplicationState.Templates["table.gohtml"].ExecuteTemplate(buffer, "table.gohtml", tableData)
+	return buffer.Bytes()
+}
+
 func Render(w io.Writer, templateName string, page *Page) {
 	LazyLoadLayout()
 	LazyLoadTemplate(templateName)
@@ -409,9 +416,16 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			[]byte(context.PackageDetails.PageDetailsMarkdown),
 		)
 
+		stringHTML := string(html)
+
+		if context.PackageDetails.Table != nil && (len(*context.PackageDetails.Table) > 2 || (len(*context.PackageDetails.Table) > 0 && len((*context.PackageDetails.Table)[0]) > 2)) {
+			stringTable := string(RenderTable(*context.PackageDetails.Table))
+			stringHTML = strings.Replace(stringHTML, "<table/>", stringTable, 1)
+		}
+
 		context.RenderedPackageMarkdown =
 			template.HTML(
-				html,
+				stringHTML,
 			)
 
 		if context.PackageDetails.Title != nil {
@@ -424,7 +438,7 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 		context.Parameters["url"] = context.PackageDetails.Url
 		context.Parameters["id"] = strconv.Itoa(*context.PackageDetails.Id)
-		context.Parameters["markdownHTML"] = string(html)
+		context.Parameters["markdownHTML"] = stringHTML
 		context.Parameters["cover"] = context.PackageDetails.PageDetailsCoverPhoto
 
 		if context.PackageDetails.SEOTitle != nil {

@@ -1,0 +1,103 @@
+.availability-table {
+  .availability-table-paper {
+    margin-bottom: 24px;
+    @media (max-width: 750px) {
+      margin-bottom: 0;
+    }
+    overflow-x: auto;
+    border-radius: 4px;
+    background-color: white;
+    max-width: 1020px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: inherit;
+  }
+  .availability-table-title {
+    padding: 24px 0 4px 0;
+    @media (max-width: 750px) {
+      padding: 16px 0 4px 0;
+    }
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.4px;
+  }
+  .availability-table-table {
+    width: 100%;
+    display: table;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 0;
+    table-layout: fixed;
+    .right {
+      text-align: right;
+      flex-flow: row-reverse;
+    }
+  }
+  .availability-table-thead {
+    opacity: 1;
+  }
+  .availability-table-thead-tr {
+    height: 56px;
+    color: inherit;
+    display: table-row;
+    outline: none;
+    vertical-align: middle;
+  }
+  .availability-table-tbody-tr {
+    color: inherit;
+    height: 48px;
+    display: table-row;
+    outline: none;
+    vertical-align: middle;
+  }
+  .availability-table-th {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 15px;
+    font-weight: 500;
+    display: table-cell;
+    padding: 4px 0 4px 0;
+    @media (max-width: 750px) {
+      padding: 4px 0 4px 0;
+    }
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    vertical-align: inherit;
+    text-align: left;
+  }
+  .availability-table-th-row {
+    display: table-cell;
+    padding: 4px 0 4px 0;
+    @media (max-width: 750px) {
+      padding: 4px 0 4px 0;
+    }
+    text-align: left;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    vertical-align: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .availability-table-td {
+    display: table-cell;
+    padding: 4px 0 4px 0;
+    @media (max-width: 750px) {
+      padding: 4px 0 4px 0;
+    }
+    text-align: left;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    vertical-align: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .availability-table-tbody {
+    display: table-row-group;
+  }
+
+  input {
+    border-radius: 0;
+    border: none;
+  }
+}

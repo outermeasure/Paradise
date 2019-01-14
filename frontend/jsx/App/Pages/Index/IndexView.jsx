@@ -69,7 +69,7 @@ const View = ({
 		endDate,
 	} = clientObject;
 
-	let startDatePicker = null, 
+	let startDatePicker = null,
 		endDatePicker = null;
 
 	const disableStartDates = (date) =>
@@ -81,8 +81,8 @@ const View = ({
 		Date.now() - 24 * 3600 * 1000 > date.getTime();
 
 	const openToDate = (datePicker, date) => {
-		if (datePicker !== null && 
-			datePicker.state.date === undefined && 
+		if (datePicker !== null &&
+			datePicker.state.date === undefined &&
 			date !== null) {
 			datePicker.setState({dialogDate: date})
 		}
@@ -115,7 +115,7 @@ const View = ({
 								<i className="icon-photo2"></i> Galerie Foto
 							</h2>
 							<span className="edenred-logo" title="Posibilitate de plata cu tichete de vacanta: Edenred, Sodexo, Chèque Déjeuner"></span>
-							<table>
+							<table className="default-table">
 								<tbody>
 									<tr>
 										<td className="a"><a href="/galerie/pensiune">Pensiune</a></td>

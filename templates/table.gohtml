@@ -1,0 +1,32 @@
+<div class="availability-table">
+  <div class="availability-table-paper">
+    <table class="availability-table-table">
+      <thead class="availability-table-thead">
+      <tr class="availability-table-thead-tr">
+        {{range $i, $v := index . 0}}
+        {{if le $i 1}}
+        <th class="availability-table-th" scope="col">{{$v}}</th>
+        {{else}}
+        <th class="availability-table-th right" scope="col">{{$v}}</th>
+        {{end}}
+        {{end}}
+      </tr>
+      </thead>
+      <tbody class="availability-table-tbody">
+      {{range $rowIndex, $row := .}}
+      {{if ne $rowIndex 0}}
+      <tr class="availability-table-tbody-tr">
+        {{range $i, $v := $row}}
+        {{if le $i 1}}
+        <th class="availability-table-th-row" scope="row">{{$v}}</th>
+        {{else}}
+        <td class="availability-table-td right">{{$v}}</td>
+        {{end}}
+        {{end}}
+      </tr>
+      {{end}}
+      {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
