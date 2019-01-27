@@ -55,7 +55,7 @@ const View = ({
 			<OfferWorkflow/>
 		</Modal>
 		<div className="main">
-            <h1>Oferte 2018 delta dunarii - Paradise Delta House</h1>
+            <h1>Oferte 2019 delta dunarii - Paradise Delta House</h1>
 			<ul className="card-collection">
 				{
 					packages.items.map(

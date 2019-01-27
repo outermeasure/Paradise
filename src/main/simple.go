@@ -289,7 +289,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	context.SEOContentLanguage = "ro_RO"
 	context.SEODescription = "Pensiunea Paradise Delta House  este o zona de lux, 4 stele, aflata in Delta Dunarii. Camerele, restaurantul precum si locatia, va ofera decorul ideal pentru a va elibera de stres."
-	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2018, pachet de Rusalii,sejur all inclusive in delta dunarii 2018, cazare mila 23"
+	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2019, pachet de Rusalii,sejur all inclusive in delta dunarii 2019, cazare mila 23"
 	context.Title = "Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
 
 	Render(w, "index.gohtml", context)
@@ -346,7 +346,7 @@ func getContact(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	context.SEOContentLanguage = "ro_RO"
 	context.SEODescription = "Pensiunea Paradise Delta House  este o zona de lux, 4 stele, aflata in Delta Dunarii. Camerele, restaurantul precum si locatia, va ofera decorul ideal pentru a va elibera de stres."
-	context.SEOKeywords = "contact cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2018, pachet de Rusalii,sejur all inclusive in delta dunarii 2018, cazare mila 23"
+	context.SEOKeywords = "contact cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2019, pachet de Rusalii,sejur all inclusive in delta dunarii 2019, cazare mila 23"
 	context.Title = "Contact Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
 
 	Render(w, "contact.gohtml", context)
@@ -370,9 +370,9 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		len(context.Packages),
 	)
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Oferte turistice 2018 Delta Dunarii -  Paradise Delta House - 4 stele"
-	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,sejur delta,oferte de lux,all iclusive,oferte paste 2018 delta dunarii,oferta 4 zile 3 nopti,pecuit in delta,1 mai 2018 delta dunarii,pachet de rusalii 2018,Sejur de lux, 4 zile in Delta Dunarii"
-	context.Title = "Oferte turistice 2018 Delta Dunarii -  Paradise Delta House - Mila 23"
+	context.SEODescription = "Oferte turistice 2019 Delta Dunarii -  Paradise Delta House - 4 stele"
+	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,sejur delta,oferte de lux,all iclusive,oferte paste 2019 delta dunarii,oferta 4 zile 3 nopti,pecuit in delta,1 mai 2019 delta dunarii,pachet de rusalii 2019,Sejur de lux, 4 zile in Delta Dunarii"
+	context.Title = "Oferte turistice 2019 Delta Dunarii -  Paradise Delta House - Mila 23"
 
 	Render(w, "packages.gohtml", context)
 }
@@ -413,6 +413,31 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	switch p.ByName("url") {
 	case "pachet_pasti_2018.html":
 		redirectToPath("/oferta/oferta_paste_2018_delta_dunarii.html")(
+			w, r, p,
+		)
+		return
+	case "Sejur-de-lux-Delta-Dunarii-si-Marea-Neagra-2018.html":
+		redirectToPath("/oferta/Sejur-de-lux-Delta-Dunarii-si-Marea-Neagra-2019.html")(
+			w, r, p,
+		)
+		return
+	case "pescuit-delta-dunarii-2018-mila23.html":
+		redirectToPath("/oferta/pescuit-delta-dunarii-2019-mila23.html")(
+			w, r, p,
+		)
+		return
+	case "oferta-1-mai-2018-delta-dunarii-sejur-4zile-3nopti-mila23.html":
+		redirectToPath("/oferta/oferta-1-mai-2019-delta-dunarii-sejur-4zile-3nopti-mila23.html")(
+			w, r, p,
+		)
+		return
+	case "rusalii-2018-delta-dunarii-4zile-3nopti-mila23.html":
+		redirectToPath("/oferta/rusalii-2019-delta-dunarii-4zile-3nopti-mila23.html")(
+			w, r, p,
+		)
+		return
+	case "oferta-paste-2018-delta-dunarii.html":
+		redirectToPath("/oferta/oferta-paste-2019-delta-dunarii.html")(
 			w, r, p,
 		)
 		return
