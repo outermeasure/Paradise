@@ -162,8 +162,8 @@ func RenderTable(tableData [][]string, lastColHeader string, lastColContent stri
 	LazyLoadTemplate("table.gohtml")
 	type TableTemplateData struct {
 		Table                [][]string
-		LastColContent       string
-		LastColHeader        string
+		LastColContent       template.HTML
+		LastColHeader        template.HTML
 		RowSpan              int
 		HasDescriptiveColumn bool
 	}
@@ -171,8 +171,8 @@ func RenderTable(tableData [][]string, lastColHeader string, lastColContent stri
 	buffer := &bytes.Buffer{}
 	gApplicationState.Templates["table.gohtml"].ExecuteTemplate(buffer, "table.gohtml", &TableTemplateData{
 		Table:                tableData,
-		LastColContent:       lastColContent,
-		LastColHeader:        lastColHeader,
+		LastColContent:       template.HTML(lastColContent),
+		LastColHeader:        template.HTML(lastColHeader),
 		RowSpan:              len(tableData) - 1,
 		HasDescriptiveColumn: len(lastColContent) != 0 && len(lastColHeader) != 0,
 	})
