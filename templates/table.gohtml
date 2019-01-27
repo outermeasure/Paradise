@@ -3,18 +3,21 @@
     <table class="availability-table-table">
       <thead class="availability-table-thead">
       <tr class="availability-table-thead-tr">
-        {{range $i, $v := index . 0}}
+        {{range $i, $v := index .Table 0}}
         {{if le $i 1}}
         <th class="availability-table-th" scope="col">{{$v}}</th>
         {{else}}
         <th class="availability-table-th right" scope="col">{{$v}}</th>
         {{end}}
         {{end}}
+        {{if $.HasDescriptiveColumn}}
+        <th class="availability-table-th center" scope="col" colspan="2">{{.LastColHeader}}</th>
+        {{end}}
       </tr>
       </thead>
       <tbody class="availability-table-tbody">
-      {{range $rowIndex, $row := .}}
-      {{if ne $rowIndex 0}}
+      {{range $rowIndex, $row := .Table}}
+      {{if gt $rowIndex 1}}
       <tr class="availability-table-tbody-tr">
         {{range $i, $v := $row}}
         {{if le $i 1}}
@@ -22,6 +25,19 @@
         {{else}}
         <td class="availability-table-td right">{{$v}}</td>
         {{end}}
+        {{end}}
+      </tr>
+      {{else if eq $rowIndex 1}}
+      <tr class="availability-table-tbody-tr">
+        {{range $i, $v := $row}}
+        {{if le $i 1}}
+        <th class="availability-table-th-row" scope="row">{{$v}}</th>
+        {{else}}
+        <td class="availability-table-td right">{{$v}}</td>
+        {{end}}
+        {{end}}
+        {{if $.HasDescriptiveColumn}}
+        <td class="availability-table-td center" colspan="2" rowspan={{$.RowSpan}}>{{$.LastColContent}}</td>
         {{end}}
       </tr>
       {{end}}

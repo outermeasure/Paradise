@@ -34,6 +34,7 @@ const BASE_FOCUSED_PACKAGE = {
 	Nights: 1,
 	Empty: false,
 	Table: generateDefaultTable(),
+	LastColumn: null,
 };
 
 class Edit extends React.Component {
@@ -75,7 +76,10 @@ class Edit extends React.Component {
 				...that.state,
 				focusedPackage: {
 					...pack,
-					Table: Array.isArray(pack.Table) ? pack.Table : generateDefaultTable(),
+					Table: Array.isArray(pack.Table)
+						? pack.Table
+            : generateDefaultTable(),
+          LastColumn: Array.isArray(pack.LastColumn) ? pack.LastColumn : null,
 				},
 			});
 		};
@@ -470,6 +474,16 @@ class Edit extends React.Component {
 									</li>
 									<li>
 										<AvailabilityTable
+											lastColumn={fp.LastColumn}
+											onLastColumnChange={(lastColumn) => {
+												that.setState({
+													...that.state,
+													focusedPackage: {
+														...that.state.focusedPackage,
+														LastColumn: lastColumn,
+													},
+												});
+											}}
 											table={fp.Table}
 											onTableChange={(table) => {
 												that.setState({

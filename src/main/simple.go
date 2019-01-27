@@ -158,10 +158,24 @@ func RenderSitemap(w io.Writer, siteRootAddress string) []byte {
 	return buffer.Bytes()
 }
 
-func RenderTable(tableData [][]string) []byte {
+func RenderTable(tableData [][]string, lastColHeader string, lastColContent string) []byte {
 	LazyLoadTemplate("table.gohtml")
+	type TableTemplateData struct {
+		Table                [][]string
+		LastColContent       string
+		LastColHeader        string
+		RowSpan              int
+		HasDescriptiveColumn bool
+	}
+
 	buffer := &bytes.Buffer{}
-	gApplicationState.Templates["table.gohtml"].ExecuteTemplate(buffer, "table.gohtml", tableData)
+	gApplicationState.Templates["table.gohtml"].ExecuteTemplate(buffer, "table.gohtml", &TableTemplateData{
+		Table:                tableData,
+		LastColContent:       lastColContent,
+		LastColHeader:        lastColHeader,
+		RowSpan:              len(tableData) - 1,
+		HasDescriptiveColumn: len(lastColContent) != 0 && len(lastColHeader) != 0,
+	})
 	return buffer.Bytes()
 }
 
@@ -419,7 +433,14 @@ func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		stringHTML := string(html)
 
 		if context.PackageDetails.Table != nil && (len(*context.PackageDetails.Table) > 2 || (len(*context.PackageDetails.Table) > 0 && len((*context.PackageDetails.Table)[0]) > 2)) {
-			stringTable := string(RenderTable(*context.PackageDetails.Table))
+			descColumnHeader := ""
+			descColumnContent := ""
+
+			if context.PackageDetails.LastColumn != nil {
+				descColumnHeader = (*context.PackageDetails.LastColumn)[0]
+				descColumnContent = (*context.PackageDetails.LastColumn)[1]
+			}
+			stringTable := string(RenderTable(*context.PackageDetails.Table, descColumnHeader, descColumnContent))
 			stringHTML = strings.Replace(stringHTML, "<table/>", stringTable, 1)
 		}
 

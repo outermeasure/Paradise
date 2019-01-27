@@ -5,7 +5,7 @@
       margin-bottom: 0;
     }
     overflow-x: auto;
-    border-radius: 4px;
+    border-radius: 0;
     background-color: white;
     max-width: 1020px;
     margin-left: auto;
@@ -35,6 +35,11 @@
       text-align: right;
       flex-flow: row-reverse;
     }
+    .center {
+      text-align: center;
+      flex-flow: row;
+      justify-content: center;
+    }
   }
   .availability-table-thead {
     opacity: 1;
@@ -48,32 +53,27 @@
   }
   .availability-table-tbody-tr {
     color: inherit;
-    height: 48px;
+    height: 40px;
     display: table-row;
     outline: none;
     vertical-align: middle;
   }
   .availability-table-th {
-    color: rgba(0, 0, 0, 0.54);
+    color: #555;
+    background-color: #fafafa;
     font-size: 15px;
     font-weight: 500;
     display: table-cell;
-    padding: 4px 0 4px 0;
-    @media (max-width: 750px) {
-      padding: 4px 0 4px 0;
-    }
-    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    padding: 4px;
+    border: 1px solid rgba(224, 224, 224, 1);
     vertical-align: inherit;
     text-align: left;
   }
   .availability-table-th-row {
     display: table-cell;
-    padding: 4px 0 4px 0;
-    @media (max-width: 750px) {
-      padding: 4px 0 4px 0;
-    }
+    padding: 4px;
     text-align: left;
-    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    border: 1px solid rgba(224, 224, 224, 1);
     vertical-align: inherit;
     color: rgba(0, 0, 0, 0.87);
     font-size: 14px;
@@ -81,12 +81,9 @@
   }
   .availability-table-td {
     display: table-cell;
-    padding: 4px 0 4px 0;
-    @media (max-width: 750px) {
-      padding: 4px 0 4px 0;
-    }
+    padding: 4px;
     text-align: left;
-    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    border: 1px solid rgba(224, 224, 224, 1);
     vertical-align: inherit;
     color: rgba(0, 0, 0, 0.87);
     font-size: 14px;
@@ -99,5 +96,13 @@
   input {
     border-radius: 0;
     border: none;
+  }
+
+  .availability-table-desc-input {
+    border: 1px solid #e0e0e0 !important;
+    box-sizing: border-box;
+    margin: 10px 0;
+    width: 100%;
+    display: block;
   }
 }

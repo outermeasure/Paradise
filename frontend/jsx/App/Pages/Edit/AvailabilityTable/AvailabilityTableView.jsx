@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cloneDeep from "lodash/cloneDeep";
 
-function SimpleTable({ table, onTableChange, }) {
+function SimpleTable({ table, onTableChange, lastColumn, onLastColumnChange, }) {
 	const onEditValue = (row, column) => ({ target: { value, }, }) => {
 		const newTable = cloneDeep(table);
 		newTable[row][column] = value;
@@ -40,6 +40,26 @@ function SimpleTable({ table, onTableChange, }) {
 			row.pop();
 		});
 		onTableChange(newTable);
+	};
+
+	const addLastColumn = () => {
+		if (!lastColumn) {
+			onLastColumnChange([ "", "", ]);
+		}
+	};
+
+	const removeLastColumn = () => {
+		if (lastColumn) {
+			onLastColumnChange(null);
+		}
+	};
+
+	const onEditLastColumnHeader = ({ target: { value, }, }) => {
+		onLastColumnChange([ value, lastColumn[1], ]);
+	};
+
+	const onEditLastColumnContent = ({ target: { value, }, }) => {
+		onLastColumnChange([ lastColumn[0], value, ]);
 	};
 
 	return (
@@ -116,6 +136,25 @@ function SimpleTable({ table, onTableChange, }) {
 						})}
 					</tbody>
 				</table>
+
+				{lastColumn ? (
+					<div>
+						<input
+              className="availability-table-desc-input"
+              placeholder="Titlu coloana descriere"
+							type="text"
+							value={lastColumn[0]}
+							onChange={onEditLastColumnHeader}
+						/>
+						<input
+              className="availability-table-desc-input"
+              placeholder="Continut coloana descriere"
+							type="text"
+							value={lastColumn[1]}
+							onChange={onEditLastColumnContent}
+						/>
+					</div>
+				) : null}
 			</div>
 			<button type="button" className="primary" onClick={addRow}>
 				Adauga linie
@@ -132,6 +171,12 @@ function SimpleTable({ table, onTableChange, }) {
 			<button type="button" className="accent" onClick={removeRow}>
 				Sterge ultima linie
 			</button>
+			<button type="button" className="primary" onClick={addLastColumn}>
+				Adauga coloana descriere
+			</button>
+			<button type="button" className="primary" onClick={removeLastColumn}>
+				Sterge coloana descriere
+			</button>
 		</div>
 	);
 }
@@ -139,6 +184,8 @@ function SimpleTable({ table, onTableChange, }) {
 SimpleTable.propTypes = {
 	table: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
 	onTableChange: PropTypes.func.isRequired,
+	lastColumn: PropTypes.arrayOf(PropTypes.string),
+	onLastColumnChange: PropTypes.func.isRequired,
 };
 
 export default SimpleTable;
