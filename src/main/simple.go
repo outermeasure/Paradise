@@ -412,7 +412,7 @@ func getApiReviews(w http.ResponseWriter, r *http.Request, _ httprouter.Params) 
 func getPackage(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	switch p.ByName("url") {
 	case "pachet_pasti_2018.html":
-		redirectToPath("/oferta/oferta_paste_2018_delta_dunarii.html")(
+		redirectToPath("/oferta/oferta-paste-2019-delta-dunarii.html")(
 			w, r, p,
 		)
 		return
