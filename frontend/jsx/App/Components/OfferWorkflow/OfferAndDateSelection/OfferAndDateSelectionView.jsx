@@ -41,10 +41,10 @@ const View = ({
 	if (selectedOffer.Id === 23) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
-			return oldDisable(date) || Utils.getRoDate(date) !== "6/4/2018";
+			return oldDisable(date) || Utils.getRoDate(date) !== "27/4/2019";
 		};
 		if (!startDate) {
-			onChangeStartDate(new Date("2017/04/06"), clientObject);
+			onChangeStartDate(new Date(`2019/04/27`), clientObject);
 		}
 	}
 
@@ -52,10 +52,10 @@ const View = ({
 	if (selectedOffer.Id === 29) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
-			return oldDisable(date) || Utils.getRoDate(date) !== "13/8/2017";
+			return oldDisable(date) || Utils.getRoDate(date) !== "15/8/2019";
 		};
 		if (!startDate) {
-			onChangeStartDate(new Date("2017/08/13"), clientObject);
+			onChangeStartDate(new Date("2019/08/15"), clientObject);
 		}
 	}
 
@@ -63,10 +63,10 @@ const View = ({
 	if (selectedOffer.Id === 26) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
-			return oldDisable(date) || Utils.getRoDate(date) !== "25/5/2018";
+			return oldDisable(date) || Utils.getRoDate(date) !== "13/6/2019";
 		};
 		if (!startDate) {
-			onChangeStartDate(new Date("2018/05/25"), clientObject);
+			onChangeStartDate(new Date("2019/06/13"), clientObject);
 		}
 	}
 
@@ -74,10 +74,10 @@ const View = ({
 	if (selectedOffer.Id === 25) {
 		const oldDisable = disableStartDates;
 		disableStartDates = (date) => {
-			return oldDisable(date) || Utils.getRoDate(date) !== "28/4/2018";
+			return oldDisable(date) || Utils.getRoDate(date) !== "30/4/2019";
 		};
 		if (!startDate) {
-			onChangeStartDate(new Date("2018/04/28"), clientObject);
+			onChangeStartDate(new Date("2019/04/30"), clientObject);
 		}
 	}
 
