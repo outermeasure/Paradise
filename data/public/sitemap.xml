@@ -4,169 +4,147 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
 <url>
-<loc>https://paradisedeltahouse.ro/</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>1.00</priority>
+  <loc>https://paradisedeltahouse.ro/</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/oferta</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/locatie</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/locatie</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/recenzii</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/recenzii</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/tarife</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/tarife</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/contact</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/contact</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/galerie/pensiune</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/galerie/pensiune</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/galerie/camere</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/galerie/camere</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/galerie/excursii</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/galerie/excursii</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/galerie/pescuit</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/galerie/pescuit</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/galerie/piscina</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/galerie/piscina</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://paradisedeltahouse.ro/galerie/restaurant</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/galerie/restaurant</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/Sejur-de-lux-Delta-Dunarii-si-Marea-Neagra-2018.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/sejur-de-lux-4-zile-3-nopti-delta-dunarii.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/cazare-delta-dunarii
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/oferta-1-mai-2019-delta-dunarii-sejur-4zile-3nopti-mila23.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/Ture-foto-birdwatching-Delta-Dunarii
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/team-building-delta-dunarii-paradise-mila23.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/sejur-de-lux-4-zile-3-nopti-delta-dunarii.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/rusalii-2019-delta-dunarii-4zile-3nopti-mila23.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/sejur-de-lux-5-zile-4-nopti-delta-dunarii.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/sejur-de-lux-5-zile-4-nopti-delta-dunarii.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/rusalii-2018-delta-dunarii-4zile-3nopti-mila23.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/cazare-delta-dunarii</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/oferta-1-mai-2018-delta-dunarii-sejur-4zile-3nopti-mila23.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/Sejur-de-lux-Delta-Dunarii-si-Marea-Neagra-2019.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/team-building-delta-dunarii-paradise-mila23.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/sfanta-maria-delta-dunarii.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/sejur-delta-dunarii-mila-23-4-zile-3-nopti
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/vila-francesca-paradise-delta-house-mila23.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/pescuit-delta-dunarii-2018-mila23.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/pescuit-delta-dunarii-2019-mila23.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/vila-francesca-paradise-delta-house-mila23.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/camping-cort-delta-dunarii.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/excursie-o-zi-delta-dunarii-paradise-delta-house.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/excursie-o-zi-delta-dunarii-paradise-delta-house.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/camping-cort-delta-dunarii.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/birdwatching-delta-dunarii-paradise-mila23.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/sfanta-maria-delta-dunarii.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/Ture-foto-birdwatching-Delta-Dunarii</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>
-https://paradisedeltahouse.ro/oferta/oferta-paste-2018-delta-dunarii.html
-</loc>
-<lastmod>2018-07-04T14:07:25+00:00</lastmod>
-<priority>0.64</priority>
+  <loc>https://paradisedeltahouse.ro/oferta/sejur-delta-dunarii-mila-23-4-zile-3-nopti</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
+<url>
+  <loc>https://paradisedeltahouse.ro/oferta/oferta-paste-2019-delta-dunarii.html</loc>
+  <lastmod>2019-02-17T11:44:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
 </urlset>
