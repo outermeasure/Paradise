@@ -1,4 +1,4 @@
-#Tarife cazare Delta Dunării - Paradise Delta House
+#Tarife cazare Delta Dunării 2019 - Paradise Delta House
 
 ------
 
@@ -11,9 +11,9 @@
 
 ### Extrasezon
 
-- Camera dubla **320 lei / noapte / 2 pers.**
-- Camera single **260 lei / noapte / 1 pers.**
-- Camera familiala (pat matrimonial + canapea) **400 lei / noapte / 3 pers.**
+- Camera dubla **360 lei / noapte / 2 pers.**
+- Camera single **320 lei / noapte / 1 pers.**
+- Camera familiala (pat matrimonial + canapea) **440 lei / noapte / 3 pers.**
 
 ##Masa
 
