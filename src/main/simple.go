@@ -288,8 +288,8 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Padding = addPadding(3, len(context.Packages))
 
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Pensiunea Paradise Delta House  este o zona de lux, 4 stele, aflata in Delta Dunarii. Camerele, restaurantul precum si locatia, va ofera decorul ideal pentru a va elibera de stres."
-	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2019, pachet de Rusalii,sejur all inclusive in delta dunarii 2019, cazare mila 23"
+	context.SEODescription = "Pensiunea Paradise Delta House, cazare in Delta Dunarii, Mila 23. Oferte de sezon Delta Dunarii pentru o vacanta de vis.
+	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2019,pachet de Rusalii,sejur all inclusive in delta dunarii 2019, cazare mila 23"
 	context.Title = "Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
 
 	Render(w, "index.gohtml", context)
@@ -321,8 +321,8 @@ func getPrices(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Parameters["markdownHTML"] = string(html)
 
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Preturile si tarifele Hotel Paradise | Paradise Delta House din Delta Dunarii"
-	context.SEOKeywords = "pret hotel paradise,pret paradise delta house,tarif sejur delta dunarii,pret tarif delta dunarii"
+	context.SEODescription = "Cazare Delta Dunarii | Preturile si tarifele Hotel Paradise | Paradise Delta House din Delta Dunarii"
+	context.SEOKeywords = "cazare delta dunarii, oferte delta dunarii, pret hotel paradise,pret paradise delta house,tarif sejur delta dunarii,pret tarif delta dunarii"
 	context.Title = "Tarife complex Hotel Paradise"
 
 	Render(w, "prices.gohtml", context)
@@ -370,7 +370,7 @@ func getPackages(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		len(context.Packages),
 	)
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Oferte turistice 2019 Delta Dunarii -  Paradise Delta House - 4 stele"
+	context.SEODescription = "Oferte turistice 2019 Delta Dunarii | Cazare Delta Dunarii | Paradise Delta House - 4 stele "
 	context.SEOKeywords = "pachete turistice delta,oferte delta dunarii,sejur delta,oferte de lux,all iclusive,oferte paste 2019 delta dunarii,oferta 4 zile 3 nopti,pecuit in delta,1 mai 2019 delta dunarii,pachet de rusalii 2019,Sejur de lux, 4 zile in Delta Dunarii"
 	context.Title = "Oferte turistice 2019 Delta Dunarii -  Paradise Delta House - Mila 23"
 
@@ -509,7 +509,7 @@ func getRestaurant(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 	context.NavbarSelected = -1
 
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Restaurant Paradise Delta House"
+	context.SEODescription = "Restaurant Paradise Delta House - Delta Dunarii - Mila 23"
 	context.SEOKeywords = "restaurant hotel paradise,restaurant paradise delta house"
 	context.Title = "Restaurant Hotel Paradise"
 
@@ -547,7 +547,7 @@ func getGallery(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Parameters["Gallery"] = p.ByName("url")
 	context.Route = "/galerie/:url"
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Galerie foto complex Hotel Paradise"
+	context.SEODescription = "Galerie foto complex Paradise Delta House"
 	context.SEOKeywords = "galerie hotel paradise delta,galerie paradise delta house,galerie hotel paradise,poze hotel paradise"
 	context.Title = "Galerie Hotel Paradise"
 
