@@ -67,11 +67,13 @@ module.exports =
 							plugins: [
 								'transform-object-rest-spread',
 								'transform-object-assign',
+								'transform-class-properties',
 							],
 							presets: [
 								'es2015',
 								'stage-0',
 								'react',
+								'env',
 							],
 							env: {
 								production: {
