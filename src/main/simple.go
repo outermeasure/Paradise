@@ -288,7 +288,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	context.Padding = addPadding(3, len(context.Packages))
 
 	context.SEOContentLanguage = "ro_RO"
-	context.SEODescription = "Pensiunea Paradise Delta House, cazare in Delta Dunarii, Mila 23. Oferte de sezon Delta Dunarii pentru o vacanta de vis.
+	context.SEODescription = "Pensiunea Paradise Delta House, cazare in Delta Dunarii, Mila 23. Oferte de sezon Delta Dunarii pentru o vacanta de vis."
 	context.SEOKeywords = "cazare lux delta dunarii,paradise delta house, sejur delta dunarii, team building delta, bird watching, pescuit in delta, oferta de paste, oferta de lux, oferta 1 mai 2019,pachet de Rusalii,sejur all inclusive in delta dunarii 2019, cazare mila 23"
 	context.Title = "Paradise Delta House- Pensiune 4 stele - Delta Dunarii - Mila 23"
 
